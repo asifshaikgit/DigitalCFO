@@ -1,0 +1,43 @@
+@(txn:model.Transaction,currentDate:String,invoiceTxn:model.Transaction,invoiceDate:String,configParams:model.ConfigParams)
+<table style="width: 600px;font-family: sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td>
+
+			</td>
+		</tr>
+		<tr id="emailBody" ><td>
+		<div style="border: 1px solid #cccccc;"><b><font size="5">Company Name:@{txn.getTransactionBranchOrganization().getName()}</font></b>
+		<b style="margin-left: 80px;"><font size="5">Date:@{currentDate}</font></b></div>
+		<div style="border: 1px solid #cccccc;"><b style="margin-left: 100px;"><font size="5">Credit Note</font></b></div>
+		To(@{txn.getTransactionVendorCustomer().getName()})
+
+		THIS IS TO CONFIRM THAT WE ARE GIVING YOU CREDIT AS PER DETAILS BELOW
+		<table class="table table-striped table-bordered" id="mailTable">
+			<thead>
+				<tr>
+					<th>Our Invoice reference</th>
+					<th>Our Invoice date</th>
+					<th>Item sold by us to you.</th>
+					<th>Number of items</th>
+					<th>Invoice value</th>
+					<th>Credit given to you</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>@{invoiceTxn.getTransactionRefNumber()}</td>
+					<td>@{invoiceDate}</td>
+					<td>@{invoiceTxn.getTransactionSpecifics().getName()}</td>
+					<td>@{invoiceTxn.getNoOfUnits()}</td>
+					<td>@{invoiceTxn.getNetAmount()}</td>
+					<td>@{txn.getNetAmount()}</td>
+				</tr>
+			</tbody>
+		</table>
+ 		</td></tr>
+		<tr id="emailFooter">
+				<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

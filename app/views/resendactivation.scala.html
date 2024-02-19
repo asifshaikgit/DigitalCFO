@@ -1,0 +1,52 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams){
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#loadingIdos').hide();
+});
+</script>
+
+<style type="text/css">
+body {
+	background: #F5F5F5;
+}
+</style>
+<div id="messageDisplay" ></div>
+<input id="recaptchaLength" type="hidden"/>
+<div class="login-form" role="login" id="wrapper">
+	
+	<form id="resetLoginCred" onsubmit="return false;">
+		<div class="top">
+			<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+			<h4 class="panel-title">Account activation</h4>
+		</div>
+		<div class="form-area">
+			<p>Enter the registered email and submit to get your activation link</p>
+			<div class="group">
+				<input type="email" name="enterregemail" id="enterregemail" placeholder="Registered e-mail" class="form-control" required>
+				<i class="fa fa-user"></i>
+			</div>
+			<div id="actLinkRecaptcha" class="recaptchaStyle"></div>
+			<div class="group">
+				<button id="submitActivationButton" class="submitActivationButton btn btn-login btn-block" title="Reset">Resend Account Activation Link</button>
+			</div>
+		</div>
+	</form>
+	<div class="footer-links row">
+		<div class="col-xs-6">
+			<a href="/signUp#signUpDiv"><i class="fa fa-external-link-alt"></i>	Register Now</a>
+		</div>
+		<div class="col-xs-6 text-right">
+			<a href="/signUp#forgotlogindiv"><i class="fa fa-lock"></i> Forgot password</a>
+		</div>
+		<div <div style="padding-left: 160px; padding-top: 30px; "><a href="/signIn#logindiv"><i class="fa fa-sign-in-alt"></i> Login</a></div>
+	</div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
+</script>
+}

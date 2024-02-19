@@ -1,0 +1,36 @@
+@(extUserName:String,orgName:String,accessCode:String,configParams:model.ConfigParams)
+
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td style="font-size: 16px; font-weight: bold;">Dear @{extUserName}, </td>
+			<td></td>
+		</tr>
+		<tr id="emailBody" >
+		    <td>
+		      <table>
+		        <tr>
+		          <td style="font-size: 13px; font-weight: bold;">
+		          	<br>@{orgName}, has given you access to their accounting software. <br/> <br/>
+		          	To get this access, please visit the website <span>
+		        		<a href="@(configParams.getCompanyUrl())">@(configParams.getCompanyUrl())</a>
+			  			
+					
+		          	</span>
+		          	and login as External User. <br/><br/>
+		          	After you login, please click on &quot;Add Company&quot; and 
+		          	provide access code <b style="text-decoration:underline;">@{accessCode}</b>, input and click on <b>'SUBMIT'</b> . <br/><br/>
+
+					You will then, get access to the accounts of @{orgName}.<br/><br/>
+
+					@configParams.getCompanyApp() is a simple to use & highly automated Accounting, Compliance & GST software.<br/><br/> Contact us to know more about our software and to become our business partner.</td>
+		        </tr>
+		        
+		      </table>
+		    </td>
+	  	</tr>
+		<tr  id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+	</table>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <!-- ========== Css Files ========== -->
+    <link href="css/root.css" rel="stylesheet">
+    <!-- Include Required Prerequisites -->
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="calculatorID"></div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script type="text/javascript" src="js/jquery.1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui/jquery-ui.1.11.4.min.js"></script>
+
+<!-- ================================================
+Bootstrap Core JavaScript File
+================================================ -->
+
+<script src="js/bootstrap/bootstrap.3.3.2.min.js"></script>
+<!-- ================================================
+Bootstrap Toggle
+================================================ -->
+<script type="text/javascript" src="js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<!-- Calculator JS -->
+<script type="text/javascript" src="js/SimpleCalculadorajQuery.js"></script>
+<script type="text/javascript" src="js/prism.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#calculatorID").Calculadora({
+            EtiquetaBorrar:'Clear',
+            ClaseBtns1: 'default', /* Color Numbers*/
+            ClaseBtns2: 'degault', /* Color Operators*/
+            ClaseBtns3: 'primary', /* Color Clear*/
+            TituloHTML:'<h2>Myidos Calculator</h2>',
+            Botones:["+","-","*","/","0","1","2","3","4","5","6","7","8","9",".","="]
+
+
+        });
+
+    } );
+
+</script>
+
+</body>
+</html>

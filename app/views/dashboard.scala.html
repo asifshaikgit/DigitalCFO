@@ -1,0 +1,681 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="dashBoard" class="tab-pane mainDiv"  style="display:none;"><!-- Dashboard -->
+	<div id="financialDataDashboard">
+
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<!-- <div class="action-bar">
+					<div class="actions button-set"> -->
+					@if(role.contains("CONTROLLER")){
+						<div class="navbar-transaction">
+							<button style="float: left;" id="newOperationalButton" class="newOperationalButton btn btn-primary btn-idos" title="Operational"><i class="fa fa-cog pr-5" aria-hidden="true"></i>Operational</button>
+							<button style="float: right;" id="newOperationalSearchControlButton" class="newOperationalSearchControlButton btn btn-primary btn-idos" title="Search Operational Data"><i class="fa fa-search pr-5"></i>Search Operational Data</button>
+							<!--Sunil : Currently not in use
+							<input data-attr="auto-complete" type="text" placeholder="Input item for which you wish to analyze demand" name="aggregateDataCompareInput" id="aggregateDataCompareInput" style="float: left; margin-left:5px; margin-top:5px; width:30%;" onkeyup="autoSuggestDashboardAvailableItems(this);">
+							<div style="margin-left:112px; width:30%;" class="dashboardAutoSuggest" id="dashboardAutoSuggestId" data-attr="aggregateDataCompareInput" data-auto="auto-complete"></div>
+							<select style="float: left; margin-left: 5px;" name="aggregateDataPeriod" id="aggregateDataPeriod"><option value="1">1 month</option><option value="3">3 month</option><option value="6">6 month</option><option value="12">12 month</option></select>
+							<div style="display: table-cell; margin-left: 0px; width: 150px;">
+								<input data-attr="auto-complete" type="text" placeholder="Location" name="aggregateDataCompareFirstLocation"  id="aggregateDataCompareFirstLocation" onkeyup="getDashboardAllFirstLocations(this)" style="margin-left: 5px;">
+								<div class="dashboardLocationFirstAutoSuggest" style="margin-left: 5px;" id="dashboardLocationFirstAutoSuggest" data-attr="aggregateDataCompareFirstLocation" data-auto="auto-complete"></div>
+							</div>
+							<div style="display: table-cell;  margin-left: 0px; width: 145px; " >
+								<input data-attr="auto-complete" style="margin-left: 5px;" type="text" placeholder="Location" name="aggregateDataCompareSecondLocation" id="aggregateDataCompareSecondLocation" onkeyup="getDashboardAllSecondLocations(this)">
+								<div class="dashboardLocationSecondAutoSuggest" style="margin-left: 5px;" id="dashboardLocationSecondAutoSuggest" data-attr="aggregateDataCompareSecondLocation" data-auto="auto-complete"></div>
+							</div>
+
+							<div style="display: table-cell;  margin-left: 0px; width: 140px;" >
+								<button id="compareAggregateData" style="margin-left: 5px;" class="compareAggregateData btn btn-primary btn-idos">View Analysis</button>
+								<i class="fa fa-info-circle userpopoverinfoleft" longdesc="System enables you to analyze demand for your products and services in other locations. Input the item of sales that you wish to analyze, select whether you want analysis for last 3 months, 6 months or 12 months and then input the name of the Locations where you wish to analyze this data. You must input any two locations for this analysis and then click <b>View Analysis</b> and System will display from its database, what is the total sales value of this item at these locations based on aggregate data from all System users in those locations.Since analysis is based on aggregate data, you will get a feel about the potential demand for such product or service in those locations."></i>
+							</div>
+							-->
+						</div>
+					}
+					<!--	</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<table class="table excelFormTable" id="generatePLCriteriaTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+						<tr><th colspan="2">Current Reporting Period</th><th colspan="2">Previous Reporting Period</th><th></th><th></th></tr>
+						<tr><th>From Date</th><th>To Date</th><th>From Date</th><th>To Date</th><th></th><th></th></tr>
+					</thead>
+						<tbody>
+								<tr>
+									<td style="width: 10%;">
+										<input class="datepicker" type="text" name="currDashboardFromDate" id="currDashboardFromDate"/>
+									</td>
+									<td style="width: 10%;">
+										<input class="datepicker" type="text"  name="currDashboardToDate" id="currDashboardToDate"/>
+									</td>
+									<td style="width: 10%;">
+										<input class="datepicker" type="text"  name="prevDashboardFromDate" id="prevDashboardFromDate"/>
+									</td>
+									<td style="width: 10%;">
+										<input class="datepicker" type="text" name="prevDashboardToDate" id="prevDashboardToDate"/>
+									</td>
+									<td style="width: 10%;">
+										<button id="generateDashboardbtn" style="margin-left:0px;" class="btn btn-submit btn-idos" title="Genearte Dashboard"><i class="fa fa-cog pr-3"></i>Show Dashboard</button>
+									</td>
+									<td></td>
+								</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<ul class="nav nav-tabs">
+					  <li id="financialBranch" class="active"><a href="#dashBoard" class="dashboard-title">FINANCIALS-BRANCH</a></li>
+					  <li id="financialProject"><a href="#dashBoard" class="dashboard-title">FINANCIALS-PROJECT</a></li>
+					</ul>
+					<!-- <legend class="panel-title dashboard-title" data-tab="dashboardBranch">Financials-Branch</legend> -->
+					<div style="margin: 0 0px;">
+						<div id="dashboardBranch" class="dash-tab">
+							<div class="dashboard-box" id="dCashExpense">
+								<span>Cash Expense<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-week d-this-week" data-dashboard="1" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-week d-variance" data-dashboard="1" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-week d-previous-week" data-dashboard="1" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dCreditExpense">
+								<span>Credit Expense<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-week d-this-week" data-dashboard="2" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-week d-variance" data-dashboard="2" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-week d-previous-week" data-dashboard="2" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dCashIncome">
+								<span>Cash Income<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-week d-this-week" data-dashboard="3" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-week d-variance" data-dashboard="3" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-week d-previous-week" data-dashboard="3" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dCreditIncome">
+								<span>Credit Income<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-week d-this-week" data-dashboard="4" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-week d-variance" data-dashboard="4" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-week d-previous-week" data-dashboard="4" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--
+							<div class="dashboard-box" id="dExpenseBudget">
+								<span>Proforma Invoice Income<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-week d-this-week" data-dashboard="5" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-week d-variance" data-dashboard="5" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-week d-previous-week" data-dashboard="5" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="quotationDiv">
+								<span>Quotation Invoice Income<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-week d-this-week" data-dashboard="8" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-week d-variance" data-dashboard="8" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-week d-previous-week" data-dashboard="8" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div> -->
+							<div class="dashboard-box" id="dTotalRecieve">
+								<span>Total Receivables<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-week d-this-week" id="accountsReceivablesAllBranches" data-dashboard="6" data-graph="1">
+											<div class="head">Receivables</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="" data-dashboard="6" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+
+												<div class="head">&nbsp;</div>
+												<div class="value">&nbsp;</div>
+											</div>
+										</div>
+										<div class="d-week d-previous-week" id="receivableOverduesAllBranches" data-dashboard="6" data-graph="2">
+											<div class="head">Overdues</div>
+											<div class="value" >0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dTotalPay">
+								<span>Total Payables<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-week d-this-week" id="accountsPayablesAllBranches" data-dashboard="7" data-graph="1">
+											<div class="head">Payables</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="" data-dashboard="6" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+
+												<div class="head">&nbsp;</div>
+												<div class="value">&nbsp;</div>
+											</div>
+										</div>
+										<div class="d-week d-previous-week" id="payableOverduesAllBranches" data-dashboard="7" data-graph="2">
+											<div class="head">Overdues</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dOtherInfo">
+								<span>Last 30 Days<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="">
+											<div class="">
+												<div class="head">Branch with highest expenditure</div><div class="expense-last-3 income-expense-last-3" onclick="showModal('expenseLast3');"></div>
+												<div class="value" id="bnchWithHighestExpense"></div>
+											</div>
+										</div>
+										<div class="">
+											<div class="">
+												<div class="head">Branch generating highest income</div><div class="income-last-3 income-expense-last-3" onclick="showModal('incomeLast3');"></div>
+												<div class="value" id="bnchWithHighestIncome"></div>
+											</div>
+										</div>
+										<div class="">
+											<div class="">
+												<div class="head">Vendor advance not adjusted</div><div class="vendor-advance-pending income-expense-last-3" onclick="showAdvanceModal('vendorAdvancePending');"></div>
+												<div class="value" id="dVendorAdvance"></div>
+											</div>
+										</div>
+										<div class="">
+											<div class="">
+												<div class="head">Customer advance not adjusted</div><div class="customer-advance-pending income-expense-last-3" onclick="showAdvanceModal('customerAdvancePending');"></div>
+												<div class="value" id="dCustomerAdvance"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="turnoverInfo" >
+								<span>Turnover<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<table class="table turnoverTable" id="turnoverTable">
+										<thead>
+											<tr>
+												<th class="head">Inter <br>state</th>
+												<th class="head">Intra<br> state</th>
+												<th class="head">Non <br>GST</th>
+												<th class="head">Exports</th>
+												<th class="head">Total</th>
+												</tr>
+										</thead>
+										<tbody style="">
+										<tr>
+											<td><div class="value interStateAmt"></div></td>
+											<td><div class="value intraStateAmt"></div></td>
+											<td><div class="value nonGstAmt"></div></td>
+											<td><div class="value exportAmt"></div></td>
+											<td><div class="value totalAmt"></div></td>
+										</tr>
+										<tr><td colspan="5"><div class="head">Tax Rate:<input type="text" class="turnoverTaxRate" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateTaxForTurnover(this);" style="width:60px;height:20px;"/><b>%</b></div></td></tr>
+										<tr><td colspan="5"><div class="head">Tax Amount</div></td></tr>
+										<tr>
+											<td><div class="value interStateTax"></div></td>
+											<td><div class="value intraStateTax"></div></td>
+											<td><div class="value nonGstTax"></div></td>
+											<td><div class="value exportTax"></div></td>
+											<td><div class="value totalTax"></div></td>
+										</tr>
+
+										</tbody>
+
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="dashboardProject" class="dash-tab" style="display: none;">
+							<div class="dashboard-box" id="dProjectCashExpense">
+								<span>Cash Expense<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-prj-week d-this-week" data-dashboard="1" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-prj-week d-variance" data-dashboard="1" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-prj-week d-previous-week" data-dashboard="1" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dProjectCreditExpense">
+								<span>Credit Expense<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-prj-week d-this-week" data-dashboard="2" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-prj-week d-variance" data-dashboard="2" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-prj-week d-previous-week" data-dashboard="2" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dProjectCashIncome">
+								<span>Cash Income<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-prj-week d-this-week" data-dashboard="3" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-prj-week d-variance" data-dashboard="3" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-prj-week d-previous-week" data-dashboard="3" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dProjectCreditIncome">
+								<span>Credit Income<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-prj-week d-this-week" data-dashboard="4" data-graph="1">
+											<div class="head">This Month</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-prj-week d-variance" data-dashboard="4" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-prj-week d-previous-week" data-dashboard="4" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--
+							<div class="dashboard-box" id="dProjectExpenseBudget">
+								<span>Proforma Invoice Income<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-prj-week d-this-week" data-dashboard="5" data-graph="1">
+											<div class="head">This Financial Year</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-prj-week d-variance" data-dashboard="5" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-prj-week d-previous-week" data-dashboard="5" data-graph="2">
+											<div class="head">Previous Month</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dProjectTotalRecieve">
+								<span>Total Receivables<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-prj-week d-this-week" id="accountsReceivablesAllBranches" data-dashboard="6" data-graph="1">
+											<div class="head">Receivables</div>
+											<div class="value">0.00</div>
+										</div>
+										<div class="d-prj-week d-variance" data-dashboard="6" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-prj-week d-previous-week" id="receivableOverduesAllBranches" data-dashboard="6" data-graph="2">
+											<div class="head">Overdues</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-box" id="dProjectTotalPay">
+								<span>Total Payables<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="d-prj-week d-this-week" id="accountsPayablesAllBranches" data-dashboard="7" data-graph="1">
+											<div class="head">Payables</div>
+											<div class="value">0.00</div>
+										</div>
+										 <div class="d-prj-week d-variance" data-dashboard="7" data-graph="3">
+											<div class="indication"></div>
+											<div class="variance-indication">
+												<div class="head">Variance</div>
+												<div class="value">0.00 %</div>
+											</div>
+										</div>
+										<div class="d-prj-week d-previous-week" id="payableOverduesAllBranches" data-dashboard="7" data-graph="2">
+											<div class="head">Overdues</div>
+											<div class="value">0.00</div>
+										</div>
+									</div>
+								</div>
+							</div>-->
+							<div class="dashboard-box" id="dOtherInfo">
+								<span>Last 30 Days<i class="fa fa-info-circle pl-5"></i></span>
+								<div class="d-box">
+									<div class="d-box-week">
+										<div class="">
+											<div class="">
+												<div class="head">Project with highest expenditure</div><div class="expense-last-3 income-expense-last-3" onclick="showModal('projectexpenseLast3');"></div>
+												<div class="value" id="projectWithHighestExpense"></div>
+											</div>
+										</div>
+										<div class="">
+											<div class="">
+												<div class="head">Project generating highest income</div><div class="income-last-3 income-expense-last-3" onclick="showModal('projectincomeLast3');"></div>
+												<div class="value" id="projectWithHighestIncome"></div>
+											</div>
+										</div>
+										<div class="">
+											<div class="">
+												<div class="head">Vendor advance not adjusted</div><div class="vendor-advance-pending income-expense-last-3" onclick="showAdvanceModal('vendorAdvancePending');"></div>
+												<div class="value" id="dProjectVendorAdvance"></div>
+											</div>
+										</div>
+										<div class="">
+											<div class="">
+												<div class="head">Customer advance not adjusted</div><div class="customer-advance-pending income-expense-last-3" onclick="showAdvanceModal('customerAdvancePending');"></div>
+												<div class="value" id="dProjectCustomerAdvance"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel-body" style="padding-left:10px; width: 100% !important; ">
+					<p>
+						<select style="width: 30%;" class="txnExceedingBudgetKlNotFollowedDropdown" name="txnExceedingBudgetKlNotFollowedDropdown" id="txnExceedingBudgetKlNotFollowedDropdown" onchange="viewTransactionDetails(this);"><option value="">Transaction exceeding budget</option></select>
+						<select style="margin-left:10px; width: 40%;" class="txnExceedingBudgetKlNotFollowedGroupDropdown" name="txnExceedingBudgetKlNotFollowedGroupDropdown" id="txnExceedingBudgetKlNotFollowedGroupDropdown"><option value="">Transaction exceeding budget for account heads</option></select>
+					</p>
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- end financialDataDashboard -->
+	@configDashboard(fullName,email,role,orgn){
+				}
+
+	<div id="dGraphPlotDiv" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:900;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 id="dGraphHeader" class="panel-title"></h4>
+
+					<h5 id="incomeError" align="center" style="margin-top: 0px;"></h5>
+					<!-- <a id="fancybox-close" href="" style="display: inline;" onclick="$('#dGraphPlotDiv').modal('hide');"></a> -->
+				</div>
+				<!-- <div class="belowheader carousel"></div> -->
+				<div class="modal-body">
+					<!-- <div class="form-horizontal" style="margin-top: 0px;">  -->
+					<div id="dGraphPlot"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="staticdashboardindividualbreakup" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" align="center">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="panel-title">Chart Of Account Wise-Breakups</h4>
+					<h5 id="wrongActCred" align="center"></h5>
+				</div>
+				<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="dashboardTransactionItem" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" align="center">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="panel-title"></h4>
+					<h5 id="wrongActCred" align="center"></h5>
+				</div>
+				<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="operationalDataDashboard" class="tab-pane mainDiv" style="display: none;">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="navbar-transaction">
+					<button id="newFinancialsButton" class="newFinancialsButton btn btn-primary btn-idos" title="Financials">Financials</button>
+					<button style="float: right;" id="newOperationalSearchControlButton" class="newOperationalSearchControlButton btn btn-primary btn-idos" title="Search Operational Data"><i class="fa fa-search pr-5"></i>Search Operational Data</button>
+					<div class="month-list">
+						<span id="dOperaMonth" class="opera-list btn btn-submit btn-idos-flat selected" data-id="1" title="Month View">Month</span><span data-id="2" id="dOperaList" class="opera-list btn btn-submit btn-idos-flat" title="List View" style="margin-left: 5px; display: none;">List</span>
+					</div>
+				</div>
+				<div class="panel-body">
+					<legend class="panel-title"">Operational Reminder Overview</legend>
+					<!-- <div id="search-launch-top"><i class="fa fa-times-circle fa-2x close-legend" id="operationalDataDashboard" onClick="closeOperational()"></i></div> -->
+					<div style="height: 80px;">
+						<div id="upcomingLabel">Upcoming Events</div>
+						<div class="upcoming-events ue-0">
+							<div class="ue-date"></div>
+							<div class="ue-content"></div>
+						</div>
+						<div class="upcoming-events ue-1">
+							<div class="ue-date"></div>
+							<div class="ue-content"></div>
+						</div>
+						<div class="upcoming-events ue-2">
+							<div class="ue-date"></div>
+							<div class="ue-content"></div>
+						</div>
+						<div class="upcoming-events ue-3">
+							<div class="ue-date"></div>
+							<div class="ue-content"></div>
+						</div>
+					</div>
+					<div class="operationalCalendar d-opera-reminder"></div>
+					<div class="datascrolltable d-opera-reminder" style="max-height: 100%; overflow: auto;" id="auditorOperationalTableDiv">
+						<table class="table table-hover table-striped table-bordered excelFormTable" id="auditorOperationalTable">
+							<thead class="tablehead1"><tr><th>Action</th><th>Responsible Officer</th><th>Supervisor</th><th>Due Date</th><th>Status</th></tr></thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="operationalSearchDataDashboard" class="tab-pane mainDiv" style="display: none;">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="navbar-transaction">
+					<button id="newFinancialsButton" class="newFinancialsButton btn btn-primary btn-idos" title="Financials">Financials</button>
+					<button style="float: right;" id="newOperationalButton" class="newOperationalButton btn btn-primary btn-idos" title="Operational">Operational</button>
+				</div>
+				<div class="panel-body">
+					<legend class="panel-title">Operational Data</legend>
+					<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend" id="operationalSearchDataDashboard" onClick="closeOperationalSearch()"></i></div>
+					<table class="table table-bordered excelFormTable" id="auditorOperationalSearchTable" style="margin-top: 0px;">
+						<thead class="tablehead1"><tr><th>Search Operational Data For?</th><th>Branches</th><th>Selected Branch Opeartional Data Type</th><th>Charts Of Accounts</th><th>Projects</th><th>Vendors</th><th>Customers</th><th>Users</th><th>Travel Groups</th><th>Expense Groups</th><th></th></tr></thead>
+						<tbody>
+							<tr class="operationalSearchData">
+								<td>
+									<select name="operationDataFor" id="operationDataFor" class="operationDataFor" style="width:120px;"><option value="1">Organisation</option><option value="2">Branch</option><option value="3">Chart Of Accounts</option><option value="4">Projects</option><option value="5">Vendors</option><option value="6">Customers</option><option value="7">Users</option><option value="8">Travel Group</option><option value="9">Expense Group</option></select></td>
+								<td>
+									<select name="operavailableBranches" id="operavailableBranches" class="operavailableBranches" style="width:120px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<select name="operavailableBranchesDataTypes" id="operavailableBranchesDataTypes" class="operavailableBranchesDataTypes" style="width:135px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<select name="operavailableChartsOfAcconts" id="operavailableChartsOfAcconts" class="operavailableChartsOfAcconts" style="width:130px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<select name="operavailableProjects" id="operavailableProjects" class="operavailableProjects" style="width:115px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<select name="operavailableVendors" id="operavailableVendors" class="operavailableVendors" style="width:115px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<select name="operavailableCustomers" id="operavailableCustomers" class="operavailableCustomers" style="width:115px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<select name="operavailableUsers" id="operavailableUsers" class="operavailableUsers" style="width:115px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<select name="operavailableTravelGroup" id="operavailableTravelGroup" class="operavailableTravelGroup" style="width:115px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<select name="operavailableExpenseGroup" id="operavailableExpenseGroup" class="operavailableExpenseGroup" style="width:115px;"><option value="">---Please Select---</option></select></td>
+								<td>
+									<div style="width:25px;margin-left:2px;"><i class="fa fa-search fa-2x dashboard-search"></i></div></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="operationalDataResult"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>

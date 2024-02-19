@@ -1,0 +1,51 @@
+@(password:String,vendorCustomerEmail:String,orgName:String,organizationName:String,entityType:String,configParams:model.ConfigParams)
+<table style="width: 60%;font-family: 'Montserrat', sans-serif;" class="table">
+	<tbody >
+				<tr id="emailHeader">
+				<td>
+				</td>
+			</tr>
+		<tr id="emailBody"><td>
+	      <table>
+	        <tr>
+	          <td style="width: 550px" align="left">
+	            <div>
+	              <b><font size="5">Welcome To @(configParams.getCompanyApp()).</font></b><br/><br/>
+	            </div>
+	          </td>
+	        </tr>
+	        <tr style="background-color: white">
+	          <td style="width: 550px" align="left">
+	            <div style="font-size: 14px;">
+	               <b>Please find your Login Account details below for:</b> @{orgName}</b><br/>
+	               <b>Your Registered E-mail id is:</b>@{vendorCustomerEmail}<br/>
+	               <b>Password:</b> @{password}</b>
+	            </div>
+	          </td>
+	        </tr>
+	        <tr>
+	          <td style="width: 300px;">
+			  <br/>
+	            <div style="font-size: 14px;">
+	               <span><b>Please Login Using Below Link!</b></span>
+				   <br/>
+				   <br/>
+	               <span >
+
+	                      <a href="@(configParams.getCompanyUrl())/customerVendorAccount?accountEmail=@{vendorCustomerEmail}&accountOrganization=@{organizationName}&entityType=@{entityType}#vendCustAccount">@(configParams.getCompanyUrl())/customerVendorAccount?accountEmail=@{vendorCustomerEmail}&accountOrganization=@{organizationName}&entityType=@{entityType}#vendCustAccount</a>
+
+	               </span>
+	            </div>
+				<br/>
+				<br/>
+				<b style="font-size: 14px;"> Please contact us at <a href="#" target="_blank">@(configParams.getCompanySupportEmail())</a> or on phone @(configParams.getCompanyMobile()) for any assistance.
+	          </td>
+	        </tr>
+	      </table>
+	    </td>
+	  	</tr>
+		<tr id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

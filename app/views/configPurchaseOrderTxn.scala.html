@@ -1,0 +1,208 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+@if(role.contains("CREATOR")){
+	<div class="transactionDetailsTable" id="createPurchaseOrderTxnDiv" style="overflow: auto; display: none;">
+		<table class="table excelFormTable">
+			<thead class="tablehead1">
+				<tr>
+					<th>Branch</th>
+					<th>Project</th>
+					<th id="purReqTitlePOCreateForm">Purchase Requisition</th>
+					<th>Choose File</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<select id="poCreateBranchSelection" onchange="populatePRDropdown()">
+							<option value="">Select Branch</option>
+						</select>
+					</td>
+					<td>
+						<select id="poCreateProjectSelect" onchange="populatePRDropdown()">
+							<option value="">Select Project</option>
+						</select>
+					</td>
+					<td id="purReqDropdownPOCreateForm">
+						<select id="poCreatePurchaseRequisitionSelect">
+		
+						</select>
+					</td>
+					<td>
+						<input type="text" class="txnUploadSuppDocs hidden" placeholder="Supporting Documents"
+							id="crtprruploadSuppDocs" name="crtprruploadSuppDocs" readonly="readonly" />
+						<select class="txnUploadSuppDocs" id="crtprruploadSuppDocs" name="crtprruploadSuppDocs"
+							readonly="readonly">
+							<option value="">--Please Select--</option>
+						</select>
+						<br>
+						<button id="crtprruploadSuppDocsBtn" class="fa fa-upload btn btn-submit"
+							onclick="uploadFileBlob(this);"></button>
+						<button id="crtprruploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit"
+							onclick="downloadFileBlob(this);"></button>
+						<button id="crtprruploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;"
+							onclick="deleteUploadedFile(this);"></button>
+						<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+		
+					</td>
+				</tr>
+		
+			</tbody>
+		</table>
+		<table class="table excelFormTable">
+			<thead class="tablehead1">
+				<tr>
+					<th>Item</th>
+					<th>No Of Units</th>
+					<th>Unit of Measure</th>
+					<th>Preferred Vendor</th>
+					<th>Place of Supply</th>
+					<th>Preferred OEM</th>
+					<th>Expected Delivery Time</th>
+					<th>Type of Item</th>
+					<th><button style="cursor: pointer; float:right;" class="" id="addNewItemForPO" title="add more items"><i
+								class="fa fa-plus-circle fa-lg"></i></button></th>
+				</tr>
+		
+			</thead>
+			<tbody id="purchaseOrderCreateTableBody">
+		
+			</tbody>
+		</table>
+		<table>
+			<tr>
+				<td>
+					<button id="purchaseOrderCancelButton" class="btn btn-cancel btn-customred" title="Cancel"
+						onclick="cancel();">Cancel Transaction</button>
+				</td>
+				<td>
+					<button id="purchaseOrderSubmitForApproval" class="btn btn-submit btn-custom"
+						title="Submit for Approval">Submit for Approval</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+		
+		
+		
+		
+		
+	<!-- <div class="transactionDetailsTable" id="createPurchaseOrderTxnDiv" style="overflow: auto; display: none;">
+		<table class="table excelFormTable transaction-create" id="txnCreatePurchaseOrderTbl">
+			<thead class="tablehead1">
+				<tr>
+					<th>Branches  <i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i>
+					<span class="snglUsrDply">Projects</span><i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+					<th>Vendors</th><th>Document Reference</th>
+					<th>Transaction notes</th><th>Private notes</th><th>Supporting Docs</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <tr id="crtprrtrid">
+				<td>
+					<select class="txnBranches" name="crtprrTxnForBranches" id="crtprrTxnForBranches" onChange="populateProjectItemBasedOnTxnPurposeBranchSelection(this); getCustomerListForBranch(this); getCoaItems4BomTxnList(this);"><option value="">Please Select</option>	</select>
+					<p class="para-tm5-bm0 snglUsrDply">Project</p>
+					<select class="txnForProjects" name="crtprrTxnForProjects" id="crtprrTxnForProjects">
+						<option value="">Please Select</option>
+					</select>
+				</td>
+				<td><select class="masterList" name="crtprrVendor" id="crtprrVendor" onchange="getVendorGstinList(this);"><option value="">--Please Select--</option></select></td>
+				<td><input class="txnPoReference"  placeholder="Reference" type="text" name="crtprr_reference" id="crtprrDocReference" maxlength="256"/></td>
+				<td><textarea class="voiceRemarksClass" name="crtprrRemarks" id="crtprrRemarks" rows="3" placeholder="Input Remarks"></textarea></td>
+				<td><textarea class="voiceRemarksClassPrivate" name="crtprrRemarksPrivate" id="crtprrRemarksPrivate" rows="3" placeholder="Input Private Remarks"></textarea></td>
+				<td>
+					<input type="text" class="txnUploadSuppDocs"  placeholder="Supporting Documents"  id="crtprruploadSuppDocs" name="crtprruploadSuppDocs" readonly="readonly"/>
+					<select class="txnUploadSuppDocs" id="crtprruploadSuppDocs" name="crtprruploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+					<br>
+					<button id="crtprruploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+					<button id="crtprruploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="crtprruploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+					  <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+
+				 </td>
+			 </tr>
+			</tbody>
+		</table>
+		<div id="staticsellmultipleitemscrtprr"  class="staticsellmultipleitems" style="overflow: auto; max-height:350px; ">
+			<table class="multipleItemsTable" id="multipleItemsTablecrtprr"  style="margin-top: 5px;">
+			  <thead class="tablehead1">
+				<tr><th><button class="addnewItemForTransaction" id="addnewItemForTransaction"><i class="fa fa-plus-circle fa-lg"></i></button>Items</th><th>Units in stock</th><th style="display:none;">Committed Units</th><th>Ordered Units</th><th>Net Units</th><th>Units to purchase</th><th>Price Per Units<th>Total Price</th><th>Place of Supply</th><th><button class="removeItemForTransaction" id="removeItemForTransaction"><i class="fa fa-minus-circle fa-lg"></i></button></th></tr>
+			 </thead>
+				<tbody>
+					<tr id="crtprr0">
+						<td><select class="txnItems" id="crtprrItem" onChange="onPurchaseOrderItemChange(this);"><option value="">Please Select</option></select></td>
+						<td><input class="txnInStockUnit" placeholder="Units in stock" type="text" id="crtprrInStockUnit" onkeypress="return onlyDotsAndNumbers(event);" readonly="readonly"></td>
+						<td style="display:none;"><input class="txnCommitedUnit" placeholder="Committed Units" type="text" id="crtprrCommitedUnit" onkeypress="return onlyDotsAndNumbers(event);"></td>
+						<td><input class="txnOrderedUnit" placeholder="Ordered Units" type="text"  id="crtprrOrderedUnit" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="addAvailableAndOrderedUnits(this);"/></td>
+						<td><input class="txnNetUnit" placeholder="Net Units" type="text" id="crtprrNetUnit" onkeypress="return onlyDotsAndNumbers(event);"></td>
+						<td><input class="txnNoOfUnit" type="text" id="crtprrNoOfUnit" onkeypress="return onlyDotsAndNumbers(event)" placeholder="Units(if any)" onkeyup="calculateTotalItemPriceTxn(this);"></td>
+						<td><input class="txnPerUnitPrice" placeholder="Price Per Unit" type="text"  id="crtprrPricePerUnits" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateTotalItemPriceTxn(this);"/></td>
+						<td><input class="txnTotalPrice" placeholder="Total Price" type="text" id="crtprrTotalPrice" readonly="readonly"></td>
+						<td><select class="placeOfSply txnDestGstinCls" id="crtprrPlaceOfVend"><option value="">--Please Select--</option></select></td>
+						<td><input class="removeTxnCheckBox" type="checkbox"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<button id="accountingcancelButton" class="compcancelButton btn btn-cancel cancel" title="Cancel" onClick="cancel(); deleteUncomittedFiles();">Cancel Transaction</button>
+		<button id="crtprrsubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+	</div>
+
+	<div class="transactionDetailsTable" id="poAgainstRequisitionTxnDiv" style="overflow: auto; display: none;">
+		<table class="table excelFormTable transaction-create" id="poAgainstRequisitionTxnTbl">
+			<thead class="tablehead1">
+				<tr>
+					<th>Branches <i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+					<th><span class="snglUsrDply">Projects</span><i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+					<th>Requisitions</th>
+					<th>Transaction notes</th><th>Private notes</th><th>Supporting Docs</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <tr id="poareqtrid">
+				<td>
+					<select class="txnBranches" name="poareqTxnForBranches" id="poareqTxnForBranches" onChange="populateProjectItemBasedOnTxnPurposeBranchSelection(this); getCustomerListForBranch(this); getCoaItems4BomTxnList(this); getPendingBomTxn4Branch(this);"><option value="">Please Select</option>	</select></td>
+				<td>
+					<select class="txnForProjects" name="poareqTxnForProjects" id="poareqTxnForProjects">
+						<option value="">Please Select</option>
+					</select>
+				</td>
+				<td><select class="txnBomCls" id="poareqRequisitionID" onChange="resetMultiBomTableLength('multipleItemsTablepoareq'); resetMultiItemsTableData('multipleItemsTablepoareq'); getBillOfMaterialTxnDetail(this);"><option value="">--Please Select--</option></select></td>
+				<td><textarea class="voiceRemarksClass" name="poareqRemarks" id="poareqRemarks" rows="3" placeholder="Input Remarks"></textarea></td>
+				<td><textarea class="voiceRemarksClassPrivate" name="poareqRemarksPrivate" id="poareqRemarksPrivate" rows="3" placeholder="Input Private Remarks"></textarea></td>
+				<td>
+					<select class="txnUploadSuppDocs" id="poarequploadSuppDocs" name="poarequploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+					<br>
+					<button id="poarequploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+					<button id="poarequploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="poarequploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+					<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+				 </td>
+			 </tr>
+			</tbody>
+		</table>
+		<div id="staticsellmultipleitemspoareq"  class="staticsellmultipleitems" style="overflow: auto; max-height:350px; ">
+			<table class="multipleItemsTable" id="multipleItemsTablepoareq"  style="margin-top: 5px;">
+			  <thead class="tablehead1">
+				<tr><th><button class="addnewItemForTransaction" id="addnewItemForTransaction"><i class="fa fa-plus-circle fa-lg"></i></button>Items</th><th>Units in stock</th><th style="display:none;">Committed Units</th><th>Ordered Units</th><th>Net Units</th><th>Vendors</th><th>Units to purchase</th><th>Price Per Units<th>Total Price</th><th>Place of Supply</th><th><button class="removeItemForTransaction" id="removeItemForTransaction"><i class="fa fa-minus-circle fa-lg"></i></button></th></tr>
+			 </thead>
+				<tbody>
+					<tr id="poareq0">
+						<td><select class="txnItems" id="poareqItem" onChange="getExpenseItemAvailableStock(this);"><option value="">Please Select</option></select></td>
+						<td><input class="txnInStockUnit" placeholder="Units in stock" type="text" id="poareqInStockUnit" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="addAvailableAndOrderedUnits(this);"></td>
+						<td style="display:none;"><input class="txnCommitedUnit" placeholder="Committed Units" type="text" id="poareqCommitedUnit" onkeypress="return onlyDotsAndNumbers(event);"></td>
+						<td><input class="txnOrderedUnit" placeholder="Ordered Units" type="text"  id="poareqOrderedUnit" onkeypress="return onlyDotsAndNumbers(event);"></td>
+						<td><input class="txnNetUnit" placeholder="Net Units" type="text" id="poareqNetUnit" onkeypress="return onlyDotsAndNumbers(event);"></td>
+						<td><select class="masterList" onchange="getVendorGstinList(this);" id="poareqVendor"><option value="">--Please Select--</option></select></td>
+						<td><input class="txnNoOfUnit" type="text" id="poareqNoOfUnit" onkeypress="return onlyDotsAndNumbers(event)" placeholder="Units(if any)" onkeyup="calculateTotalItemPriceTxn(this);"></td>
+						<td><input class="txnPerUnitPrice" placeholder="Price Per Unit" type="text"  id="poareqPricePerUnits" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateTotalItemPriceTxn(this);"/></td>
+						<td><input class="txnTotalPrice" placeholder="Total Price" type="text" id="poareqTotalPrice" readonly="readonly"></td>
+						<td><select class="placeOfSply txnDestGstinCls" id="poareqPlaceOfVend"><option value="">--Please Select--</option></select></td>
+						<td><input class="removeTxnCheckBox" type="checkbox"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<button id="accountingcancelButton" class="compcancelButton btn btn-cancel cancel" title="Cancel" onClick="cancel(); deleteUncomittedFiles();">Cancel Transaction</button>
+		<button id="poareqsubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+	</div> -->
+}

@@ -1,0 +1,690 @@
+@(configParams:model.ConfigParams)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<link rel="shortcut icon" href="assets/website/img/logo.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="lenovo" >
+
+    <title>ABOUT @(configParams.getCompanyApp())</title>
+	
+	<!-- Social Icons CSS -->
+	<link href="assets/website/css/bootstrap-social.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/website/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/website/css/style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+  <link href="assets/website/css/modern-business.css" rel="stylesheet">
+	<link href="assets/website/css/round-about.css" rel="stylesheet">
+	<link href="assets/website/css/footer.css" rel="stylesheet">
+	<link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Arimo|Oswald|Raleway:400,800,900,600,700,600italic' rel='stylesheet' type='text/css'>
+
+    <!-- Custom Fonts -->
+    <link href="assets/website/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-----Google Analytics Start----->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72593005-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<!-----Google Analytics End----->
+<script>
+    function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+    </script>
+	
+	<style>
+	body{
+		font-family:arimo;
+	}
+	.breadcrumb	a{
+		color: #B1283A;
+	}
+	.breadcrumb	a:hover{
+		color: #B1283A;
+	}
+	.pageheading {
+		font-family: arimo;
+		font-size:40px;
+		background-color:#EAEDED;
+		margin-top:30px;
+		margin-left:0px;
+		margin-right:0px;
+		margin-bottom:0px;
+		padding:5px;
+		font-weight:500;
+	}
+	
+	</style>
+	
+</head>
+
+<body>
+
+@indexhead(){
+	}
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">About
+                    <small>@(configParams.getCompanyApp())</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a>
+                    </li>
+                    <li class="active">About</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Intro Content -->
+        <div class="row">
+            <div class="col-md-6">
+                <img class="img-responsive" src="assets/website/about_img/idos_about.png" alt="">
+				<br>
+				 <ul class="list-inline">
+                            <li><a href="https://www.facebook.com/MyIdos/" target="_blank"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li><a href="https://www.linkedin.com/company/idos" target="_blank"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li><a href="https://twitter.com/idoscorp" target="_blank"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+				</ul>
+				
+            </div>
+           <div class="col-md-6">
+                <h2>About @(configParams.getCompanyApp())</h2>
+                <p style="text-align:justify;">@(configParams.getCompanyApp()) is a global Accounting, Compliance and Business Intelligence software, with users in USA, India, Singapore, UAE, England, Multiple Countries in Africa and South East Asia.  <br/><br/>
+@(configParams.getCompanyApp()) enables companies manage their accounting digitally and is hosted on Microsoft Azure Infrastructure and enables the business owners, senior management and different stakeholders to process transactions, view reports and manage their business with ease. It is very simple to use and does not require the user to be knowledgeable about accounting. It captures accounting data in a simple manner and automatically creates reports to help you take decision and manage your business.<br/><br/>
+@(configParams.getCompanyApp()) has been developed and is managed by a team of Chartered Accountants and Engineers with expertise in computer science & cloud technology. The professionals at @(configParams.getCompanyApp()) come with cross functional experience, having worked at large and reputed organisations including international financial agencies, big 4 accounting firms, banking & insurance companies and software companies. Together they ensure that @(configParams.getCompanyApp()) users experience a positive transformation in their accounting & financial management and consequently increase operational efficiency and profitability of their business. 
+</p>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Team Members -->
+        <div class="container-fluid">
+            <div class="row">
+
+                <p class="pageheading text-center" style="background-color:#ffffff;">OUR TEAM</p>
+
+            </div>
+        </div>
+        <!-- Team 1 -->
+        <div class="row">
+            <div class="col-lg-12">
+                       <h2 class="page-header">Directors</h2>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div  data-toggle="tooltip" data-placement="bottom" title="Srikanth is an accounting and audit professional with multiple years of experience in bookkeeping, audit, accounting systems, internal control systems, software project management and outsourcing. He started his career at a PwC in the assurance division and then worked at small accounting firms, followed by setting up his own KPO business. He has worked on different assignments encompassing bookkeeping, audit, Six sigma implementation, implementation of accounting & internal control systems, software project management and software product development. His work experience enabled him to work in different geographies including India, USA, South East Asia and South America and therefore he understands the nuances of doing business across different countries. He is the functional architect of and head of product development of @(configParams.getCompanyApp()). As CEO he is responsible for corporate strategy and growth of the business and also manages sales of @(configParams.getCompanyApp()).">
+                        <center> <img class="img-circle img-responsive" src="assets/website/teams/SrikanthCheruku.jpg"  height=250 alt=""></center>
+                   
+                    <div class="caption">
+                        <h3>SRIKANTH CHERUKU<br>
+                            <small>Co-Founder & CEO
+</small>
+                        </h3>
+                    </div></div>
+                        <p style="text-align:justify;">
+</p>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li><a href="#" style="display:none;"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><a target="_blank" href="https://www.linkedin.com/in/csrikanth2809/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+        
+			<div class="col-md-3 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div  data-toggle="tooltip" data-placement="bottom" title="Alex is a finance and economics professional with several years experience in project management, budgeting, financial analysis, audit and international development. He started his career at World Bank and worked for multiple years at a Washington DC based company engaged in international development and managed projects across many countries in North America, South America, Eastern Europe, Africa and South Asia. He is based in Arlington, Virginia, (USA) and as COO he is responsible for day to day operations and he manages the growth of the business and sales in International development sector, sales to government agencies and also @(configParams.getCompanyApp()) sales in developed markets, primarily North America and Europe.">
+                        <center><img class="img-circle img-responsive" src="assets/website/teams/AlexanderReife.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>ALEXANDER REIFE<br>
+                            <small>Co-Founder & COO
+</small>
+                        </h3>
+                    </div></div>
+                        <p style="text-align:justify;">
+</p>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><a target="_blank" href="https://www.linkedin.com/in/alexander-reife-75481/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+            <div class="col-md-3 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div   data-toggle="tooltip" data-placement="bottom" title="Sowmya is a Chartered and Cost Accountant with about 25 years of professional experience in advisory, controllership, strategy, risk management and processes. His career spans about 15 years with the Global advisory firms like PwC, Andersen and Ernst and Young and over a decade of experience with marquee financial service corporations like MetLife and Munich Re where he led the Finance and Internal audit functions. As the CFO of @(configParams.getCompanyApp()), he is part of the Leadership team advising on strategy, financial matters and Enterprise business unit of the Group.">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/Sowmyanarayan.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>SOWMYANARAYAN SAMPATH<br>
+                            <small>CFO</small>
+                        </h3>
+                    </div>
+                    </div>
+                       <ul class="list-inline" style="margin-bottom: 21px;">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sowmyanarayan-sampath-3152183/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            <div class="col-md-3 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div   data-toggle="tooltip" data-placement="bottom" title="Sudhir has over 2 decades of experience in IT industry. As an engineer, he started his career in TCS and later promoted his own software product companies. Prior to IDOS he was managing deliveries for large OSS and BSS projects at Tech Mahindra. As Chief Technology Officer of IDOS, he is technical and solution architect of IDOS product. He comes with significant expereince in web apps, mobile apps, cloud, big data, transaction processing systems using mainly Java and other open source technologies.">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/SudhirGadgil.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>SUDHIR GADGIL<br>
+                            <small>CTO</small>
+                        </h3>
+                    </div>
+                    </div>
+                       <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sowmyanarayan-sampath-3152183/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></br></br></li>
+                        </ul>
+                    </div>
+                </div>
+
+        </div>
+
+   
+          <div class="row">
+            <div class="col-lg-12">
+                       <h2 class="page-header">Senior Management</h2>
+            </div>
+            
+		<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div  data-toggle="tooltip" data-placement="bottom" title="Sunil is an experienced engineer with excellent skills in designing, developing and managing various applications on Core Java, JEE/J2EE, Weblogic Server, Spring, hibernate, Solaris, HP-UX, Linux, Oracle, MySQL etc. He also has an extended experience in critical product development & delivery, project development, web applications and client - server application. He has worked on different domains like finance, Telecom, GSM, Workforce Management, Order Management, Number portability, GSM Roaming Billing, Telecom Planning, OSS, Health care and customization of ERP.">
+                        <center><img class="img-circle img-responsive" src="assets/website/teams/SunilNamdev.png"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>SUNIL KUMAR NAMDEV<br>
+                            <small>Vice President - Technology</small>
+                        </h3>
+                    </div></div>
+                         <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href=""><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+         
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div   data-toggle="tooltip" data-placement="bottom" title="Manali is the Lead Engineer of @(configParams.getCompanyApp()) and has working experience in J2EE (Java, EJB, JMS, Servlets, JSP etc.), PL-SQL programming, Apache Camel, Web Services (SOAP & REST), Spring, Apache Struts, ORB, Lucene, POI, Unix shell scripting, XML, HTML, JavaScript, C++ and C. She has worked with all flavours of application and DB servers and possesses expertise in financial software, having earlier worked on stock & derivatives product as well as BPM tools. She has Masters Degree in Computer Science from New Jersey Institute of Technology, NJ, USA (GPA: 3.95/4.0) and completed her Bachelors in Computer Science from Pune University.">
+                        <center><img class="img-circle img-responsive" src="assets/website/teams/ManaliMungikar.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>MANALI MUNGIKAR<br>
+                            <small>Senior Product Engineer</small>
+                        </h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href=""><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+      
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div  data-toggle="tooltip" data-placement="bottom" title="Shaleen is a Chartered Accountant with an MBA in Marketing. He has cross functional expertise in Strategy, Finance, Accounts, Taxation, Operations and Marketing. Prior to @(configParams.getCompanyApp()) he was working for Aviva Global where he managed processes including Global level Financial Consolidation, IFRS Reporting and MIS Reports for Top Level Management. He even has experience in founding and developing websites, which give him insight into HTML, CSS Coding and Social Media Marketing. As the General Manager at @(configParams.getCompanyApp()) he is responsible for Operations, Corporate Strategy, Controllership of Departments, P&L Responsibility and Product Logic Development.">
+                    <center><img class="img-circle img-responsive" src="assets/website/teams/ShaleenSharma.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>SHALEEN SHARMA<br>
+                            <small>General Manager</small>
+                        </h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sharmashaleen/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+            
+
+        </div>
+   
+        
+          <div class="row">
+            <div class="col-lg-12">
+                       <h2 class="page-header">Core Team</h2>
+            </div>
+            <!-- <div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div  data-toggle="tooltip" data-placement="bottom" title="Venkat is an experienced accounting, bookkeeping & taxation professional who is passionate about technologies which bring disruption in accounting, audit and finance domains. He comes with excellent academic as well as core accounting experience, having handled accounting for micro, small and medium sized companies, helping them with their bookkeeping, accounts finalisation, audit, preparing and filing their tax returns, which enables him to understand and deal with all types of nuances in accounting and bookkeeping. Prior to @(configParams.getCompanyApp()), he was working with an audit firm, where he managed projects in bookkeeping, accounts finalisation and tax filings (direct and indirect taxes) for clients involved in different types of business. He is a subject matter expert and leads product deployment and customer support at @(configParams.getCompanyApp()) and believes in providing proactive support to @(configParams.getCompanyApp()) customers.">
+                        <center> <img class="img-circle img-responsive"  src="assets/website/teams/VenkataKrishna.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>VENKATA KRISHNA<br>
+                            <small>Dy General Manager</small>
+                        </h3></div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank"  href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div> -->
+			 <div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div   data-toggle="tooltip" data-placement="bottom" title="Suraj is a Chartered Accountant and a Post Graduate in Commerce from Mumbai University with knowledge of financial reporting, auditing, internal controls and statutory compliances. Prior to @(configParams.getCompanyApp()) he worked with E&Y where he was engaged on Global and India assignments which also included listed companies with specialisation in the NBFC (Non Banking Finance Company) audits. At @(configParams.getCompanyApp()), he is managing the Enterprise division. He is responsible for product customization, due diligence, process workflows, and preparation of functional blueprints for enterprise customers. He forms the bridge between the product and technology team.">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/SurajRamakrishnan.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>SURAJ RAMAKRISHNAN<br>
+                            <small>Senior Manager</small>
+                        </h3>
+                    </div>
+                    </div>
+                         <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://in.linkedin.com/in/suraj-ramakrishnan-9a2b3bb8"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!-----/<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+            
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Bina is a Chartered Accountant with expertise in financial reporting, auditing, internal controls and statutory compliances. Prior to @(configParams.getCompanyApp()), she worked for PwC where she supported Indian and Global Private Equities and Venture Capital clients on due diligence engagements as a part of PwC's Transaction Advisory practice. Before PwC She was with KPMG where she has handled statutory audits of Infrastructure Company, Cost-Plus entities and Manufacturing concerns. At @(configParams.getCompanyApp()), she is part of the Enterprise Business division. She supports the team for product customisation, process workflows and preparation of functional blueprints for enterprise customers and also supports new product initiatives of @(configParams.getCompanyApp()).">
+                        <center><img class="img-circle img-responsive" src="assets/website/teams/BinaKumari.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3 data-toggle="popover" >BINA KUMARI<br>
+                           <small>Manager</small></h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/christabel-victoria-dsilva-81133a100/
+"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+			</div>
+  		
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Sandhya has an academic background in commerce as well as web designing. She uses her communication skills to explain customers how @(configParams.getCompanyApp()) can help them in their accounting & financial management. Apart from working in Sales she is very active in extracurricular activities and is the Event and Cultural ambassador of @(configParams.getCompanyApp()).">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/SandhyaJain.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>SANDHYA JAIN<br>
+                            <small>Team Leader</small>
+                        </h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sandhya-jain-559b42117/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Ranjini is a Finance Professional with over 10 Years work experience in Accounting &amp; Finance and has previously worked at Toyota and ESPN STAR Sports, where she has gained cross-functional experience in different accounting modules, customer management, vendor management, internal process management and cross-departmental coordination. At @(configParams.getCompanyApp()) she uses her experience in managing end-to-end post-sales support to our partners, collaborators and end customers by implementing standard operating procedures for efficient customer engagement and ensures that the customers derive maximum benefit for their business through the usage of @(configParams.getCompanyApp()). Parallelly she compiles the feedback from end users and coordinates with product engineers to ensure that our software goes through periodic improvement to continuously enhance user experience.">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/RanjiniNandi.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>RANJINI NANDI<br>
+                            <small>Assistant Manager</small>
+                        </h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sandhya-jain-559b42117/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Ankush is an Associate Product Engineer at @(configParams.getCompanyApp()). He has experience in developing Web and Enterprise Applications using technologies Java / J2EE, Spring, Struts, Hibernate, Mysql, JasperReports, Apache POI, JSTL, ThymeLeaf and Restful Web Services. Expertise in Application Designing using HTML, JQuery, JavaScript, Bootstrap, CSS and external plugins. Extensive experience in application development with Design Patterns and Critical Algorithms on Windows and X-platform. Previously he has worked as Software Developer in X-OR Softwares, Pune and he was part of the team to develop various applications and ERP product of the company. He has Master's degree in Computer Science from Pune University.">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/AnkushSapkal.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>ANKUSH SAPKAL<br>
+                            <small>Associate Engineer</small>
+                        </h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sandhya-jain-559b42117/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Firdous is Associate Product Engineer of @(configParams.getCompanyApp()). She has experience in technical skills like J2EE, MySQL, JavaScript, HTML. Previously she has worked as Associate Software Engineer in KNS Technologies Bangalore and she was part of the team to develop mobile based application 'KIKSPOT' to locate nearby hang out places by using REST services and Google Places API. She has Bachelor's degree in Information Science from PDA college of Engineering, Gulbarga. She is gold medallist as she got highest CGPA in her batch.">
+                        <center><img class="img-circle img-responsive" src="assets/website/teams/FirdousTabassum.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3 data-toggle="popover" >FIRDOUS TABASSUM<br>
+                           <small>Associate Engineer</small></h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/christabel-victoria-dsilva-81133a100/
+"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+			</div>
+  		
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Puja is Associate-Product Engineer at @(configParams.getCompanyApp()), having working experience on Java, J2EE technologies, Restful Webservices, Microservices Architecture, Springboots and UI Development. In the past, she has worked with TCS as a System Engineer on creating web based applications for customers across sectors. She has a Bachelors degree in Computer Science from West Bengal University of Technology, Kolkata.">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/PujaLohia.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>PUJA LOHIA<br>
+                            <small>Associate Engineer</small>
+                        </h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sandhya-jain-559b42117/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Nagendra is a finance professional. With his knowledge of accounting and indirect tax, he makes sure that the product functions perfectly. He participates in making sure that new features meet the quality standards of @(configParams.getCompanyApp()).">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/Nagendra.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>NAGENDRA V<br>
+                            <small>Team Lead</small>
+                        </h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sandhya-jain-559b42117/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+                </div>
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Ruchika is a Chartered Accountant with experience in handling bookkeeping, accounting, taxation and audit for SME companies, where she has worked with business owners and advised them in their accounting and bookkeeping operations. She understands the nuances and the practical problems faced by the SME businesses and has experience in dealing with challenging situations relating to their bookkeeping &amp; taxation matters. At @(configParams.getCompanyApp()) she is in the Enterprise Business Division and supports our White-label partners in terms of product management, end customer engagement and also works with corporate customers to understand their business requirements and coordinates with the product engineers to facilitate product customisation to suit the specific requirements of these customers.">
+                        <center><img class="img-circle img-responsive"  src="assets/website/teams/RuchikaGupta.jpg"  height=250 alt=""></center>
+                    <div class="caption">
+                        <h3>RUCHIKA GUPTA<br>
+                            <small>Team Lead</small>
+                        </h3>
+                    </div>
+                    </div>
+                        <ul class="list-inline">
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a target="_blank" href="https://www.linkedin.com/in/sandhya-jain-559b42117/"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+                        </ul>
+                    </div>
+            </div>
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Saranyu is a member of product engineering team at IDOS and is a very passionate programmer. His areas of interest include artificial intelligence and machine learning and he spends a lot of time doing R&D on these technologies. He has extensive knowledge in J2EE, SQL, PL/SQL, Javascript and HTML, he has even published an article in Springer Journal on Data Mining. He holds a Bachelor's degree in Computer Science and Engineering.">
+                        <center><img class="img-circle img-responsive" src="assets/website/teams/Saranyu.jpg" height=250 alt=""></center>
+						<div class="caption">
+							<h3>A.V.H. Saranyu<br>
+								<small>Associate Engineer</small>
+							</h3>
+						</div>
+                    </div>
+					<ul class="list-inline">
+						<li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+						</li>
+						<li style="display:none;"><a target="_blank" href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
+						</li>
+						<li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+						</li>
+						<li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+					</ul>
+                </div>
+            </div>
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Rani is an accountant and holds a Master’s degree in commerce and accounting. She has attention to detail and her area of expertise is bookkeeping, core accounting and GST accounting. She is a subject matter expert at IDOS and helps product development process by managing the process workflows and reviews the functionalities before they are deployed for customer usage. She ensures that the software functions as per the pre-defined requirements and has an eye to identify any issues and supports in getting these issues resolved on timely basis.">
+					<center><img class="img-circle img-responsive" src="assets/website/teams/Rani.jpg" height=250 alt=""></center>
+					
+						<div class="caption">
+							<h3>Rani<br>
+								<small>Associate</small>
+							</h3>
+						</div>
+                    </div>
+					<ul class="list-inline">
+						<li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+						</li>
+						<li style="display:none;"><a target="_blank" href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
+						</li>
+						<li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+						</li>
+						<li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+					</ul>
+                </div>
+            </div>
+			<div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Ravi is an accountant and holds a Master’s degree in commerce and accounting. He has cross functional experience and he supports post sales customer experience enhancement by helping the customers in product setup, product usage guidance and also helps the customers in making best use of the software for their business. He is one of the points of contact for customers to report any issues that they face with respect to the software, research the reported issue and have it resolved in a timely manner. ">
+					<center><img class="img-circle img-responsive" src="assets/website/teams/Ravi.jpg"  height=250 alt=""></center>
+						<div class="caption">
+							<h3>Ravinandan M<br>
+								<small>Associate</small>
+							</h3>
+						</div>
+                    </div>
+					<ul class="list-inline">
+						<li style="display:none;"><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+						</li>
+						<li style="display:none;"><a target="_blank" href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
+						</li>
+						<li style="display:none;"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+						</li>
+						<li><!------<img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/>----></li>
+					</ul>
+                </div>
+            </div>
+			
+		</div>
+			
+		
+   <!-----------------/
+     <div class="row">
+            <div class="col-lg-12">
+                       <h2 class="page-header">Team 5</h2>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <img class="img-circle img-responsive" src="profile_photos/@(configParams.getCompanyApp()) Red Transperent - Copy.png"  height=250 alt="">
+                    <div class="caption">
+                        <h3>Upcoming<br>
+                            <small>.</small>
+                        </h3>
+                        <p></p>
+                        <ul class="list-inline">
+                            <li><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+   
+          <div class="row">
+            <div class="col-lg-12">
+                       <h2 class="page-header">Team 6</h2>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="thumbnail" style="height:none;">
+                    <img class="img-circle img-responsive" src="profile_photos/@(configParams.getCompanyApp()) Red Transperent - Copy.png"  height=250 alt="">
+                    <div class="caption">
+                        <h3>Upcoming<br>
+                            <small>.</small>
+                        </h3>
+                        <p></p>
+                        <ul class="list-inline">
+                            <li><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
+                            </li>
+                            <li><img src="qr_code/static_qr_code.jpg" width="50px" height="50px"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+   ---------------------------->
+        <!-- /.row -->
+
+        <!-- Our Customers -->
+       
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="assets/website/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="assets/website/js/bootstrap.min.js"></script>
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
+</body>
+<!-- Footer -->
+@indexfooter(configParams){
+}
+<!--footer End here-->
+
+</html>

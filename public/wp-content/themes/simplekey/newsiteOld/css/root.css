@@ -1,0 +1,90 @@
+/*================================================================================
+	Item Name: Kode
+	Description: Premium Bootstrap Admin Template
+	Author: Egemen Kapusuz
+	Author URL: http://www.themeforest.net/user/egemem
+================================================================================*/
+
+/* ================================================
+Google Web Fonts
+================================================ */
+/* Montserrat */
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+/* Open Sans */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300);
+
+/* === Icons === */
+/* Font Awesome */
+@import url('font-awesome.min.css');
+
+/* ================================================
+Main Css
+================================================ */
+/* Bootstrap Main Css File (unedited) */
+@import url('bootstrap.css');
+
+/* Theme Style */
+@import url('style.css');
+
+/* Responsive Style */
+@import url('responsive.css');
+
+/* Shortcuts Css Codes */
+@import url('shortcuts.css');
+
+/* ================================================
+Plugin Css
+================================================ */
+
+/* Awesome Bootstrap Checkbox */
+@import url('plugin/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css');
+
+/* Bootstrap Select */
+@import url('plugin/bootstrap-select/bootstrap-select.css');
+
+/* Bootstrap Select */
+@import url('plugin/bootstrap-toggle/bootstrap-toggle.min.css');
+
+/* Bootstrap wysihtml5 */
+@import url('plugin/bootstrap-wysihtml5/bootstrap-wysihtml5.css');
+
+/* Summernote */
+@import url('plugin/summernote/summernote.css');
+@import url('plugin/summernote/summernote-bs3.css');
+
+/* Sweet Alert */
+@import url('plugin/sweet-alert/sweet-alert.css');
+
+/* Data Tables */
+@import url('plugin/datatables/datatables.css');
+
+/* Chartist */
+@import url('plugin/chartist/chartist.min.css');
+
+/* Rickshaw */
+@import url('plugin/rickshaw/rickshaw.css');
+@import url('plugin/rickshaw/detail.css');
+@import url('plugin/rickshaw/graph.css');
+@import url('plugin/rickshaw/legend.css');
+
+/* Date Range Picker */
+@import url('plugin/date-range-picker/daterangepicker-bs3.css');
+
+/* Full Calendar */
+@import url('plugin/fullcalendar/fullcalendar.css');
+
+#supportCenter {display: none; position: fixed; bottom: 0; height: 100%;}
+
+#supportTable {float: left; position: relative;top: 10px;left: 30px;width: 550px;border: 1px solid #888;border-radius: 2px;height: 340px;padding: 30px;}
+.supportHeader {padding: 18px; border-bottom: 1px solid #888;}
+.supportHeader span {font-weight: bold;font-size: 20px;}
+#supportTable label {font-weight: bold; font-size: 15px;}
+#supportTable .supportLabel{font-weight: bold; font-size: 15px; margin: 5px 0; width: 100%; height: 20px;}
+.supportFileAttachment {background: url('../images/file_attachment.png') no-repeat; background-position: 130px 4px; cursor: pointer;}
+#supportFileName span {padding-right: 10px; word-wrap: break-word;}
+#supportCasesDiv {float: right; position: absolute; right: 0; top: 20px;}
+#supportSearchDiv {float: left; position: relative; left: 90px;}
+#supportSearchDiv input {width: 220px; float: left; background: #fff url('../images/search.png') no-repeat 100%; padding-right: 35px;}
+#supportCases {float: left; margin-right: 30px;}
+.supportTableRight {float: left;position: relative;top: 10px;left: 50px;width: 500px;height: 400px; padding: 30px;}
+

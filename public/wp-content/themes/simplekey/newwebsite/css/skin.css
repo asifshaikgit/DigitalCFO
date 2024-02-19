@@ -1,0 +1,108 @@
+h1,h2,h3,h4,h5,h6{ color: #222222; }
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a { color: #222222; }
+
+/* Icon slider Loading */
+.loading-icon .shape1 {  background: #FFF200; }
+.loading-icon .shape2 {  background: #0063DC; }
+
+/* Slider Top */
+#slidecaption h2, #slidecaption .desc{color: #000; }
+#slidertop .desc a:hover {background: #FFF; color: #333}
+
+/*  Primary menu*/
+#primary-nav-id ul li.current > a, 
+#primary-nav-id ul li a:hover, 
+#primary-nav-id ul li.st-current-item a ,
+#primary-nav-id ul li.current-menu-parent a,
+#primary-nav-id ul li.menu-must-active.st-current-item a{color: #FFFFFF;}
+
+#primary-nav-id ul li.current li a, 
+#primary-nav-id ul li.current_li_hover li a, 
+#primary-nav-id ul li.st-current-item ul li a,
+#primary-nav-id ul li.current-menu-parent ul li a {color: #757575;}
+
+#primary-nav-id ul li ul:after {color: #FFF}
+#primary-nav-id ul li ul li a:hover,
+#primary-nav-id li ul li.current-menu-item a,
+#primary-nav-id li.current-menu-parent ul li.current-menu-item a{color: #111;}
+
+/*Parallax*/
+.block-bg-1 {background: #eeeeee}
+.block-bg-2 {background: #e0e0e0;}
+.block-bg-3 {background: #f0f0f0;}
+.block-bg-4 {background: #f5f5f5;}
+h2.parallax-title {color: #FFFFFF;}
+
+/*Page title*/
+p.page-title-desc{color: #222; }
+
+ /* OurService Section*/
+.icon-services, .servcices-fp .icon {color: #FFF;}
+.service-wrap .icon-services:after, .entry-content .servcices-fp .icon:after {background: #FFF}
+.service-wrap .icon-services, .entry-content .servcices-fp .icon { color: #00a6d5; }
+body .service-wrap .icon-services:hover, body .entry-content .servcices-fp .icon:hover { color: #FFF; background: #00a6d5; }
+
+
+/* PortFolio Homepage */
+.cpt-filters li a:hover, .cpt-filters li a.selected {color: #00a6d5;}
+.portfolio-detail h2.portfolio-title {color: #FFF; }
+.portfolio-detail h2.portfolio-title a {color: #FFF;}
+.portfolio-detail h2.portfolio-title a:hover {color: #00A6D5;}
+
+/* pricing page */
+.pricetable figcaption{background: #000; color: #FFF; }
+.pricetable .price{background: #d1cfcf; color: #FFF; }
+.pricetable ul.desc-feature{background: #FFF;}
+.pricetable footer {background: #FFF;}
+.pricetable footer a{background: #000; }
+.pricetable .plan-active figcaption, .pricetable .plan-active footer a{background: #00a6d5;}
+.pricetable .plan-active figcaption:hover , .pricetable .plan-active footer a:hover{background: #333;}
+.pricing-note a {color: #1daad6;}
+.pricing-note a:hover {color: #333;}
+
+/*Post Title*/
+.entry-header h2.entry-title a {color: #222222;}
+.entry-header h2.entry-title a:hover {color: #00A6D5;}
+.entry-date .post-date{color: #777}
+
+/* Post meta*/
+ul.post-categories li a {background: #000; color: #FFFFFF; }
+ul.post-categories li a:hover {background: #c1c1c1}
+.post-date, .post-time, .post-comments a {color: #000;}
+.post-time i, .post-comments i {color: #c1c1c1;}
+.page-tags a, .page-tags i, .entry-share{color: #777;}
+.entry-share .tooltip {background: #E5E5E5; color: #FFFFFF; }
+.entry-share .genericon-downarrow:before {color: #E5E5E5; }
+
+/* Comments */
+.comment-item{background: #FFF; }
+#comments input#submit:hover {background: #757575;}
+.comment-date {color: #BBBBBB;}
+#respond #submit {color: #FFF; background: #BBB}
+#respond #submit:hover {background: #333;}
+
+/*Contact*/
+.wpcf7-form p span {color: #00a6d5; }
+.page-area input[type="text"], 
+.page-area input[type="password"],
+.page-area input[type="email"] , 
+.page-area textarea {color: #555;background-color: #ebebeb;}
+.page-area input[type="text"]:focus, 
+.page-area textarea:focus, 
+.page-area input[type="email"]:focus {background: #E1E1E1}
+/*
+.page-area input.wpcf7-submit {background: #00a6d5;  color: #FFF;}
+.page-area input.wpcf7-submit:hover {background: #b72e01;}
+*/
+/*Map*/
+#maps-container {position: relative; background: #FFF}
+#map_overlay_top { background: -moz-linear-gradient(center top , #000000 0%, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0 transparent;}
+#map_overlay_bottom {background: -moz-linear-gradient(center bottom , #000000 0%, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0 transparent;}
+
+/* Back to blog posts */
+#backto a {background: #000;}
+#backto a:hover {background: #C1c1c1;}
+
+.browse-all{ background-color: #00A6D5; }
+.browse-all:hover{ background-color: #333333; }
+

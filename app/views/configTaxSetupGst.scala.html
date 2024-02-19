@@ -1,0 +1,50 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="taxSetup" class="tab-pane mainDiv" style="display: none">
+	<div class="content">
+		<div class="panel panel-showtrans">  
+			<h5 class="alert success" style="margin-top: -10px; margin-left: -4px;"><b class="panel-title">Tax Rule Setup</b><i class="fa fa-info-circle help-info userpopoverinfo" style="font-size: 14px;" longdesc="System provides you the capability to set up taxes on items that you sell (products or services). Setting up taxes requires you to follow FIVE steps. FIRST STEP - setup income items in the chart of accounts and assign each of them with their selling price (price per unit). If you have many items that you sell, please create each item seperately as sub-category under Income. SECOND STEP - Go to Branch under configuration and define the different taxes applicable for sales at that branch and also the corresponding tax rates. THIRD STEP - Click on Income items below and then click on Add tax rule that appears on the right side of the screen. FOURTH STEP - Select the tax type applicable on this income item (System will automatically apply the rate which is input for this tax item in Branch setup). Then select if this tax item must be added to or deducted from. The first tax item will be applied on gross sale value of the item which is pre-defined as <b>A</b>. Thereafter you can select if the next tax item must be applied on gross sale value <b>A</b> or on the resultant number <b>B</b> which is derived after the first tax item is applied on <b>A</b>"></i></h5>
+			<ul class="nav nav-tabs" style="border: 1px solid #cccccc;">
+				<li id="outputTaxTab" class="active"><a href="#taxSetup" data-tab="outputTaxTab" class="taxsetuptabCls">Output Tax</a></li>
+				<li id="inputTaxTab"><a href="#taxSetup" data-tab="outputTaxTab"  class="taxsetuptabCls">Input Tax</a></li>
+				<li id="rcmTaxTab"><a href="#taxSetup" data-tab="outputTaxTab"  class="taxsetuptabCls">Reverse Charge</a></li>
+				<li id="tdsTaxTab"><a href="#taxSetup" data-tab="outputTaxTab"  class="taxsetuptabCls">TDS/Witholding Tax</a></li>
+				<li id="taxableItemTab"><a href="#taxSetup" data-tab="outputTaxTab"  class="taxsetuptabCls">Taxable Items</a></li>
+			</ul>
+	<div id="outputTaxDiv" class="taxsetupcls">
+				
+				<div class="taxRuleListDiv" id="gsttaxList-form-container" style="width: 100%; overflow: auto; margin-top:10px;">
+					<table class="table  excelFormTable" id="taxRuleListTable" style="margin-top: 0px; width: 100%;">               
+						<thead class="tablehead1"><tr><th>Item Name</th><th>Goods/Services</th><th>HSN/SAC</th><th>Tax Rate (%)</th><th>Tax Name & Rate (%)</th><th>Applicable Date</th></tr></thead>
+						<tbody></tbody>
+					</table>
+					<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>
+				</div>
+				<label style="margin-left: 100px;">Select Place of Supply for Organization:</label><select id="placeOfSupplyType" style="margin-top: 10px;"><option value="1">Shipping Address</option><option value="2">Billing Address</option></select><button title="Save/Update" style="margin-left: 30px; margin-top: -5px;" class="btn btn-submit btn-idos" onclick="savePlaceOfSupplyType(placeOfSupplyType);">Save/Update</button></br>
+				<div style="margin-top:0px; margin-left:0px;" id="chartOfAccountTree">
+					<ul id="mainBranchIncomeChartOfAccount" class="treeview-black mainBranchIncomeChartOfAccount"></ul>
+				</div>
+			</div>
+			@configInTax(fullName,email,role,orgn,allowedProcurement){
+			}
+			@configRcmTax(fullName,email,role,orgn,allowedProcurement){
+			}
+			@configTdsTax(fullName,email,role,orgn,allowedProcurement){
+			}
+			@taxableItemSetup(fullName,email,role,orgn,allowedProcurement){
+			}
+		</div>
+	</div>
+</div>
+
+<div id="staticTaxesForMultiItems" class="modal fade" data-backdrop="static" data-keyboard="false"  tabindex="-1" role="dialog" aria-hidden="true" align="center">
+	<div class="modal-dialog" style="width: 500px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">Select MultipleItems For Which Same Tax Rules Need To Be Applied:</h4>
+				<h5 id="wrongActCred" align="center"></h5>
+			</div>
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>

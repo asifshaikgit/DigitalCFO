@@ -1,0 +1,352 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="customerSetup" class="tab-pane mainDiv" style="display: none">
+
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+
+				<div class="navbar-transaction">
+					<button id="newCustomerform-container" style="float: left;" class="newEntityCreateButton btn btn-primary btn-idos" title="Create Customer"><i class="fa fa-plus pr-5"></i>Add Customer</button>
+
+					<button style="margin-left: 10px;" id="newCustomerGroupform-container" class="newEntityCreateButton btn btn-primary btn-idos pl-5" title="Create Customer group"><i class="fa fa-plus pr-5"></i>Create Customer Group</button>
+					<a href="#itemSetUp" onclick="downloadCustomerTemplate();" class="btn btn-submit btn-idos" style="font-size: 12px;margin-right: 15px;"><i class="fa fa-download"></i> Download Customer Template</a>
+					<form id="myCustomerForm" action="/config/uploadcustomers" method="post" enctype="multipart/form-data" style="display: inline-flex;">
+						<div class="input-group">
+						<span class="input-group-btn">
+								<span class="btn btn-submit btn-file" style="font-size: 12px;margin-top:0px;">
+									Select file&hellip; <input type="File" id="uploadcustomer" name="uploadcustomer"/>
+								</span>
+							</span>
+							<span>
+							 <input style="width:48%;margin:4px 0px;" type="text" class="form-control" readonly>
+							<button style="margin-top: 4px; margin-left: 5px;" type="button" id="uploadCustomer" class="uploadCustomer btn btn-primary btn-idos" title="Upload Customer"><i class="fa fa-upload pr-5"></i>Upload Customer</button>
+							</span>
+							</div>
+					</form>
+					<button id="customerFreeTextSearchButton" class="customerFreeTextSearchButton btn btn-primary btn-idos" title="Search Customer" style="float:right;margin-right: 3px;"><i class="fas fa-search"></i></button>
+					<input type="text" class="input-xlarge search-image" placeholder="Search Customer By Name,Location,E-mail,Group" name="customerFreeTextSearch" id="customerFreeTextSearch" style="float:right; margin-right:3px; width: 184px;">  <!-- margin-top: 7px; -->
+					<i style="top: 4px; position: relative;" class="fa fa-info-circle fs-18 pl-5 userpopoverinfo help-info" longdesc="You can create a vendor for every item of expense / purchase and enter all the vendor details and upload contract / purchase order (if any& validity of such contract or purchase order) for that vendor. You can link the vendor to a specific branch or branches and by doing this; you will enable (or compel) your staff at branches to buy only from these specified vendors.By providing vendor address and location details, you will be able to generate reports of all your vendors in a particular area and plan on logistics and re-order levels and obtain useful business intelligence reports.If the vendor provides you credit terms (pay later), then you can enter the days of credit provided by that vendor and @(configParams.getCompanyApp()) will use this information to alert you when payment to this vendor becomes due. This information, which will be in the form of dashboards, will help you manage your cash flow and working capital in real-time."></i>
+				</div>
+				<!-- <div id="customerBulkUpload" style="margin-top: 6px;" >
+					<form id="myCustomerForm" action="/config/uploadcustomers" method="post" enctype="multipart/form-data">
+						<p id="uploadcustomerlabel" style="float: left; margin-top: 15px;">Upload Customer List: <span class="errorMessage">*</span>&nbsp;</p>
+						<input type="File" id="uploadcustomer" name="uploadcustomer"  style="float: left; margin-top: 15px;"></input>
+						<div class="input-group" style="margin-bottom:10px;">
+						<span class="input-group-btn">
+								<span class="btn btn-submit btn-file" style="margin-top:0px;">
+									Select file&hellip; <input type="File" id="uploadcustomer" name="uploadcustomer"/>
+								</span>
+							</span>
+							<span>
+							 <input style="width:30%;margin:4px 0px;" type="text" class="form-control" readonly> style="float: left; margin-top: 10px;"
+							<button style="margin-top: 4px; margin-left: 30px;" type="button" id="uploadCustomer" class="uploadCustomer btn btn-primary btn-idos" title="Upload Customer"><i class="fa fa-upload pr-5"></i>Upload Customer</button>
+							</span>
+							</div>
+						<button style="float: left; margin-top: 10px;" type="button" id="uploadCustomer" class="uploadCustomer btn btn-primary btn-idos" title="Upload Customer"><i class="fa fa-upload pr-5"></i>Upload Customer</button>
+					</form>
+				</div> -->
+				<div class="errorMessage"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="customergroup-form-container" class="newCustomerGroupform-container" style="display: none;">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<div class="panel-title">Customer Group Setup</div>
+					<div id="search-launch-top"><a href="#customerSetup" id="newCustomerGroupform-container-close"><i class="fa fa-times fa-1x close-legend" id="newCustomerGroupform-container-close"></i></a></div>
+					<div class="customerGroupDetails">
+						<table class="table table-bordered excelFormTable" id="customerGroupDetailsTable" style="margin-top: 0px;">
+							<thead class="tablehead1"><tr><th>Group Name</th><th>Group Knowledge Library</th><th>Group List</th></tr></thead>
+							<tbody>
+								<tr>
+									<td>
+										<input id="customerGroupEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+										<input type="text" id="custGroupName" name="custGroupName" style="width:180px;">
+										<!-- Removed checkDuplicacy as there is no route for it -->
+										<!-- <input type="text" id="custGroupName" name="custGroupName" style="width:180px;" onblur="javascript:checkDuplicacy(this.id,'VendorGroup','groupName');"> -->
+									</td>
+									<td><textarea id="custGroupKL" name="custGroupKL" style="width:180px;" class="text-area-2x"></textarea></td>
+									<td><div class="datascrolltable" style="max-height: 110px; overflow: auto;"><table class="table table-hover table-striped table-bordered excelFormTable" id="customerGroupDetailsListTable" style="margin-top: 0px;width:300px;"><tbody></tbody></table></div></td>
+								</tr>
+							</tbody>
+						</table>
+						<button title="Add/Update Customer Group" name="addConfigCustGroupBtn" id="addCustGroupBtn" type="button" class="addCustGroupBtn btn btn-submit btn-idos" value="1" style="vertical-align: top">Add/Update Customer Group</button>
+						<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="customer-form-container" class="newCustomerform-container" style="display: none;">
+		<div class="content">
+			<div class="panel panel-showtrans"  style="overflow-x: auto;">
+				<div class="panel-title">Customer Setup</div>
+				<div id="search-launch-top"><a href="#customerSetup" id="newCustomerform-container-close"><i class="fa fa-times fa-1x close-legend" id="newCustomerform-container-close"></i></a></div>
+				<div class="panel-body">
+					<div class="customerDetails create-form">
+						<table class="table table-bordered excelFormTable" id="customerDetailsTable" style="margin-top: 0px;">
+							<thead class="tablehead1">
+								<tr><th>Branches</th><th>GSTIN/UIN Details</th><th>Billing Address & Contact Number</th><th>Shipping Address & Contact Number</th><th>Multiple GSTIN/UIN Details</th><th>Item Of Sale/Discount%</th><th>Cash/Credit</th><th>Remarks & Upload Customer Contract</th></tr>
+							</thead>
+							<tbody>
+								<tr id="customertr">
+									<td>
+										<div id="customerBranchDiv" class="btn-group">
+											<button id="customerBranchDropdownBtn" name="branchDropdownBtn" class="multiselect dropdown-toggle btn"> None Selected <span class="caret"></span></button>
+											<div id="customerBranchDropdown-menuid" class="customerBranchDropdown-menu" style="width: 400px;">
+												<div class="customerBranchDropdownContentSearchDiv" style="white-space: nowrap;">
+													<input type="text" style="width: 400px; margin-top:-8px; display:inline-block;" name="customerBranchContentSearchInput" id="customerBranchContentSearchInput" class="search-image" placeholder="Search item"/>
+												</div>
+												<ul id="customerBranchList"></ul>
+											</div>
+										</div>
+
+										</br>
+										<p class="para-tm5-bm0">Customer Group</p>
+										<select id="customerGroup" name="customerGroup" class="m-bottom-10"></select>
+										<input id="customerEntityHiddenId" class="hiddenmodelid" type="hidden" value=""/>
+										<p class="para-tm5-bm0">Customer Name</p>
+										<input type="text" class="textClass m-bottom-10" id="custName" name="custName" class="" placeholder="Customer Name"/>
+										<!-- <p class="para-tm5-bm0">Customer Code</p>
+										<input type="text" class="textClass m-bottom-10" id="custCode" name="custCode" class="" placeholder="Customer Code"/> -->
+										<p class="para-tm5-bm0">Customer Email</p>
+										<input type="text" class="textClass" id="custemail" name="custemail" placeholder="Customer Email"/>
+									</td>
+									<td>
+										<p class="para-tm5-bm0">Is customer GST Registered?</p>
+										<select id="custRegisteredOrUnReg" class="m-bottom-10">
+											<option value="">--Please Select--</option>
+											<option value="1">Yes </option>
+											<option value="0">No</option>
+										</select>
+										<p class="para-tm5-bm0">GSTIN/UIN</p>
+										<div style="width:140px !important;" class="m-bottom-10">
+											<input class="gstinInputCls" style="width: 30px;" id="gstinputCust" type="text" maxlength="2" onkeypress="return allowOnlyNumbers(event);" onblur="validateGstinState(this);"/>
+											<input class="gstinInputCls"  style="width: 107px;" id="gstinput2Cust" type="text" maxlength="13" onkeypress="return allowAlphaNumeric(event);" onkeyup="return validateFullGSTIN(this,'gstinputCust');"/>
+										</div>
+										<p class="para-tm5-bm0">Customer Type</p>
+										<select class="custBusinessIndividual" name="custBusinessIndividual" id="custBusinessIndividual">
+											<option value="">--Please Select--</option>
+											<option value="1">Customer is a business Establishment</option>
+											<option value="2">Customer is a individual Consumer</option>
+											<option value="3">Is UIN Holder</option>
+											<option value="4">Is Composition taxable person</option>
+										</select>
+									</td>
+									<td>
+										<textarea name="customerAddress" id="customerAddress" placeholder="Address" class="text-area-4x"></textarea>
+										<select class="countryDropDown" name="customercountry" id="customercountry"><option value="">--Please Select--</select>
+										<select id="customerState" class="input-medium bfh-states" data-country="IN"></select>
+										<input type="text" id="custlocation" name="custlocation" placeholder="Location"/>
+										<select class="countryPhnCode" name="custPhnNocountryCode" id="custPhnNocountryCode"><option value="">--Please Select--</option></select><br/>
+										<input type="text" id="custphone1" name="custphone1" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+										<input type="text" id="custphone2" name="custphone2" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+										<input type="text" id="custphone3" name="custphone3" maxlength="4" style="width: 70px;" onkeypress="return isNumber(event)">
+									</td>
+
+									<td>
+										<input type="checkbox" name="isShippingAddressSame" id="isShippingAddressSame" onchange="enableShiipingAddress();"/>is same as billing address?
+										<textarea name="shipcustomerAddress" id="shipcustomerAddress" placeholder="Shipping Address" class="text-area-2x"></textarea>
+										<select class="countryDropDown" id="shipcustomercountry"><option value="">--Please Select--</select>
+										<select id="shipCustomerState" class="input-medium bfh-states" data-country="IN"></select>
+										<input type="text" id="shipcustlocation" name="shipcustlocation" placeholder="Shipping Location"/>
+										<select class="countryPhnCode" name="shipcustPhnNocountryCode" id="shipcustPhnNocountryCode"><option value="">--Please Select--</option></select><br/>
+										<input type="text" id="shipcustphone1" name="shipcustphone1" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+										<input type="text" id="shipcustphone2" name="shipcustphone2" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+										<input type="text" id="shipcustphone3" name="shipcustphone3" maxlength="4" style="width: 70px;" onkeypress="return isNumber(event)">
+									</td>
+									<td>
+										<span style="cursor:pointer" style="width: 10px; " class="addnewGSTINCust" id="addnewGSTINCust"><i class="fa fa-plus-square fa-lg"></i> Add more</span><br>
+										<div id="customerGstinDiv" class="multiGstinDiv"style="width:250px; margin-top: 5px; height: 140px; overflow: auto;">
+											<table class="table excelFormTable table-hover table-striped" id="customerGstinTbl">
+											<thead class="head1"><tr><th>State</th><th>GSTIN/UIN</th><th>Enable</th></tr></thead>
+											<tbody>
+											</tbody>
+											</table>
+										</div>
+									</td>
+									<td>
+										<div class="btn-group m-bottom-10">
+											<button id="customerdropdown" class="multiselect dropdown-toggle btn" style="width: 150px;">None Selected <b class="caret"></b></button>
+											<div id="customeritemdropdown-menuid" class="customeritemdropdown-menu">
+												<div class="customeritemcontentsearchdiv"><input type="text" style="width: 420px;" name="customeritemcontentsearchinput" id="customeritemcontentsearchinput" class="search-image" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+												<ul id="customerItemList"><li id="customeritemlist">&nbsp;&nbsp;&nbsp;<input style="margin-bottom:5px;" type="checkbox" id="checkboxid" name="customeritemcheck" value="" onClick="custcheckUncheck(this)">&nbsp;&nbsp;&nbsp;Select All</li></ul>
+											</div>
+										</div><br>
+										<p class="para-tm5-bm0" >Statutory Detail</p>
+										<div class="btn-group">
+											<button id="customerstatutoryidnumber" class="multiselect dropdown-toggle btn" style="width: 152px;">Statutory Details<b class="caret"></b></button>
+											<div id="customerstatutoryidnumberdropdown-menuid" class="customerstatutoryidnumberdropdown-menu">
+												<ul id="customerstatutoryidnumberItemList">
+													<li id="customerstatutoryidnumberitemList">Statutory Id:<input type="text" name="customerStatutoryName1" id="customerStatutoryName1">&nbsp;ID Number:<input type="text" name="customerStatutoryNumber1" id="customerStatutoryNumber1"></li>
+													<li id="customerstatutoryidnumberitemList">Statutory Id:<input type="text" name="customerStatutoryName2" id="customerStatutoryName2">&nbsp;ID Number:<input type="text" name="customerStatutoryNumber2" id="customerStatutoryNumber2"></li>
+													<li id="customerstatutoryidnumberitemList">Statutory Id:<input type="text" name="customerStatutoryName3" id="customerStatutoryName3">&nbsp;ID Number:<input type="text" name="customerStatutoryNumber3" id="customerStatutoryNumber3"></li>
+													<li id="customerstatutoryidnumberitemList">Statutory Id:<input type="text" name="customerStatutoryName4" id="customerStatutoryName4">&nbsp;ID Number:<input type="text" name="customerStatutoryNumber4" id="customerStatutoryNumber4"></li>
+												</ul>
+											</div>
+										</div>
+										<br>
+										<p class="para-tm5-bm0" >Billwise Opening Balance</p>
+										<div class="btn-group">
+											<button type="button" class="btn btn-submit" onclick="saveBillWiseOpeningBal('CUSTOMER');">Add Billwise Opening Balance</button>
+										</div>
+
+										<!-- <p class="para-tm5-bm0" >BranchWise Opening Advance Balance</p>
+										<div class="btn-group">
+											<button type="button" class="btn btn-submit" onclick="saveAdvanceOpeningBal('CUSTOMER');">Add Opening Advance Balance</button>
+										</div> -->
+
+										<br>
+										<p class="para-tm5-bm0" >Place of supply for Organisation </p>
+										<div>
+											<select class="placeOfSupplyForOrg" name="placeOfSupplyForOrg" id="placeOfSupplyForOrg">
+													<option value="1">Billing Address</option>
+													<option value="2">Shipping Address</option>
+												</select>
+										</div>
+
+									</td>
+									<td>
+										<select style="vertical-align: bottom;" class="custfutPayment" name="custfutPayment" id="custfutPayment"><option value="1">Cash</option><option value="0">Credit</option><option value="2">Both</option></select></br>
+										<p class="para-tm3-bm0" style="display:none">Customer days of Credit</p>
+										<input style="display: none;" type="text" id="custdaysOfCredit" name="custdaysOfCredit" onkeypress="return isNumber(event)" placeholder="Days For Credit" class="m-bottom-10"/>
+										<p class="para-tm3-bm0" style="display:none">Credit Limit</p>
+										<input style="display:none" type="text" id="custCreditLimit" name="custCreditLimit" placeholder="Credit Limit" onkeypress="return onlyDotsAndNumbersandMinus(event, this);" class="m-bottom-10"/>
+										<p class="para-tm3-bm0" style="display:none">Transaction Exceeding Credit Limit</p>
+										<select style="vertical-align: bottom;display: none" class="custTranExceedCredLim" name="custTranExceedCredLim" id="custTranExceedCredLim"><option value="0">Process</option><option value="1">Stop</option></select></br>
+										<p class="para-tm3-bm0" style="display:none"><input type="checkbox" name="exculdeAdvCreLimCheck" id="exculdeAdvCreLimCheck"> Exclude Advance for calculating credit limit</p>
+										<input type="checkbox" style="display:none" name="exculdeAdvCreLimCheck" id="exculdeAdvCreLimCheck"></p>
+										<p class="para-tm3-bm01" style="display:none">Opening Balance</p>
+										<input type="text" style="display:none" id="custOpeningBalance" class="totalOpeningBalance" placeholder="Total Opening Balance" readonly class="m-bottom-10"/>
+										<p class="para-tm3-bm01" style="display:none">Opening Balance Of Advance</p>
+										<input type="text" style="display:none" id="custOpeningBalanceAdvPaid" class="totalOpeningBalanceAdvPaid" placeholder="Total Opening Balance Of Advance"readonly>
+									</td>
+									 <td id="custPriceList">
+										<textarea name="custdiscount" id="custdiscount" class="text-area-2x"></textarea>
+										<!-- <input type="text" id="docuploadurl" name="custPriceList" readonly="readonly">
+										<span id="custPriceList" class="btn-idos-flat-white btn-upload m-top-10" onclick="uploadFile(this.id,this)"><i class="fa fa-upload pr-5"></i>Upload</span> -->
+									  <select name="custPriceListUploads" class="contractUpload" id="custPriceListUploads"><option value="">Select to view files</option></select>
+									<!-- <input type="button" id="custPriceListButton" value="&#xf093" class="fa fa-upload btn btn-submit" onclick="uploadVendorFile(this.id,this)">
+									<input type="button" id="custPriceListDelete" value="&#xf1f8"  class="fa fa-trash btn btn-submit" style="float:right;margin-right:3px;" onclick="deleteOrgFile(this.id)"></td> -->
+									<button id="custPriceListUploadsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="custPriceListUploadsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+									<button id="custPriceListUploadsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<button id="formCancel" style="float: left; margin-left:7%;" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel(); deleteUncomittedFiles();">Cancel</button>
+						<button title="Add Customer" style="float: right; margin-right:7%;" name="addConfigCustBtn" id="addCustBtn" type="button" class="addCustBtn btn btn-submit btn-idos" value="1" style="vertical-align: top">Add/Update Customer</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="panel-title">Customers</div>
+				<!-- table for customer list -->
+				<div class="datascrolltable" style="max-height: 100%; overflow: auto;">
+					<table class="table table-hover table-striped excelFormTable" id="customerTable" style="margin-top: 0px;">
+						<thead><tr><th>CustomerName</th><th>Location</th><th>E-mail</th><th>Access</th><th>Phone</th><th>Address</th><th></th><th></th></tr></thead>
+						<tbody></tbody>
+				   </table>
+			   </div>
+			</div>
+		</div>
+	</div>
+	<div id="multigstinDiv">
+		<input type="hidden" id="updatedCustomerIdHid"/>
+		<input type="hidden" id="customerDetailIdHid"/>
+		<input type="hidden" id="customerDetailIdListHid"/>
+		<input type="hidden" id="gstinCodeHid"/>
+		<input type="hidden" id="customerAddressHid"/>
+		<input type="hidden" id="customercountryCodeHid"/>
+		<input type="hidden" id="custstateHid"/>
+		<input type="hidden" id="custstatecodeHid"/>
+		<input type="hidden" id="custlocationHid"/>
+		<input type="hidden" id="custPhnNocountryCodeHid"/>
+		<input type="hidden" id="custphone1Hid"/>
+		<input type="hidden" id="custphone2Hid"/>
+		<input type="hidden" id="custphone3Hid"/>
+
+		<input type="hidden" id="isShippingAddressSameHid"/>
+		<input type="hidden" id="shipcustomerAddressHid"/>
+		<input type="hidden" id="shipcustomerCountryCodeHid"/>
+		<input type="hidden" id="shipstateHid"/>
+		<input type="hidden" id="shipcustStateCodeHid"/>
+		<input type="hidden" id="shiptlocationHid"/>
+
+		<input type="hidden" id="shipcustPhnNoCountryCodeHid"/>
+		<input type="hidden" id="shipcustPhone1Hid"/>
+		<input type="hidden" id="shipcustPhone2Hid"/>
+		<input type="hidden" id="shipcustPhone3Hid"/>
+	</div>
+</div>
+
+<div id="staticMutipleGSTINCustItems" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:1001;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+	<div class="modal-dialog" style="width: 70% !important;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">GSTIN/UIN CUSTOMER DETAILS</h4>
+			</div>
+			<div class="modal-body" style="height: 280px;">
+				<table class="table excelFormTable" id="customerPopupDetailsTable" style="margin-top: 0px;">
+				<thead class="tablehead1">
+					<tr><th>GSTIN/UIN</th><th>Billing Address</th><th>Billing Contact Number</th><th>Shipping Address</th><th>Shipping Contact Number</th></tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>
+						<div style="width:155px !important;">
+							<input class="gstinInputCls" style="width: 30px;" name="gstinPart1" id="gstinputCustPopup" type="text" maxlength="2" onkeypress="return allowOnlyNumbers(event);" onblur="validateGstinState(this);"/>
+							<input class="gstinInputCls"  style="width: 120px;" name="gstinPart2" id="gstinput2CustPopup" type="text" maxlength="13" onkeypress="return allowAlphaNumeric(event);" onkeyup="return validateFullGSTIN(this,'gstinputCustPopup');"/>
+						</div>
+
+					</td>
+					<td>
+						<textarea name="addressPopup" id="customerAddressPopup" placeholder="Address" class="text-area-2x m-bottom-10"></textarea><br/>
+						<select class="countryDropDown" name="countryPopup" id="customercountryPopup"><option value="">--Please Select--</select><br/>
+						<select id="customerstatePopup" name="statePopup" class="input-medium bfh-states" data-country="IN"></select><br/>
+						<input type="text" id="custlocationPopup" name="locationPopup" placeholder="Location">
+					</td>
+					<td>
+						<select class="countryPhnCode m-bottom-10" name="phnNocountryCodePopup" id="custPhnNocountryCodePopup"><option value="">--Please Select--</option></select><br/>
+						<input type="text" class="contactNoCls" id="custphone1Popup" name="phone1Popup" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event);" onKeyup="autotab2(this);">-
+						<input type="text" class="contactNoCls" id="custphone2Popup" name="phone2Popup" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab2(this)">-
+						<input type="text" class="contactNoCls" id="custphone3Popup" name="phone3Popup" maxlength="4" style="width: 45px;" onkeypress="return isNumber(event)">
+					</td>
+					<td>
+						<input type="checkbox" name="isAddressSamePopup" id="isShippingAddressSamePopup"/> Is same as billing address?
+						<br/>
+						<textarea name="shipAddressPopup" id="shipcustomerAddressPopup" placeholder="Shipping Address" class="text-area-2x"></textarea>
+						<br/>
+						<select class="countryDropDown" name="shipCountryPopup" id="shipcustomercountryPopup"><option value="">--Please Select--</select><br/>
+						<select id="shipstatePopup" name="shipStatePopup" class="input-medium bfh-states" data-country="IN"></select><br/>
+						<input type="text" id="shipcustlocationPopup" name="shipLocationPopup" placeholder="Shipping Location">
+					</td>
+					<td>
+						<select class="countryPhnCode m-bottom-10" name="shipPhnNocountryCodePopup" id="shipcustPhnNocountryCodePopup"><option value="">--Please Select--</option></select><br/>
+						<input type="text" class="contactNoCls" id="shipcustphone1Popup" name="shipphone1Popup" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab2(this)">-
+						<input type="text" class="contactNoCls" id="shipcustphone2Popup" name="shipphone2Popup" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab2(this)">-
+						<input type="text" class="contactNoCls" id="shipcustphone3Popup" name="shipphone3Popup" maxlength="4" style="width: 45px;" onkeypress="return isNumber(event)">
+					</td>
+				</tr>
+				</tbody>
+				</table>
+				<button title="Add GSTIN/UIN" style="float: right; margin-right:5px;" name="addPopupGSTINCustInfoBtn" id="addPopupGSTINCustInfoBtn" type="button" class="addPopupGSTINCustInfoBtn btn btn-submit btn-idos" value="1">Add/Update GSTIN/UIN</button>
+			</div>
+		</div>
+	</div>
+</div>

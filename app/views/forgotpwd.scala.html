@@ -1,0 +1,103 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,pwdchanged:String,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams){
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script type="text/javascript">
+	(function(i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function() {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js',
+			'ga');
+
+	ga('create', 'UA-72593005-1', 'myidos.com');
+	ga('send', 'pageview');
+
+	$(document).ready(function() {
+		var user = getCookie("user");
+		if ("" === user) {
+			$('#loadingIdos').hide();
+			$('#messageDisplay').hide();
+			var locHash = window.location.hash;
+			var url = window.location.pathname;
+		}
+	});
+
+
+	 function sendForm()
+	 {
+		 	var emailid=$("#logindetailemail").val();
+		 	var jsonData = {};
+			jsonData.emailId = emailid;
+			var url="/forgotlogininfo";
+		    $.ajax({
+		    	url: url,
+				data:JSON.stringify(jsonData),
+				type:"text",
+				method:"POST",
+				contentType:'application/json',
+				success: function (data) {
+					if(data.logininfocredential[0].message=="Failure"){
+						$("#logindetailemail").val("");
+						notifyLogin.show(data.logininfocredential[0].failurereason,true,true);
+						return true;
+					}else{
+						$("#logindetailemail").val("");
+						notifyLogin.show(data.logininfocredential[0].message,true,false);
+					}
+				},
+			    error: function (xhr, status, error) {
+					console.log(error) ;
+				}
+		  });
+	}
+
+</script>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kode is a Premium Bootstrap Admin Template, It's responsive, clean coded and mobile friendly">
+  <meta name="keywords" content="bootstrap, admin, dashboard, flat admin template, responsive," />
+  <title>Forgot Password - IdosApp</title>
+  <style type="text/css">
+    body{background: #F5F5F5;}
+  </style>
+  </head>
+		<div class="login-form"  role="login" id="wrapper">
+			<div id="messageDisplay"></div>
+			<form id="forgotlogindiv" onsubmit="return false;">
+		        <div class="top">
+					<img src="@(configParams.getCompanyLogoPath())" alt="icon">
+		          	<h4>Forgot Password</h4>
+		        </div>
+		        <div class="form-area">
+		        	<div class="group">
+		            	<input id="logindetailemail" type="email" name="email" placeholder="Registered Email" required class="form-control" />
+		            	<i class="fa fa-envelope-o"></i>
+		        	</div>
+					<button type="submit" name="go" id="requestresetlink" class="logininfo btn btn-default btn-block" >RESET PASSWORD</button>
+		        </div>
+		    </form>
+			<div class="footer-links row">
+				<div class="col-xs-6"><a href="/signIn#logindiv"><i class="fa fa-sign-in"></i> Login</a></div>
+				<div class="col-xs-6 text-right"><a href="/signUp#signUpDiv"><i class="fa fa-external-link"></i> Register Now</a></div>
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+}

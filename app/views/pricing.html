@@ -1,0 +1,281 @@
+@(configParams:model.ConfigParams)
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+<link rel="shortcut icon" href="assets/website/img/logo.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@(configParams.getCompanyApp())/PRODUCTS</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/website/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/website/css/style.css" rel="stylesheet">
+	<link href="assets/website/css/pricing.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/website/css/modern-business.css" rel="stylesheet">
+	<link href="assets/website/css/round-about.css" rel="stylesheet">
+	<link href="assets/website/css/footer.css" rel="stylesheet">
+	<link href="assets/website/css/pricing.css" rel="stylesheet">
+	<link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Arimo|Oswald|Raleway:400,800,900,600,700,600italic' rel='stylesheet' type='text/css'>
+    <!-- Custom Fonts -->
+    <link href="assets/website/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<script src="assets/website/js/jquery.js"></script>
+	 <script src="assets/website/js/bootstrap.min.js"></script> 
+	     
+		<style>
+				body{
+	font-family:arimo;
+}
+	.breadcrumb	a{
+		color: #B1283A;
+	}
+	.breadcrumb	a:hover{
+		color: #B1283A;
+	}
+	</style>
+	
+	<!-----Google Analytics Start----->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72593005-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<!-----Google Analytics End----->
+<script>
+    function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+    </script>	
+</head>
+
+<body>
+@indexhead(){
+	}
+    <!-- Page Content -->
+   <div class="container">
+    <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Products
+                    <small>@(configParams.getCompanyApp())</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a>
+                    </li>
+                    <li class="active">Products</li>
+                </ol>
+            </div>
+        </div>
+
+            <div class="row prizing">
+                <div class="col-sm-4 col-xs-12 float-shadow">
+
+                <div class="col-md-12 col-sm-12 col-xs-12 nogap">
+                    <div class="price_table_container">
+                        <div class="price_table_heading primary-bg">@(configParams.getCompanyApp())</div>
+						<div class="col-sm-12 contant" id="sassz">
+							<h5 style="text-align: center;">Saas</h5>
+							<ul>
+							<li>Automatic & correct journal entries. No need for manual selection of ledgers & passing debit / credit entries.</li>
+							<li>Automatic correct ledger posting & updation</li>
+							<li>Automatic computation of tax (GST) for sales transactions<br/><a href="https://www.youtube.com/watch?v=H1m0AmgWB0s" target="_blank">Watch Online</a></li>
+							<li>Automatic generation of GST Compliant invoice for sales transactions<br/><a href="https://www.youtube.com/watch?v=J6l7LnIsbGo" target="_blank">Watch Online</a></li>
+							<li>Automatic computation of withholding tax (TDS) <br/><a href="https://www.youtube.com/watch?v=Xnp9AvJ_228" target="_blank">Watch Online</a></li>
+							<li>Automatic accounting of GST / TDS under correct ledger accounts</li>
+							<li>Automatic preparation of GST returns through ASP / GSP integration</li>
+							<li>Automatic computation &amp; accounting of reverse charge under GST</li>
+							<li>Automatic / real-time Trial balance updation</li>
+							<li>Automatic Profit &amp; Loss account and balance sheet in vertical format</li>
+							<li>Automatic contra entries</li>
+							<li>Automatic reconciliation of receivables &amp; payables (debtors & creditors)</li>
+							<li>Automatic analysis of receivables &amp; payables (debtors &amp; creditors)<br/><a href="https://www.youtube.com/watch?v=ki47WFNU9B0" target="_blank">Watch Online</a></li>
+							<li>Automatic control of customer credit limits before making credit sales<br/><a href="https://www.youtube.com/watch?v=96uReXdlt6w" target="_blank">Watch Online</a></li>
+							<li>Automatic alert for overdue receivables &amp; payables</li>
+							<!--second sass-->
+								<li>Automatic compliance to Internal Financial Controls</li>
+								<li>Automatic / real-time internal audit of transactions</li>
+								<li>Automatic budgetary control of expenses & real-time alert for expenses exceeding budget</li>
+								<li>Automatic generation of decision making reports using Microsoft Excel add-in<br/><a href="https://www.youtube.com/watch?v=_ODBAlFysGw" target="_blank">Watch Online</a></li>
+								<li>Automatic &amp; real-time Multi-location accounting</li>
+								<li>Automated bill of material &amp; combination sales</li>
+								<li>Real-time bill-to-bill matching of invoice receipts and payments</li>
+								<li>Bank reconciliation statement</li>
+								<li>Download of ledgers and reports into Microsoft Excel</li>
+								<li>World class disaster recovery and data security on Microsoft Azure</li>
+								<li>Expense management and accounting with approvals &amp; monetary limits<br/><a href="https://www.youtube.com/watch?v=yrYkvO_0hqc" target="_blank">Watch Online</a></li>
+								<li>Combination sales for retail traders</li>
+								<li>Change classification of line items in Profit &amp; Loss account and balance sheet at any time</li>
+								<li>Expense claims management &amp; accounting with monetary limits &amp; approval capability</li>
+								<li>Travel advance &amp; settlement and accounting with approvals and automated eligibility management<br/><a href="https://www.youtube.com/watch?v=yrYkvO_0hqc" target="_blank">Watch Online</a></li>
+								<li>Upload of bills and supporting documents for all transactions<br/><a href="https://www.youtube.com/watch?v=OS5-3jxdS4A" target="_blank">Watch Online</a><br/></li>
+								<li>Customer &amp; vendor engagement for balance confirmation</li>
+								<li>Dashboard and reports with graphs<br/><a href="https://www.youtube.com/watch?v=jsLHSJz3HJE" target="_blank">Watch Online</a></li>
+								<li>Audit trial of all transactions from Trial balance to source of the transaction with just a click</li>
+								<li>Free login for auditors</li>
+								<li>On-line audit of transactions and audit notes</li>
+								<li>No need for dedicated hardware </li>
+								<li>Zero cost for installation &amp; maintenance. Free upgrades & updates of the software</li>
+							</ul>
+						</div>
+                        <div class="price_table_body">
+                            <div class="price_table_row cost primary-bg"><br/><br/><strong>Integrated With:</strong><br/><span>Microsoft Office 365</span></div>
+                            <div class="price_table_row"></div>
+                            <div class="price_table_row"> Local taxes extra as applicable    </div>
+							<div class="col-sm-12">
+							 <h5><strong></strong></h5>
+							</div>
+                            
+                            <div class="price_table_row"></div>                                                
+                        </div>
+                        <a href="/requestdemo" target="_blank" class="btn btn-primary btn-lg btn-block">Sign Up</a>
+                    </div>
+                </div>
+                </div>
+        
+                <div class="col-md-4 col-sm-6 col-xs-12 float-shadow">        
+                    <div class="price_table_container">
+                        <div class="price_table_heading success-bg">@(configParams.getCompanyApp()) ENTERPRISE</div>
+						<div class="col-sm-12 contant" id="enterprizz">
+							<h5 style="text-align: center;">Enterprise</h5>
+							<ul>
+								<li>All features of SaaS</li>
+								<li>Automated month end provision entries &amp; reversal</li>
+								<li>Automated adjustment of prepaid expenses</li>
+								<li>Automated order management &amp; accounting</li>
+								<li>Manufacturing Inventory accounting, valuation &amp; management</li>
+								<li>Payroll</li>
+								<li>Project management</li>
+								<li>Time tracking</li>
+								<li>Advanced budgeting</li>
+								<li>Investment accounting</li>
+								<li>Fixed assets & depreciation automation and accounting</li>
+								<li>Working capital management</li>
+								<li>Trend analysis</li>
+								<li>Fraud analytics & exception reporting</li>
+								<li>CRM</li>
+								<li>Bar code integration</li>
+								<li>Business specific automated reports </li>
+								<li>Advanced document management</li>
+								<li>Advanced analytics</li>
+								<li>Mobile application (specifically available for your company)</li>
+								<li>Automated accounting for job works &amp; contracts</li>
+								<li>E-Commerce integration</li>
+								<li>Project-wise accounting, reporting &amp; analytics for construction companies / builders (with real-time consolidation across different projects and company-wise / SPV-wise accounts, profitability analysis & reports)</li>
+								<li>Holding / subsidiary company accounting &amp; Group-level consolidation & reporting</li>
+								<li>Migration of existing data to @(configParams.getCompanyApp())</li>
+								<li>Hybrid data management (offline / online)</li>
+								<li>Thousands of concurrent users</li>
+							</ul>
+						</div>
+                        <div class="price_table_body">
+                            <div class="price_table_row cost success-bg"><strong> </strong><br/><span>If you wish to have @(configParams.getCompanyApp()) customized for your organisation, contact us.</span><br/><span>We provide the best Enterprise ERP at a price which is the lowest in the market</span></div>
+                            <div class="price_table_row"></div>
+                            <div class="price_table_row">Write to us at sales&#64;myidos.com</div>
+                            
+                            <div class="price_table_row"></div>                                                
+                        </div>
+                        <a href="/requestdemo" target="_blank" class="btn btn-success btn-lg btn-block">Sign Up</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 float-shadow">        
+                    <div class="price_table_container">
+                        <div class="price_table_heading danger-bg">International Development</div>
+						<div class="col-sm-12 contant" id="international">
+							<h5>International Development</h5>
+							<ul>
+								<li>Required features of SaaS & Enterprise</li>
+								<li>Budget alignments & realignments</li>
+								<li>Time &amp; Material management &amp; accounting</li>
+								<li>Project / site office reporting &amp; real-time consolidated accounting & reporting at Head Office</li>
+								<li>Labor hiring, management, accounting, regulatory, tax compliance &amp; reporting</li>
+								<li>Local currency accounting, conversion from local currency to home office currency and multi-currency accounting</li>
+								<li>Trend analysis and financial projections</li>
+								<li>Company specific business reports and analytics</li>
+								<li>Real-time process audit and exceptions reporting</li>
+							</ul>
+						</div>
+                        <div class="price_table_body">
+                            <div class="price_table_row cost danger-bg"><strong> </strong><span><br/><br/>If you wish to have @(configParams.getCompanyApp()) customized for your organisation, contact us.</span></div>
+                            <div class="price_table_row"></div>
+                            <div class="price_table_row">Write to us at sales&#64;myidos.com</div>
+                            
+                            <div class="price_table_row"></div>                                                
+                        </div>
+                        <a href="/requestdemo" target="_blank" class="btn btn-danger btn-lg btn-block">Sign Up</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Page Heading/Breadcrumbs -->
+        
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+    </div>
+    <!-- /.container -->
+	<script src="assets/website/js/readmore.js"></script>
+  <script>
+    $('#sassz').readmore({
+      moreLink: '<a href="#">Read More</a>',
+      collapsedHeight: 418,
+      afterToggle: function(trigger, element, expanded) {
+        if(! expanded) {
+          $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+        }
+      }
+    });
+    $('#enterprizz').readmore({
+      moreLink: '<a href="#">Read More</a>',
+      collapsedHeight: 418,
+      afterToggle: function(trigger, element, expanded) {
+        if(! expanded) {
+          $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+        }
+      }
+    });
+ 
+   </script>
+
+</body>
+<!-- Call to Action Section -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="callout-dark text-center fade-in-b">
+					<h1>Start your <b>Free</b> @(configParams.getCompanyApp()) trial <a href="signUp#selectCountryDiv" target="_blank" class="btn btn-info"><strong>Register</strong></a> 
+					<a href="/requestdemo" class="btn btn-info"><strong>Request a Demo</strong></a></h1>
+					<p><font color="#ffffff">Try out @(configParams.getCompanyApp()) for 15 days, completely free of charge.</font></p>
+				</div>
+			</div>
+			
+		</div>
+        
+
+        <hr>
+<!-- Footer -->
+@indexfooter(configParams){
+}
+<!--footer End here-->
+</html>

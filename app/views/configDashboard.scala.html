@@ -1,0 +1,257 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<div id="incomeLast3" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 50%;margin-left: 10%; align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Highest Income Items in <span id="highestBranchName"></span></h4>
+				<h5 id="incomeError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal"> 
+					<table class="table table-hover table-striped table-bordered transaction-create" id="incomeLast3Table" style="width: 600px;">              
+						<thead class="tablehead1">
+							<tr>
+								<th>Item</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="expenseLast3" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 50%;margin-left: 10%;" align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Highest Expense Items in <span id="highestBranchName"></span></h4>
+				<h5 id="expenseError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal"> 
+					<table class="table table-hover table-striped table-bordered transaction-create" id="expenseLast3Table" style="width: 600px;">         
+						<thead class="tablehead1">
+							<tr>
+								<th>Item</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				 </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="projectincomeLast3" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 50%;margin-left: 10%;" align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Highest Income Items for <span id="highestBranchName"></span></h4>
+				<h5 id="incomeError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal"> 
+					<table class="table table-hover table-striped table-bordered transaction-create" id="incomeLast3Table" style="width: 600px;">              
+					<thead class="tablehead1">
+						<tr>
+							<th>Item</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+					</table>
+				 </div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div id="projectexpenseLast3" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 50%;margin-left: 10%;" align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Highest Expense Items for <span id="highestBranchName"></span></h4>
+				<h5 id="expenseError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal"> 
+					<table class="table table-hover table-striped table-bordered transaction-create" id="expenseLast3Table" style="width: 600px;">
+					<thead class="tablehead1">
+						<tr>
+							<th>Item</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+					</table>
+				 </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Transaction Pending Approval Starts -->
+<div id="transPenApproveDashboard" class="modal fade" data-backdrop="static" data-keyboard="false" style="overflow:auto;" align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Pending Transaction Reference Number: <span class="pendingTxnRefNumber"></span></h4>
+				<h5 id="transPenApproveDashboardError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal"> 
+					<table class="table table-hover table-striped table-bordered transaction-create" id="transPenApproveDashboardTable">
+					<thead class="tablehead1">
+						<tr>
+							<th>Branch/Project</th>
+							<td>Item</td>
+							<th>Customer/Vendor</th>
+							<th>Date</th>
+							<th>Pay Mode</th>
+							<th>Unit/Per Unit Price</th>
+							<th>Amount/Amount Description</th>
+							<th>Status</th>
+							<td>Documents</th>
+							<th>Remarks</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="transPenApproveDashboardRow">
+						</tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+ </div>
+</div>
+<!-- Transaction Pending Approval Ends -->
+<!-- Transaction Exceeding Group Starts -->
+<div id="transExceedGroupDashboard" class="modal fade" data-backdrop="static" data-keyboard="false" style="overflow:auto;" align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">Transaction Exceeded Budget: <span class="pendingTxnRefNumber"></span></h4>
+				<h5 id="transExceedGroupDashboardError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal"> 
+				 <table class="table table-hover table-striped table-bordered transaction-create" id="transExceedGroupDashboardTable">              
+					<thead class="tablehead1">
+						<tr><th>Branch/Project</th><th>Item</td><th>Customer/Vendor</th><td>Date</th><th>Pay Mode</th><th>Unit/Per Unit Price</th>
+						<th>Amount/Amount Description</th><th>Status</th><th>Documents</th><th>Remarks</th></tr>
+					</thead>
+					<tbody id="transExceedGroupDashboardRow">
+					</tbody>
+				  </table>
+				 </div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Transaction Exceeding Group Ends -->
+<!-- Customer/Vendor Advance Modal -->
+<div id="customerAdvancePending" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 50%;margin-left: 10%;" align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Customer Advance pending</h4>
+				<h5 id="expenseError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+			<div class="form-horizontal">
+			 <div class="datascrolltable" STYLE=" height: 350px; overflow: auto;"> 
+			 <table class="table table-hover table-striped table-bordered transaction-create" id="advancePendingTable" style="width: 600px;">              
+				<thead class="tablehead1">
+					<tr>
+						<th>Customer Name</th>
+						<th>Advance Collected Amount</th>
+						<th>Advance Adjusted</th>
+						<th>Advance Pending</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			  </table>
+			  </div>
+			 </div>
+		</div>
+	</div>
+ </div>
+</div>
+<div id="vendorAdvancePending" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 50%;margin-left: 10%;" align="center" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Vendor Advance pending</h4>
+				<h5 id="expenseError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+			<div class="form-horizontal">
+			<div class="datascrolltable" STYLE=" height: 350px; overflow: auto;"> 
+			<table class="table table-hover table-striped table-bordered transaction-create" id="advancePendingTable" style="width: 600px;">              
+			<thead class="tablehead1">
+				<tr>
+					<th>Vendor Name</th>
+					<th>Advance paid amount</th>
+					<th>Advance Adjusted</th>
+					<th>Advance Pending</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+			</table>
+			</div>
+			</div>
+		</div>
+	</div>
+ </div>
+</div>
+<div id="advancePendingTransaction" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 50%;margin-left: 10%;" align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Advance pending In:<span class="advanceInEntityAccount"></span> Account:<span class="advanceInAccount"></span></h4>
+				<h5 id="expenseError" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal"> 
+				<div class="datascrolltable" STYLE="overflow: auto;">
+				<table class="table table-hover table-striped table-bordered transaction-create" id="advancePendingTransactionTable" style="width: 600px;">              
+				<thead class="tablehead1">
+					<tr>
+						<th>Advance Collected Amount</th>
+						<th>Advance Collected Date</th>
+						<th>Advance Pending Since</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				</table>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Customer/Vendor Advance Modal Ends Here-->

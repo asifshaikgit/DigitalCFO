@@ -1,0 +1,24 @@
+@(email:String, role:String,configParams:model.ConfigParams)
+<table style="width: 600px;font-family: sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td>
+				@(configParams.getCompanyApp()) CORP - Accounting Simplified
+			</td>
+		</tr>
+		<tr id="emailBody">
+			<td>
+				<table>
+					<tbody style="font-family: sans-serif;">
+						<tr><td style="font-size: 16px; font-weight: bold;">Role Added<br><br></td></tr>
+						<tr><td>You have been assigned the role : <span style="font-weight: bold; font-color: blue;">@role</span>. Please login into your account to see your new roles and responsibilities.<br><br></td></tr>
+						<tr><td><br><br>If you have problems, contact your Administrator.<br></td></tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

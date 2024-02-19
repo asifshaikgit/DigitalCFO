@@ -1,0 +1,53 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<div id="feedbackModal" class="modal hide fade mainDiv" data-backdrop="static" data-keyboard="false" style="width: 50%;margin-left: 10%; top: 10%;" align="center">
+  <div class="lightbox-block lightbox-location">
+    <div class="lightbox-holder">
+    <h2>Feedback</h2>
+    <h5 id="feedbackError" align="center"></h5>
+    <div class="belowheader carousel"></div>
+    <a id="fancybox-close" href="" class="" style="display: inline;" onclick="hideFeedback();"></a>
+      <div class="modal-body">
+        <div class="form-horizontal"> 
+          <div class="control-group" align="left">
+             <label class="control-label"><b>Name: </b></label>
+             <div class="controls">
+                <input type="text" id="feedbackName" name="feedbackName" class="input-xlarge">
+             </div><br/>
+             <div id="feedbackDiv">
+	             <label class="control-label"><b>Email: </b></label>
+	             <div class="controls">
+	                <input type="text" id="feedbackEmail" name="feedbackEmail" class="input-xlarge">
+	             </div><br/>
+             </div>
+             <label class="control-label"><b>Phone: </b></label>
+             <div class="controls">
+                <!-- <input type="text" id="feedbackNumber" name="feedbackNumber" class="input-xlarge"> -->
+                <select id="feedbackAreaCodes" onchange="feedbackAreaCodeChanged(this.value);" style="width:135px;">
+                	<option value="">-Please Select-</option>
+                </select>
+                <input type="text" id="feedbackPhoneNumber1"  maxlength="3" style="width: 25px;vertical-align: top;" onkeypress="return isNumber(event)" onkeyup="autotab(this)" name="feedbackPhoneNumber1">
+                -
+                <input type="text" id="feedbackPhoneNumber2" maxlength="3" style="width: 25px;vertical-align: top;" onkeypress="return isNumber(event)" onkeyup="autotab(this)" name="feedbackPhoneNumber2">
+                -
+                <input type="text" id="feedbackPhoneNumber3"  maxlength="4" style="width: 25px;vertical-align: top;" onkeypress="return isNumber(event)" onkeyup="autotab(this)" name="feedbackPhoneNumber3">
+             </div><br/>
+             <label class="control-label"><b>Subject: </b></label>
+             <div class="controls">
+                <input type="text" id="feedbackSubject" name="feedbackSubject" class="input-xlarge">
+             </div><br/>
+             <label class="control-label"><b>Feedback: </b></label>
+             <div class="controls" align="left">
+             <textarea id="feedbackText" name="feedbackText" style="width: 264px; height: 150px; color: #555555; font-size: 14px;"></textarea>
+             </div>
+           </div>
+         </div>
+      </div>
+      <div class="modal-footer" style="text-align: justify;">
+        <div class="controls" align="center">
+           <button id="submitFeedback" class="btn btn-primary btn-idos" title="Submit Feedback" onclick="feedbackSubmit();">Submit Feedback</button>
+           <button id="submitFeedbackCancel" class="btn btn-primary btn-idos" title="Cancel" onclick="hideFeedback();">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

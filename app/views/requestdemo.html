@@ -1,0 +1,226 @@
+@(configParams:model.ConfigParams)
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<style>
+p.small {
+    line-height: 0.7;
+}
+
+h4.big {
+    line-height: 2.5;
+}
+</style>
+    <meta charset="utf-8">
+	 <link rel="shortcut icon" href="assets/website/img/logo.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@(configParams.getCompanyApp())/Request a Demo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/website/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/website/css/style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/website/css/modern-business.css" rel="stylesheet">
+	<link href="assets/website/css/round-about.css" rel="stylesheet">
+	<link href="assets/website/css/footer.css" rel="stylesheet">
+	
+	<link href="assets/website/css/cform.css" rel="stylesheet">
+	<link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Arimo|Oswald|Raleway:400,800,900,600,700,600italic' rel='stylesheet' type='text/css'>
+    <!-- Custom Fonts -->
+    <link href="assets/website/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<style>
+		body{
+			font-family:arimo;
+		}
+		.breadcrumb	a{
+			color: #B1283A;
+		}
+		.breadcrumb	a:hover{
+			color: #B1283A;
+		}
+	</style>
+	
+	<!-----Google Analytics Start----->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-72593005-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+		<!-----Google Analytics End----->
+	<script>
+		function getQueryVariable(variable){
+		   var query = window.location.search.substring(1);
+		   var vars = query.split("&");
+		   for (var i=0;i<vars.length;i++) {
+				   var pair = vars[i].split("=");
+				   if(pair[0] == variable){return pair[1];}
+		   }
+		   return(false);
+		}
+	</script>
+</head>
+<body>
+
+    @indexhead(){
+	}
+    <!-- Page Content -->
+   <div class="container">
+		<!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Request a Demo
+                    <small>@(configParams.getCompanyApp())</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a>
+                    </li>
+                    <li class="active">Request a Demo</li>
+                </ol>
+            </div>
+        </div>
+		<div class="row">
+           <div class="col-md-5">
+			<form id="demoForm" method="post">
+				<div id="contact-form" class="form-container" data-form-container>
+					<div class="row">
+						<div class="form-title">
+							<h1><b>Request a Demo</b></h1>
+						</div>
+					</div>
+					<div id="mydiv" style="color:#48b24b;font-weight:bold;margin-bottom: 10px;">
+						<script>
+                        var c =(getQueryVariable("msg3"));
+						if(c != null && c != ""){
+							var replaced = c.replace(/%20/g, " ");
+							document.write(replaced);
+							setTimeout(function() {
+								$('#mydiv').fadeOut('fast');
+							}, 3000);
+						}
+						</script>
+					</div>
+					<div id="mydiv1" style="color:red;font-weight:bold;margin-bottom: 10px;">
+						<script>
+							var c1 =(getQueryVariable("error3"));
+							if(c1 != null && c1 != ""){
+								var replaced1 = c1.replace(/%20/g, " ");
+								document.write(replaced1);
+													setTimeout(function() {
+								$('#mydiv1').fadeOut('fast');
+								}, 3000);
+							}
+						</script>
+                    </div>
+				<div class="input-container ">
+				<div class="row">
+					<span class="req-input" >
+						<span  data-toggle="tooltip" data-placement="top" title="Input Your First and Last Name."> </span>
+						<input type="text" class="requiredField" id="contactName" data-min-length="8" placeholder="Please provide your Name" required >
+					</span>
+				</div>
+				<div class="row">
+					<span class="req-input">
+						<span  data-toggle="tooltip" data-placement="top" title="Please Input Your Email."> </span>
+						<input type="email" class="email requiredField" id="contactemail" placeholder="Please provide your valid Email" required>
+					</span>
+				</div>
+				<div class="row">
+					<span class="req-input">
+						<span  data-toggle="tooltip" data-placement="top" title="Please Input Your Phone Number."> </span>
+						<input type="tel"  class="requiredField"  id="contactphone" placeholder="Please provide your Phone Number"  required>
+					</span>
+				</div>
+				<div class="row">
+					<span class="req-input">
+						<span  data-toggle="tooltip" data-placement="top" title="Please Input Your Company Name."> </span>
+						<input type="text" class="requiredField" id="contactcompany" placeholder="Please provide your Company Name" required>
+					</span>
+				</div>
+				<div class="row">
+					<span class="req-input message-box">
+						<span  data-toggle="tooltip" data-placement="top" title="Please Include a Message."> </span>
+						<textarea id="contactcomments" data-min-length="10" placeholder="Please provide Message"></textarea>
+				</div>
+				<div class="row submit-row">
+					<button type="button" id="demoButton"  class="btn btn-block submit-form" style="font-size:27px;font-weight:bold;"><b>Submit</b></button>
+				</div>
+			</div>
+			</div>
+			</form>
+		</div>
+			<div class="col-md-7">
+				<h1> Discover How @(configParams.getCompanyApp()) Can Simplify Accounting For You. </h><br>
+				<h4 style="color:#00BCD4;" class="big"><b>WANT TO SEE HOW @(configParams.getCompanyApp()) CAN HELP GROW YOUR BUSINESS?</b></h4>
+				<h4 class="big">One of our experts will email you and schedule a 1-on-1 consultation.</h4>
+				<h4 class="big"><b>We'll show how with @(configParams.getCompanyApp()) you can:</b></h4>
+				<ul class="list-unstyled">
+							<ul>
+								<li><p style="font-size:18px;">Manage accounting without knowledge of debit & credit and without prior experience in accounting.</p></li>
+								<li><p style="font-size:18px;">Give you a complete view of how you can manage your business including 
+																accounting, compliance and financial management with our Digital CFO.</p></li>
+								<li><p style="font-size:18px;">Showcase the ability to access ledgers, inventory reports, trial balance,
+																	Accounting MIS and Decision Maker MIS in realtime and from anywhere at any time.</p></li>
+							</ul>
+				</ul>
+			</div>
+		</div>
+                
+</div>
+
+        <!-- Page Heading/Breadcrumbs -->
+        
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="assets/website/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="assets/website/js/bootstrap.min.js"></script>
+
+</body>
+<!-- Call to Action Section -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="callout-dark text-center fade-in-b">
+					<h1>Start your <b>Free</b> @(configParams.getCompanyApp()) trial <a href="/signUp#signUpDiv" class="btn btn-info"><strong>Register</strong></a>
+					<a href="/requestdemo" class="btn btn-info"><strong>Request a Demo</strong></a></h1>
+					<p><font color="#ffffff">Try out @(configParams.getCompanyApp()) for 15 days, completely free of charge.</font></p>
+				</div>
+			</div>
+			
+		</div>
+        
+
+        <hr>
+<!-- Footer -->
+@indexfooter(configParams){
+}
+<!--footer End here-->
+</html>

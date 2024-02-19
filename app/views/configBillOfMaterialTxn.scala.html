@@ -1,0 +1,146 @@
+@(fullName: String, email: String, role: String, orgn: model.Organization, allowedProcurement: String)(content: Html)
+@if(role.contains("CREATOR")) {
+	<div class="transactionDetailsTable" id="billOfMaterialTxnDiv" style="overflow: auto; display: none;">
+		<table class="table excelFormTable transaction-create" id="txnBOMTable">
+			<thead class="tablehead1">
+				<tr id="bomHeadTr">
+					<th>Branch</th><th>Create or Edit</th>
+					<th class="txnBomTdCls">Select BOM</th><th> Master item / service</th><th>No of Units</th><th>Assign to Customer</th>
+					<th>Remarks</th><th>Private Remarks</th><th>Upload</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <tr id="bomtxntrid">
+				<td>
+					<select class="txnBranches" name="bomTxnForBranches" id="bomTxnForBranches" onChange="resetMainTxnTable(this); resetMultiBomTableLength('multipleItemsBomTxnTbl'); resetMultiItemsTableData('multipleItemsBomTxnTbl'); populateProjectItemBasedOnTxnPurposeBranchSelection(this); getBomIncomeItemsByBranch(this); getCustomerListForBranch(this); getCoaItems4BomTxnList(this); "><option value="">--Please Select--</option></select>
+					<p class="para-tm5-bm0 snglUsrDply">Project</p>
+					<select class="txnForProjects" id="bomTxnForProjects" onChange="resetMultiBomTableLength('multipleItemsBomTxnTbl'); resetMultiItemsTableData('multipleItemsBomTxnTbl');"><option value="">--Please Select--</option></select>
+				</td>
+				<td>
+					<select class="bomIsEdit" id="bomTxnIsEdit" onChange="resetMultiBomTableLength('multipleItemsBomTxnTbl'); resetMultiItemsTableData('multipleItemsBomTxnTbl'); getPendingBomTxn4Branch(this);">
+						<option value="">--Please Select--</option>
+						<option value="1">Create</option>
+						<option value="2">Edit</option>
+					</select>
+				</td>
+				<td class="txnBomTdCls">
+				<select class="txnBomCls" id="txnBomTxnList" style="display:none;" onChange="resetMultiBomTableLength('multipleItemsBomTxnTbl'); resetMultiItemsTableData('multipleItemsBomTxnTbl'); getBillOfMaterialTxnDetail(this);"><option value="">--Please Select--</option></select></td>
+				<td>
+					<select class="txnItems" id="txnBomMasterItem" onChange="resetMultiBomTableLength('multipleItemsBomTxnTbl'); getBomDetailForIncomeItem(this);"><option value="">--Please Select--</option></select>
+				</td>
+				<td>
+					<input class="txnNoOfUnit" type="text" id="bomTxnIncomeNoOfUnit" onkeypress="return onlyDotsAndNumbers(event);" onKeyup="updateBomExpenseUnitBasedOnIncomeUnits(this);"/>
+				</td>
+				<td>
+					<select class="masterList" id="bomTxnCustomer"></select>
+				</td>
+				<td><textarea class="voiceRemarksClass" id="bomTxnRemark" rows="3" placeholder="Input Remarks"></textarea></td>
+				<td><textarea class="voiceRemarksClassPrivate" id="bomTxnRemarksPrivate" rows="3" placeholder="Input Private Remarks"></textarea></td>
+				<td><select id="bomTxnUploadSuppDocs" name="bomTxnuploadSuppDocs" class="txnUploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+					<button id="bomTxnuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+					<button id="bomTxnuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="bomTxnuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+					<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+				</td>
+			 </tr>
+			</tbody>
+		</table>
+		<span style="width:100%; height:25px; font-size: 11px;">
+			<div class="itemParentNameDiv" style="max-width:25%; display:inline-block;"></div><span class="snglUsrDply"><div class="actualbudgetDisplay" style="max-width:25%; display:inline-block;"></div><div class="budgetDisplay" style="max-width:25%; display:inline-block;"></div><div class="amountRangeLimitRule" style="max-width:25%; display:inline-block;"></div></span>
+		</span>
+		<div id="staticmultipleitemsbom" class="staticsellmultipleitems" style="overflow: auto; max-height: 350px;">
+		   <table class="multipleItemsTable" id="multipleItemsBomTxnTbl">
+			   <thead class="tablehead1">
+					<tr><th><button id="bomTxnAddNewItem" class="addnewItemForTransaction" title="add more items"><i class="fa fa-plus-circle fa-lg"></i></button>Items</th>
+						<th>Unit of Measure</th>
+						<th>Number of units</th>
+						<th>Preferred vendor</th>
+						<th>Preferred OEM</th>
+						<th>Type of material</th>
+						<th>Knowledge Library</th>
+						<th>Inventory Status</th>
+						<th><button style="cursor: pointer;" class="removeItemForTransaction" id="removeItemForTransaction" title="remove item"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="bomtxnitm0">
+						<td>
+						<input type="hidden" class="bomItemTxnIdCls" value=""/>
+						<select class="txnItems" id="bomTxnExpItems" onChange="onBillOfMaterialTxnItemChange(this);"><option value="">--Please Select--</option></select></td>
+						<td><select class="txnUnitOfMeasure" id="bomTxnUnitOfMeasure"><option value="">Please Select</option></select></td>
+						<td><input class="txnNoOfbomUnit" type="text" id="bomTxnNoOfUnit" onkeypress="return onlyDotsAndNumbers(event);" onKeyup="updateBomExpenseUnit(this);"/><input class="txnNoOfbomUnitHidden" type="hidden" id="bomTxnNoOfUnitHidden"/></td>
+						<td><select class="masterList" id="bomTxnVendor"><option value="">--Please Select--</option></select></td>
+						<td><input class="txnOme" type="text" id="bomTxnOme" /></td>
+						<td><select class="txnTypeOfMaterial" id="bomTxnTypeOfMaterial"><option value="">Please Select</option><option value="1">Perishable</option><option value="2">Non Perishable</option><option value="3">Combustible</option><option value="4">Easily Available</option><option value="5">Rare Commodity</option><option value="6">Long Delivery Period</option><option value="7">High Value</option><option value="8">Low Value</option><option value="9">Difficult To Transport</option><option value="10">Imported</option></select></td>
+						<td><div class="klBranchSpecfTd" style="max-height: 50px; overflow: auto;"></div></td>
+						<td><input class="txnInStockUnit" type="text" readonly="readonly" id="bomTxnInventoryStatus"/></td>
+						<td><input class="removeTxnCheckBox" type="checkbox" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<button id="bomTxncancelButton" class="compcancelButton btn btn-cancel btn-customred" title="Cancel" onclick="cancel(); deleteUncomittedFiles();">Cancel Transaction</button>
+		<button id="bomTxnsubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+	</div>
+
+	<div class="transactionDetailsTable" id="materialIssueNoteTxnDiv" style="overflow: auto; display: none;">
+		<table class="table excelFormTable transaction-create" id="materialIssueNoteTxnTbl">
+			<thead class="tablehead1">
+				<tr>
+					<th>Branches  <i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i><span class="snglUsrDply"></span><i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+					<th>Bill of Materials</th>
+					<th>Customers</th>
+					<th>Transaction notes</th><th>Private notes</th><th>Supporting Docs</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <tr id="matinttrid">
+				<td>
+					<select class="txnBranches" name="matintTxnForBranches" id="matintTxnForBranches" onChange="populateProjectItemBasedOnTxnPurposeBranchSelection(this); getCustomerListForBranch(this); getCoaItems4BomTxnList(this);"><option value="">Please Select</option></select>
+					<p class="para-tm5-bm0 snglUsrDply">Project</p>
+					<select class="txnForProjects" name="matintTxnForProjects" id="matintTxnForProjects">
+						<option value="">Please Select</option>
+					</select>
+				</td>
+				<td>
+					<select class="txnBom" name="matintTxnBom" id="matintTxnBom">
+						<option value="">Please Select</option>
+					</select>
+				</td>
+				<td><select class="masterList" name="matintVendor" id="matintVendor" onchange="getVendorGstinList(this);"><option value="">--Please Select--</option></select></td>
+
+				<td><textarea class="voiceRemarksClass" name="matintRemarks" id="matintRemarks" rows="3" placeholder="Input Remarks"></textarea></td>
+				<td><textarea class="voiceRemarksClassPrivate" name="matintRemarksPrivate" id="matintRemarksPrivate" rows="3" placeholder="Input Private Remarks"></textarea></td>
+				<td>
+					<select id="matintuploadSuppDocs" name="matintuploadSuppDocs" class="txnUploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+					<br/>
+					<button id="matintuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+					<button id="matintuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="matintuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+					  <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+
+				 </td>
+			 </tr>
+			</tbody>
+		</table>
+		<div id="staticsellmultipleitemsmatint"  class="staticsellmultipleitems" style="overflow: auto; max-height:350px; ">
+			<table class="multipleItemsTable" id="multipleItemsTablematint"  style="margin-top: 5px;">
+			  <thead class="tablehead1">
+				<tr><th><button class="addnewItemForTransaction" id="addnewItemForTransaction"><i class="fa fa-plus-circle fa-lg"></i></button>Items</th><th>Quantity committed</th><th>Quantity already issued</th><th>Quantity to issue now</th><th><button class="removeItemForTransaction" id="removeItemForTransaction"><i class="fa fa-minus-circle fa-lg"></i></button></th></tr>
+			 </thead>
+				<tbody>
+					<tr id="matint0">
+						<td><select class="txnItems" id="matintItem" onChange="clearMultiItemsCurrentRowData(this); getExpenseItemAvailableStock(this); showTransactionBranchKnowledgeLiabrary(this);"><option value="">Please Select</option></select></td>
+						<td><input class="txnCommitedUnit" placeholder="Committed Units" type="text" id="matintCommitedUnit" onkeypress="return onlyDotsAndNumbers(event);"></td>
+						<td><input class="txnOrderedUnit" placeholder="Ordered Units" type="text"  id="matintOrderedUnit" onkeypress="return onlyDotsAndNumbers(event);"></td>
+						<td><input class="txnNetUnit" placeholder="Net Units" type="text" id="matintNetUnit" onkeypress="return onlyDotsAndNumbers(event);"></td>
+						<td><input class="removeTxnCheckBox" type="checkbox"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<button id="matintcancelButton" class="compcancelButton btn btn-cancel cancel" title="Cancel" onClick="cancel(); deleteUncomittedFiles();">Cancel Transaction</button>
+		<button id="matintsubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+	</div>
+
+}

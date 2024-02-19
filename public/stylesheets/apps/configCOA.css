@@ -1,0 +1,88 @@
+#itemBranch2BtnList > li > b > input[type="text"] {height: 20px; width: 100px; margin:1px;}
+#itemBranch2Btn {width: 140px; border: 1px solid rgb(150, 150,151); background-color: #ffffff; border-radius: 3px; !important;}
+
+.txtBox80{ width: 50px !important; }
+
+#itemBranch2BtnList{
+  list-style-type: none; 
+  margin: 0px; 
+  padding: 0px; 
+  max-height: 220px; 
+  overflow-y: auto; 
+  overflow-x: auto;
+  display:block;
+}
+
+.searchGSTItem {
+    height: 28px;
+    border-radius: 3px;
+    font-size: 11px;
+    border: 1px solid #72808b;
+    width:30px; 
+    margin-left:-4px; 
+    margin-top:-3px; 
+    padding-left:7.5px;"
+}
+
+
+#gstPOSerialList > li > input[type="text"], 
+#gstCreditNoteSerialList > li > input[type="text"], 
+#gstDebitNoteSerialList > li > input[type="text"], 
+#gstAdvanceReceiptSerialList > li > input[type="text"], 
+#gstReceiptSerialList > li > input[type="text"], 
+#gstQuotationSerialList > li > input[type="text"], 
+#gstProformaSerialList > li > input[type="text"], 
+#gstRefundAdvSerialList > li > input[type="text"], 
+#gstRefundAmtAgainstInvoiceSerialList > li > input[type="text"],  
+#gstSalesInvoiceSerialList > li > input[type="text"] {
+    height: 25px;
+    width: 100px;
+    margin: 1px;
+}
+
+#gstPOSerialList, 
+#gstCreditNoteSerialList, 
+#gstDebitNoteSerialList, 
+#gstAdvanceReceiptSerialList, 
+#gstRefundAdvSerialList,
+#gstRefundAmtAgainstInvoiceSerialList,
+#gstReceiptSerialList, 
+#gstQuotationSerialList, 
+#gstProformaSerialList, 
+#gstSalesInvoiceSerialList {
+  list-style-type: none; 
+  margin: 0px; 
+  padding: 0px; 
+  max-height: 220px; 
+  overflow-y: auto; 
+  overflow-x: auto;
+  display:block;
+}
+
+.coaNameDisplay {
+  width: 700px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.coaPlusMinusImage {
+  margin-top:-2px;
+  float: left;
+  margin-top: 5px;
+}
+
+.userCoaNameDisplay {
+  width: 430px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.newItemform-container .table {
+      width: auto !important;
+}
+
+
+
+

@@ -1,0 +1,23 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="budgetSetup" class="tab-pane mainDiv" style="display: none;">
+	@if(role.contains("MASTER ADMIN")){
+		<div class="content">
+			<div class="panel panel-showtrans">  
+				<div class="panel-body">
+						<a href="#budgetSetup" class="pl-5" onclick="getBudgetTemplate();"><i class="fa fa-download pl-5 pr-5"></i>Click To Download Budget Template</a>
+						<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) provides you the capability to review and control your expense budgets in real-time. To use this facility, you need to first set up chart of account and link different expense items to branches. After the chart of account is setup and expenses are linked to branches, click on this link and you will be able to download (in Microsoft Excel format) branch-wise expense listing in different worksheets. Fill in the monthly budget numbers for each of the expenses under different months and save this Excel worksheet. @(configParams.getCompanyApp()) will automatically compute the totals. Then click on <b>Choose file</b> next to Upload budget and upload the file you have saved earlier. @(configParams.getCompanyApp()) will automatically link each of the expenses with the corresponding budget numbers for each branch. Thereafter when users in that branch process expense transactions, @(configParams.getCompanyApp()) will display in real time if the expense if within budget or exceeds budget and when expense approver logs in, he can view all transactions exceeding budgets and either stop such expenses or delay such expenses in real-time."></i>
+					
+					<h5 class="alert success"><i class="ml12"></i><b class="panel-title">Upload Budget Template.</b></h5>
+					<div class="navbar-transaction">
+						<form id="myBudgetForm" class="pl-5" action="/config/uploadbudget" method="post" enctype="multipart/form-data"> 
+							<p id="uploadchtofact" style="float: left;"><b>Upload Budget: &nbsp;<span class="errorMessage">*</span></b>&nbsp;<input type="File" id="uploadbudget" name="uploadbudget" style="margin-left: 150px; position: relative; top: -20px;"></input></p> 
+							<button type="button" id="uploadBudget" class="uploadBudget btn btn-primary btn-idos" title="Upload Budget" style="margin-left: 6px; position: relative;"><i class="fa fa-upload pr-5"></i>Upload Budget</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+	@budgetTable(fullName,email,role,orgn,allowedProcurement){
+	} 
+</div>

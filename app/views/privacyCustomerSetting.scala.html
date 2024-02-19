@@ -1,0 +1,79 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="privaySettingDiv" style="display: none;">
+	<input type="hidden" id="settingUserId" value="" />
+	<input type="hidden" id="settingUserEmail" value="" />
+	<div id="privacyLeftPanel">
+		<div class="leftpanel-subdiv">
+			<div class="inner-left" style="border-top: 1px solid #d8dce0">
+				<span class="common-image-leftpanel general-leftpanel" id="generalCustomerSetting">General</span>
+			</div>
+			<div class="inner-left">
+				<span class="profile-leftpanel common-image-leftpanel" id="profileCustomerSetting">Profile</span>
+			</div>
+		</div>
+	</div>
+	<div class="right-line"></div>
+	<div id="privacyRightPanel">
+		<div id="settingMessage"></div>
+		<div id="generalCustomerSetting_content" class="common-rightpanel">
+			<div class="setting-header-rightpanel">
+				<span class="setting-header">General Account Details</span><!-- <span class="setting-edit">Edit</span> -->
+			</div>
+			<div style="padding: 30px 20px;">
+				<div class="table-rightpanel">
+					<div class="row-rightpanel">
+						<div class="column-rightpanel">Name</div><div class="columnvalue-rightpanel" id="disName"></div>
+					</div>
+					<div class="row-rightpanel">
+						<div class="column-rightpanel">Email</div><div class="columnvalue-rightpanel" id="disEmail"></div>
+					</div>
+					<div class="row-rightpanel">
+						<div class="column-rightpanel">Organisation</div><div class="columnvalue-rightpanel" id="disOrg"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="profileCustomerSetting_content" style="display: none;" class="common-rightpanel">
+			<div class="setting-header-rightpanel">
+				<span class="setting-header">Profile Settings</span>
+			</div>
+			<div style="padding: 30px 20px;">
+				<div class="table-rightpanel">
+					<div class="row-rightpanel">
+						<div class="column-rightpanel" style="width: 400px;">Name</div><input type="text" id="settingName" class="columnvalue-rightpanel" style="width: 272px;"/>
+					</div>
+					<div class="row-rightpanel">
+						<div class="column-rightpanel" style="width: 400px;">Email</div><input type="text" id="settingEmail" class="columnvalue-rightpanel" style="width: 272px;"/>
+					</div>
+					<div class="row-rightpanel">
+						<div class="column-rightpanel" style="width: 400px;">Location</div><input type="text" id="settingLocation" class="columnvalue-rightpanel" style="width: 272px;"/>
+					</div>
+					<div class="row-rightpanel">
+						<div class="column-rightpanel" style="width: 400px;">Country</div>
+						<select class="countryCode" id="settingCountryCode">
+							<option value="">--Please Select--</option>
+						</select>
+					</div>
+					<div class="row-rightpanel">
+						<div class="column-rightpanel" style="width: 400px;">Phone Number</div>
+						<select class="countryPhnCode" id="settingPhoneCode">
+							<option value="">--Please Select--</option>
+						</select>
+						<input type="text" id="settingPhone1" maxlength="3" style="width: 25px;vertical-align: top;" onkeypress="return isNumber(event)" onkeyup="autotab(this)" name="settingPhone1">-
+					    <input type="text" id="settingPhone2" maxlength="3" style="width: 25px;vertical-align: top;" onkeypress="return isNumber(event)" onkeyup="autotab(this)" name="settingPhone2">-
+					    <input type="text" id="settingPhone3" maxlength="4" style="width: 32px;vertical-align: top;" onkeypress="return isNumber(event)" name="settingPhone3">
+					</div>
+					<div class="row-rightpanel">
+						<div class="column-rightpanel" style="width: 400px;">Address</div><textarea id="settingAddress" style="width: 267px;"></textarea>
+					</div>
+					<div class="row-rightpanel btn-rightpanel" style="border-bottom: 0;">
+						<div class="columnvalue-rightpanel" style="height: 28px; padding-left: 400px;">
+							<button id="settingSaveCustomerProfile" class="btn btn-primary btn-idos" title="Update Profile">Update Profile</button>
+							<!-- <button id="settingCancelProfile" class="btn btn-primary settingClear" title="Clear Fields">Cancel</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

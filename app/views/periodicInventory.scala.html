@@ -1,0 +1,324 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="periodicInventory" class="tab-pane mainDiv" style="display: none;">
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="navbar-transaction">
+			
+			<div class="dropdown" style="display:inline;">
+   									 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports
+    								<span class="caret"></span></button>
+    								<ul class="dropdown-menu" style="margin-top:10px;">
+										<li id="cashAndBankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="1">Cash Book</a></li>
+										<li id="bankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="2">Bank Book</a></li>
+										<li id="trialBalanceallBranches" onclick="changeReportPanel(this);"><a data-id="3">Trial Balance</a></li>
+										<li id="reportAllInventoryItems" onclick="changeReportPanel(this);"><a data-id="4">Inventory Report</a></li>
+										<li id="plbscoamapping" onclick="changeReportPanel(this);"><a data-id="5">Mapping-COA</a></li>
+							</ul>
+ 						 </div>
+			</div>
+		</div>
+    </div>
+
+
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="panel-title">Periodic Inventory</div>
+				<div id="search-launch-top"><a href="#pendingExpense" id="newTrialBalanceform" onclick="$('#pendingExpense').show();$('#trialBalance').hide();$('#cashAndBank').hide();$('#periodicInventory').hide();$('#reportInventory').hide();$('#reportAllInventory').hide();"><i class="fa fa-times fa-1x close-legend" id="newTrialBalanceform-container-close"></i></a></div>
+				<table class="table table-hover table-striped table-bordered excelFormTable" id="periodicInventoryCriteriaTable" style="margin-top: 0px;">
+					<thead class="tablehead1">
+							<tr><th>Select Branch</th><th>From Date</th><th>To Date</th><th><th><th></th></tr>
+					</thead>
+					<tbody>
+							<tr>
+								<td style="width:140px !important;">
+									<select class="bnchCashnBankTrialBalance" name="selectBnchPeriodicInventory" id="selectBnchPeriodicInventoryId"><option value="">--Please Select--</option></select>
+								</td>
+								<td style="width:140px !important;">
+									<input class="datepicker" type="text"  name="periodicInventoryFromDate" id="periodicInventoryFromDate"/>
+								</td>
+								<td style="width:140px !important;">
+									<input class="datepicker" type="text"  name="periodicInventoryToDate" id="periodicInventoryToDate"/>
+								</td>
+								<td><button id="searchPeriodicInventory" style="margin-left:0px;" class="searchPeriodicInventory btn btn-submit btn-idos" title="Periodic Inventory">Periodic Inventory</button></td>
+								<td><button id="exportPeriodicInventoryXLSX" style="margin-left:0px;" class="exportPeriodicInventoryXLSX btn btn-submit btn-idos" title="Periodic Inventory" onclick="exportPeriodicInventory(this)">Export Periodic Inventory(XLSX)</button></td>
+								<td><button id="exportPeriodicInventoryPDF" style="margin-left:0px;" class="exportPeriodicInventoryPDF btn btn-submit btn-idos" title="Periodic Inventory" onclick="exportPeriodicInventory(this)">Export Periodic Inventory(PDF)</button></td>
+							</tr>
+					</tbody>
+				</table>
+				<div class="datascrolltable">
+					<table class="table table-bordered transaction-create periodicInventoryTableClass" id="periodicInventoryTable">
+						<thead class="tablehead1">
+							<tr>
+								<th style="width:350px !important;">Particulars</th>
+								<th>Date</th>
+								<th>Incoming/Outgoing Inventory</th>
+								<th>Units</th>
+								<th>Price</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="reportInventory" class="tab-pane mainDiv" style="display: none;">
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="navbar-transaction">
+			<div class="dropdown" style="display:inline;">
+   									 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports
+    								<span class="caret"></span></button>
+    								<ul class="dropdown-menu" style="margin-top:10px;">
+										<li id="cashAndBankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="1">Cash Book</a></li>
+										<li id="trialBalanceallBranches" onclick="changeReportPanel(this);"><a data-id="3">Trial Balance</a></li>
+										<li id="reportAllInventoryItems" onclick="changeReportPanel(this);"><a data-id="4">Inventory Report</a></li>
+							</ul>
+ 						 </div>
+			</div>
+		</div>
+    </div>
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="panel-title">Inventory Periodic Report</div>
+				<div id="search-launch-top"><a href="#pendingExpense" id="newTrialBalanceform" onclick="$('#pendingExpense').show();$('#trialBalance').hide();$('#cashAndBank').hide();$('#periodicInventory').hide();$('#reportInventory').hide();$('#reportAllInventory').hide();"><i class="fa fa-times fa-1x close-legend" id="newTrialBalanceform-container-close"></i></a></div>
+				<table class="table table-hover table-striped table-bordered excelFormTable" id="reportInventoryCriteriaTable" style="margin-top: 0px;">
+					<thead class="tablehead1">
+							<tr><th>Select Branch</th><th>From Date</th><th>To Date</th><th><th><th></th></tr>
+					</thead>
+					<tbody>
+							<tr>
+								<td style="width:140px !important;">
+									<select class="bnchCashnBankTrialBalance" name="selectBnchReportInventory" id="selectBnchReportInventoryId"><option value="">--Please Select--</option></select>
+								</td>
+								<td style="width:140px !important;">
+									<input class="datepicker" name="reportInventoryFromDate" id="reportInventoryFromDate"/>
+								</td>
+								<td style="width:140px !important;">
+									<input class="datepicker" name="reportInventoryToDate" id="reportInventoryToDate"/>
+								</td>
+								<td><button id="searchReportInventory" style="margin-left:0px;" class="searchReportInventory btn btn-submit btn-idos" title="Inventory Periodic Report" onclick="displayReportInventory();">Inventory Report</button></td>
+								<td><button id="exportReportInventoryXLSX" style="margin-left:0px;" class="exportReportInventoryXLSX btn btn-submit btn-idos" title="Inventory Periodic Report" onclick="exportReportInventory(this)">Export Inventory Report(XLSX)</button></td>
+								<td><button id="exportReportInventoryPDF" style="margin-left:0px;" class="exportReportInventoryPDF btn btn-submit btn-idos" title="Inventory Periodic Report" onclick="exportReportInventory(this)">Export Inventory Report(PDF)</button></td>
+							</tr>
+					</tbody>
+				</table>
+				<div class="datascrolltable">
+					<table class="table table-bordered transaction-create reportInventoryTableClass" id="reportInventoryTable">
+						<thead class="tablehead1">
+							<tr>
+								<th style="width:350px !important;">Particulars</th>
+								<th>Date</th>
+								<th>Opening Inventory</th>
+								<th>Purchase</th>
+								<th>Sell</th>
+								<th>Closing Inventory</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="reportAllInventory" class="tab-pane mainDiv" style="display: none;">
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="navbar-transaction">
+			<div class="dropdown" style="display:inline;">
+   									 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports
+    								<span class="caret"></span></button>
+    								<ul class="dropdown-menu" style="margin-top:10px;">
+										<li id="cashAndBankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="1">Cash Book</a></li>
+										<li id="bankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="2">Bank Book</a></li>
+										<li id="trialBalanceallBranches" onclick="changeReportPanel(this);"><a data-id="3">Trial Balance</a></li>
+										<li id="reportAllInventoryItems" onclick="changeReportPanel(this);"><a data-id="4">Inventory Report</a></li>
+									</ul>
+ 						 </div>
+			</div>
+		</div>
+    </div>
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="panel-title">Inventory Report</div>
+				<div id="search-launch-top"><a href="#pendingExpense" id="newTrialBalanceform" onclick="$('#pendingExpense').show();$('#trialBalance').hide();$('#cashAndBank').hide();$('#periodicInventory').hide();$('#reportInventory').hide();$('#reportAllInventory').hide();"><i class="fa fa-times fa-1x close-legend" id="newTrialBalanceform-container-close"></i></a></div>
+				<table class="table table-bordered excelFormTable" id="reportAllInventoryCriteriaTable" style="margin-top: 0px;">
+					<thead class="tablehead1">
+							<tr><th>Select Branch</th><th>Select Item</th><th>From Date</th><th>To Date</th><th><th><th></th></tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="width:140px !important;">
+								<select class="bnchCashnBankTrialBalance" name="selectBnchReportAllInventory" id="selectBnchReportAllInventoryId"><option value="">--Please Select--</option></select>
+							</td>
+							<td style="width:140px !important;">
+								<select class="allInventorySpecificsItemClass" name="allInventorySpecificsItemName" id="allInventorySpecificsItemId"><option value="">--Please Select--</option></select>
+							</td>
+							<td style="width:140px !important;">
+							<input class="datepicker" type="text" name="allreportInventoryFromDate" id="allreportInventoryFromDate"/> </td>
+							<td style="width:140px !important;">
+							<input class="datepicker" type="text" name="allreportInventoryToDate" id="allreportInventoryToDate"/>
+							</td>
+							<!--
+							<td style="width:140px !important;">
+								<input class="datepicker" name="allreportInventoryFromDate" id="allreportInventoryFromDate"/>
+							</td>
+							<td style="width:140px !important;">
+								<input class="datepicker" name="allreportInventoryToDate" id="allreportInventoryToDate"/>
+							</td>
+							<td><button id="searchReportAllInventoryItems" style="width: 210px;margin-left:0px;" class="searchReportAllInventoryItems btn btn-submit btn-idos" title="Inventory Report" onclick="displayReportAllInventoryItems();">Inventory Report</button></td>
+						<td><button id="exportReportAllInventoryItemsXLSX" style="width: 225px;margin-left:0px;" class="exportReportAllInventoryItemsXLSX btn btn-submit btn-idos" title="Inventory Report" onclick="exportReportAllInventoryItems(this)">Export Inventory Report(XLSX)</button></td>
+						<td><button id="exportReportAllInventoryItemsPDF" style="width: 225px;margin-left:0px;" class="exportReportAllInventoryItemsPDF btn btn-submit btn-idos" title="Inventory Report" onclick="exportReportAllInventoryItems(this)">Export Inventory Report(PDF)</button></td>
+						-->
+						<td>
+						<button id="searchReportAllInventoryItems" style="margin-left:10px; " class="searchReportAllInventoryItems btn btn-submit btn-idos" title="Inventory Report" onclick="displayReportAllInventoryItems();"><i class="fa fa-search pr-5"></i> Search</button>
+						<button id="exportReportAllInventoryItemsXLSX" style="margin-left:10px; " class="exportReportAllInventoryItemsXLSX btn btn-submit btn-idos" title="Export Inventory Report as XSLS" onclick="exportReportAllInventoryItems(this)"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Save as xlsx</button>
+						<button id="exportReportAllInventoryItemsPDF" style="margin-left:10px; " class="exportReportAllInventoryItemsPDF btn btn-submit btn-idos" title="Export Inventory Report as PDF" onclick="exportReportAllInventoryItems(this)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Save as pdf</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="datascrolltable">
+					<table class="table table-bordered table-hover table-striped reportInventoryTableClass" id="reportAllInventoryTable">
+						<thead class="tablehead1">
+							<tr>
+								<th rowspan="2" style="width:200px !important;">Items</th>
+								<th rowspan="2">Multiple Income Items</th>
+								<th rowspan="2">Unit Of Measurement</th>
+								<th colspan="2">Opening Balance</th>
+								<th colspan="2">Purchases / Inflows / Receipts</th>
+								<th colspan="2">Sales / Outflows - At Cost</th>
+								<th colspan="2">Closing Balance</th>
+								<th colspan="3">Sales Margin</th>
+							</tr>
+							<tr>
+								<th>Units</th>
+								<th>Amount</th>
+								<th>Units</th>
+								<th>Amount</th>
+								<th>Units</th>
+								<th>Amount</th>
+								<th>Units</th>
+								<th>Amount</th>
+								<th>Sales Amount</th>
+						<th>Sales Margin</th>
+						<th>Margin %</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="staticTradingInventory" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:1001;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title"></h4>
+			</div>
+			<div class="modal-body" style="max-height: 530px; min-height:150px; overflow: auto;">
+			<table class="table table-bordered table-hover table-striped" id="inventoryBranchTbl">
+				<thead class="tablehead1">
+					<tr>
+						<th rowspan="2">Branch</th>
+						<th colspan="2">Opening Balance</th>
+						<th colspan="2">Purchases / Inflows / Receipts</th>
+						<th colspan="2">Sales / Outflows - At Cost</th>
+						<th colspan="2">Closing Balance</th>
+						<th colspan="3">Sales Margin</th>
+					</tr>
+					<tr>
+						<th>Units</th>
+						<th>Amount</th>
+						<th>Units</th>
+						<th>Amount</th>
+						<th>Units</th>
+						<th>Amount</th>
+						<th>Units</th>
+						<th>Amount</th>
+						<th>Sales Amount</th>
+						<th>Sales Margin</th>
+						<th>Margin %</th>
+					
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="staticDetailedTradingInventory" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:1002; width: 99%;margin-left: 2%;" align="center" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header" style="padding-bottom:0px">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">Detailed Trading Inventory</h4>
+			</div>
+			<div class="modal-body" style="max-height: 450px; min-height:150px; overflow: auto; padding-top:0px; padding-bottom:0px;">
+			<table class="table table-bordered table-hover table-striped" id="inventoryItemsBreakupTable">
+				<thead class="tablehead1">
+					<tr>
+						<th rowspan="2">Date</th>
+						<th rowspan="2">Transaction</th>
+						<th rowspan="2">Transaction Ref.</th>
+						<th colspan="3">Opening Balance</th>
+						<th colspan="3">Purchases / Inflows / Receipts</th>
+						<th colspan="3">Sales / Outflows - At Cost</th>
+						<th colspan="3">Closing Balance</th>
+						<th colspan="3">Sales Margin</th>
+					</tr>
+					<tr>
+						<th>Units</th>
+						<th>Rate</th>
+						<th>Amount</th>
+						<th>Units</th>
+						<th>Rate</th>
+						<th>Amount</th>
+						<th>Units</th>
+						<th>Rate</th>
+						<th>Amount</th>
+						<th>Units</th>
+						<th>Rate</th>
+						<th>Amount</th>
+						<th>Sales Amount</th>
+						<th>Sales Margin</th>
+						<th>Margin %</th>
+					
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			
+			</div>
+			<div class="modal-footer">
+				<button type="button" style="float: left;" class="btn btn-white" data-dismiss="modal">Close</button>
+				<div id="pagingInventoryNavPosition"></div>
+			</div>
+		</div>
+	</div>
+</div>
+

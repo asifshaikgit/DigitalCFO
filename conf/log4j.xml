@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+  
+ <!-- Used to produce command line utilities console ouput -->
+  <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%m %n" />
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelMatchFilter">
+            <param name="LevelToMatch" value="error"/>
+            <param name="AcceptOnMatch" value="true"/> 
+        </filter>
+        <filter class="org.apache.log4j.varia.DenyAllFilter"/>
+  </appender>
+
+  <!-- Used to produce command line utilities file log -->
+  <appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="logs/idos.log" />
+    <param name="Append" value="false" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%-23d{dd/MM/yyyy HH:mm:ss.SSS}|%-5p|%C{1}.%M| %m%n" />
+    </layout>
+  </appender>
+
+  <logger name="play" level="WARN" />
+  <logger name="application" level="WARN" />
+   
+  <root level="WARN">
+   	<priority value ="debug"/>
+	<!-- <appender-ref ref="STDOUT" /> -->
+    <appender-ref ref="FILE" />
+  </root>
+
+</log4j:configuration>

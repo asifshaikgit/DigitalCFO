@@ -1,0 +1,2689 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>IdosApps - Dashboard</title>
+
+  <!-- ========== Css Files ========== -->
+  <link href="css/root.css" rel="stylesheet">
+  <!-- Include Required Prerequisites -->
+	
+  </head>
+
+  <body>
+  <!-- Start Page Loading -->
+  <div class="loading"><b>Please wait while IDOS populates your data...</b></div>
+  <!-- End Page Loading -->
+  
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+  <!-- START TOP -->
+  <div id="top" class="clearfix">
+
+    <!-- Start App Logo -->
+    <div class="applogo">
+    	<a href="user-1.html"><div class="logo"></div></a>
+    </div>
+
+    <!-- End App Logo -->
+
+	
+
+	
+    <!-- Start Sidebar Show Hide Button -->
+    <a href="#" class="sidebar-open-button" style="color: #D01938"><i class="fa fa-bars" style="margin-top: -9px;"></i><br></a>
+
+    <a href="#" class="sidebar-open-button-mobile" style="color: #D01938" ><i class="fa fa-bars"></i></a>
+    <!-- End Sidebar Show Hide Button -->
+	
+    <!-- Start Sidepanel Show-Hide Button -->
+	<a href="#sidepanel" class="sidepanel-open-button" style="color: #ddd;"><i class="fa fa-outdent"></i></a>
+    <!-- End Sidepanel Show-Hide Button -->
+
+    <!-- Start Top Right -->
+    <ul class="top-right">
+		<li class="link">
+			<a class="notifications" href="calculator.html" onclick="window.open('calculator.html','Web','width=350,height=450,left=160,top=200');return false;">Calculator</a>
+		</li>
+		<li class="link">
+			<a href="#" class="notifications">Language</a>
+		</li>
+
+    <li class="dropdown link">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox"><b>Admin</b><img src="http://icons.iconarchive.com/icons/icons-land/vista-people/256/Office-Customer-Male-Light-icon.png" alt="img"><span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+          <li role="presentation" class="dropdown-header">Profile</li>
+          <li><a href="mail.html"><i class="fa falist fa-inbox"></i>Messages<span class="badge label-danger">0</span></a></li>
+          <li><a href="#"><i class="fa falist fa-wrench"></i>Settings</a></li> <!-- pending -->
+          <li class="divider"></li>
+			<li><a href="lockscreen.html"><i class="fa falist fa-lock"></i> Lockscreen</a></li>
+          <li><a href="index.html"><i class="fa falist fa-power-off"></i> Logout</a></li>
+
+        </ul>
+    </li>
+
+    </ul>
+    <!-- End Top Right -->
+
+  </div>
+  <!-- END TOP -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START SIDEBAR -->
+<div class="sidebar clearfix">
+
+	<ul class="sidebar-panel nav">
+
+	  <li class="sidetitle">Main</li>
+
+	  <li><a href="user-1.html"><span class="icon color5"><i class="fa fa-home"></i></span>Home</a></li>
+
+	  <li><a href="#"><span class="icon color7"><i class="fa fa-bullseye"></i></span>Option<span class="caret"></span></a>
+	    <ul>
+	      <li><a href="claimSetup.html">Claims</a></li>
+	      <li><a href="#">Labour</a></li>
+	    </ul>
+	  </li>
+	  
+	  <li><a href="calendar.html"><span class="icon color5"><i class="fa fa-calendar"></i></span>Calendar</a></li>
+
+	  <li><a href="#"><span class="icon color6"><i class="fa  fa-life-ring"></i></span>Support</a></li>
+
+	</ul>
+
+</div>
+
+<!-- END SIDEBAR -->
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+<div class="content ">
+ 	 <!-- Start Page Header -->
+	
+	 	<div class="page-header">
+		<div class="panel">
+
+		        <div class="panel-title">
+		          Create Transaction
+		        </div>
+
+		   <div class="panel-body">
+				<!-- Boton 1 -->
+		          <a class="btn btn-submit" data-toggle="collapse" href="#CreateNewTransaction" aria-expanded="false" aria-controls="collapseExample">
+		            What do you want to do?
+		          </a>
+		         <a class="btn btn-success" onClick="window.location.reload()"><i class="fa fa-refresh"></i></a>
+
+				  
+				  
+				  <!--- Inicio What do you -->
+				  <div class="margin-t-10 collapse" id="CreateNewTransaction" aria-expanded="false" style="height: 0px; width: 390px;">
+								<div class="form-group">
+										<select class="form-control" id="createtransaction">
+											<option value="">--Please Select--</option>
+											<option value="1">Sell on cash &amp; collect payment now</option>
+											<option value="2">Sell on credit &amp; collect payment later</option>
+											<option value="3">Buy on cash &amp; pay right away</option>
+											<option value="4">Buy on credit &amp; pay later</option>
+											<option value="5">Receive payment from customer</option>
+											<option value="6">Pay vendor/supplier</option>
+											<option value="11">Receive advance from customer</option>
+											<option value="12">Pay advance to vendor or supplier</option>
+											<option value="13">Transfer main cash to petty cash</option>
+											<option value="9">Withdraw Cash From Bank</option>
+											<option value="10">Deposit Cash In Bank</option>
+											<option value="14">Trasfer Funds From One Bank To Another</option>
+											<option value="15">Receive special adjustments amount from vendors</option>
+											<option value="16">Pay special adjustments amount to vendors</option>
+											<option value="17">Buy on Petty Cash Account</option>
+											<option value="7">Sales returns</option>
+											<option value="8">Purchase returns</option>
+											<option value="18">Transfer Inventory Item From One Branch To Another</option>
+											
+
+										</select>						
+								</div>
+
+				  </div>
+			
+			
+				<div id="1" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+				                <td>Select Branches & Projects</td>
+				                <td>What do you</td>
+				                <td>Select to which customer you want to sell</td>
+				                <td>Knowledge Library</td>
+				                <td>Input Number Of Units Being Sold.<br> For Services Input 1</td>
+				                <td>Adjustments</td>
+								<td>Net Amount</td>
+								<td>Receipt Details	</td>
+								<td>Transaction Notes</td>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+													<option value="">--Please Select--</option>
+													<option value="1">New York</option>
+													<option value="2">Santiago SCL</option>
+													<option value="3">Mumbai</option>
+								   </select>
+								  </div>
+								   
+								<div class="form-group">
+									<select class="form-control proyect" >
+													<option value="">--Please Select--</option>
+													<option value="1">Santiago SCL</option>
+													<option value="2">New York</option>
+													<option value="3">Mumbai</option>
+								   </select>					   
+				                  </div>
+								</td>
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control whatdoyou" >
+													<option value="">--Please Select--</option>
+													<option value="1">Sun Screen</option>
+													<option value="2">iPhone 5S</option>
+													<option value="3">Mouse Mickey</option>
+								   </select>
+								</div>
+
+								</td>
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control selectcustomer" >
+													<option value="">--Please Select--</option>
+													<option value="1">Mattew</option>
+													<option value="2">Joe</option>
+													<option value="3">Hari</option>
+								   </select>
+								</div>
+								<input type="text" class="form-control box"  placeholder="Customer?"><p></p>
+								<input type="text" class="form-control box " placeholder="Discount">
+								</td>
+				                <td>null</td>
+								<td>
+								<input type="text" class="form-control box"  placeholder="1"><p></p>
+								<input type="text" class="form-control box"  placeholder="Price Per Unit"><p></p>
+								<input type="text" class="form-control box"  placeholder="Gross Amount">
+								</td>
+				                <td>
+								<input type="text" class="form-control box"   placeholder="Advance Avaible"><p></p>
+								<input type="text" class="form-control box"  placeholder="Advance to Adjust?">
+								</td>
+								<td>
+								
+								<input type="text" class="form-control boxdiplay"  placeholder="Net Result">
+								</td>
+								<td>
+								<div class="form-group">
+				                   <select class="form-control paymode" >
+													<option value="1">CASH</option>
+													<option value="2">BANK</option>
+								   </select>
+								  <textarea class="form-control texboxpaymode" rows="3"  placeholder="Input Receipt Details..."></textarea>
+								</div>
+								</td>
+								<td>
+									<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--En tabla 1-->
+
+		<div id="2" class="margin-t-10 showtable" style="display:none">
+			<div style="overflow: scroll;">
+	       		 <div class="panel-body">	
+					<table class="table table-bordered table-striped">
+						
+						<thead>
+						  <tr>
+							<td>Select Branches & Projects</td>
+							<td>What do you</td>
+							<td>Select to which customer</br> you want to sell</td>
+							<td>Knowledge Library</td>
+							<td>Input Number Of Units Being Sold.<br> For Services Input 1</td>
+							<td>Adjustments</td>
+							<td>Net Amount</td>
+							<td>Transaction Notes</td>
+						  </tr>
+						</thead>
+
+						<tbody>
+						  <tr>
+							<td>
+								<div class="form-group">
+								   <select class="form-control proyect" >
+													<option value="">--Please Select--</option>
+													<option value="1">New York</option>
+													<option value="2">Santiago SCL</option>
+													<option value="3">Mumbai</option>
+								   </select>
+								</div>
+								   
+								<div class="form-group">
+									<select class="form-control proyect" >
+													<option value="">--Please Select--</option>
+													<option value="1">Santiago SCL</option>
+													<option value="2">New York</option>
+													<option value="3">Mumbai</option>
+								   </select>					   
+								</div>
+							</td>
+							<td>
+							
+							<div class="form-group">
+							   <select class="form-control whatdoyou" >
+												<option value="">--Please Select--</option>
+												<option value="1">Sun Screen</option>
+												<option value="2">iPhone 5S</option>
+												<option value="3">Mouse Mickey</option>
+							   </select>
+							</div>
+
+							</td>
+
+							<td>
+
+								<div class="form-group">
+								   <select class="form-control selectcustomer" >
+													<option value="">--Please Select--</option>
+													<option value="1">Mattew</option>
+													<option value="2">Joe</option>
+													<option value="3">Hari</option>
+								   </select>
+								</div>
+
+							</td>
+
+							<td>null</td>
+
+							<td>
+								<input type="text" class="form-control box"  placeholder="1"><p></p>
+								<input type="text" class="form-control box"  value="Price Per Unit"><p></p>
+								<input type="text" class="form-control box"  value="Gross Amount">
+							</td>
+
+							<td>
+								<input type="text" class="form-control box"   value="Advance Avaible"><p></p>
+								<input type="text" class="form-control box"  value="Advance to Adjust?">
+							</td>
+
+							<td>
+								<input type="text" class="form-control boxdiplay"  value="Net Result">
+							</td>
+							
+							<td>
+								<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+								<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+								<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+							</td>
+						  </tr>
+						</tbody>
+				</table>
+					  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+
+			</div>	
+
+		</div> <!--Fin tabla 2-->
+	</div>
+
+		<div id="3" class="margin-t-10 showtable" style="display:none">
+		<div style="overflow: scroll;">
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Branches &amp; <br>Projects &amp; Procurement Request</td>
+						<td>What Do You Want To Buy</td>
+						<td style="
+							width: 12px;
+						">Select Vendor From Whom To Buy</td>						
+						<td>Knowledge Library</td>
+						<td style="
+							width: 12px;
+						">Input Number Of Units Being Sold.<br> For Services Input 1</td>						
+						<td>Adjustments</td>
+						<td>Net Amount</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">New York</option>
+											<option value="2">Santiago SCL</option>
+											<option value="3">Mumbai</option>
+						   </select>
+						  </div>
+						   
+						<div class="form-group">
+							<select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						  <div class="form-group">
+							<select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											<option value="1">Sun Screen</option>
+											<option value="2">iPhone 5S</option>
+											<option value="3">Mouse Mickey</option>
+						   </select>
+						</div>
+
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control selectcustomer" >
+											<option value="">--Please Select--</option>
+											<option value="1">Mattew</option>
+											<option value="2">Joe</option>
+											<option value="3">Hari</option>
+						   </select>
+						</div>
+						<input type="text" class="form-control box"  placeholder="Vendor?"><p></p>
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box"  placeholder="1"><p></p>
+						<input type="text" class="form-control box"  value="Price Per Unit"><p></p>
+						<input type="text" class="form-control box"  value="Gross Amount">
+						</td>
+						<td>
+						<input type="text" class="form-control box"   value="Advance Avaible"><p></p>
+						<input type="text" class="form-control box"  value="Advance to Adjust?">
+						</td>
+						<td>
+						
+						<input type="text" class="form-control boxdiplay"  value="Net Result">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  
+			<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+		</div>	
+	</div>
+</div>
+	
+<div id="4" class="margin-t-10 showtable" style="display:none">
+	<div style="overflow: scroll;">
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Branches &amp; Projects &amp; Procurement Request</td>
+						<td>What Do You Want To Buy</td>
+						<td>Select Vendor From Whom To Buy</td>
+						<td>Knowledge Library</td>
+						<td>Input Number Of Units Being Sold.<br> For Services Input 1</td>
+						<td>Adjustments</td>
+						<td>Net Amount</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">New York</option>
+											<option value="2">Santiago SCL</option>
+											<option value="3">Mumbai</option>
+						   </select>
+						  </div>
+						   
+						<div class="form-group">
+							<select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						  <div class="form-group">
+							<select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											<option value="1">Sun Screen</option>
+											<option value="2">iPhone 5S</option>
+											<option value="3">Mouse Mickey</option>
+						   </select>
+						</div>
+						Item Details :
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control selectcustomer" >
+											<option value="">--Please Select--</option>
+											<option value="1">Mattew</option>
+											<option value="2">Joe</option>
+											<option value="3">Hari</option>
+						   </select>
+						</div>
+						
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box"  placeholder="1"><p></p>
+						<input type="text" class="form-control box"  value="Price Per Unit"><p></p>
+						<input type="text" class="form-control box"  value="Gross Amount">
+						</td>
+						<td>
+						<input type="text" class="form-control box"   value="Advance Avaible"><p></p>
+						<input type="text" class="form-control box"  value="Advance to Adjust?">
+						</td>
+						<td>
+						
+						<input type="text" class="form-control boxdiplay"  value="Net Result">
+						Detailed Result
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  
+			<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+
+		</div>	
+
+	</div>
+</div>
+	
+<div id="5" class="margin-t-10 showtable" style="display:none"> 
+	<div style="overflow: scroll;">
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Branches & Projects & Procurement Request</td>
+						<td>What Do You Want To Buy</td>
+						<td>Select Vendor From Whom To Buy</td>
+						<td>Knowledge Library</td>
+						<td>Input Number Of Units Being Sold.<br> For Services Input 1</td>
+						<td>Adjustments</td>
+						<td>Net Amount</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">New York</option>
+											<option value="2">Santiago SCL</option>
+											<option value="3">Mumbai</option>
+						   </select>
+						  </div>
+						   
+						<div class="form-group">
+							<select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						  <div class="form-group">
+							<select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											<option value="1">Sun Screen</option>
+											<option value="2">iPhone 5S</option>
+											<option value="3">Mouse Mickey</option>
+						   </select>
+						</div>
+						Item Details :
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control selectcustomer" >
+											<option value="">--Please Select--</option>
+											<option value="1">Mattew</option>
+											<option value="2">Joe</option>
+											<option value="3">Hari</option>
+						   </select>
+						</div>
+						
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box"  placeholder="1"><p></p>
+						<input type="text" class="form-control box"  value="Price Per Unit"><p></p>
+						<input type="text" class="form-control box"  value="Gross Amount">
+						</td>
+						<td>
+						<input type="text" class="form-control box"   value="Advance Avaible"><p></p>
+						<input type="text" class="form-control box"  value="Advance to Adjust?">
+						</td>
+						<td>
+						
+						<input type="text" class="form-control boxdiplay"  value="Net Result">
+						Detailed Result
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  
+			<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+
+		</div>	
+
+	</div>
+</div>
+	
+<div id="6" class="margin-t-10 showtable" style="display:none"> 
+	<div style="overflow: scroll;">
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Vendor To Whom You Wish To Pay</td>
+						<td>Select Invoice For Which You Wish To Pay This Vendor</td>
+						<td>Knowledge Library	</td>
+						<td>Amount Outstanding Against This Invoice</td>
+						<td>Adjust Advance?	</td>
+						<td>Amount You Wish To Pay</td>
+						<td>Balance Due On This Invoice</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="3198">Pricewaterhousecoopers</option>
+											<option value="3199">Grant Thornton</option>
+											<option value="3201">Aleo Environmental Enterprises, Inc.</option>
+											<option value="3202">Alert Services Inc.</option>
+											<option value="3203">All Points Communications</option>
+											<option value="3204">Allied Associates Commercial Floors, Inc.</option>
+											<option value="3205">Alphapointe</option>
+											<option value="3206">Tata Dcomo</option>
+											<option value="3207">BSNL</option>
+											<option value="3208">ECS Learning Systems, Inc.</option>
+											<option value="3209">Imagery Graphic Systems</option>
+											<option value="3210">Software Express</option>
+											<option value="3211">South Texas School Furniture</option>
+											<option value="3212">Troxell Communications</option>
+											<option value="3215">Zaner-Bloser, Inc.</option>
+											<option value="9905">jaysynergy</option>
+											<option value="9918">Shell</option>
+											<option value="9921">ABC</option>
+
+						   </select>
+						  </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						Item Details :
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box"  placeholder="1"><p></p>
+						<input type="text" class="form-control box"  value="Advance to adjust"><p></p>
+						</td>
+						<td style="
+							text-align: center;
+						">
+						<input type="text" class="form-control box"  value="Advance Avaible">
+						<p></p><p></p>Tax you must deduct: 348537</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay"  value="Amount">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+	
+			<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+		</div>	
+
+	</div>
+</div>
+
+<div id="7" class="margin-t-10 showtable" style="display:none"> 
+	<div style="overflow: scroll;">
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Customer Who Is Making The Return</td>
+						<td>Select The Item For Which You Are Processing This Return</td>
+						<td>Knowledge Library	</td>
+						<td>Select The Invoice Against Which You Are Processing This Return	</td>
+						<td>Invoice Value	</td>
+						<td>Amount For Which This Return Is Being Processed</td>
+						<td>Balance Due On This Invoice</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+						   </select>
+						 </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>null</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						<input type="text" class="form-control box"   value="Amount">
+						</p></p>Return Details
+						</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay"  value="Amount">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+		</table>
+				  
+			<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+
+	    </div>	
+	</div>
+</div>	
+
+<div id="8" class="margin-t-10 showtable" style="display:none"> 
+	<div style="overflow: scroll;">
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Vendor To Whom You Are Making The Return	</td>
+						<td>Select The Item For Which You Are Processing This Return	</td>
+						<td>Knowledge Library	</td>
+						<td>Select The Invoice Against Which You Are Processing This Return	</td>
+						<td>Invoice Value	</td>
+						<td>Amount For Which This Return Is Being Processed</td>
+						<td>Balance Due On This Invoice</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+						   </select>
+						 </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>null</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						<input type="text" class="form-control box"   value="Amount">
+						</p></p>Return Details
+						</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay"  value="Amount">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+		</table>
+				  
+			<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+	    </div>	
+	</div>
+</div>	
+
+<div id="9" class="margin-t-10 showtable" style="display:none"> 
+	<div style="overflow: scroll;">
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td>Select Branch	</td>
+						<td>Select Bank	</td>
+						<td>Bank Details	</td>
+						<td>Knowledge Library	</td>
+						<td>Amount Withdrawal	</td>
+						<td>Amount Left	</td>
+						<td>Documents	</td>
+						<td>Remarks</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+						   </select>
+						 </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						<input type="text" class="form-control box"   value="">
+						</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay"  value="Supporting Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button" style="margin-left: 0px;"></i>Upload</button>
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+		</table>
+				  
+			<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+
+	    </div>	
+	</div>
+</div>	
+
+	<div id="11" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+				                <td>Select Customer From Whom You Are Receiving Advance</td>
+				                <td>Select The Item For Which Advance Is Being Received</td>
+				                <td>Purpose Of Advance</td>
+				                <td>Existing Advance</td>
+				                <td>Amount Of Advance Received</td>
+				                <td>Resultant Advance</td>
+								<td>Receipt Details</td>
+								<td>Transaction Notes</td>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+
+								</td>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+								<a href="#" title="item">Item Details</a>
+								</td>
+				                <td>
+					                <textarea rows="3" cols="20">
+			                          
+			                        </textarea>
+								</td>
+				            
+								<td>
+									
+
+
+								</td>
+				                <td>
+								<input type="text" class="form-control box"   placeholder="Amount received">
+								</td>
+								<td>
+								
+								
+								</td>
+								<td>
+								<div class="form-group">
+				                   <select class="form-control paymode" >
+													<option value="1">CASH</option>
+													<option value="2">BANK</option>
+								   </select>
+								  <textarea class="form-control texboxpaymode" rows="3"  placeholder="Input Receipt Details..."></textarea>
+								</div>
+								</td>
+								<td>
+									<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal1" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+				  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--Fin 11-->
+
+					<div id="12" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+				                <td>Select Vendor to Whom You Are Paying Advance</td>
+				                <td>Select The Item For Which You Are Paying Advance</td>
+				                <td>Purpose Of Advance</td>
+				                <td>Existing Advance</td>
+				                <td>Amount Of Advance Being Paid</td>
+				                <td>Resultant Advance</td>
+								<td>Transaction Notes</td>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+
+								</td>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+								
+								</td>
+				                <td>
+					                <textarea rows="3" cols="20">
+			                          Details
+			                        </textarea>
+								</td>
+				            
+								<td>
+									
+
+
+								</td>
+				                <td>
+								<input type="text" class="form-control box"   placeholder="Advance Received">
+								</td>
+								<td>
+								
+								
+								</td>
+	
+								<td>
+									<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal2" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+				  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--Fin 12-->
+
+				<div id="13" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+				                <td>Select Branches</td>
+				                <td>Cash Available In The Branch</td>
+				                <td>Petty Cash Available In The Branch</td>
+				                <td>Amount To Be Transferred From Main Cash to Petty Cash</td>
+				                <td>Purpose Of Amount Transfer</td>
+				                <td>Resultant Main Account Cash</td>
+								<td>Resultant Petty Account Cash</td>
+								<td>Transaction Notes</td>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+
+								</td>
+
+				                <td>
+								<div class="form-group">
+				                   <input type="text" name="" value="" placeholder="Cash Available" readonly>
+								</div>
+								
+								</td>
+				                <td>
+					               <div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Petty Cash Available" readonly>
+									</div>
+								</td>
+				            
+								<td>
+									<div class="form-group">
+				                   		<input type="number" name="" value="" placeholder="Amount to transfer" min="0">
+									</div>
+								</td>
+
+				                <td>
+								 <textarea rows="3" cols="20">
+			                          Purpose
+			                     </textarea>
+								</td>
+								<td>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Main Cash" readonly>
+									</div>
+								
+								</td>
+								<td>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Petty Cash" readonly>
+									</div>
+								
+								</td>
+	
+								<td>
+									<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal3" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+				  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--Fin 13-->
+
+
+				<div id="14" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+				                <td>Transfer From Branch</td>
+				                <td>Transfer From Bank</td>
+				                <td>Bank Details</td>
+				                <td>Transfer to Branch</td>
+				                <td>Transfer to Bank</td>
+				                <td>Bank Details</td>
+								<td>Amount</td>
+								<td>Porpuse</td>
+								<td>Documents && Remarks</td>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+
+								</td>
+
+				                <td>
+
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+								
+								</td>
+
+				                <td>
+					              
+								</td>
+				            
+								<td>
+									<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>			
+									   </select>
+
+									</div>
+								</td>
+
+				                <td>
+									<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>			
+									   </select>
+
+									</div>
+								</td>
+
+								<td>
+									
+								
+								</td>
+								<td>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Transfer Amount">
+									</div>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Result Amount" readonly>
+									</div>
+								
+								</td>
+								 <td>
+								 	<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Transfer Purpose">
+									</div>
+								</td>
+	
+								<td>
+									<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal4" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+				  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--Fin 14-->
+
+		<div id="15" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+				                <td>Select Vendor From Whom You Are Receiving Special Adjustments</td>
+				                <td>Available Special Ajustment Name & Amount In Vendor Account</td>
+				                <td>Knowledge Library</td>
+				                <td>Select Project</td>
+				                <td>Amount</td>
+				                <td>Mode Of Receipt</td>
+								<td>Transaction Notes</td>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+								
+								</td>
+
+				                <td>
+
+								
+								</td>
+
+				                <td>
+					              
+								</td>
+				            
+								<td>
+									<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>			
+									   </select>
+
+									</div>
+								</td>
+
+				                <td>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Received Amount">
+									</div>
+								</td>
+
+								<td>
+								<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="">Cash</option>					
+									   </select>
+
+									</div>
+								 <textarea rows="3" cols="20">
+			                          Input receipt Details
+			                     </textarea>
+								</td>
+	
+								<td>
+									<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal5" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+				  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--Fin 15-->
+				<div id="16" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+				                <td>Select Vendor From Whom You Are Receiving Special Adjustments</td>
+				                <td>Available Special Ajustment Name & Amount In Vendor Account</td>
+				                <td>Knowledge Library</td>
+				                <td>Select Project</td>
+				                <td>Amount</td>
+				                <td>Amount</td>
+								<td>Transaction Notes</td>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+
+								</td>
+
+				                <td>
+				                	
+								
+								</td>
+
+				                <td>
+					              
+								</td>
+				            
+								<td>
+									<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>			
+									   </select>
+
+									</div>
+								</td>
+
+				                <td>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Payment Amount">
+									</div>
+								</td>
+
+								<td>
+								
+								</td>
+	
+								<td>
+									<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal6" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+				  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--Fin 16-->
+
+
+				<div id="17" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+				                <td>Select Branches & Proyects & Procurement Request</td>
+				                <td>What Do You Want To Buy</td>
+				                <td>Select Vendor From Whom To Buy</td>
+				                <td>Knowledge Library</td>
+				                <td>Input Number Of Units To Buy, For Services input 1</td>
+				                <td>Adjustments</td>
+								<td>Net Amount</td>
+								<td>Payment Details</td>
+								<td>Transaction Notes</td>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+
+								</td>
+
+				                <td>
+
+				                	<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>			
+									   </select>
+
+									</div>
+									<a href="#" title="">Item Details</a>
+				                	
+								</td>
+
+				                <td>
+					              	<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>			
+									   </select>
+
+									</div>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Vendor?, Input name">
+									</div>
+
+								</td>
+				            
+								<td>
+									
+								</td>
+
+				                <td>
+									<div class="form-group">
+				                   		<input type="number" name="" value="1" min="0">
+									</div>
+									<div class="form-group">
+				                   		<input type="number" name="" value="" placeholder="Price Per Unit">
+									</div>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Gross Amount" readonly>
+									</div>
+								</td>
+
+								<td>
+									<div class="form-group">
+				                   		<input type="number" name="" value="" placeholder="Advance Available" readonly>
+									</div>
+									<div class="form-group">
+				                   		<input type="number" name="" value="" placeholder="Advance to Adjust" min="0">
+									</div>
+								</td>
+								<td>
+
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="Net Result" readonly>
+									</div>
+									<div class="form-group">
+				                   		<a href="#" title="">Detailed Result</a>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+											<option value="">CASH</option>			
+									   </select>
+
+									</div>
+									<div class="form-group">
+				                   		<a href="#" title="">Input Payment Details</a>
+				                   		 <textarea rows="2" cols="20">
+					                         
+					                     </textarea>
+									</div>
+									<div class="form-group">
+										<a href="#" title="">Vendor Invoice Date</a>
+				                   		<input type="text" name="" value="" placeholder="">
+									</div>
+								</td>
+
+	
+								<td>
+									<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal7" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+
+											  </div>
+											  <button type="button" class="btn btn-success">Submit For Accouting</button>
+											</div>
+										  </div>
+										</div>
+										
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+				  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--Fin 17-->
+
+				<div id="18" class="margin-t-10 showtable" style="display:none"> 
+			        <div style="overflow: scroll;">
+			        	<div class="panel-body">
+					
+				        <table class="table table-bordered table-striped">
+				            <thead>
+				              <tr>
+
+				                <td>Select Inventory Item</td>
+				                <td>Select Branch (Transfer From)</td>
+				                <td>Units of Transfer</td>
+				                <td>Select Branch (Transfer To)</td>
+				                <td>Resultant Units</td>
+				                <td>Documents</td>
+								<td>Remarks</td>
+								
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr>
+
+				                <td>
+								<div class="form-group">
+				                   <select class="form-control proyect" >
+										<option value="">--Please Select--</option>			
+								   </select>
+
+								</div>
+
+								</td>
+
+				                <td>
+
+				                	<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>			
+									   </select>
+
+									</div>
+									Avaible Stock: <br>
+									Stock to Transfer In Progress:
+				                	
+								</td>
+
+				                <td>
+					              	
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="">
+									</div>
+
+								</td>
+				            
+								<td>
+
+									<div class="form-group">
+					                   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>			
+									   </select>
+
+									</div>
+									Avaible Stock: 
+									
+
+									
+								</td>
+
+				                <td>
+				                	<a href="" title="">Receiving Branch:</a>
+									<div class="form-group">
+				                   		<input type="text" name="" value="">
+									</div>
+									<a href="" title="">Transferring Branch:</a>
+									<div class="form-group">
+				                   		<input type="text" name="" value="" placeholder="">
+									</div>
+									
+								</td>
+
+								<td>
+									
+									<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+									<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal8" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+										<div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-hidden="true">
+										  <div class="modal-dialog">
+											<div class="modal-content">
+											  <div class="modal-header">
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+											  </div>
+											  <div class="modal-body">
+												<label class="control-label">Select File</label>
+												<input  type="file" class="file" data-show-preview="false">
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-default">Upload</button>
+
+											  </div>
+											  <button type="button" class="btn btn-success">Submit For Accouting</button>
+											</div>
+										  </div>
+										</div>
+										
+								</td>
+								<td>
+									 <textarea rows="3"  cols="20" placeholder="Input Remarks"></textarea>
+									 <div class="form-group">
+									<button  class="btn btn-cancel btn-sm submit" type="button"><i class="fa fa-times"></i>Submit For Approval</button>
+								</div>
+
+								</td>
+				              </tr>
+				            </tbody>
+				          </table>
+				  
+							<div class="controls">
+								<button  class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button  class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+						</div>
+			        	
+			        </div>
+				</div> <!--Fin 18-->
+
+
+<div id="10" class="margin-t-10 showtable" style="display:none"> 
+	<div style="overflow: scroll;">
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td>Select Branch	</td>
+						<td>Select Bank	</td>
+						<td>Bank Details	</td>
+						<td>Knowledge Library	</td>
+						<td>Deposit Amount	</td>
+						<td>Total Amount	</td>
+						<td>Documents	</td>
+						<td>Remarks</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" >
+											<option value="">--Please Select--</option>
+						   </select>
+						 </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" >
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						<input type="text" class="form-control box"   value="">
+						</td>
+						<td>
+							<input type="text" class="form-control boxdiplay"  value="Supporting Documents"><p></p>
+							<button class="btn btn-default btn-upload" type="button" style="margin-left: 0px;"></i>Upload</button>
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"   value="Input Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"   value="Support Documents"><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+		</table>
+				  
+			<div class="controls">
+								<button class="btn btn-cancel btn-controls cancel" type="button"><i class="fa fa-times"></i>Cancel</button>
+								<button class="btn btn-submit btn-controls submit" type="button"><i class="fa fa-check"></i>Submit</button>
+							</div>
+
+	    </div>	
+
+	</div>	
+</div>
+
+
+
+			</div>
+		</div> <!--End Panel-->
+	 
+	 	
+	 </div>
+	
+</div>
+
+<!--Parameters-->
+<div class="content ">
+ 	 <!-- Start Page Header -->
+	
+	 	<div class="page-header">
+			<div class="panel">
+				<div style="overflow: scroll;">
+				
+		        	 <div>
+				       	<div class="panel-title">
+				          search Transaction
+				        </div>
+						 <a class="btn btn-submit" data-toggle="collapse" data-target="#searh" class="accordion-toggle">
+							 search
+						 </a>
+						 <br>
+						 <br>
+		        	 </div>
+		        	 <div class="hiddenRow">
+                        <div class="accordian-body collapse" id="searh">
+                        	<div class="panel-body">
+								<table class="table table-bordered table-striped">
+									<thead>
+									<tr>
+
+										<td>Category Transaction Ref. <br> Number</td>
+										<td>Transaction Question Type</td>
+										<td>Item</td>
+										<td>Select Date Range</td>
+										<td>Select Branch & Proyect</td>
+										<td>Select Amount Range</td>
+										<td>With/Without Remarks & Supporting Documents</td>
+										<td>With/Without Remarks</td>
+										<td>Select Vendor or Customer</td>
+
+									</tr>
+
+									</thead>
+									<tbody>
+									<tr>
+										<td>
+											<div class="form-group">
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+												<br>
+												<div class="form-group">
+													<input type="text" name="" value="" placeholder="Transaction Ref. Number">
+												</div>
+
+											</div>
+										</td>
+										<td>
+											<select class="form-control proyect">
+												<option value="">--Please Select--</option>
+											</select>
+											<select class="form-control proyect">
+												<option value="">--Please Select--</option>
+											</select>
+										</td>
+										<td>
+											<div class="form-group">
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+												<br>
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<fieldset>
+												<div class="control-group">
+													<div class="controls">
+														<div class="input-prepend input-group">
+															<span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+															<input type="text" class="form-control date-range-picker" value="03/18/2015 - 03/23/2015">
+														</div>
+													</div>
+												</div>
+											</fieldset>
+										</td>
+										<td>
+											<div class="form-group">
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+												<br>
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<div class="form-group">
+												<input type="text" name="" value="" placeholder="From Amount">
+											</div>
+											<div class="form-group">
+												<input type="text" name="" value="" placeholder="To Amount">
+											</div>
+
+										</td>
+										<td>
+											<div class="form-group">
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+												<br>
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<div class="form-group">
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+												<br>
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+											</div>
+										</td>
+										<td>
+											<div class="form-group">
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+												<br>
+												<select class="form-control proyect">
+													<option value="">--Please Select--</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+				  
+								<div class="controls">
+									<button  class="btn btn-submit btn-controls search" type="button"><i class="fa fa-check"></i>search Transaction</button>
+								</div>
+
+							</div>
+						</div>
+
+
+
+					 </div>
+				
+				</div>
+			</div>
+		</div>
+</div>
+
+<div class="content ">
+	    <!-- Start Panel -->  
+	    <div class="navbar-transaction">
+            <ul class="menu">
+                <li><i class="fa fa-download download"></i> Download Company Template</li>
+                <li><i class="fa fa-archive budget"></i> Exceeding Budget</li>
+                <li><i class="fa fa-archive rules"></i> Rules Not Followed</li>
+                <li><i class="fa fa-exclamation-circle warning"></i> Exceeding Budget & Rules Not Followed</li>
+            </ul>
+        </div>  
+	<div class="panel panel-showtrans">
+
+		
+	        <div class="panel-body table-responsive">
+
+	            <table class="table display showtables">
+	                <thead>
+	                    <tr>
+	                        <th>BRANCH</th>
+	                        <th>ITEM</th>
+	                        <th>CUSTOMER/VENDOR	</th>
+	                        <th>DATE</th>
+	                        <th>PAY MODE</th>
+							<th>UNIT PRICE</th>
+							<th>AMOUNT/DESCRIPTION</th>
+							<th>STATUS</th>
+							<th>DOCUMENTS</th>
+							<th>REMARKS</th>
+	                    </tr>
+	                </thead>
+	             
+	                <tbody>
+	                 
+	                    <tr>
+							<td>WASHINGTON DC</td>
+	                        <td>Null</td>
+	                        <td>Null</td>
+	                        <td>2011/04/25</td>
+	                        <td>null</td>
+	                        <td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+	                    </tr>
+	                    <tr>
+							<td>Data 2</td>
+	                        <td>Null</td>
+	                        <td>Null</td>
+	                        <td>2012/04/25</td>
+	                        <td>null</td>
+	                        <td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+	                    </tr>
+	                    <tr>
+							<td>test 1</td>
+	                        <td>Null</td>
+	                        <td>Null</td>
+	                        <td>2016/04/25</td>
+	                        <td>null</td>
+	                        <td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+	                    </tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+						<tr>
+							<td>test 1</td>
+							<td>Null</td>
+							<td>Null</td>
+							<td>2016/04/25</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+							<td>null</td>
+						</tr>
+
+
+	                </tbody>
+	            </table>
+
+
+	        </div>
+
+	</div>
+	    
+	    <!-- End Panel -->
+
+
+	<!-- END CONTAINER -->
+	 <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+	<!-- Start Footer -->
+	<div class="row footer">
+	  <div class="col-md-6 text-left">
+		  Copyright © 2015 <a href="" target="_blank">IDOS CORP</a> All rights reserved.
+	  </div>
+	  <div class="col-md-6 text-right">
+			  For feedback & support, please email to <a href="#" target="_blank">support@myidos.com</a>
+	  </div>
+	</div>
+	<!-- End Footer -->
+
+
+</div>
+
+<div role="tabpanel" class="sidepanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#chat" aria-controls="chat" role="tab" data-toggle="tab">CHAT</a></li>
+    <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">NOTES</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+      <!-- Start Chat -->
+    <div role="tabpanel" class="tab-pane active" id="chat">
+
+      
+      <div class="gn-title">ONLINE MEMBERS (4)</div>
+      <ul class="group">
+        <li class="member"><a href="#"><b>Hari Rodriguez</b>CHILE</a><span class="status online"></span></li>
+        <li class="member"><a href="#"><b>Cheruku Srikanth  </b>INDIA</a><span class="status busy"></span></li>
+        <li class="member"><a href="#"><b>Manali Mungikar</b>INDIA</a><span class="status away"></span></li>
+        <li class="member"><a href="#"><b>Sudhir Gadgil </b>INDIA</a><span class="status online"></span></li>
+      </ul>
+
+      <div class="gn-title">OFFLINE MEMBERS (1)</div>
+     <ul class="group">
+        <li class="member"><a href="#"><b>Paulina Castro</b>CHILE</a><span class="status offline"></span></li>
+      </ul>
+
+      <form class="search">
+        <input type="text" class="form-control" placeholder="Search a contacts...">
+      </form>
+    </div>
+    <!-- End Chat -->
+
+  
+    <!-- Start Today -->
+    <div role="tabpanel" class="tab-pane" id="today">
+
+      <div class="sidepanel-m-title">
+        Today
+        <span class="left-icon"><a href="#"><i class="fa fa-refresh"></i></a></span>
+        <span class="right-icon"><a href="#"><i class="fa fa-file-o"></i></a></span>
+      </div>
+
+      <div class="gn-title">NEW</div>
+
+      <ul class="list-w-title">
+        <li>
+          <a href="#">
+            <span class="label label-danger">ORDER</span>
+            <span class="date">9 hours ago</span>
+            <h4>New Jacket 2.0</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-success">COMMENT</span>
+            <span class="date">14 hours ago</span>
+            <h4>Bill Jackson</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-info">MEETING</span>
+            <span class="date">at 2:30 PM</span>
+            <h4>Developer Team</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-warning">EVENT</span>
+            <span class="date">3 days left</span>
+            <h4>Birthday Party</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+      </ul>
+
+    </div>
+    <!-- End Today -->
+
+    <!-- Start Tasks -->
+    <div role="tabpanel" class="tab-pane" id="notes">
+
+		<div class="gn-title">Text </div>
+		<div>
+			<br><br>
+			<textarea name="" id="" cols="34" rows="5"></textarea>
+
+			<input  type="button" value="Send" class="btn pull-right">
+
+		</div>
+		<br><br><br>
+
+      <div class="gn-title">Audio </div>
+
+      <ul class="todo-list">
+	 
+		<input onclick="grabar()" type="button" value="Recording" style="
+			margin-top: 13px;
+			position: static;
+		">
+		<input onclick="parar()" type="button" value="stop and play" />
+	   <p></p>
+		
+      </ul>
+
+    <div class="gn-title">Audio Notes</div>
+	
+	<audio controls="" autoplay="" style="
+		margin-top: 14px;
+	"></audio>
+
+    </div>    
+    <!-- End Tasks -->
+
+
+
+
+  </div>
+
+</div>
+
+
+<!-- END SIDEPANEL -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+  <!-- ================================================
+  jQuery Library
+  ================================================ -->
+
+  <script type="text/javascript" src="js/jquery.1.11.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui/jquery-ui.1.11.4.min.js"></script>
+
+  <!-- ================================================
+Bootstrap Core JavaScript File
+================================================ -->
+
+  <script src="js/bootstrap/bootstrap.3.3.2.min.js"></script>
+
+  <!-- ================================================
+Bootstrap Select
+================================================ -->
+
+  <script type="text/javascript" src="js/bootstrap-select/bootstrap-select.1.6.3.js"></script>
+  <script type="text/javascript" src="js/sweet-alert/sweet-alert.min.js"></script>
+  <script type="text/javascript" src="js/kode-alert/main.js"></script>
+  <script type="text/javascript" src="http://html5facil.com/demos/graba-audio-html5/recorder.js"> </script>
+
+<!-- ================================================
+Plugin.js - Some Specific JS codes for Plugin Settings
+================================================ -->
+<script type="text/javascript" src="js/plugins.js"></script>
+
+
+
+<!-- ================================================
+Bootstrap Toggle v2.2.0 (version)
+================================================ -->
+<script type="text/javascript" src="js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+
+<!-- ================================================
+Moment.js
+================================================ -->
+<script type="text/javascript" src="js/moment/moment.min.js"></script>
+
+<!-- ================================================
+Bootstrap Date Range Picker
+================================================ -->
+  <script type="text/javascript" src="js/date-range-picker/daterangepicker.js"></script>
+  <script src="js/datatables/datatables.min.js"></script>
+  <!-- ================================================
+  Bootstrap WYSIHTML5
+  ================================================ -->
+  <!-- main file -->
+  <script type="text/javascript" src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js"></script>
+  <!-- bootstrap file -->
+  <script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+  <!-- Calculator JS -->
+  <script type="text/javascript" src="js/SimpleCalculadorajQuery.js"></script>
+  <script type="text/javascript" src="js/prism.js"></script>
+
+  <script type="text/javascript">
+	  $(document).ready(function() {
+		  $('.date-range-picker').daterangepicker({
+			  "startDate": "01/08/2016",
+			  "endDate": "01/14/2016",
+			  "cancelClass": "btn-danger"
+		  }, function(start, end, label) {
+			  console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format		 ('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+		  });
+	  });
+
+  </script>
+<script type="text/javascript">
+
+	// Show Tables
+$(document).ready(function() {
+    $('.showtables').DataTable();
+	$('#calculatorID').Calculadora();
+
+} );
+</script>
+  <script type="text/javascript">
+	//Order by Show Tables
+	$(document).ready(function() {
+		var table = $('#example').DataTable({
+			"columnDefs": [
+				{"visible": false, "targets": 2}
+			],
+			"order": [[2, 'asc']],
+			"displayLength": 25,
+			"drawCallback": function (settings) {
+				var api = this.api();
+				var rows = api.rows({page: 'current'}).nodes();
+				var last = null;
+
+				api.column(2, {page: 'current'}).data().each(function (group, i) {
+					if (last !== group) {
+						$(rows).eq(i).before(
+								'<tr class="group"><td colspan="5">' + group + '</td></tr>'
+						);
+
+						last = group;
+					}
+				});
+			}
+		})
+	});
+
+ </script>
+  <script type="text/javascript">
+    // Order by the grouping
+    $('#showtables tbody').on( 'click', 'tr.group', function () {
+        var currentOrder = table.order()[0];
+        if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
+            table.order( [ 2, 'desc' ] ).draw();
+        }
+        else {
+            table.order( [ 2, 'asc' ] ).draw();
+        }
+	});
+
+</script>
+  <script type="text/javascript">
+//Create Transaction
+   $('#createtransaction').change(function() {
+        $('.showtable').hide();
+        $('#' + $(this).val()).show();
+ });
+ </script>
+
+  <script type="text/javascript">
+	// Submit
+	document.querySelector(".submit").onclick = function(){
+	swal("Good job!", "You clicked submit!", "success")
+	 };
+  </script>
+  <script type="text/javascript">
+	  // Submit
+	  document.querySelector(".search").onclick = function(){
+		  swal("Searching!", "Wait a moment please", "success")
+	  };
+  </script>
+
+  <script type="text/javascript">
+	  // cancel transaction
+	document.querySelector(".cancel").onclick = function(){
+	swal({
+	title: "Are you sure?",
+	text: "You will not be able to recover this transaction!",
+	type: "warning",
+	showCancelButton: true,
+	confirmButtonColor: "#DD6B55",
+	confirmButtonText: "Yes, cancel it!",
+	cancelButtonText: "No, cancel please!",
+	closeOnConfirm: false,
+	closeOnCancel: false
+	},
+	function(isConfirm){
+	if (isConfirm) {
+	swal("Deleted!", "Your transaction has been deleted.", "success");
+	} else {
+	swal("Cancelled", "Your transaction is safe :)", "error");
+	}
+	});
+	};
+  </script>
+
+  <script type="text/javascript">
+			//Función en caso de error
+			var error = function(e) {
+				console.log('¡No pude grabarte!', e);
+			};
+
+			//Función cuando todo tenga exito
+			var exito = function(s) {
+				var context = new webkitAudioContext(); //Conectamos con nuestra entrada de audio
+				var flujo = context.createMediaStreamSource(s); //Obtenemos el flujo de datos desde la fuente
+				recorder = new Recorder(flujo); //Todo el flujo de datos lo pasamos a nuestra libreria para procesarlo en esta instancia
+				recorder.record(); //Ejecutamos la función para procesarlo
+			}
+
+			//Convertirmos el objeto en URL
+			window.URL = window.URL || window.webkitURL;
+			navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+			var recorder; //Es nuestra variable para usar la libreria Recorder.js
+			var audio = document.querySelector('audio'); //Seleccionamos la etiqueta audio para enviarte el audio y escucharla
+
+			//Funcion para iniciar el grabado
+			function grabar() {
+				if (navigator.getUserMedia) { //Preguntamos si nuestro navegador es compatible con esta función que permite usar microfono o camara web
+					navigator.getUserMedia({audio: true}, exito, error); //En caso de que si, habilitamos audio y se ejecutan las funciones, en caso de exito o error.
+					document.querySelector('p').innerHTML = "Estamos grabando...";
+				} else {
+					console.log('¡Tu navegador no es compatible!, ¿No lo vas a acutalizar?'); //Si no es compatible, enviamos este mensaje.
+				}
+			}
+
+			//Funcion para parar la grabación y escucharla
+			function parar() {
+				recorder.stop(); //Paramos la grabación
+				recorder.exportWAV(function(s) { //Exportamos en formato WAV el audio 
+					audio.src = window.URL.createObjectURL(s); //Y convertimos el valor devuelto en URL para pasarlo a nuestro reproductor.
+				});
+				document.querySelector('p').innerHTML = "Paramos la grabación y ahora escuchala...";
+			}
+
+</script>
+
+</body>
+</html>

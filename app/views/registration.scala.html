@@ -1,0 +1,874 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,pwdchanged:String,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams){
+	<style type="text/css">
+	body {
+		background: #F5F5F5;
+	}
+	</style>
+	
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/5804a5699ca1830bdc94a852/default';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+</script>
+<!--End of Tawk.to Script-->
+
+	
+<script type="text/javascript">
+	/*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-72593005-1', 'myidos.com');
+	ga('send', 'pageview'); */
+	
+	
+	$(document).ready(function() {
+		$('#logindiv').find('input').attr('autocomplete', 'off');
+		var user = getCookie("user");
+		console.log("user = " + user);
+		if ("" === user) {
+		  	$('#loadingIdos').hide();
+		  	var locHash=window.location.hash;
+		  	var url=window.location.pathname;
+		  	if(locHash=="" || locHash=='#logindiv'){
+				location.hash = "#logindiv";
+				$("#logindiv input:enabled:visible:first").focus();
+				$("#accountspanstat").html("Please log in to your account.");
+				$("#leftboxtd").attr("valign","middle");
+		  	}
+		  	if(url.indexOf("sllrlogout")!=-1){
+		  		 location.hash = "#sellerAccountLoginDiv";
+		  		 $("#logindiv").hide();
+		  		 $("#sellerAccountRegDiv").hide();
+		  		 $("#sellerAccountLoginDiv").show();
+		  		 $("#sellerAccountLoginDiv input:enabled:visible:first").focus();
+		  	}
+		  	if(locHash=="#logindiv"){
+				@if(configParams.getCompanyOwner().equals("PWC")){
+				getPWCUsers('@email');
+				}
+		  		$("#logindiv input:enabled:visible:first").focus();
+		  	}
+		  	if(locHash=="#forgotlogindiv"){
+		  		$("#logindiv").hide();
+		  		$("#sellerAccountLoginDiv").hide();
+		  		$("#forgotlogindiv").show();
+		  	}
+		  	if(locHash=="#signUpRegister"){
+		  		$("#signUpDiv input:enabled:visible:first").focus();
+		  		//$("#selectCountryDiv select:enabled:visible:first").focus();
+		  		$("#signUpDiv").show();
+		  		$("#logindiv").hide();
+		  		$("#resetLoginCred").hide();
+		  		$("#accountspanstat").html("Sign Up For Your Account.");
+		     		$("#leftboxtd").attr("valign","middle");
+		  	}
+			if (locHash == "#compRegister") {
+				$("#compRegDiv input:enabled:visible:first").focus();
+				$("#compRegDiv").show();
+				$("#signUpDiv").hide();
+				$("#logindiv").hide();
+				$("#resetLoginCred").hide();
+				$("#accountspanstat").html("Sign Up For Your Account.");
+				$("#leftboxtd").attr("valign", "middle");
+			}
+		  	if(locHash=="#selectCountryDiv"){
+		  		$("#selectCountryDiv select:enabled:visible:first").focus()
+		  		$(locHash).show();
+		  		$("#logindiv").hide();
+		  		$("#resetLoginCred").hide();
+		     	$("#leftboxtd").attr("valign","middle");
+		  	}
+		  	if(locHash=="#demoPageCountryWise"){
+		  		$("#demoPageCountryWise input:enabled:visible:first").focus()
+		  		$(locHash).show();
+		  		$("#logindiv").hide();
+		  		$("#resetLoginCred").hide();
+		     		$("#leftboxtd").attr("valign","middle");
+		  	}
+		  	if(locHash=="#resetLoginCred"){
+		  		$('.signin').hide();
+		  		var email = GetURLParameter('email');
+		  		var token = GetURLParameter('token');
+		  		if ('' !== email && '' != token) {
+		  			var jsonData = {};
+		  		  	jsonData.userEmail = email;
+		  		  	jsonData.token = token;
+		  		  	jsonData.locHash = locHash;
+		  			ajaxCall('/accountSetting/userPasswordReset', jsonData, '', '', '', '', 'userPasswordReset', '', false);
+		  		}
+		  	}
+		  	if(locHash=="#resetSecurityAnswerDiv"){
+		  		$('.signin,#wrapper').hide();
+		  		$(locHash).show();
+		  		var email = GetURLParameter('email');
+		  		var token = GetURLParameter('token');
+		  		if ('' !== email && '' != token) {
+		  			var jsonData = {};
+		  			jsonData.email = email;
+		  			jsonData.token = token;
+		  			jsonData.locHash = locHash;
+		  			ajaxCall('/user/getSecurityQuestion', jsonData, '', '', '', '', 'userSecurityQuestion', '', true);
+		  		}
+		  	}
+		  	if(locHash=="#sellerresetLoginCred"){
+				$("#sellerresetLoginCred input:enabled:visible:first").focus();
+				$(locHash).show();
+				$("#sellerAccountLoginDiv").hide();
+				$("#accountspanstat").html("Reset Your Account.");
+				$("#leftboxtd").attr("valign","middle");
+				var email = GetURLParameter('email');
+				$("#sellerresetemail").val(email);
+				$("#sellerAccountRegDiv").hide();
+				$("#logindiv").hide();
+		  	}
+			
+			var locHash=window.location.hash;
+			if(locHash == "#sellerforgotlogindiv"){
+				$("#logindiv").hide();
+				$(locHash).show();
+			}
+		
+		  	var seller = getCookie("seller");
+			if ("" === seller) {
+				if(locHash=="#sellerAccountLoginDiv"){
+					$("#logindiv").hide();
+					$("#sellerAccountRegDiv").hide();
+					$(locHash).show();
+					$("#sellerAccountLoginDiv input:enabled:visible:first").focus();
+				}
+			} else if ("" !== seller) {
+				window.location.href = '/seller';
+			}
+		  	/* if(locHash=="#sellerAccountLoginDiv"){
+		  		$("#logindiv").hide();
+		  		$("#sellerAccountRegDiv").hide();
+		  		$(locHash).show();
+		  		$("#sellerAccountLoginDiv input:enabled:visible:first").focus();
+		  	} */
+		  	if(locHash=="#sellerAccountRegDiv"){
+		  		$("#logindiv").hide();
+		  		$("#sellerAccountLoginDiv").hide();
+		  		$(locHash).show();
+		  		$("#sellerAccountRegDiv input:enabled:visible:first").focus();
+		  	}
+		  	if(locHash=="#sessionExpired"){
+		  		 $('#logoutReasonMsg').html('You have been logged out after a period of inactivity in order to protect the security of your account.');
+		  		 $('#logoutReason').slideDown(2000);
+		  		 notifyLogin.show('You have been logged out after a period of inactivity in order to protect the security of your account.', true, false);
+		  		window.location.hash = 'loginDiv';
+		  	}
+		  	if(locHash=="#resetSuccess"){
+		  		$('#logoutReasonMsg').html('Your password has been reset successfully. Login with your new password to access your account.');
+		  		$('#logoutReason').slideDown(2000);
+		  		notifyLogin.show('Your password has been reset successfully. Login with your new password to access your account.', true, false);
+		  		window.location.hash = 'loginDiv';
+		  	}
+		  	if(url.indexOf("activate")!=-1){
+		  		var locHash=window.location.hash;
+		  		$("#loginsuccessaccountmsg").html("");
+		  		$("#loginsuccessaccountmsg").text('Welcome To @(configParams.getCompanyApp()).Your Account Is Activated.');
+		  		$("#loginsuccessregdiv").show();
+		  	}
+		  	var vendorCustomer = getCookie("vendorCustomer");
+			if ("" === vendorCustomer) {
+				if(url.indexOf("customerVendorAccount")!=-1){
+					var locHash=window.location.hash;
+					$("#vendCustAccount").show();
+					$("#logindiv").hide();
+					$("#forgotlogindiv").hide();
+				}
+			} else if ("" !== vendorCustomer) {
+				window.location.href = '/vendCustConfig';
+			}
+		  	/* if(url.indexOf("customerVendorAccount")!=-1){
+		  		var locHash=window.location.hash;
+		  		$("#vendCustAccount").show();
+		  		$("#logindiv").hide();
+		  		$("#forgotlogindiv").hide();
+		  	} */
+		  	if(url.indexOf("accountChanged")!=-1){
+				$("#successaccountmsg").html("");
+				$("#successaccountmsg").text('Successfully created New Admin To configure @(configParams.getCompanyApp()).');
+				$("#successregdiv").show();
+		  	}
+		  	@if(pwdchanged!=null){
+		  		$("#successregdiv").show();
+		  		$("#successaccountmsg").text("'@pwdchanged'");
+		  	}
+		}else {
+		  	var vendorCustomer = getCookie("vendorCustomer");
+		  	var seller = getCookie("seller");
+			
+			if ("" !== user) {
+		  		window.location.href = '/config';
+		  	} else if ("" === vendorCustomer) {
+		  		if(url.indexOf("customerVendorAccount")!=-1){
+		  			var locHash=window.location.hash;
+		  			$("#vendCustAccount").show();
+		  			$("#logindiv").hide();
+		  			$("#forgotlogindiv").hide();
+		  		}
+		  	} else if ("" !== vendorCustomer) {
+		  		window.location.href = '/vendCustConfig';
+		  	} else if ("" === seller) {
+		  		$("#logindiv").hide();
+		  		$("#sellerAccountRegDiv").hide();
+		  		$(locHash).show();
+		  		$("#sellerAccountLoginDiv input:enabled:visible:first").focus();
+		  	} else if ("" !== seller) {
+		  		window.location.href = '/seller';
+		  	}
+		}
+	});
+</script>
+	<div style="display:none;" id="publicKeyID">@pwdchanged</div>
+	<!--WRAPPER-->
+	<div id="wrapper" class="registrationDiv">
+		<input id="recaptchaLength" type="hidden"/>
+		<input id="validationPassedNo" class="validationPassedNo" type="hidden"/>
+		<div id="messageDisplay" ></div>
+
+		<!--SSO LOGIN FORM-->
+		@if(configParams.getCompanyOwner().equals("PWC")){
+			<div id="logindiv" class="login-form" role="login">
+				<form id="logindivForm">
+					<div class="top">
+						@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+							<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+						}else{
+							<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+						}
+						
+						@if(configParams.getCompanyOwner().equals("PWC")) {
+							<h4>@(configParams.getCompanyApp())</h4>
+						}
+						<h4 class="panel-title">User Listing</h4>
+					</div>
+					<div class="form-area">
+						<table class="table table-hover table-striped excelFormTable" id="usersTable1" style="margin-top: 0px;">
+							<thead><tr><th>Entity ID</th></tr></thead>
+							<tbody></tbody>
+						</table>
+						<br>
+						<center>
+						<span>In case if authenticate not given list of email please re-authenticate by clicking following button</span>
+						<button type="submit" onclick="location.href='/pwc/authenticate';"><a style="text-decoration:none;" href="/pwc/authorization">Re-Authenticate</a></button>
+						</center>
+					</div>
+				</form>
+			</div>
+		}else{
+			<!--LOGIN FORM-->
+			<div id="logindiv" class="login-form" role="login">
+				<form id="logindivForm" onsubmit="return false;" autocomplete="off">
+					<div class="top">
+						@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+							<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+						}else{
+							<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+						}
+						
+						@if(configParams.getCompanyOwner().equals("PWC")) {
+							<h4>@(configParams.getCompanyApp())</h4>
+						}
+							<h4 class="panel-title">User Login</h4>
+					</div>
+						<div class="form-area">
+							<div class="group">
+								<input id="loginuser" name="loginuser" type="email"  placeholder="Registered e-mail" class="form-control" autocomplete="Registered e-mail" required />
+								<i class="fa fa-user"></i>
+							</div>
+							<div class="group">
+								<input id="pass" type="password" name="password" placeholder="Password" class="form-control" autocomplete="new-password" required/>
+								<i class="fa fa-key"></i>
+							</div>
+							<div id="loginRecaptcha" class="recaptchaStyle"></div>
+							<!--<div class="checkbox checkbox-primary" style="margin-left:20px;">
+								<input id="checkbox101" type="checkbox" autocomplete="unchecked" checked> <label for="checkbox101"> Remember Me</label>
+							</div> -->
+							<button type="submit" name="go" id="loginButton" class="recaptchaButton btn btn-login btn-block" onclick="userSignIn(this);"> LOGIN</button>
+						</div>
+				</form>
+				<div class="footer-links row">
+					<!--
+						<div class="col-xs-6 notactive" id="registerNowDivId">
+							<a href="/signUp#signUpDiv"><i class="fa fa-external-link-alt"></i>	Register Now</a>
+						</div>
+					-->
+					<div class="col-xs-6">
+						<a href="/signUp#forgotlogindiv" onclick="forgot();"><i class="fa fa-lock"></i> Forgot password</a>
+					</div>
+					<div class="col-xs-6">
+						<a style="text-decoration:none;" href="/externalLogin#logindiv"><i class="fa fa-sign-in-alt"></i> External User Login</a>
+					</div>
+					<div class="col-xs-6" id="sellerLoginDivId">
+						<a href="/signIn#sellerAccountLoginDiv" onclick="sellerLoginPage();"><i class="fa fa-sign-in-alt"></i> Vendor/Seller Login</a>
+					</div>
+					@if(configParams.getCompanyOwner().equals("PWC")) {
+						<div style="padding-left: 15px; padding-top: 44px;" class="notactive">
+							<a href="/resend#resendActivation"><i class="fa fa-unlock"></i> Registered, but did not <b>activate</b> your @(configParams.getCompanyApp()) user account?</a>
+						</div>
+						<div class="col-lg-12">
+							View 
+							<b style="color: #B4283C;cursor: default;"><a href="/privacy#informationCollected">PRIVACY POLICY</a></b>
+							and <b style="color: #B4283C; cursor: default;"><a href="/terms#serviceAgreement">TERMS & CONDITIONS</a></b>.
+						</div>
+					}
+				</div>
+			</div>
+		}		
+		<!--END LOGIN FORM-->
+		
+		<!--SELECT COUNTRY FORM-->		
+			<div class="login-form" id="selectCountryDiv" role="login" style="display: none;  padding-top: 0px;">
+			<form id="selectCountryDivForm" onsubmit="return false;" style="margin-top:30px;">
+				<div class="top" style="margin-top:5px; padding-top: 20px; padding-bottom: 0px;">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Select Your Country</h4>
+				</div>
+				<div class="form-area">
+					<div class="group" style="margin-top:-20px; padding-top: 0px;">
+						<select id="countryName" class="form-control countryName" >
+							<option value="">Select Country</option>
+							<option value="INDIA">India</option>
+							<option value="SINGAPORE">Singapore</option>
+							<option value="SAUDI_ARABIA">Saudi Arabia</option>
+							<option value="USA">USA</option>
+							<option value="UAE">United Arab Emirates (UAE)</option>
+							<option value="OTHERS">Other</option>
+						</select>
+					</div>
+					<div id="countrySelectRecaptcha" class="recaptchaStyle"></div>
+					<button type="submit" id="countrySelectButton" class=" btn btn-login btn-block">
+							CONTINUE...
+					</button>	
+				</div>
+			</form>
+			
+		</div>	
+			
+		<!--END SELECT COUNTRY FORM-->
+		
+			<!--DEMO PAGE COUNTRY WISE -->	
+			
+			<div class="login-form" id="demoPageCountryWise" role="login" style="display: none;  padding-top: 0px;">
+			<form id="countryWiseDemoForm" onsubmit="return false;" style="margin-top:30px;">
+				<div class="top" style="margin-top:5px; padding-top: 20px; padding-bottom: 0px;">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title"><b>Enter Your Contact Details</b></h4>
+				</div>
+			<div class="form-area">
+					<div class="group" style="margin-top:-20px; padding-top: 0px;">
+						<input class="form-control" id="demofullName" placeholder="Please Enter Your Name" required >
+						<i class="fa fa-user"></i>
+					</div>
+					<div class="group">
+						<input type="email" class="form-control email" id="demoContactemail" placeholder="Please provide your valid Email" required>
+						<i class="fa fa-envelope fa-fw"></i>
+					</div>
+					<div class="group">
+						<input type="tel"  class="form-control"  id="demoContactphone" placeholder="Please provide your Phone Number"  maxlength="30" required>
+						<i class="fa fa-phone fa-fw"></i>
+					</div>
+					<div class="group">
+						<input class="form-control" id="demoContactcompany" placeholder="Please provide your Company Name" required >
+						<i class="fa fa-university fa-fw"></i>
+					</div>
+					<div class="group">
+						<textarea id="demoContactcomments" data-min-length="10" class="form-control" placeholder="Please provide Message" style="height: 80px;"></textarea>
+					</div>
+					<div id="demoPageRecaptcha" class="recaptchaStyle"></div>
+					<button type="submit" id="demoCountryWiseSubmit" name="go" class="recaptchaButton btn btn-login btn-block">SEND				
+					</button>
+				</div>
+			</form>
+			
+		</div>	
+			
+		<!--END DEMO PAGE COUNTRY WISE-->
+		
+		<!-- Added by Suresh Kumar P -->
+		<!-- Super admin Company Registration -->
+		<div class="login-form" id="compRegDiv" role="login" style="display: none;  padding-top: 20px;">
+			<form id="signUpDivForm" onsubmit="return false;">
+				<div class="top" style="margin-top:5px; padding-top: 0px; padding-bottom: 0px;">
+					<h4 class="panel-title">Register Your Company</h4>
+				</div>
+				<div class="form-area">
+					<div class="group">
+						<input id="saContactName"  name="contactName" placeholder="Your name" class="form-control" required >
+						<i class="fa fa-user fa-fw"></i>
+					</div>
+					<div class="group" style="margin-top:5px;">
+						<input id="saCompanyName" name="companyname" placeholder="Company/business name" class="form-control" required >
+						<i class="fa fa-university fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="saPhoneNumber" class="form-control" placeholder="Phone (e.g. +91 XXX XXXX XXX)"  maxlength="30" required>
+						<i class="fa fa-phone fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="saCorporateEmail" type="email" name="email" placeholder="Email with which you want to register" class="form-control" onblur="checkemail(this);" required>
+						<i class="fa fa-envelope fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="saOrgPwd" type="password" name="password" placeholder="Create your password" class="form-control" required > 
+						<i class="fa fa-key fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="saOrgPwdConfirm" type="password" class="form-control" placeholder="Type the password again" required> 
+						<i	class="fa fa-key fa-fw"></i>
+					</div>
+					<div class="pswd_info">
+						<h4>Password must meet the following requirements:</h4>
+						<ul class="pwdinfoli">
+							<li id="letterPwd" class="invalid letterPwd">At least <strong>one letter</strong></li>
+							<li id="capitalPwd" class="invalid capitalPwd">At least <strong>one capital letter</strong></li>
+							<li id="capitalPwd" class="invalid smallPwd">At least <strong>one small letter</strong></li>
+							<li id="numberPwd" class="invalid numberPwd">At least <strong>one number</strong></li>
+							<li id="specialcharPwd" class="invalid specialcharPwd">At least <strong>one special character</strong></li>
+							<li id="lengthPwd" class="invalid lengthPwd">Be at least <strong>8 characters</strong></li>
+						</ul>
+					</div>
+					<button type="submit" id="signUpCompany" name="go" class="recaptchaButton btn btn-login btn-block">
+						REGISTER NOW
+					</button>
+				</div>
+			</form>
+			<div class="footer-links row">
+				<div class="col-lg-12">
+					By clicking on <b style="color: #B4283C;
+								cursor: default;">REGISTER</b> you agree to the <b style="color: #B4283C;
+								cursor: default;"><a href="/privacy#informationCollected">PRIVACY POLICY</a></b>
+					and <b style="color: #B4283C;
+								cursor: default;"><a href="/terms#serviceAgreement">TERMS OF USAGE</a></b>
+					of @(configParams.getCompanyApp()).
+				</div>
+			</div>
+		</div>	
+			
+		<!--REGISTRATION FORM-->		
+		<div class="login-form" id="signUpDiv" role="login" style="display: none;  padding-top: 0px;">
+			<form id="signUpDivForm" onsubmit="return false;">
+				<div class="top" style="margin-top:5px; padding-top: 0px; padding-bottom: 0px;">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Register Your Business</h4>
+				</div>
+				<div class="form-area">
+					@if(configParams.getDeployMode == "MIX"){
+							<div class="group" id="userModeDiv" style="margin-top:-20px; padding-top: 0px;">
+						}else{
+							<div class="group" id="userModeDiv" style="margin-top:-20px; padding-top: 0px;display:none;">
+						}
+							<select id="userMode" class="form-control" >
+								<option value="0">Multi User Mode</option>
+								<option value="1">Single User Mode</option>
+							</select>
+							<i class="fa fa-user"></i>
+					</div>
+					<div class="group" style="margin-top:5px;">
+						<input id="companyname" name="companyname" placeholder="Company/business name" class="form-control" required >
+						<i class="fa fa-university fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="contactName"  name="contactName" placeholder="Your name" class="form-control" required >
+						<i class="fa fa-user fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="corporateemail" type="email" name="email" placeholder="Email with which you want to register" class="form-control" onblur="checkemail(this);" required>
+						<i class="fa fa-envelope fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="orgpwd" type="password" name="password" placeholder="Create your password" class="form-control" required > 
+						<i class="fa fa-key fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="orgpwd_confirm" type="password" class="form-control" placeholder="Type the password again" required> 
+						<i	class="fa fa-key fa-fw"></i>
+					</div>
+					<div class="pswd_info">
+						<h4>Password must meet the following requirements:</h4>
+						<ul class="pwdinfoli">
+							<li id="letterPwd" class="invalid letterPwd">At least <strong>one letter</strong></li>
+							<li id="capitalPwd" class="invalid capitalPwd">At least <strong>one capital letter</strong></li>
+							<li id="capitalPwd" class="invalid smallPwd">At least <strong>one small letter</strong></li>
+							<li id="numberPwd" class="invalid numberPwd">At least <strong>one number</strong></li>
+							<li id="specialcharPwd" class="invalid specialcharPwd">At least <strong>one special character</strong></li>
+							<li id="lengthPwd" class="invalid lengthPwd">Be at least <strong>8 characters</strong></li>
+						</ul>
+					</div>
+					<div class="group">
+						<input id="phonenumber" class="form-control" placeholder="Phone (e.g. +91 XXX XXXX XXX)"  maxlength="30" required>
+						<i class="fa fa-phone fa-fw"></i>
+					</div>
+					<div class="group">
+						@if(email != null && !email.isEmpty()){
+							<input id="registrationSource" class="form-control" placeholder="How did you know about @(configParams.getCompanyApp())" value="@email" readonly/>
+						}else{
+							<input id="registrationSource" class="form-control" placeholder="How did you know about @(configParams.getCompanyApp())"/>
+						}
+						<i class="fa fa-at fa-fw"></i>
+					</div>
+					<div class="group">
+						<input id="website" class="form-control" type="url" data-fv-uri-message="The website address is not valid" 	placeholder="Website/URL">
+						<i class="fa fa-link fa-fw"></i>
+					</div>
+					<div id="newUserRecaptcha" class="recaptchaStyle"></div>
+					<button type="submit" id="signUpOrganization" name="go" class="recaptchaButton btn btn-login btn-block">
+						@if(email == "myidoscloud"){
+						<iframe style="display:none;" src="https://ad.atdmt.com/m/a.html;m=11087214574741;cache=?event=COM_O365_IND_Vue_STr_ISV_MyidosRegisterNow">
+						</iframe>REGISTER NOW
+						<!-- Google Code for Myidos_Register Conversion Page -->
+						<script type="text/javascript">
+						/* <![CDATA[ */
+						var google_conversion_id = 870958415;
+						var google_conversion_language = "en";
+						var google_conversion_format = "3";
+						var google_conversion_color = "ffffff";
+						var google_conversion_label = "bfAHCJPl3HEQz4qnnwM";
+						var google_remarketing_only = false;
+						/* ]]> */
+						</script>
+						<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+						</script>
+						<noscript>
+						<div style="display:inline;">
+						<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/870958415/?label=bfAHCJPl3HEQz4qnnwM&amp;guid=ON&amp;script=0"/>
+						</div>
+						</noscript>
+						}else{
+							REGISTER NOW
+						}
+					</button>
+				</div>
+			</form>
+			<div class="footer-links row">
+				<div class="col-xs-6">
+					<a href="/signIn#logindiv"><i class="fa fa-sign-in-alt"></i> Login</a>
+				</div>
+				<div class="col-xs-6 text-right">
+					<a href="#forgotlogindiv" onclick="forgot();"><i class="fa fa-lock"></i>Forgot password</a>
+				</div>
+				<!-- privacy#informationCollected -->
+				@if(configParams.getCompanyOwner().equals("KARVY")) {
+					<div class="col-lg-12">
+						By clicking on <b style="color: #B4283C;
+						cursor: default;">REGISTER</b> you agree to the <b style="color: #B4283C;
+						cursor: default;"><a href="https://www.karvy.com/">PRIVACY POLICY</a></b>
+						and <b style="color: #B4283C;
+						cursor: default;"><a href="https://www.karvy.com/">TERMS OF USAGE</a></b>
+						of @(configParams.getCompanyApp()).
+					</div>
+				}else {
+					<div class="col-lg-12">
+						By clicking on <b style="color: #B4283C;
+						cursor: default;">REGISTER</b> you agree to the <b style="color: #B4283C;
+						cursor: default;"><a href="/privacy#informationCollected">PRIVACY POLICY</a></b>
+						and <b style="color: #B4283C;
+						cursor: default;"><a href="/terms#serviceAgreement">TERMS OF USAGE</a></b>
+						of @(configParams.getCompanyApp()).
+					</div>
+				}
+			</div>
+		</div>	
+		<!--END REGISTRATION FORM-->
+		
+		<!-- FORGOT FORM -->
+		<div class="login-form" id="forgotlogindiv" role="login" style="display: none;">	
+			
+			<form id="forgotlogindivForm" onsubmit="return false;">
+		        <div class="top">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+		          	<h4 class="panel-title">Forgot Password</h4>
+		        </div>
+		        <div class="form-area">
+		        	<div class="group">
+		            	<input id="logindetailemail" type="email" name="email" placeholder="Registered Email" required class="form-control"/><i class="fa fa-envelope"></i>
+		        	</div>
+				<div id="forgotpwdRecaptcha" class="recaptchaStyle"></div>
+				<button type="submit" name="go" id="requestresetlink" class="recaptchaButton btn btn-login btn-block">RESET PASSWORD</button>
+		        </div>
+		    </form>
+			<div class="footer-links row">
+				<div class="col-xs-6"><a href="/signIn#logindiv"><i class="fa fa-sign-in-alt"></i> Login</a></div>
+				<!-- <div class="col-xs-6 text-right"><a href="/signUp#signUpDiv"><i class="fa fa-external-link-alt"></i> Register Now</a></div> -->
+			</div>
+		</div >		
+		<!--END FORGOT FORM-->
+		
+		<!--RESET PASSWORD FORM-->
+		<div class="login-form" id="resetLoginCred" role="login" style="display: none;">
+			
+			<form id="forgotlogindivForm" onsubmit="return false;">
+				<div class="top">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Reset Your Password</h4>
+				</div>
+		
+				<div class="form-area">
+					<div class="group">
+						<input id="resetemail" type="email" name="resetemail" class="form-control" placeholder="Enter your e-mail" readonly="readonly"/>
+						<i class="fa fa-envelope"></i>
+					</div>
+					<div class="group">
+						<input id="resetnewpass" type="password" name="resetnewpass" class="form-control" placeholder="New password"/>
+						<i class="fa fa-key"></i>
+					</div>
+					<div class="group">
+						<input name="resetconfirmpass" id="resetconfirmpass" type="password" class="form-control" placeholder="Confirm new password" />
+						<i class="fa fa-key"></i>
+					</div>
+					<div id="securityAnswerDiv" style="display: none;">
+						<input type="hidden" id="resetSecurityquestionId">
+						<input type="hidden" id="resetSecurityquestion">
+						<div id="securityquestion"></div>
+						<input type="password" id="resetSecurityAnswer" class="form-control" style="padding-left: 1px;" placeholder="Security Answer">
+						<span id="forgotSecurityAnswer">Forgot Security Answer? Reset it.</span>
+					</div>
+					<button id="resetaccount" class="resetlogincred btn btn-login btn-block">Click Here To Reset Password</button>
+				</div>
+			</form>
+		</div>
+		<!--END RESET PASSWORD FORM-->
+		
+		
+		<!--SELLER LOGIN FORM-->
+		<div class="login-form" id="sellerAccountLoginDiv" style="display: none;">
+			<form id="sellerAccountLoginForm" onsubmit="return false;">
+				<div class="top">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Seller Login</h4>
+				</div>
+			
+				<div class="form-area">
+					<div class="input-group" style="margin-bottom: 20px;">
+						<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i>&nbsp;</span>
+						<input id="sellerAccountUser" type="email" name="sellerAccountUser" placeholder="Registered e-mail" class="form-control"/>
+					</div>
+					<div class="input-group" style="margin-bottom: 20px;">
+						<span class="input-group-addon"><i class="fa fa-key fa-fw"></i>&nbsp;</span>
+						<input id="sellerAccountPass" type="password" name="sellerAccountPass" placeholder="Password" class="form-control" />
+					</div>
+					<div id="sellerLoginRecaptcha" class="recaptchaStyle"></div>
+					<div class="checkbox checkbox-primary">
+						<input id="checkbox102" type="checkbox" checked> <label for="checkbox102"> Remember Me</label>
+					</div>
+					<button id="sellerAccountLoginButton" class="sellerAccountLoginButton btn btn-login btn-block">Login</button><!--END REGISTER BUTTON-->
+					<!-- <button id="sellerAccountRegisterSh" class="sellerAccountRegisterSh btn btn-login btn-block">Cancel</button> -->
+				</div>
+				<!--END CONTENT-->
+			</form>
+			<div class="footer-links row">
+				<div class="col-xs-6">
+				<a href="/signUp#sellerforgotlogindiv" onclick="sellerforgot();" style="float: left;"><i class="fa fa-lock"></i> Forgot Password?</a>
+					<!--<a href="/signUp#sellerforgotlogindiv" style="float: left;"><i class="fa fa-lock"></i> Forgot Password?</a> -->
+				</div>
+				<div class="col-xs-6">
+				<a href="/signUp#sellerAccountRegDiv" style="float: right;"><i class="fa fa-external-link-alt"></i> Register as seller.</a>
+				</div>
+		    </div>
+		</div>
+		<!--END SELLER LOGIN FORM-->
+		
+		<!--SELLER REGISTRATION FORM-->
+		<div class="login-form" id="sellerAccountRegDiv" style="display: none; margin-top: -50px;" role="login">
+			
+			<form id="sellerAccountRegForm" onsubmit="return false;">
+				<div class="top">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Seller Registration</h4>
+				</div>
+		 
+				<div class="form-area">
+					<div class="input-group" style="margin-bottom: 20px;">
+						<span class="input-group-addon"><i class="fa fa-user"></i>&nbsp;</span>
+						<input id="sellerAccountname" name="sellerAccountname" class="form-control" placeholder="Enter your company/business name"/>
+					</div>
+					<div class="input-group" style="margin-bottom: 20px;">
+						<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i>&nbsp;</span>
+						<input id="sellerAccountemail" type="email" name="sellerAccountemail" class="form-control" placeholder="Enter your e-mail" onkeyup="keyUp(event, 	'sellerRegistration');" onblur="isSellerAlreadyRegistered(this.value);"/>
+					</div>
+					<div class="input-group" style="margin-bottom: 20px;">
+						<span class="input-group-addon"><i class="fa fa-key fa-fw"></i>&nbsp;</span>
+						<input name="sellerAccountpwd" id="sellerAccountpwd" type="password" class="form-control" placeholder="Create a password of your choice" onkeyup="keyUp(event, 'sellerRegistration');"/>
+					</div>
+					<div class="pswd_info">
+						<h4>Password must meet the following requirements:</h4>
+						<ul class="pwdinfoli">
+							<li id="letterPwd" class="invalid letterPwd">At least <strong>one letter</strong></li>
+							<li id="capitalPwd" class="invalid capitalPwd">At least <strong>one capital letter</strong></li>
+							<li id="capitalPwd" class="invalid smallPwd">At least <strong>one small letter</strong></li>
+							<li id="numberPwd" class="invalid numberPwd">At least <strong>one number</strong></li>
+							<li id="specialcharPwd" class="invalid specialcharPwd">At least <strong>one special character</strong></li>
+							<li id="lengthPwd" class="invalid lengthPwd">Be at least <strong>8 characters</strong></li>
+						</ul>
+					</div>
+					<div id="newSellerRecaptcha" class="recaptchaStyle"></div>
+					<button id="sellerSignUpOrganization" class="btn btn-login btn-block" onclick="sellerRegistration();">Register</button>
+					<!--<button class="sellerAccountLoginSh btn btn-login btn-block" id="sellerAccountLoginSh" title="Go back to login">Cancel</button> -->
+				</div>
+			</form>
+		    <div class="footer-links row">
+				<div class="col-xs-6">
+					<a href="/signIn#sellerAccountLoginDiv"><i class="fa fa-sign-in-alt"></i> Seller Login</a>
+				</div>
+				<div class="col-xs-6">
+					<a href="#" onclick="sellerforgot();" style="float: right;"><i class="fa fa-lock"></i> Forgot Password?</a>
+				</div>
+				<br/>
+				<!----privacy#informationCollected--->
+				<div class="col-lg-12">
+					By clicking on <b style="color: #B4283C; cursor: default;">REGISTER</b> you agree to the <b style="color: #B4283C; cursor: default;"><a href="https://www.karvy.com/">PRIVACY POLICY</a></b> and <b style="color: #B4283C; cursor: default;"><a href="/terms#serviceAgreement">TERMS OF USAGE</a></b> of @(configParams.getCompanyApp()).
+				</div>
+		    </div>
+		</div>
+		<!--END SELLER REGISTRATION FORM-->
+		
+		<!--SELLER FORGOT FORM -->
+		<div class="login-form" name="sellerforgotlogindiv" id="sellerforgotlogindiv" role="login" style="display: none;">
+			
+			<form id="sellerforgotloginForm" onsubmit="return false;">
+				<div class="top">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Seller Forgot Password</h4>
+				</div>
+				<div class="form-area">
+					<div class="input-group" style="margin-bottom: 20px;">
+						<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i>&nbsp;</span>
+						<input id="sellerlogindetailemail" type="email" name="sellerlogindetailemail" class="form-control"  placeholder="Registered e-mail" />
+					</div>
+					<div class="input-group">
+						<div id="frgtpwdSellerRecaptcha" class="recaptchaStyle"></div>
+					</div>
+					<button id="sellerrequestresetlink" class="sellerlogininfo btn btn-login btn-block">Reset Password</button><!--END REGISTER BUTTON-->
+					
+				</div>
+			</form>
+			<div class="footer-links row">
+				<div class="col-xs-6">
+					<a href="/signIn#sellerAccountLoginDiv"><i class="fa fa-sign-in-alt"></i> Seller Login</a>
+				</div>
+			</div>
+		 </div>
+		<!--END SELLER FORGOT FORM-->
+		
+		<!--SELLER RESET PASSWORD FORM-->
+		<div class="login-form" id="sellerresetLoginCred" style="display: none;">
+			
+			<form id="sellerresetLoginCredForm" onsubmit="return false;">
+				<div class="top">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Reset Your Password</h4>
+				</div>
+				<div class="form-area">
+					<div class="group"><input id="sellerresetemail" type="email" name="resetemail" class="input" placeholder="Enter your e-mail" readonly="readonly" /></div>
+					<div class="group"><input id="sellerresetnewpass" type="password" name="sellerresetnewpass" class="input" placeholder="New password"/></div>
+					<div class="group"><input name="sellerresetconfirmpass" id="sellerresetconfirmpass" type="password" class="input" placeholder="Confirm new password" /></div>
+					<button id="resetaccount" class="sellerresetlogincred button register">Reset Password</button>
+					<button id="sellerAccountLoginButton" class="sellerAccountLoginSh button register">Cancel</button>
+				</div>
+		    </form>
+		</div>
+		<!--END SELLER RESET PASSWORD FORM-->
+		
+		<!--CUSTOMER/VENDOR LOGIN FORM-->
+		<div class="login-form" id="vendCustAccount" style="display: none;">
+			
+			<form id="vendCustAccountForm" onsubmit="return false;">
+				<div class="top">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Customer/Vendor Login</h4>
+				</div>
+		    
+				<div class="form-area">
+					<div class="group">
+					<input name="vendcustpass" id="vendcustpass" type="password" class="form-control" required/><i class="fa fa-key fa-fw"></i>
+					</div>
+					<button class="vendcustloginButton btn btn-login btn-block" id="vendcustloginButton">Login</button>
+					<button id="vendcustforgotpasswordButton" class="vendcustforgotpasswordButton btn btn-login btn-block" onclick="vendcustforgot();">Forgot Password?</button>
+				</div>
+		    </form>
+		</div>
+		<!--END CUSTOMER/VENDOR LOGIN FORM-->
+		
+		<!--CUSTOMER/VENDOR RESET PASSWORD FORM-->
+		<div class="login-form" id="vendCustForgotAccount" style="display: none;">
+			
+			<form id="vendCustForgotAccountForm" onsubmit="return false;">
+				<div class="top">
+					@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")){
+						<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+					}else{
+						<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+					}
+					<h4 class="panel-title">Reset Your Password</h4>
+				</div>
+				<div class="form-area">
+					<div class="group"><input id="vendCustresetemail" type="email" name="vendCustresetemail" class="form-control" placeholder="Enter your e-mail" readonly="readonly" /></div>
+					<div class="group"><input id="vendCustresetnewpass" type="password" name="vendCustresetnewpass" class="form-control" placeholder="New password"/></div>
+					<div class="group"><input name="vendCustresetconfirmpass" id="vendCustresetconfirmpass" type="password" class="form-control" placeholder="Confirm new password" /></div>
+					<button id="vendCustresetaccount" class="vendCustresetlogincred button register">Reset Password</button>
+					<button id="vendcustcancelButton" class="vendcustcancelButton button register" onclick="vendcustcancel();">Cancel</button>
+				</div>
+			</form>	
+		</div>
+		<!--END CUSTOMER/VENDOR RESET PASSWORD FORM-->
+	</div>
+	<div id="resetSecurityAnswerDiv" style="display: none; position: absolute; top: 0;">
+	@resetSecurityAnswer(fullName,email,role,orgn,pwdchanged,configParams){
+	} 
+	</div>
+	<!--END WRAPPER-->
+	<!--Slider-in icons-->
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+}

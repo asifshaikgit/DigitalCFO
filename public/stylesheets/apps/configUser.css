@@ -1,0 +1,139 @@
+.transactionCoaList{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    min-height: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 90px;
+}
+
+.userTxnCoalist td{
+    max-width: 100px;
+    word-wrap: break-word;
+}
+
+#txnInCoaCreatorList tr td:nth-child(1), #userSetupTxnCoaTbl th:nth-child(1){
+    min-width: 30px;
+    max-width: 30px;
+    width: 30px;
+    word-wrap: break-word;
+}
+#txnInCoaCreatorList tr td:nth-child(2), #userSetupTxnCoaTbl th:nth-child(2){
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+    word-wrap: break-word;
+}
+#txnInCoaCreatorList tr td:nth-child(3), #userSetupTxnCoaTbl th:nth-child(3){
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+    word-wrap: break-word;
+}
+
+.txnIncoacreatordropdown-menu, .txnExcoacreatordropdown-menu, .txnAscoacreatordropdown-menu, .txnLicoacreatordropdown-menu {
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 220px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	list-style: none;
+	background-color: #ffffff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+}
+
+.opentxnIncoacreatordropdown-menu, .opentxnExcoacreatordropdown-menu, .opentxnAscoacreatordropdown-menu, .opentxnLicoacreatordropdown-menu{
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  float: left;
+  min-width: 220px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+.txnIncoaapproverdropdown-menu, .txnExcoaapproverdropdown-menu, .txnAscoaapproverdropdown-menu, .txnLicoaapproverdropdown-menu {
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 220px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	list-style: none;
+	background-color: #ffffff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+}
+
+.opentxnIncoaapproverdropdown-menu, .opentxnExcoaapproverdropdown-menu, .opentxnAscoaapproverdropdown-menu, .opentxnLicoaapproverdropdown-menu{
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  float: left;
+  min-width: 220px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+.div-box {
+    box-shadow: none;
+    border-right: 1px solid #e5e5e5;
+    background: #fff;
+    padding: 0px;
+    margin-bottom: 0px;
+    position: relative;
+}

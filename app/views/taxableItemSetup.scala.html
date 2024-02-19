@@ -1,0 +1,24 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="taxableItemDiv" class="taxsetupcls" style="display: none">
+	<div class="">
+			<div style="margin-top:20px;margin-left:5px; max-height:300px; overflow:auto;">
+				<div class="text-center"><strong>Taxable Items</strong></div>
+				<div class="panel-body">
+						<div style="vertical-align:top; overflow:auto;" >
+							<table class="table" id="taxableItemTable">
+								<tbody>
+									<tr>
+										<td ><b>Applicable Items for composition scheme</b></td>
+										<td><select id="taxableIncomeItemSelect"  multiple="multiple" size="3" style="width:250px;"></select></td>
+										<td><button id="taxableIncomeItemSave"  class="btn btn-submit btn-idos" title="Save Taxable Items" onclick="saveTaxableItems();"><span class="">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+										<td><select id="taxableIncomeItems" multiple="multiple" size="10" ></select></td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="margin-top:80px;">
+							</div>
+						</div>
+					</div>
+			</div>
+	</div>
+</div>

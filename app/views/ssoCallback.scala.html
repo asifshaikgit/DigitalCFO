@@ -1,0 +1,14 @@
+@(code: String, iss: String, state: String, clientId: String, stateString: String, isUserAuthenticate: Boolean)
+
+
+@if(isUserAuthenticate) {
+    <script type="text/javascript">
+        window.location.href = "/signIn#logindiv";
+    </script>
+}
+
+@if(!isUserAuthenticate) {
+    <script type="text/javascript">
+        window.location.href = "../../";
+    </script>
+}

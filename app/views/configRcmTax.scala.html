@@ -1,0 +1,137 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<!--
+
+<div id="rcmTaxDiv" class="taxsetupcls" style="display: none">
+	<div class="panel-title">Tax configuration on Reverse Charge  - Unregistered Vendors / Registered Vendors - RCM / Imports <button id="addNewRcmTax"  style="float:right; margin-right:5px;" onclick="showRcmTaxWindow();" class="btn btn-submit" title="Add New RCM Taxes">Add New RCM Taxes</button></div>
+	<div class="panel" style="display: none" id="newRcmTaxDiv">
+		<table class="table excelFormTable" id="rcmTaxTable">
+		<thead class="tablehead1"><tr><th><button style="cursor: pointer; float:left; margin-left:2px;" id="removeRcmTaxes"><i class="fa fa-minus-circle fa-lg"></i> </button>&nbsp;&nbsp;Branch</th><th>Vendor</th><th>Goods/Services</th><th>Description</th><th>HSN/SAC Code</th><th>Tax Rate</th><th>Cess Rate</th><th>Mapped to Expense item/Ledger  <button style="cursor: pointer; float:right; margin-right:2px;" id="addMoreRcmTaxes" title="add more taxes"><i class="fa fa-plus-circle fa-lg"></i></button></th></tr></thead>
+		<tbody>
+			
+			<tr id="rcmtaxtr">
+				<td><select id="rcmTaxBranch"><option value="">Select a Branch</option></select></td>
+				<td><select id="rcmTaxVendor" onChange="getCustomerListForBranch(this);"><option value="">--Please Select--</option></select></td>
+				<td><select id="rcmTypeOfSupply"><option value="">Please Select..</option><option value="1">Goods</option><option value="2">Services</option></select></td>
+				<td><input type="text" style="width: 200px;" class="rcmDescCls" id="rcmDescription" maxlength="256" onkeyup="resetRcmTaxDetail();">	</td>
+				<td><input type="text" id="hsnSacCode" style="width: 100px;"></td>
+				<td>	<input type="text" style="width: 60px;" id="rcmGstTaxRate" onkeypress="return onlyDotsAndNumbers(event);"/></td>
+				<td><input type="text" style="width: 60px;" id="rcmCessTaxRate" onkeypress="return onlyDotsAndNumbers(event);"></td>
+				<td><input type="text" id="rcmItem" style="width: 200px;"><input type="hidden" id="rcmItemId"></td>
+			</tr>
+			
+		</tbody>
+		</table>
+		<br>
+		<button id="formCancel" class="btn btn-cancel" title="Cancel" onClick="{$('#newRcmTaxDiv').hide()}">Cancel</button>
+		<button id="saveRcmTax" onclick="saveRcmTaxes();" style="float:right; margin-right:5px;" class="btn btn-submit" title="Add RCM Taxes">Add Taxes</button>
+	</div>
+	<div class="panel" style="max-height:300px; overflow:auto;">
+		<table class="table excelFormTable table-striped" id="rcmTaxTableHistory">
+		<thead class="tablehead1"><tr><th>Date</th><th>Branch</th><th>Vendor</th><th>Goods/Services</th><th>Description</th><th>HSN/SAC Code</th><th>Tax Rate</th><th>Rate</th><th>Mapped to Expense item/Ledger </th></tr></thead>
+		<tbody>
+		</tbody>
+		</table>
+	</div>
+	
+	-->
+	<div id="rcmTaxDiv" class="taxsetupcls" style="display: none">
+				<div id="rcmTaxRule-form-container" class="newRcmTaxRuleform-container" style="display: none;">
+					<div class="panel">
+						<div class="panel-title"><i class=""></i><b id="itemDisplay"></b></div>
+						<div class="taxRuleDetails" style="width: 100%; overflow: auto;">
+							<input type="hidden" name="bnchHidden" id="bnchHidden" value="">
+							<input type="hidden" name="specfHidden" id="specfHidden" value="">
+							<input type="hidden" name="taxCategoryHidden" id="taxCategoryHidden" value="">
+							<input type="hidden" name="multiItemsListHidden" id="multiItemsListHidden" value="">
+							<table class="table  excelFormTable" id="rcmTaxRuleDetailsTable" style="margin-top: 0px; width: 100%;">               
+								<thead class="tablehead1"><tr><th colspan="8" style="text-align: center; font-size:14px;">Tax rule for: <b id="itemNameLbl"></b></th></tr></thead>
+								<tr>
+									<td><label for="itemCategory" style="float:right; margin-top:9px;">Goods/Services:</label></td>
+									<td><input type="text" id="itemCategory" readonly /></td>
+									<td><label for="itemHsnSac" style="float:right; margin-top:8px;">HSN/SAC:</label></td>
+									<td><input type="text" id="itemHsnSac" readonly /></td>
+									<td><input type="text" style="width:140px;float:right;" id="itemTaxRate" readonly /><label for="itemTaxRate" style="float:right; margin-top:8px;">Tax Rate (%):</label></td>
+									<td><input type="text" style="width:140px;float:right;" id="itemCessTaxRate" readonly /><label for="itemCessTaxRate" style="float:right; margin-top:8px;">Cess Tax Rate (%):</label></td>
+								</tr>
+								<thead class="tablehead1"><tr><th>Tax Name</th><th>Tax Rate</th><th>Add/Deduct</th><th>Apply To</th><th>Tax Amount</th><th>Invoice Value(IV)</th></tr></thead>
+								<tr id="1">
+									<td>SGST Rate (%) <input type="hidden" id="taxName" value=""/></td>
+									<td><input type="text" id="itemgstrate" onkeypress="validateGstTaxRate(this, 'SGST'); return onlyDotsAndNumbers(event); "  onblur="validateGstTaxRate(this, 'SGST');"/></td>
+									<td><select name="taxAddDeduct" id="taxAddDeduct" onchange="toggleGstApplyTo(this);"><option value="">--Please Select--</option><option value="1">Add</option><option value="0">Deduct</option></select></td>
+									<td><select name="taxApplyTo" id="taxApplyTo" onchange="validateRcmTaxationRule(this);">
+										<option value="">--Please Select--</option>
+										<option value="GV">Gross Value(GV)</option>
+										</select></td>
+									<td><input type="text" id="taxFormula" readonly /></td>
+									<td><input type="text" id="taxInvoiceValue" readonly /></td>
+								</tr>
+								<tr id="2">
+									<td>CGST Rate(%) <input type="hidden" id="taxName" value=""/></td>
+									<td><input type="text" id="itemgstrate" onkeypress="validateGstTaxRate(this, 'CGST'); return onlyDotsAndNumbers(event);"  onblur="validateGstTaxRate(this, 'CGST');"/></td>
+									<td><select name="taxAddDeduct" id="taxAddDeduct" onchange="toggleGstApplyTo(this);"><option value="">--Please Select--</option><option value="1">Add</option><option value="0">Deduct</option></select></td>
+									<td><select name="taxApplyTo" id="taxApplyTo" onchange="validateRcmTaxationRule(this);">
+										<option value="">--Please Select--</option>
+										<option value="GV">Gross Value(GV)</option>
+										<option value="SGST">SGST Tax</option>
+										<option value="IV1">SGST IV</option>
+										</select></td>
+									<td><input type="text" id="taxFormula" readonly /></td>
+									<td><input type="text" id="taxInvoiceValue" readonly /></td>
+								</tr>
+								<tr id="3">
+									<td>IGST Rate (%) <input type="hidden" id="taxName" value=""/></td>
+									<td><input type="text" id="itemgstrate" onkeypress="validateGstTaxRate(this, 'IGST'); return onlyDotsAndNumbers(event); "  onblur="validateGstTaxRate(this, 'IGST');"/></td>
+									<td><select name="taxAddDeduct" id="taxAddDeduct" onchange="toggleGstApplyTo(this);"><option value="">--Please Select--</option><option value="1">Add</option><option value="0">Deduct</option></select></td>
+									<td><select name="taxApplyTo" id="taxApplyTo" onchange="validateRcmTaxationRule(this);">
+										<option value="">--Please Select--</option>
+										<option value="GV">Gross Value(GV)</option>
+										<option value="SGST">SGST Tax</option>
+										<option value="CGST">CGST Tax</option>
+										<option value="IV2">CGST IV</option>
+										</select></td>
+									<td><input type="text" id="taxFormula" readonly /></td>
+									<td><input type="text" id="taxInvoiceValue" readonly /></td>
+								</tr>
+								<tr id="4">
+									<td>Cess Rate (%) <input type="hidden" id="taxName" value=""/></td>
+									<td><input type="text" id="itemgstrate" onkeypress="return onlyDotsAndNumbers(event);" readonly  onblur="return onlyDotsAndNumbers(event);"/></td>
+									<td><select name="taxAddDeduct" id="taxAddDeduct" onchange="toggleGstApplyTo(this);"><option value="">--Please Select--</option><option value="1">Add</option><option value="0">Deduct</option></select></td>
+									<td><select name="taxApplyTo" id="taxApplyTo" onchange="validateRcmTaxationRule(this);">
+									<option value="">--Please Select--</option>
+									<option value="GV">Gross Value(GV)</option>
+									<option value="SGST">SGST Tax</option>
+									<option value="CGST">CGST Tax</option>
+									<option value="IGST">IGST Tax</option>
+									<option value="IV3">IGST IV</option>
+									</select></td>
+									<td><input type="text" id="taxFormula" readonly /></td>
+									<td><input type="text" id="taxInvoiceValue" readonly /></td>
+								</tr>
+								<tr id="5">
+									<td colspan="6" style="text-align:center;"><b> Tax Rate Applicable From :</b> <input class="rcmApplicableDate" id="rcmApplicableDate" type="text" name="rcmApplicableDate" placeholder="Date"></td>
+								</tr>
+							</table>
+							<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>	<!--						
+							<button id="testFormula" class="applyBtn btn btn-submit btn-idos" style="margin-left:5px;" title="Apply TaxRules To MutiItems" onClick="applyTaxRulesToMultipleItems();">Apply To Multiple Items</button> -->
+							<button id="resetAllTaxes" class="confirmBtn btn btn-submit btn-idos" style="margin-left:5px;" title="Reset Tax Formula">Reset All Tax Formulas</button>
+							<button id="testFormula" class="testFormula btn btn-submit btn-idos" style="margin-left:5px;"  title="Test Formula" onClick="validateGstTaxFormula();">Test Tax Formula</button><font color="red"> * Consider gross Amount as 100 and test your tax formula outcome.</font>
+							<button title="Apply Tax Rule to Multiple Items" name="applyRcmTaxMultiItems" id="applyRcmTaxMultiItems" type="button" class="applyRcmTaxMultiItems btn btn-submit btn-idos" value="1" style="vertical-align: top; margin-right:5px; float: right;" onClick="applyTaxRulesToMultipleRcmItems();">Apply To Multiple Items</button>
+							<button title="Apply Tax Rule" name="applyRcmTax" id="applyRcmTax" type="button" class="applyRcmTax btn btn-submit btn-idos" value="1" style="vertical-align: top; margin-right:5px; float: right;">Add/Update Tax Rule</button>
+							
+						</div>
+					</div>
+				</div>
+				<div class="taxRuleListDiv" id="rcmtaxList-form-container" style="width: 100%; overflow: auto; margin-top:10px;">
+					<table class="table  excelFormTable" id="rcmRuleListTable" style="margin-top: 0px; width: 100%;">               
+						<thead class="tablehead1"><tr><th>Item Name</th><th>Goods/Services</th><th>HSN/SAC</th><th>Tax Rate (%)</th><th>Tax Name & Rate (%)</th><th>Applicable Date</th></tr></thead>
+						<tbody></tbody>
+					</table>
+					<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>
+				</div>
+				
+				<div style="margin-top:0px; margin-left:0px;" id="chartOfAccountRCMTree">
+					<ul id="mainBranchRCMChartOfAccount" class="treeview-black mainBranchRCMChartOfAccount treeview">
+					</ul>
+				</div>
+</div>
+</div>

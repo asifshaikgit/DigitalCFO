@@ -1,0 +1,221 @@
+#itemTransactionTable tr td:nth-child(1){
+	min-width: 13%;
+	max-width: 13%;
+	width: 13%;
+	word-wrap: break-word; 
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word; 
+}
+
+#itemTransactionTable tr th:nth-child(1){
+	min-width: 13%;
+	max-width: 13%;
+	width: 13%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(2){
+	min-width: 6%;
+	max-width: 6%;
+	width: 6%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;  
+}
+
+#itemTransactionTable tr th:nth-child(2){
+	min-width: 6%;
+	max-width: 6%;
+	width: 6%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(3){
+	min-width: 7%;
+	max-width: 7%;
+	width: 7%;
+	word-wrap: break-word; 
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word; 
+}
+
+#itemTransactionTable tr th:nth-child(3){
+	min-width: 7%;
+	max-width: 7%;
+	width: 7%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(4){
+	min-width: 7%;
+	max-width: 7%;
+	width: 7%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;  
+}
+
+#itemTransactionTable tr th:nth-child(4){
+	min-width: 7%;
+	max-width: 7%;
+	width: 7%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(5){
+	min-width: 12%;
+	max-width: 12%;
+	width: 12%;
+	word-wrap: break-word; 
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word; 
+}
+
+#itemTransactionTable tr th:nth-child(5){
+	min-width: 12%;
+	max-width: 12%;
+	width: 12%;
+	word-wrap: break-word; 
+}
+
+
+#itemTransactionTable tr td:nth-child(6){
+	min-width: 8%;
+	max-width: 8%;
+	width: 8%;
+	word-wrap: break-word; 
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word; 
+}
+
+#itemTransactionTable tr th:nth-child(6){
+	min-width: 8%;
+	max-width: 8%;
+	width: 8%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(7){
+	min-width: 4%;
+	max-width: 4%;
+	width: 4%;
+	word-wrap: break-word; 
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word; 
+}
+
+#itemTransactionTable tr th:nth-child(7){
+	min-width: 4%;
+	max-width: 4%;
+	width: 4%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(8){
+	min-width: 15%;
+	max-width: 15%;
+	width: 15%;
+	word-wrap: break-word; 
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word; 
+}
+
+#itemTransactionTable tr th:nth-child(8){
+	min-width: 15%;
+	max-width: 15%;
+	width: 15%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(9){
+	min-width: 10%;
+	max-width: 10%;
+	width: 10%;
+	word-wrap: break-word; 
+	text-overflow: ellipsis;
+	overflow: hidden;
+	word-break: break-word;
+	text-align: right; 
+}
+
+#itemTransactionTable tr th:nth-child(9){
+	min-width: 10%;
+	max-width: 10%;
+	width: 10%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(10){
+	min-width: 11%;
+	max-width: 11%;
+	width: 11%;
+	word-wrap: break-word; 
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word; 
+	text-align: right;
+}
+
+#itemTransactionTable tr th:nth-child(10){
+	min-width: 11%;
+	max-width: 11%;
+	width: 11%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(11){
+	min-width: 7%;
+	max-width: 7%;
+	width: 7%;
+	word-wrap: break-word; 
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word; 
+}
+
+#itemTransactionTable tr th:nth-child(11){
+	min-width: 7%;
+	max-width: 7%;
+	width: 7%;
+	word-wrap: break-word; 
+}
+
+#itemTransactionTable tr td:nth-child(20){
+	max-width: 10% !important;
+	word-wrap: break-word;
+}
+#itemTransactionTable  .tbLedgerDivCls{
+	max-height: 100px !important;
+	overflow: auto !important;
+	width: 200px !important;
+	max-width: 200px !important;
+	word-wrap: break-word;
+}
+
+#itemTransactionTable tr td hr{
+	padding: 0px;
+    margin: 0px;
+    border-color: #d6d6d6;
+}
+
+.tbLedgerSubHeadDiv{
+	 display: inline-block;
+	width: 16% !important;
+	 max-width: 17.5% !important;
+	 margin-left: .15%;
+ }
+.tbLedgerItemSubHeadDiv{
+	display: inline-block;
+	width: 27% !important;
+	max-width: 27% !important;
+	overflow: auto;
+	max-height: 50px;
+}

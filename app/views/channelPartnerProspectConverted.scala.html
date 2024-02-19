@@ -1,0 +1,21 @@
+@(channelPartnerName:String, channelPartnerEmail:String,channelPartnerProspectOrgName:String, channelPartnerProspectOrgEmail:String, channelPartnerProspectOrgBranchName:String, channelPartnerProspectOrgBranchLocation:String,configParams:model.ConfigParams)
+<table style="width: 600px;font-family: sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td>
+				@(configParams.getCompanyApp()) CORP - Accounting Simplified
+			</td>
+		</tr>
+		<tr>
+			<td><span style="float: left;font-size: 13px;">Hi @{channelPartnerName}(@{channelPartnerEmail})</span></td>
+		</tr>
+		<tr>
+			<td><span style="float: left;font-size: 13px;">Your Prospect @{channelPartnerProspectOrgName}(@{channelPartnerProspectOrgEmail})</span><br/>
+			<span style="float: left;font-size: 13px;">Had Successfully Registered Their Organisation As @(configParams.getCompanyApp()) customer and Created Branch As</span><br/>
+			<span style="float: left;font-size: 13px;">@{channelPartnerProspectOrgBranchName} in location @{channelPartnerProspectOrgBranchLocation}</span></td>
+		</tr>
+		<tr id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

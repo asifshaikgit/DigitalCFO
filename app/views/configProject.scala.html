@@ -1,0 +1,131 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="projectSetup"  class="tab-pane mainDiv" style="display: none">
+	<div class="content">
+		<div class="panel panel-showtrans">  
+			<div class="panel-body">
+				<button id="newProjectform-container" class="newEntityCreateButton btn btn-primary btn-idos snglUsrDply" title="Create new project"><i class="fa fa-plus pr-5"></i>Create New Project</button>
+				<i style="top: 4px; position: relative;" class="fa fa-info-circle fs-18 pr-5 pl-5 userpopoverinfo help-info" longdesc="You can create specific projects in @(configParams.getCompanyApp()) and assign them to one or more branches. Setting up projects will enable you to control expenses in relation to specific projects / products / contracts. You will be able to make allocations in relation to specific projects. You can use project setup for different departments, cost centers and profit centers in your organisation."></i>
+				<!-- Commenting for PBI2449 - Remove Project Hiring Positions Button  -->
+				<!-- <button id="viewAllProjectHiringPositions" class="btn btn-primary btn-idos snglUsrDply" title="Project Hiring Positions"><i class="fa fa-eye pr-5"></i>Project Hiring Positions</button> -->
+				<span id="projectFreeTextSearchButtonSpan">
+					<button id="projectFreeTextSearchButton" class="projectFreeTextSearchButton btn btn-primary btn-idos btn-align-right" title="Search Project">Search Project</button>
+					<input type="text" class="input-xlarge search-image btn-align-right" placeholder="Search Project By Name, Number, Location" name="projectFreeTextSearch" id="projectFreeTextSearch" style="margin-right:3px;width: 280px;">
+				</span>
+				
+			</div>
+		</div>
+	</div>
+	
+    @projectHiring(fullName,email,role,orgn){
+	}
+	<div id="project-form-container" class="newProjectform-container create-form" style="display: none;">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-body" style="overflow: scroll; ">
+	
+					<div class="panel-title" style="text-align: center;">Project</div>
+					<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend" id="createProjectCancel" onClick="formCancel()"></i></div>
+					<div id="search-launch-top" style="display: none;"><a href="#projectSetup" class="button small search-close" id="newProjectform-container-close"><span>Cancel Search</span></a></div>
+					<div id="projectTableDiv">
+						<div class="panel-title">Project Setup</div>
+						<table class="table table-bordered excelFormTable" id="projectExcelFormTable" style="margin-top: 0px;">              
+								<thead class="tablehead1"><tr><th>Project Name &amp; <br/>Project Number</th><th>Project Start Date &amp; <br/>Project End Date</th><th>Country &amp; <br/> Location</th><th>Project Branch</th><th>Project Director Name</th><th>Director Phone Number</th><th>Project Manager Name</th><th>Manager Phone Number</th></tr></thead>
+								<tbody>
+									<tr>
+										<td><input id="projectEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+											<input type="text" id="projectname" name="projectname" onblur="javascript:checkDuplicacy(this.id,'Project','name');" placeholder="Project Name" class="m-bottom-10"><br/>
+											<input type="text" id="projectnumber" name="projectnumber" placeholder="Project Number">
+										</td>
+										<td><input type="text" id="projectstartdate" name="projectstartdate" class="datepicker m-bottom-10 calendar" placeholder="Start Date"><br/>
+											<input type="text" id="projectenddate" name="projectenddate" class="datepicker calendar" placeholder="End Date">
+										</td>
+										<td><select class="countryDropDown m-bottom-10" name="projectCountry" id="projectCountry"><option value="">--Please Select--</option></select><br/>
+											<input type="text" id="projectlocation" name="projectlocation" placeholder="Location">
+										</td>
+										<td><select id="projectBranch" class="multiBranch" name="projectBranch" multiple="multiple"></select></td>
+										<td><input type="text" id="projectdirectorname" name="projectdirectorname"></td>
+										<td><select class="countryPhnCode m-bottom-10" name="projectdirectorcountryPhnCode" id="projectdirectorcountryPhnCode" class="input-small"><option value="">--Please Select--</option></select>
+											<input type="text" id="projectdirectorphnumber1" name="projectdirectorphnumber1" style="width: 28px" maxlength="3" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+											<input type="text" id="projectdirectorphnumber2" name="projectdirectorphnumber2" style="width: 28px" maxlength="3" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+											<input type="text" id="projectdirectorphnumber3" name="projectdirectorphnumber3" style="width: 35px" maxlength="4" onkeypress="return isNumber(event)">
+										</td>
+										<td><input type="text" id="projectmanagername" name="projectmanagername"></td>
+										<td><select class="countryPhnCode m-bottom-10" name="projectmanagercountryPhnCode" id="projectmanagercountryPhnCode" class="input-small"><option value="">--Please Select--</option></select><br/>
+											<input type="text" id="projectmanagerphnumber1" name="projectmanagerphnumber1" style="width: 28px" maxlength="3" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+											<input type="text" id="projectmanagerphnumber2" name="projectmanagerphnumber2" style="width: 28px" maxlength="3" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+											<input type="text" id="projectmanagerphnumber3" name="projectmanagerphnumber3" style="width: 35px" maxlength="4" onkeypress="return isNumber(event)">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+					</div>
+								
+					<div id="prjectLabourPositionDiv" style="display: none">
+						<div class="panel-title">Project Hiring</div>
+						<table class="table table-bordered excelFormTable" id="projectPositionFormTable" style="margin-top: 0px;">              
+							<thead class="tablehead1"><tr><th>Position Name &amp; <br/>Validity From/To</th><th>Location</th><th>Qualification &amp; <br/>Specialized Degree</th><th>Required Experience</th><th>Language &amp; <br/>Proficiency</th><th>Job Description &amp; <br/>Client Approval</th><th>Place Of Advertisement &amp; Budget</th><th>Employment Agreement Template</th></thead>
+							<tbody>
+								<tr id="copyContentProjectPosition">
+									<td><input type="hidden" id="projectpositionHidId" name="projectposition">
+										<input type="text" name="positionname" id="positionname" placeholder="Position Name"><br/>
+										<input type="text" id="projectpositionvalidity" name="projectpositionvalidity" class="datepicker m-top-10 m-bottom-10 calendar" placeholder="Valid From"><br/>
+										<input type="text" id="projectpositionvalidityTo" name="projectpositionvalidityTo" class="datepicker calendar" placeholder="Valid To">
+									</td>
+									<td><select name="projectPositionBranch" id="projectPositionBranch"><option value="">--Please Select--</option></select><br/>
+										<input class="m-top-10" type="text" name="projectpositionlocation" id="projectpositionlocation" placeholder="Others please specify">
+									</td>
+									<td><select multiple="multiple" id="projectpositionqualification" name="projectpositionqualification">
+											<option value="1">High School</option><option value="2">Under Graduate</option><option value="3">Graduate</option><option value="4">Post Graduate</option><option value="5">Professional Qualification</option><option value="6">Doctoral Qualification</option>
+										</select>
+										<input class="m-top-10" type="text" name="qualificationDegree" id="qualificationDegree" placeholder="Others please specify">
+									</td>
+									<td><select name="requiredExp" id="requiredExp"><option value="">--Please Select--</option>
+											<option value="1">0</option><option value="2">1</option><option value="3">2</option><option value="4">3-4</option><option value="5">5-6</option><option value="6">6-7</option><option value="7">8-10</option><option value="8">11-12</option><option value="9">12-15</option><option value="10">15-20</option><option value="11">21-25</option><option value="12">25+</option>
+										</select>
+									</td>
+									<td><div class="btn-group">
+											<button id="projectLabourProficiency" class="multiselect dropdown-toggle btn" style="width: 140px !important;"> None Selected  &#8711;</button>
+											<div id="projectLabourProficiency-menuid" class="projectLabourProficiency-menu travelClaim-menuid" style="min-width: 550px; padding: 5px;margin-top: -1px">
+												<div class="projectLabourProficiencySearchDiv"><input type="text" style="width: 510px;" name="projectLabourProficiencySearchInput" id="projectLabourProficiencySearchInput" class="search-image" placeholder="Search Language"></div>
+												<ul class="projectLabourProficiencyList claim-list" id="projectLabourProficiencyList">
+													<li class="langProf">&nbsp;&nbsp;<span style="display: inline-block; width: 10px;"></span>&nbsp;&nbsp;<span class="lanProfHead">Langauage</span>&nbsp;&nbsp;<span class="lanProfHead">Speaking</span>&nbsp;&nbsp;<span class="lanProfHead" style="margin-left: 35px;">Reading</span>&nbsp;&nbsp;<span style="margin-left: 35px;" class="lanProfHead">Writing</span></li>
+												</ul>
+											</div>
+										</div>
+									</td>
+									<td id="myTd1"></td><td id="myTd2"></td><td id="myTd3"></td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- Permission from organisation to show this project open position to recruiters start-->
+						<div class="font-size-14">
+							<div style="float: left; margin-top: -2px;"><input type="checkbox" name="projectJobPositionListing" id="projectJobPositionListing">&nbsp;&nbsp;</div>
+							<div><font color="#0088cc"><b>PLEASE CLICK HERE IF YOU WISH TO LIST THIS PROJECT OPEN POSITION TO RECRUITEMENT FIRM REGISTERED WITH @(configParams.getCompanyApp()).</b></font></div>
+						</div>
+						<!-- Permission from organisation to show this project open position to recruiters end-->
+					</div>
+					<div class="pjctButtonDiv">
+						<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>
+						<button id="createProject" style="float: right; margin-right:5px;" class="createProject btn btn-submit btn-idos" title="Create Project">Add/Update Project</button> 
+					</div>
+		
+				</div>
+			</div>
+		</div>
+	</div>
+     <!-- table for project list -->
+	 
+	 <div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="panel-title">Projects</div>
+				<div class="datascrolltable" style="height: 100%; overflow: auto;">
+				<table class="table table-hover table-striped excelFormTable" id="projectTable" style="margin-top: 0px;">
+					<thead><tr><th>Name</th><th>Number</th><th>Start Date</th><th>End Date</th><th>Location</th><th></th><th></th></tr></thead>
+					<tbody></tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

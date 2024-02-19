@@ -1,0 +1,947 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="itemSetUp" class="tab-pane mainDiv content" style="display: none">
+	<div class="panel panel-showtrans">  
+		<div class="panel-body">
+			<div id="coaTemplateDownloadDivId">
+				<a href="#itemSetUp" onclick="downloadOrganizationCOATemplate('3');" class="btn btn-submit btn-idos"><i class="fa fa-download"></i> Download Assets Template</a>
+				<a href="#itemSetUp" onclick="downloadOrganizationCOATemplate('4');" class="btn btn-submit btn-idos"><i class="fa fa-download"></i> Download Liabilities Template</a>
+				<a href="#itemSetUp" onclick="downloadOrganizationCOATemplate('1');" class="btn btn-submit btn-idos"><i class="fa fa-download"></i> Download Income Template</a>
+				<a href="#itemSetUp" onclick="downloadOrganizationCOATemplate('2');" class="btn btn-submit btn-idos"><i class="fa fa-download"></i> Download Expenses Template</a>
+			</div>
+			<h5 class="alert success" style="padding:0px; margin-bottom:0px;"></h5><i class="ml12" style="margin-left: -5px;"></i><b class="panel-title" style="padding-bottom: 2px;" >Chart Of Accounts</b>
+			<i style="top: 3px; float: none;" class="fa fa-info-circle app-image-adjust userpopoverinfo help-info" longdesc="@(configParams.getCompanyApp()) provides you with capability to create and maintain an effective chart of account. Chart of account is the most important component of your accounting system and it enables you to create categories and sub-categories of incomes, expenses, assets and liabilities. Such categorization is very important for you to keep track of and also to control where your money is coming from and where it is being spent. It also provides you the capability to correctly classify and allocate your incomes and expenses.For example, let us say stationery & raw materials are two important components of your expenses. Let us assume that your stationery expenses include purchase of paper, pens, stapler and printer cartridge. Your chart of account must have Stationery under expenses and under stationery you should create sub-category for paper, pens, stapler and printer cartridge. By creating sub-categories, you can record expenses under these sub-categories and you will be able to check and control how much is being spent on each item of stationery."></i>
+			<button class="btn btn-primary" id="showBomArea" style="float:right; margin-right:10px;">BOM</button>
+			
+		</div>
+	</div>
+	<div id="item-form-container" class="newItemform-container" style="display: none;">
+		<div class="panel panel-showtrans"  style="overflow: auto" >  
+			<div class="panel-body">
+				<div class="panel" style="overflow: auto" >
+					<div class="panel-title">Sub-Account Setup Details<span style="margin-left:10px;" id="subAccountNameDivId"></span></div>
+					<div id="search-launch-top"><a href="#itemSetUp" id="newItemform-container-close" ><i aria-hidden="true" class="fa fa-times fa-1x close-legend" id="newItemform-container-close"></i></a></div>
+					
+					<table class="table excelFormTable" id="chartOfAccountTable" style="margin-top: 0px; height: auto;">               
+						<thead class="tablehead1">
+							<tr><th>Parent</th><th>Sub-Account Name</th><th id="forIncomesTh"></th><th id="forIncomesExpenseTh"></th>
+								<th>Branch<span id="incomeHead"></span><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) enables you to link categories and sub-categories to branches. By linking to branches, you can control which branch can access an account category and also control certain branches by restricting their access to certain categories in the chart of account.For example, if your organisation has 2 branches, branch 1 being a sales depot and branch 2 being the manufacturing center.You can restrict branch 1 from viewing / processing transactions relating to Raw Material which are associated with production.While setting up any category or sub-category you can link each of the category and sub-category to one or more branches. This linking enables the users to know which transactions they can orcannot process."></i></th>
+								<th id="partBasedTransactionth"><b id="dynamicHeading1"></b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Ease of use is one of the most important features of @(configParams.getCompanyApp()). @(configParams.getCompanyApp()) will enable users to follow the process and internal controls even without knowing that they are following them. This is accomplished through few simple configuration settings, one of which is Buy / Pay classification.Buy / Pay linking will link / attach, each category / sub-category in the chart of account, to a distinct question as provided in the drop down menu.For example all expenses can be linked / attached to buy on cash and pay right away and / or buy on credit and pay later. All vendors can be linked to pay vendor / supplier and / or buy on credit and pay later.Similarly, all sales can be linked to sell on cash and collect payment now and or sell on credit and collect payment later. Cash withdrawn from bank can be linked to Withdraw cash from bank and so on.This is a one time set up for every category or sub-category and once its done, you are enabling user to process transaction by using a language they understand Simple English."></i></th>
+								<th id="partBasedDynmDatath"><b id="dynamicHeading2"></b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" id="dynamicHeading2ImgId1" longdesc="If this item is sold by your organisation, please select whether this item is sold in the domestic market or international market of in both markets. This information will help in defining the applicable taxes, identifying items / customers for domestic and international sales and other useful dashboard reports."></i><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" id="dynamicHeading2ImgId2" src="/assets/images/eye.png" longdesc="Specify (by selecting) if this sub-category is capital expense or revenue expense. This selection is important for generating dashboards and reports on capital expenses of a particular branch and also for assisting in depreciation / amortization computation."></i></th>
+								<th><b class="textBold"></b>&nbsp;&nbsp;<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" id="dynamicHeading3ImgId1" longdesc="@(configParams.getCompanyApp()) provides you with the ability to set up withholding tax for any item of expense. Select Yes if withholding tax is applicable for payment to vendors of this item and in the next two columns set up the rate of whithholding tax & monetary limit (on payments) above which such tax must be applied. @(configParams.getCompanyApp()) will automatically apply withholding tax at the given rate for all vendor payments of this item if such payment exceeds the monetary limit.""></i></th>
+								<th></th><th id="forOthersTh"></th><th class="forAssetLiability"></th><th class="forAssetLiability"></th>
+							  </tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><select id="itemCategory" name="itemCategory"></select></td>
+								<td>
+									<input id="topLevelParentActCode" class="topLevelParentActCode" type="hidden" value="">
+									<input id="itemEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+									<input type="text" id="items" name="items" onkeypress="return restrictNumbers(event);" onblur="javascript:checkDuplicacy(this.id,'Specifics','name');">
+									<div id="invoiceDescription"></div>
+								</td>  
+								<td id="forIncomesTd"></td>
+								<td id="forIncomesExpenseTd"></td>
+								<td>
+									<div class="btn-group" id="itemBranch2">
+										<button id="itemBranch2Btn" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('itemBranch2Btn-menuid')">None Selected<b class="caret" style="margin:5px auto;"></b></button>
+										<div id="itemBranch2Btn-menuid" class="statutoryidnumberdropdown-menu" style="width: 500px;">
+											<ul id="itemBranch2BtnList">
+												
+											</ul>
+										</div>
+									</div>
+								</td>
+								<td id="partBasedTransactiontd"><select id="partBasedTransaction" name="partBasedTransaction" multiple="multiple"></select></td> 
+								<td id="partBasedDynmDatatd"><select id="partBasedDynmData" name="partBasedDynmData"></select></td> 
+								<td></td><td></td><td id="forOthersTd"></td><td class="forAssetLiability"></td><td class="forAssetLiability"></td>  
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<br/>
+				</div>
+				
+				<!-- Bank Account Details -->
+				<!--<div class="panel" id="coaBranchbankSetup" style="overflow: auto; display: none;">
+					
+					<table class="table table-bordered excelFormTable" id="branchBankAccountTableR1" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr>
+								<th>Account Number</th>
+								<th>Account Type</th>
+								<th>Routing Number</th>
+								<th>Swift code</th>
+								<th>IFSC Code</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="copyBranchBankAccount">
+								<td><input type="hidden" id="bnchBnkActhiddenId" name="bnchBnkActhiddenId"/>
+									<input type="text" id="bnkActNumber" name="bnkActNumber" class="m-bottom-10" required>
+								</td>
+								<td><select id="bnkActType" name="bnkActType" class="input-medium"></select></td>
+								<td><input type="text" id="routingNumber" name="routingNumber" placeholder="Routing Number" onkeypress="return allowOnlyNumbers(event);" class="m-bottom-10"></td>
+								<td><input type="text" id="bnkSwiftCode" name="bnkSwiftCode" placeholder="Swift Code"></td>
+								<td><input type="text" id="bnkIfscCode" name="bnkIfscCode" placeholder="IFSC Code"></td>
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<table class="table table-bordered excelFormTable" id="branchBankAccountTableR2" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr>
+								<th>Bank Phone Number</th>
+								<th>Bank Address</th>
+								<th>Authorized Signatory Name </th>
+								<th>Authorized Signatory Email</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="copyBranchBankAccount">
+								<td><select class="countryPhnCode m-bottom-10" name="bnchbnkactPhnNocountryCode" id="bnchbnkactPhnNocountryCode"><option value="">--Please Select--</option></select><br/>
+									<input type="text" id="bankPhnNumber1" name="bankPhnNumber1" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this, bankPhnNumber2)">-
+									<input type="text" id="bankPhnNumber2" name="bankPhnNumber2" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this, bankPhnNumber3)">-
+									<input type="text" id="bankPhnNumber3" name="bankPhnNumber3" maxlength="4" style="width: 35px;" onkeypress="return isNumber(event)">
+								</td>
+								<td><textarea id="bnkAddress" name="bnkAddress" class="text-area-2x"></textarea></td>
+								<td><input type="text" id="authSignName" name="authSignName" placeholder="Name" class="m-bottom-10"></td>
+								<td><input type="text" id="authSignEmail" name="authSignEmail" onblur="return emailFieldValidation(this)" placeholder="Email"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>-->
+				<table class="table table-bordered excelFormTable" id="coaTablevalidation">               
+					<thead class="tablehead1">
+						<tr>
+							<th id="identHead">Identification for Data Validation</th>
+							<!--Not needed IDOSWORK-73 
+							<th id="datavalidationplth">Identification for P&L</th>
+							<th id="datavalidationbsth">Identification for BS</th>
+							-->
+							<th>Total Open Balance</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td id="identBody">
+								<select id="datavalidationall" name="datavalidationall" style="width: auto;" onchange="avoidAddingChild();">
+									<option value="">--Please Select--</option>
+									<option value="1">Is this customer account / debtors</option>
+									<option value="2">Is this vendor account / creditors</option>
+									<option value="3">Is this the account where you classify cash balances</option>
+									<option value="4">Is this the account where you classify bank balances</option>
+									<!-- <option value="5">Is this the account where you classify overdraft or cash credit</option>-->
+									<option value="6">Is this the account where you classify advance received from customers / debtors</option>
+									<option value="7">Is this the account where you classify advance paid to vendors / creditors</option>
+									<option value="8">Is this the account where you classify withholding tax (TDS) on payments received from customers and others</option>
+									<!-- <option value="9">Is this the account where you classify withholding tax (TDS) on payments made to vendors / creditors and others</option>-->
+									<option value="10">Is this the account where you classify purchase returns</option>
+									<option value="11">Is this the account where you classify sales returns</option>
+									<!-- <option value="12">Is this the account where you classify travel advances paid</option> -->
+									<!-- <option value="13">Is this the account where you classify advance paid to staff for Expenses</option> -->
+									<option value="14">Is this the account where you classify input tax receivable</option>
+									<option value="15">Is this the account where you classify output tax payable</option>
+									<option value="16">Is this the account where you classify your raw material used in Manufacturing</option>
+									<option value="17">Is this the account where you classify your work in progress in Manufacturing</option>
+									<option value="18">Is this the account where you classify your finished goods in Manufacturing</option>
+									<option value="19">Is this the account where you classify your stock in trade</option>
+									<option value="20">Is this the account where you classify advance paid to Others</option>
+									<option value="21">Is this the account where you classify advances received from Others</option>
+									<option value="22">Is this the account where you classify fixed assets</option>
+									<option value="23">Is this the account where you classify depreciation / amortization</option>
+									<option value="24">Is this the account where you classify Travel Expenses</option>
+									<option value="25">Is this the account where you classify Boarding and Lodging Expenses</option>
+									<option value="26">Is this the account where you classify Other travel expenses.</option>
+									<option value="27">Is this the account where you classify Fixed Travel Allowances</option>			
+									<option value="28">Is this where you classify Freight Outwards/Amount you pay for transportation of items you sell</option>
+									<option value="29">Is this where you classify Freight Inwards/Amount you pay for transportation of items you purchase</option>
+									<option value="30">Is this the account where you classify petty cash</option>
+									<option value="31">Is this the account where you classify withholding tax (TDS) Sec 192 - Payment of Salary</option>
+									<option value="32">Is this the account where you classify withholding tax (TDS) Sec 194A - Income by way of Interest other than Interest on Securities</option>
+									<option value="33">Is this the account where you classify withholding tax (TDS) Sec 194C - Payment to Contractors / Sub Contractors - Individuals / HUF</option>
+									<option value="34">Is this the account where you classify withholding tax (TDS) Sec 194C - Payment to Contractors / Sub Contractors - Others</option>
+									<option value="35">Is this the account where you classify withholding tax (TDS) Sec 194H - Commission or Brokerage</option>
+									<option value="36">Is this the account where you classify withholding tax (TDS) Sec 194-I - Rent - (a) Plant and Machinery</option>
+									<option value="37">Is this the account where you classify withholding tax (TDS) Sec 194-I - Rent - (b) - Land or building or furniture or fitting</option>
+									<option value="38">Is this the account where you classify withholding tax (TDS) Sec 194J - Fees for Professional / Technical Service etc.</option>
+									<option value="39">Is this the account where you classify SGST (State Goods and Service Tax ) input receivable ?</option>
+									<option value="40">Is this the account where you classify CGST (Central Goods and Service Tax) input receivable ?</option>
+									<option value="41">Is this the account where you classify IGST (Integrated Goods and Service Tax) input receivable ?</option>
+									<option value="42">Is this the account where you classify Cess input receivable ?</option>
+									<option value="43">Is this the account where you classify SGST (State Goods and Service Tax )Output Payable ?</option>
+									<option value="44">Is this the account where you classify CGST(Central Goods and Service Tax) Output Payable?</option>
+									<option value="45">Is this the account where you classify IGST (Integrated Goods and Service Tax) Output Payable ?</option>
+									<option value="46">Is this the account where you classify Cess Output Payable ?</option>
+									<option value="47">Is this the account where you classify SGST (State Goods and Service Tax )Output Payable on Reverse Charge?</option>
+									<option value="48">Is this the account where you classify CGST(Central Goods and Service Tax) Output Payable on Reverse Charge ?</option>
+									<option value="49">Is this the account where you classify IGST (Integrated Goods and Service Tax) Output Payable on Reverse Charge?</option>
+									<option value="50">Is this the account where you classify Cess Output Payable on reverse charge?</option>
+									<option value="51">Is this where you classify rounding off amounts on Incomes?</option>
+									<option value="52">Is this where you classify Combination Sales Using Income Items?</option>
+									<option value="53">Is this the account where you classify SGST (State Goods and Services Tax) - Reverse Charge (RCM) - Input</option>
+									<option value="54">Is this the account where you classify CGST (Central Goods and Services Tax) - Reverse Charge (RCM) - Input</option>
+									<option value="55">Is this the account where you classify IGST (Integrated Goods and Services Tax) - Reverse Charge (RCM) - Input</option>
+									<option value="56">Is this the account where you classify Cess - Reverse Charge (RCM) - Input</option>
+									<option value="57">Is this where you classify interbranch accounts</option>
+									<option value="58">Is this where you classify Payroll / Salaries - Expenses</option>
+									<option value="59">Is this where you classify Payroll / Salaries - Deductions</option>
+									<option value="60">Is this the account where you classify employee advances paid</option>
+									<option value="61">Is this the account where you classify employee claims payable</option>
+									<option value="62">Is this where you classify Reversal of ITC Account?</option>
+									<option value="63">Is this account where you classify Discount Allowed?</option>
+									<option value="64">Is this account where you classify Discount Received?</option>
+									<option value="65">Is this account where you classify Reserves and Surplus?</option>
+									<option value="66">Is this the Employee benefits payable account?</option>
+								</select>
+							</td>
+							<!--Not needed IDOSWORK-73 
+							<td id="datavalidationpltd">
+								
+									<select id="datavalidationpl" name="datavalidationpl" style="width: 200px;">
+									<option value="">--Please Select--</option>
+									<option value="1">Is this Revenue from Operations</option>
+									<option value="2">Is this Other Income</option>
+									<option value="3">Is this Purchase of Stock in trade </option>
+									<option value="4">Employee Benefit Expenses</option>
+									<option value="5">Finance Costs</option>
+									<option value="6">Depreciation and Amortisation Expenses</option>
+									<option value="7">Other Expenses</option>
+									<option value="8">Current Tax</option>
+									<option value="9">Deferred Tax</option>
+								</select> 
+							</td> 
+							<td id="datavalidationbstd">
+								<select id="datavalidationbs" name="datavalidationbs" style="width: 200px;">
+									<option value="">--Please Select--</option>
+									<option value="10">Share Capital</option>
+									<option value="11">Reserves and Surplus</option>
+									<option value="12">Long-term borrowings</option>
+									<option value="13">Deferred Tax Liabilities(Net)</option>
+									<option value="14">Other Long Term Liabilities</option>
+									<option value="15">Long-term provisions</option>
+									<option value="16">Short- term borrowings</option>
+									<option value="17">Trade Payables</option>
+									<option value="18">Other Current Liabilities</option>
+									<option value="19">Short-term provisions</option>
+									<option value="20">Tangible Assets</option>
+									<option value="21">Intangible Assets</option>
+									<option value="22">Capital Work-in-progress</option>
+									<option value="23">Intangible Assets Under Development</option>
+									<option value="24">Non-Current Investments</option>
+									<option value="25">Deferred tax assets (net)</option>
+									<option value="26">Long Term Loans and Advances</option>
+									<option value="27">Other Non-Current Assets</option>
+									<option value="28">Current Investments</option>
+									<option value="29">Investments</option>
+									<option value="30">Trade Receivables</option>
+									<option value="31">Cash and Cash Equivalents</option>
+									<option value="32">Short term Loans and Advances</option>
+									<option value="33">Other current assets</option>
+								</option>
+							</td>
+							-->
+							<td><input type="text" name="openingBalance" id="openingBalance" placeholder="Total opening balance" readonly></td>
+						</tr>
+					</tbody>
+				</table>
+
+				
+				<div id="tax-coa-container" style="display:none;">
+					<div class="panel">
+						<div class="panel-title"><i class=""></i><b id="itemDisplay"></b></div>
+						<div class="taxRuleDetails" style="width: 100%; overflow: auto;">
+							<input type="hidden" name="bnchHidden" id="bnchHidden" value="">
+							<input type="hidden" name="specfHidden" id="specfHidden" value="">
+							<input type="hidden" name="taxCategoryHidden" id="taxCategoryHidden" value="">
+							<input type="hidden" name="multiItemsListHidden" id="multiItemsListHidden" value="">
+							<table class="table  excelFormTable" id="gstTaxRuleDetailsTable" style="margin-top: 0px; width: 100%;">               
+								<thead class="tablehead1"><tr><th colspan="8" style="text-align: center; font-size:14px;">Tax Rule<b id="itemNameLbl"></b></th></tr></thead>
+								<thead class="tablehead1"><tr><th>Tax Name</th><th>Tax Rate</th><th>Add/Deduct</th><th>Apply To</th><th>Tax Amount</th><th>Invoice Value(IV)</th></tr></thead>
+								<tbody><tr id="1">
+									<td>SGST Rate (%) <input type="hidden" id="taxName" value=""></td>
+									<td><input type="text" id="itemgstrate" onkeypress="validateGstTaxRate(this, 'SGST'); return onlyDotsAndNumbers(event); " readonly="" onblur="validateGstTaxRate(this, 'SGST');"></td>
+									<td><select name="taxAddDeduct" id="taxAddDeduct" onchange="checkApplicableDate(this);toggleGstApplyTo(this);"><option value="">--Please Select--</option><option value="1">Add</option><option value="0">Deduct</option></select></td>
+									<td><select name="taxApplyTo" id="taxApplyTo" onchange="checkApplicableDate(this);validateGstTaxationRule(this);">
+										<option value="">--Please Select--</option>
+										<option value="GV">Gross Value(GV)</option>
+										</select></td>
+									<td><input type="text" id="taxFormula" readonly=""></td>
+									<td><input type="text" id="taxInvoiceValue" readonly=""></td>
+								</tr>
+								<tr id="2">
+									<td>CGST Rate(%) <input type="hidden" id="taxName" value=""></td>
+									<td><input type="text" id="itemgstrate" onkeypress="validateGstTaxRate(this, 'CGST'); return onlyDotsAndNumbers(event);" readonly="" onblur="validateGstTaxRate(this, 'CGST');"></td>
+									<td><select name="taxAddDeduct" id="taxAddDeduct" onchange="checkApplicableDate(this);toggleGstApplyTo(this);"><option value="">--Please Select--</option><option value="1">Add</option><option value="0">Deduct</option></select></td>
+									<td><select name="taxApplyTo" id="taxApplyTo" onchange="checkApplicableDate(this);validateGstTaxationRule(this);">
+										<option value="">--Please Select--</option>
+										<option value="GV">Gross Value(GV)</option>
+										<option value="SGST">SGST Tax</option>
+										<option value="IV1">SGST IV</option>
+										</select></td>
+									<td><input type="text" id="taxFormula" readonly=""></td>
+									<td><input type="text" id="taxInvoiceValue" readonly=""></td>
+								</tr>
+								<tr id="3">
+									<td>IGST Rate (%) <input type="hidden" id="taxName" value=""></td>
+									<td><input type="text" id="itemgstrate" onkeypress="validateGstTaxRate(this, 'IGST'); return onlyDotsAndNumbers(event); " readonly="" onblur="validateGstTaxRate(this, 'IGST');"></td>
+									<td><select name="taxAddDeduct" id="taxAddDeduct" onchange="checkApplicableDate(this);toggleGstApplyTo(this);"><option value="">--Please Select--</option><option value="1">Add</option><option value="0">Deduct</option></select></td>
+									<td><select name="taxApplyTo" id="taxApplyTo" onchange="checkApplicableDate(this);validateGstTaxationRule(this);">
+										<option value="">--Please Select--</option>
+										<option value="GV">Gross Value(GV)</option>
+										<option value="SGST">SGST Tax</option>
+										<option value="CGST">CGST Tax</option>
+										<option value="IV2">CGST IV</option>
+										</select>
+									</td>
+									<td><input type="text" id="taxFormula" readonly=""></td>
+									<td><input type="text" id="taxInvoiceValue" readonly=""></td>
+								</tr>
+								<tr id="4">
+									<td>Cess Rate (%) <input type="hidden" id="taxName" value=""></td>
+									<td><input type="text" id="itemgstrate" onkeypress="return onlyDotsAndNumbers(event);" readonly="" onblur="return onlyDotsAndNumbers(event);"></td>
+									<td><select name="taxAddDeduct" id="taxAddDeduct" onchange="checkApplicableDate(this);toggleGstApplyTo(this);"><option value="">--Please Select--</option><option value="1">Add</option><option value="0">Deduct</option></select></td>
+									<td><select name="taxApplyTo" id="taxApplyTo" onchange="checkApplicableDate(this);validateGstTaxationRule(this);">
+									<option value="">--Please Select--</option>
+									<option value="GV">Gross Value(GV)</option>
+									<option value="SGST">SGST Tax</option>
+									<option value="CGST">CGST Tax</option>
+									<option value="IGST">IGST Tax</option>
+									<option value="IV3">IGST IV</option>
+									</select></td>
+									<td><input type="text" id="taxFormula" readonly=""></td>
+									<td><input type="text" id="taxInvoiceValue" readonly=""></td>
+								</tr>
+							</tbody></table>
+							<!--<button id="testFormula" class="applyBtn btn btn-submit btn-idos" style="margin-left:5px;" title="Apply TaxRules To MutiItems" onClick="applyTaxRulesToMultipleItems();">Apply To Multiple Items</button>   --> 
+							<button id="resetAllTaxes" class="confirmBtn btn btn-submit btn-idos" style="margin-left:5px;" title="Reset Tax Formula">Reset All Tax Formulas</button>
+						<!--	
+							<button id="testFormula" class="testFormula btn btn-submit btn-idos" style="margin-left:5px;" title="Test Formula" onclick="validateGstTaxFormula();">Test Tax Formula</button><font color="red"> * Consider gross Amount as 100 and test your tax formula outcome.</font>
+							<button title="Apply Tax Rule to Multiple Items" name="applyGstTaxMultiItems" id="applyGstTaxMultiItems" type="button" class="applyGstTaxMultiItems btn btn-submit btn-idos" value="1" style="vertical-align: top; margin-right:5px; float: right;" onclick="applyTaxRulesToMultipleItems();">Apply To Multiple Items</button>
+							<button title="Apply Tax Rule" name="applyGstTax" id="applyGstTax" type="button" class="applyGstTax btn btn-submit btn-idos" value="1" style="vertical-align: top; margin-right:5px; float: right;">Add/Update Tax Rule</button>
+							-->
+						</div>
+					</div>
+				</div>
+				
+			<div class="panel" style="width: 55%;">
+				<span class="add-help-branch btn-align-right" style="margin-top: 0px;">
+					<span class="addnew" id="newKnowledgeLibraryChartOfAccountId"><i class="fa fa-plus-circle fa-lg"></i>Add</span>
+					<span class="b-right"></span>
+					<span class="help-info userpopoverinfoleft" longdesc="Knowledge library is a unique feature, which permits you to set up rules which specific to your organisation for each category or sub-category in the chart of account. These rules are decided by you and can be changed, removed, altered anytime by you.These rules become visible and act as guide and / or instructions to staff processing transactions using @(configParams.getCompanyApp())."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+				</span>
+				<div class="panel-title">Knowledge Library</div>
+				<h5 class="alert success" style="width:93%;"></h5>
+				<div id="knowledgeLibrary" style="margin-top: -50px;"><!-- seen for all income and expense and assets and liabilities-->
+					<table class="table excelFormTable" id="chartOfAccountKnowledgeLibraryTable" >               
+						<thead class="tablehead1"><tr><th>Instructions/Guidance</th><th>Mandatory</th><th>Applicable In Branches</th><th></th><th></th></tr></thead>
+						<tbody>
+							<tr id="copyContentKnowledgeLibrary">
+								<td>
+									<input type="hidden" name="specfHidPrimKey" id="specfHidPrimKey" value="">
+									<textarea name="knowledgeLibRaryContent" id="knowledgeLibRaryContent" style="width:141px;" class="text-area-2x"></textarea>
+								</td>    
+								<td>
+									<select name="mandatory" id="mandatory"><option value="1">Yes</option><option value="0">No</option></select></td>
+								<td>
+									<select id="knowledgeLibraryInBranches" class="multiBranch" name="knowledgeLibraryInBranches" multiple="multiple" style="vertical-align: top;"></select>
+								</td><td></td><td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="expItemDocUploadRule" class="panel" style="display:none; float: right; margin-top:-185px; width: 44%; position: relative;">
+		
+				<div class="panel-title">Expense Transaction Documents Upload Rule <i class="fa fa-info-circle userpopoverinfo" longdesc=""></i></div>
+				<table class="table table-bordered excelFormTable" id="expItemDocUploadRuleTable" >               
+					<thead class="tablehead1"><tr><th>Monetory Limit & Applicable In Branches</th></tr></thead>
+					<tbody>
+						<tr>
+							<td>
+								<input type="hidden" name="expspecfDocHidPrimKey" id="expspecfDocHidPrimKey" value="">  
+								<div class="btn-group">
+									<button id="docuploadrulecustomdropdown" class="multiselect dropdown-toggle btn" style="width: 460px;"> None Selected  &#8711;</button>
+									<div id="docuploadrulecustomdropdown-menuid" class="docuploadrulecustomdropdown-menu">
+										<div class="docuploadrulecustomdropdowncontentsearchdiv">
+											<input type="text" style="width: 415px;" name="docuploadrulecustomdropdowncontentsearchinput" id="docuploadrulecustomdropdowncontentsearchinput" class="search-image" placeholder="Search Branch" onkeyup="prependMatchingBranchFirstInCustomDocUploadRuleContainer(this);">
+										</div>
+										<ul class="docuploadrulecustomdropdownBranchList" id="docuploadrulecustomdropdownBranchList">
+											<li id="docuploadrulecustomdropdownBranchlist">&nbsp;&nbsp;<input type="checkbox" name="customdoccheckBranch" id="customdoccheckBranch" value="" onClick="customdoccheckUncheck(this)"/>&nbsp;&nbsp;Select All</li>
+										</ul>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="coaActionButtons">
+				<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>
+				<button title="Remove Ledger" style="display:none;" name="disableSpecfBtn" id="disableSpecfBtn" type="button" class="disableSpecfBtn btn btn-cancel btn-idos" >Remove Ledger</button>
+				<button title="Add Item" style="margin-right:10px; float:right;" name="addConfigSpecfBtn" id="addSpecfBtn" type="button" class="addSpecfBtn btn btn-submit btn-idos" value="1">Add/Update Chart of accounts</button>
+				
+				<!--<button title="Add Item" style="margin-right:10px; float:right; display: none;" name="addConfigSpecfBtn" id="addSpecfBrnchBtn" type="button" class="addSpecfBrnchBtn btn btn-submit btn-idos" value="1">Add/Update Bank accounts</button>-->
+			</div>
+		</div>
+		</div>
+		
+	</div>
+	
+	
+	
+	<div id="category-form-container" class="newCategoryform-container" style="display: none;">
+		<fieldset>
+			<legend>Account SetUp</legend>
+			<div id="search-launch-top"><a href="#categorySetUp" id="newCategoryform-container-close"><i class="fa fa-times fa-1x close-legend" id="newCategoryform-container-close"></i></a></div><br/>
+			<div class="control-group" align="left">
+				<input id="categoryEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+				<label class="control-label"><b id="accountName">Account Name: </b><span class="errorMessage">*</span></label>
+				<div class="controls">
+					<input type="text" id="category" name="category" class="input-middle">&nbsp;
+				</div>
+			</div>
+			<div class="control-group" align="left">
+				<label class="control-label"><b>Account Description: </b></label>
+				<div class="controls">
+					<input type="text" id="catdescription" name="catdescription" class="input-middle">
+				</div>
+			</div>
+		</fieldset>
+		<div><button title="Add Category" name="addConfigCatBtn" id="addCatBtn" type="button" class="addCatBtn btn btn-primary btn-idos" value="1">Add/Update</button></div>  
+	</div>  
+
+	<!--Showing BOM lists-->
+	<div class="bomCreateFormCont">
+		<div class="bomCreateLeft">
+			<span>BOM Name</span><br>
+			<span><input type="text" id="bomName"/></span>
+		</div>
+		<div class="bomCreateRight">
+			<input type="hidden" id="bomMainId" value=""/>
+			<table class="table table-bordered excelFormTable">
+				<thead class="tablehead1">
+					<tr>
+						<th>Master Items</th>
+						<th>No of Unit</th>
+						<th><button style="cursor: pointer; float:right;" class="" id="addnewItemForBom" title="add more items"><i class="fa fa-plus-circle fa-lg"></i></button></th>
+					</tr>
+				</thead>
+				<tbody id="bomItemRowsContainer">
+					<!-- <tr>
+						<td><select><option>Select Master item</option></select></td>
+						<td><input type="number" /></td>
+						<td><button style="cursor: pointer; float:right;" class="" id="removeItemForBom" title="remove item"><i class="fa fa-minus-circle fa-lg"></i></button></td>
+					</tr> -->
+				</tbody>
+			</table>
+			<div>
+				<button id="bomFormCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onclick="resetBomCreateForm()">Cancel</button>
+				<button id="createBOM" style="float: right; margin-right:5px;" class="btn btn-submit btn-idos" title="Create Bill Of Material">Add/Update BOM</button> 
+			</div>
+		</div>
+	</div>
+	<div class="bomContainer">
+		
+		<button class="btn btn-primary" id="openBomForm" style="margin: 10px;">Add BOM</button>
+		<div class="bomListCont">
+			<ul>
+				<li>BOM
+					<ul id="bomListUl">
+						<li>bom -1 <button class="btn btn-primary" style="float:right; margin: -5px 10px 10px 0px;">Edit BOM</button></li>
+						<li>bom-2 <button class="btn btn-primary" style="float:right; margin: -5px 10px 10px 0px;">Edit BOM</button></li>
+						<li>bom-3 <button class="btn btn-primary" style="float:right; margin: -5px 10px 10px 0px;">Edit BOM</button></li>
+						<li>bom-4 <button class="btn btn-primary" style="float:right; margin: -5px 10px 10px 0px;">Edit BOM</button></li>
+					</ul>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+	<!--bom area ends-->
+	
+	<div style="margin-top:10px; margin-left:0px;" id="chartOfAccountTree" class="panel panel-showtrans"><ul id="mainChartOfAccount" class="treeview-black mainChartOfAccount"></ul></div>
+	<div class="panel" style="overflow: none;">
+		<!--<h5 class="alert success"></h5> -->
+		<table style="width:100%;">
+			<tr>
+			<td style="width:25%;">
+				<a href="#itemSetUp" onclick="downloadOrganizationCOA();" style="margin-left: 5px; margin-top: -2px;" class="btn btn-submit btn-idos"><i class="fa fa-download"></i> Download Existing Chart Of Accounts</a>
+			<i style="top: 3px; float: none;" class="fa fa-info-circle app-image-adjust userpopoverinfo help-info"  longdesc="@(configParams.getCompanyApp()) permits you to upload your existing chart of account through Microsoft Excel. You can have multiple levels of sub-categories and also assign categories and sub-categories to specific branches. Further you can search existing items in your chart of account, using this search feature."></i>
+			</td>
+			<td style="width:50%;">
+				<input type="text" class="search-image" placeholder="Search Chart Of Accounts By Name" name="existingCOA" id="existingCOA" style="width:95%; margin-left: 30px; margin-top: 15px;">
+			</td>
+			<td style="width:25%;">
+				<button id="coaFreeTextSearchButton" style="margin-left: 30px; margin-top: -2px;" class="coaFreeTextSearchButton btn btn-submit btn-idos" title="Search Chart Of Accounts"><i class="fa fa-search pr-5"></i>Search Chart Of Accounts</button>
+			</td>
+			</tr>
+		</table>
+		
+		<div id="uploadchtofact">
+			<!-- <span class="errorMessage">*</span> -->
+			<table style="width:100%;">
+				<tr>
+					<td style="width:25%;">
+						<select id="coaUploadType" name="coaUploadType"style="width:100%; margin-left:5px;">
+							<option value="">Select chart of account upload type</option>
+							<option value="1">Income</option>
+							<option value="2">Expenses</option>
+							<option value="3">Assets</option>
+							<option value="4">Liabilities</option>
+							<option value="5">Existing Partial Upload</option>
+						</select>
+					</td>
+					<td style="width:50%;">
+						<div class="input-group" style="margin-left: 30px; margin-bottom:10px;" id="coaUploadDivId">
+							<span class="input-group-btn">
+								<span class="btn btn-submit btn-file">
+									Select file&hellip; <input type="file" id="uploadchartofact" name="chartofaccountfile"/>
+								</span>
+							</span>
+							 <input type="text" class="form-control" readonly  style="margin-bottom: -7px;">
+						</div>
+					</td>
+					<td style="width:25%;">
+						<button type="button" style="margin-left: 30px; margin-bottom: 9px;" id="uploadChartOfAccount" class="uploadChartOfAccount btn btn-submit btn-idos" title="Upload Chart Of Account" onclick="uploadChartOFAccount();"><i class="fa fa-upload pr-3"></i>Upload Chart Of Account</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="searched-coadata-container" class="searched-coadata-container" style="display: none;">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<legend class="panel-title">Existing Chart Of Accounts</legend>
+					<div id="search-launch-top"><a href="#itemSetUp" id="searched-coadata-container-close"><i class="fa fa-times fa-1x close-legend" id="searched-coadata-container-close"></i></a></div><br/>
+					<div class="searchedContent"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" >
+		<div id="sNoDropdownDiv">Documents Serial Number :&nbsp;&nbsp;&nbsp; 
+			<select id="serialNoCategory" style="height:35px !important;" onchange="populateSerials(this);">
+				<option value="1">Organisation wise</option>
+				@if(orgn.getGstCountryCode() != null) {
+					<option value="2">GSTIN wise</option>
+				}
+			</select>
+	 	</div>
+	</div>
+	
+	
+	<div class="panel" id="serialNumberDiv">
+	    <p>*Default Serial start with 1 and interval yearly.</p>
+	    <div class="row"  style="padding-bottom: 20px;">
+	        <div class="col-sm-12">
+	            <div class="col-sm-3">
+	                <div><b>Invoice</b></div>
+	                <div>
+	                    <select id="invoiceInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="invoiceSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Delivery Challan</b></div>
+	                <div>
+	                    <select id="deliveryChallanReceiptInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="deliveryChallanReceiptSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Quotation</b></div>
+	                <div>
+	                    <select id="quotationInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="quotationSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Receipt</b></div>
+	                <div>
+	                    <select id="receiptInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="receiptSerialNo"/></div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="row"  style="padding-bottom: 20px;">
+	        <div class="col-sm-12">
+	            <div class="col-sm-3">
+	                <div><b>Advance Receipt</b></div>
+	                <div>
+	                    <select id="advanceReceiptInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="advanceReceiptSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Debit Note to Customer</b></div>
+	                <div>
+	                    <select id="debitNoteCustInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="debitNoteCustSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Purchase Order</b></div>
+	                <div>
+	                    <select id="purchaseOrderInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="purchaseOrderSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Credit Note to Customer</b></div>
+	                <div>
+	                    <select id="creditNoteCustInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="creditNoteCustSerialNo"/></div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="row"  style="padding-bottom: 20px;">
+	        <div class="col-sm-12">
+	            <div class="col-sm-3">
+	                <div><b>Refund Advance Receipt</b></div>
+	                <div>
+	                    <select id="refundAdvReceiptInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="refundAdvReceiptSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Refund Amount Received Against Invoice</b></div>
+	                <div>
+	                    <select id="refundAmtAgainstInvoiceReceiptInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="refundAmtAgainstInvoiceReceiptSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Payment Voucher Invoice</b></div>
+	                <div>
+	                    <select id="paymentVoucherInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="paymentVoucherSerialNo"/></div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div><b>Self Invoice</b></div>
+	                <div>
+	                    <select id="selfInvoiceInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="selfInvoiceSerialNo"/></div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="row"  style="padding-bottom: 20px;">
+	        <div class="col-sm-12">
+	            <div class="col-sm-3">
+	                <div><b>Purchase Order</b></div>
+	                <div>
+	                    <select id="createpurchaseOrderInterval">
+	                        <option value="">Select Interval</option>
+	                        <option value="1">Yearly</option>
+	                        <option value="2">Monthly</option>
+	                    </select>
+	                </div>
+	                <div>Serial Number:&nbsp;&nbsp;<input type="text" id="createpurchaseOrderSerialNo"/></div>
+	            </div>
+	        </div>
+	    </div>
+	    <div>
+	        <button title="Add/Update Serial" id="addupdateserials" type="button" class="btn btn-submit btn-idos" style="float:right;">Add/Update</button>
+	    </div>
+		<br><br>
+	</div>	
+	
+	<div class="panel" id="gstSerialNumberDiv" style="display: none;">
+		
+		<div class="panel-body"> 
+			<p>**Default Serial start with 1 and interval yearly</p><br/>
+			<div>Select Report Interval :
+					<select id="gstInAllInterval"  style="margin-left:30px;">
+					<option value="">Select interval</option>
+					<option value="1">Yearly</option>
+					<option value="2">Monthly</option>
+				</select>&nbsp;&nbsp;&nbsp;
+			
+			</div>
+			<div class="col-sm-3">
+				<div><b>Sales Invoice</b></div>
+				<div class="btn-group" id="gstSalesInvoiceSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstSalesInvoiceSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstSalesInvoiceSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstSalesInvoiceSerialList">		
+								</ul>
+						</div>
+				</div>
+			</div>
+			<div class="col-sm-3" style="display:none">
+				<div><b>Proforma </b></div>
+				<div class="btn-group" id="gstProformaSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstProformaSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstProformaSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstProformaSerialList">
+								</ul>
+						</div>
+				</div>
+			
+			</div>
+			<div class="col-sm-3">
+				<div><b> Quotation </b></div>
+				<div class="btn-group" id="gstQuotationSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstQuotationSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstQuotationSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstQuotationSerialList">	
+								</ul>
+						</div>
+				</div>
+			
+			</div>
+			<div class="col-sm-3">
+				<div><b> Receipt </b></div>
+				<div class="btn-group" id="gstReceiptSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstReceiptSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstReceiptSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstReceiptSerialList">
+								</ul>
+						</div>
+				</div>
+			
+			</div>
+
+
+			<div class="col-sm-3">
+					<div><b> Advance Receipt </b></div>
+				<div class="btn-group" id="gstAdvanceReceiptSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstAdvanceReceiptSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstAdvanceReceiptSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstAdvanceReceiptSerialList">
+								</ul>
+						</div>
+				</div>
+			
+			</div>
+			<div class="col-sm-3">
+				<div><b> Debit Note to Customer </b></div>
+				<div class="btn-group" id="gstDebitNoteSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstDebitNoteSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstDebitNoteSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstDebitNoteSerialList">
+								</ul>
+						</div>
+				</div>
+			
+			</div>
+			<div class="col-sm-3">
+				<div><b> Credit Note to Customer </b></div>
+				<div class="btn-group" id="gstCreditNoteSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstCreditNoteSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstCreditNoteSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstCreditNoteSerialList">
+								</ul>
+						</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div><b>  PurchaseOrder </b></div>
+				<div class="btn-group" id="gstPOSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstPOSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstPOSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstPOSerialList">
+								</ul>
+						</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div><b>  Refund Advance Receipt</b></div>
+				<div class="btn-group" id="gstRefundAdvSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstRefundAdvSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstRefundAdvSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstRefundAdvSerialList">
+								</ul>
+						</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div><b> Refund Amount Received Against Invoice</b></div>
+				<div class="btn-group" id="gstRefundAmtAgainstInvoiceSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstRefundAmtAgainstInvoiceSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstRefundAmtAgainstInvoiceSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstRefundAmtAgainstInvoiceSerialList">
+								</ul>
+						</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div><b> Payment Voucher </b></div>
+				<div class="btn-group" id="gstPaymentVoucherSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstPaymentVoucherSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstPaymentVoucherSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 350px;height:150px;overflow:auto;">
+								<ul id="gstPaymentVoucherSerialList">
+								</ul>
+						</div>
+				</div>
+			</div>
+			
+			
+			<!-- GSTIN wise -->
+			<div class="col-sm-3">
+				<div><b>Self Invoice</b></div>
+				<div class="btn-group" id="gstSelfInviceSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstSelfInvoiceSerial-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstSelfInvoiceSerial-menuid" class="statutoryidnumberdropdown-menu" style="width: 350px;height:150px;overflow:auto;">
+								<ul id="gstSelfInvoiceSerialList">
+								</ul>
+						</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-3">
+				<div><b> Create Purchase Order</b></div>
+				<div class="btn-group" id="gstCreatePurchaseOrderSerial">
+						<button class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('gstCreatePurchaseOrderSerialBtn-menuid')">Insert Serials<b class="caret" style="margin:5px auto;"></b></button>
+						<div id="gstCreatePurchaseOrderSerialBtn-menuid" class="statutoryidnumberdropdown-menu" style="width: 300px;height:150px;overflow:auto;">
+								<ul id="gstCreatePurchaseOrderSerialList">
+								</ul>
+						</div>
+				</div>
+			</div>
+			
+			
+			<button title="Add/Update Serial" id="addUpdateGstSerials" type="button" class="btn btn-submit btn-idos"  style="float:right;">Add/Update</button>
+			</div>
+		</div>
+	<div id="addTaxOpeningBalanceModal" class="modal fade" data-backdrop="static" data-keyboard="false"  align="center" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h2 class="taxNameHeader" style="font-family: Montserrat, sans-serif; font-size: 16px;"></h2>
+					<h5 id="wrongActCred" align="center"></h5>
+					<!-- <div class="belowheader carousel"></div>
+					<a id="fancybox-close" href="" class="staticsupplierwapclose" style="display: inline;"></a> -->
+				</div>
+				<div class="modal-body">
+				<div class="row p-b-10">
+					<input id="inputOpeningBalance" style="font-weight: bold;" class="openingBalance" placeholder="Opening Balance" onkeypress="return onlyDotsAndNumbersandMinus(event, this);" type="text">
+					<input id="coaMappingId" type="hidden"/>
+					<button title="Add/Update Opening Balance" style="margin-right:10px; float:right;" id="addUpdateOpenBalanceButton" type="button" class="addUpdateOpenBalanceButton btn btn-submit btn-idos" value="1">Add/Update Opening Balance</button>			
+				</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+getTransactionType();
+});
+</script>
+
+
+<div class="modal fade" id="TDSSetupModal" tabindex="-1" role="dialog" aria-labelledby="branchOpeningBalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="display: inline;">TDS Setup</h5>
+        <button type="button" style = "display: inline;" class="close" onClick="resetCOATdsScreen();" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="vertical-align:top; overflow:auto;max-height:400px;"  >
+        	<input class="hidden" type="text" id="modalOwner" />
+			<table class="table excelFormTable" id="TDSSetupTable">
+							<thead class="tablehead1">
+								<tr>
+									<th>TDS / Witholding Tax - Section </th>
+									<th>TDS /witholding Tax - Rate</th>
+									<th>TDS Transaction Limits</th>
+									<th>TDS - Overall Limit</th>
+									<th>From Date</th>
+									<th>To Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="tdsTaxTR">
+									<td>
+										<select class="whType" name="tdsTaxWHType" id="tdsTaxWHType">
+											<option value="">--Please Select--</option>
+											 <option value="31"> Sec192-Payment of Salary. </option>
+											 <option value="32"> Sec194A-Income by way of Interest other than Interest on Securities </option>
+											 <option value="33"> Sec194C-Payment to Contractors/SubContractors - Individuals / HUF </option>
+											 <option value="34"> Sec194C-Payment to Contractors/SubContractors - Others </option> 
+											 <option value="35"> Sec194H-Commission or Brokerage </option> 
+											 <option value="36"> Sec194-I-Rent-(a) Plant and Machinery </option> 
+											 <option value="37"> Sec194-I-Rent-(b)-Land or building or furniture or fitting </option> 
+											 <option value="38"> Sec-194J-Fees for Professional/Technical Service etc. </option> 
+										</select>
+									</td>
+									<td><input class="taxRate" placeholder="Tax Rate" type="text" name="tdsTaxRate" id="tdsTaxRate" onkeypress="return onlyDotsAndNumbers(event);" onchange=""/></td>
+									<td><input class="transLimit" placeholder="Limit" type="text" name="tdsTaxTransLimit" id="tdsTaxTransLimit" onkeypress="return onlyDotsAndNumbers(event);" onkeyup=""/></td>
+									<td>
+										<select class="overallLimitApply" name="tdsTaxOverallLimitApply" id="tdsTaxOverallLimitApply" onchange="checkForTdsOverallLimit(this);"><option value="">--Please Select--</option><option value="1">Applicable</option><option value="2">Not Applicable</option></select>
+										<br/><input class="overallLimit" style="display:none;" placeholder="Limit" type="text" name="tdsTaxOverallLimit" id="tdsTaxOverallLimit" onkeypress="return onlyDotsAndNumbers(event);" onkeyup=""/>
+									</td>
+									<td><input class="tdsFromDate" id="tdsFromDate" type="text" name="tdsFromDate" placeholder="Date"></td>
+									<td><input class="tdsToDate" id="tdsToDate" type="text" name="tdsToDate" placeholder="Date"></td>									
+								</tr>
+							</tbody>
+							</table>
+		</div>
+      </div>
+      <div class="modal-footer">
+       <button id="tdsCancel" class="btn btn-cancel" title="Reset all" onClick="resetCOATdsScreen();">clear</button>
+		<button id="saveInTax" onclick="validateCOATdsTaxes();" style="float:right; margin-right:5px;" class="btn btn-submit" title="Add Taxes">Add Taxes</button>
+      </div>
+    </div>
+  </div>
+</div>
+

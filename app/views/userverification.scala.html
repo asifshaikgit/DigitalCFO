@@ -1,0 +1,67 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,securityCode:String,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams) {
+<style type="text/css">
+	body {
+		background: #F5F5F5;
+	}
+	#sendMail{
+		background: none!important;
+		border: none;
+		padding: 0!important;
+		font-family: arial, sans-serif;
+		color: #069;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	#sendMail:disabled{
+		color: dimgrey;
+	}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#loadingIdos').hide();
+		document.getElementById("sendMail").disabled = true;
+		setTimeout(function() {
+			document.getElementById("sendMail").disabled = false;
+		},60000);
+	});
+</script>
+
+
+<!--WRAPPER-->
+<div id="wrapper" class="registrationDiv">
+	<input id="recaptchaLength" type="hidden"/>
+	<input id="validationPassedNo" class="validationPassedNo" type="hidden"/>
+	<div id="messageDisplay" ></div>
+	<!--LOGIN FORM-->
+	<div id="verificationDiv" class="login-form" role="login" >
+		<form id="verificationDivForm" onsubmit="return false;" autocomplete="off">
+			<div class="top">
+				@if(configParams.getCompanyLogoPath2() == null || configParams.getCompanyLogoPath2().equals("")) {
+				<a href="/"><img src="@(configParams.getCompanyLogoPath())" alt="icon"/></a>
+				} else {
+				<a href="/"><img src="@(configParams.getCompanyLogoPath2())" alt="icon"/></a>
+				}
+
+				@if(configParams.getCompanyOwner().equals("PWC")) {
+				<h4>@(configParams.getCompanyApp())</h4>
+				}
+				<h4 class="panel-title">User Verification</h4>
+			</div>
+			<div class="form-area">
+				<div class="group">
+					<input id="securitycode" type="password" name="securitycode" placeholder="Security Code" class="form-control" autocomplete="new-password" required/>
+					<i class="fa fa-key"></i>
+				</div>
+				<button type="submit" name="go" id="verifyButton" class="recaptchaButton btn btn-login btn-block"  onclick="verifyCode();">VERIFY</button>
+				<hr>
+				<div class="group" style="width: 100%;  text-align: center;">
+					<button name="sendMail" id="sendMail" onclick="resendMail();" > <i class="fa fa-send" style="display: contents;" "></i>Resend Security Code</button>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+}

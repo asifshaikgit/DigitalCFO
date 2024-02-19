@@ -1,0 +1,292 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String, diff:Long,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams){
+@if(null != email) {
+<style type="text/css">
+body {
+	background: #F5F5F5;
+}
+</style>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#loadingIdos').hide();
+  });
+</script>
+<div id="twocolumns">
+	<aside class="browse_category">
+		<div class="sidebox" style="float:left;width:280px;">
+			<div class="heading blue" style="margin:0px 0px 0px; background:#B4283C !important;">
+				<h3 align="center" style="color: #fff;">TERMS</h3>
+			</div>
+			<div class="category_list">
+			<ul class="company-nav">
+				<li class="menu-information-collected"><a href="#serviceAgreement">Service agreement</a></li>
+				<li class="menu-information-usage"><a href="#restrictions">Restrictions</a></li>
+				<li class="menu-security"><a href="#disclaimer">Disclaimer</a></li>			
+			</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</aside>
+	<div id="content">
+		<div id="serviceAgreement" class="sidebox mainContent" style="float:left;width:680px;display: block;margin-left: 35px;">
+		    <h2 style="border-bottom: 2px solid #ccc;">@(configParams.getCompanyApp()) usage agreement:</h2><br/>
+		    <div class="category_list">
+				@(configParams.getCompanyApp()) CORP ("@(configParams.getCompanyApp())" or "we") provides accounting & compliance software. 
+
+				You are required to read this terms of service agreement carefully before using
+				@(configParams.getCompanyApp()).Clicking "PLEASE REGISTER YOUR COMPANY" confirms that you and users setup, 
+				enabled, permitted by you in @(configParams.getCompanyApp()) agree to be bound by this agreement.This agreement 
+				is between @(configParams.getCompanyApp()) CORP (@(configParams.getCompanyApp())) and the entity or individual and the users in that entity  
+				/ company and / or added, setup, enabled, and / or permitted by this user. 
+				<br/><br/>
+				YOU ACKNOWLEDGE, CONFIRM AND AGREE THAT, BY CLICKING ON THE "PLEASE REGISTER YOUR COMPANY" 
+				BUTTON, REGISTERING FOR @(configParams.getCompanyApp()) ACCOUNT AND USING THE @(configParams.getCompanyApp()) SOFTWARE, 
+				YOU ARE INDICATING THAT YOU HAVE READ, UNDERSTAND AND AGREE TO BE 
+				BOUND BY THESE TERMS OF SERVICE. IF YOU OR USERS SETUP, ENABLED AND / OR 
+				PERMITEDBY YOU DO NOT AGREE TO THESE TERMS OF SERVICE, THEN YOU HAVE NO 
+				RIGHT TO REGISTER AND / OR USE @(configParams.getCompanyApp()). 
+				<br/><br/>
+				If you accept or agree to these Terms of Service on behalf of a company or other legal 
+				entity, you represent and warrant that you have the authority to bind that company or 
+				other legal entity to this Terms of Service agreement and, in such event, "you" and "your" 
+				will refer and apply to that company and all users in that company including vendors and 
+				customers of the company or other legal entity.
+				<br/><br/>
+				Subject to this Agreement, @(configParams.getCompanyApp()) grants to you / Customer a non-exclusive, 
+				non-transferable, non-sub-licensable revocable license (License) to access and use a cloud 
+				based software when you / Customer register for a @(configParams.getCompanyApp()) account and as further outlined 
+				at myidos.com (product). When registering for @(configParams.getCompanyApp()) you will provide Information that is 
+				necessary so you can use @(configParams.getCompanyApp()), including, but not limited to, company name, individual 
+				name, address, phone number and email address.You / Customer may allow other @(configParams.getCompanyApp()) 
+				users (Other Users) to access your / Customer's account. You / Customer are solely 
+				responsible for all access granted to Other Users and the actions of Other Users on your 
+				/ Customer's account. @(configParams.getCompanyApp()) accepts no liability or responsibility for any actions by an Other 
+				User on your / Customer's account. 
+				<br/><br/>
+				@(configParams.getCompanyApp()) reserves the right to gather aggregate data for the purpose of analysis. 
+			  	Aggregate data is such data not limited to one user / customer, but data that 
+			  	are tracked across time, across Organisations, across users, or across some other 
+			  	variable. The purpose of gathering aggregate data is to analyze the expenses / 
+			  	spending / income patterns across sectors and geographies and provide you with 
+			  	suggestions for cost optimizations. The information may be used to choose content 
+			  	and advertising likely to appeal to you / your company.
+			  	<br/><br/>
+				It is @(configParams.getCompanyApp()) policy that @(configParams.getCompanyApp()), its directors, officers, employees, agents or consultants will 
+				not make any changes to your / Customer Data, except in the event of a termination of this 
+				Agreement. However, in certain circumstances, @(configParams.getCompanyApp()), its directors, officers, employees, 
+				agents or consultants will make changes to your / Customer Data, including changes or 
+				amendments to files a your / Customer sends to @(configParams.getCompanyApp()), if a you / Customer or a your 
+				/ Customer's Other Users request such changes or amendments. Sometimes @(configParams.getCompanyApp()), its directors, 
+				officers, employees, agents or consultants need to change information in your / Customer's 
+				account so @(configParams.getCompanyApp()) can fix technical issues that prevent @(configParams.getCompanyApp()) from properly delivering the 
+				performance of @(configParams.getCompanyApp()).
+				<br/><br/>
+				You / Customer (i) must keep its passwords secure and confidential; (ii) is solely 
+				responsible for Customer Data and all activity in its account in the Service; 
+				(iii) must use commercially reasonable efforts to prevent unauthorized access to its account, 
+				and notify @(configParams.getCompanyApp()) promptly of any such unauthorized access; and (iv) may use the Service only in 
+				accordance with the terms of service agreement and all applicable laws.
+				<br/><br/>
+				If You / Customer has registered for a trial use of @(configParams.getCompanyApp()), you / Customer may access @(configParams.getCompanyApp()) 
+				for a trial period granted by @(configParams.getCompanyApp()). @(configParams.getCompanyApp()) is provided AS IS, with no warranty during this 
+				time period. All Customer data may be deleted after the trial period, unless Customer 
+				converts its account to a non-trial account BY PAYING THE SUBSCRIPTION FEE AND 
+				ACCEPTING TERMS OF USAGE AGREEMENT. 
+				<br/><br/>
+				An invoice for the subscription fee will be issued by email, each month starting one month 
+				from the date You register your @(configParams.getCompanyApp()) account. All invoices will include the subscription fee 
+				for the preceding period one month of use. @(configParams.getCompanyApp()) will continue invoicing You monthly until 
+				this Agreement is terminated. 
+				<br/><br/>
+				Customer is responsible for the payment of all sales, use, withholding, VAT and other 
+				similar and applicable taxes. This agreement contemplates one or more orders for the 
+				Service, which orders are governed by the terms of this agreement.
+				<br/><br/>
+				All @(configParams.getCompanyApp()) invoices will be sent to You, or to a registered user in whose name you registered 
+				yourself / company with @(configParams.getCompanyApp()), by email. You must pay or arrange payment of all amounts 
+				specified in any invoice by the due date for payment and are payable within 3 days of the 
+				invoice date, failing which @(configParams.getCompanyApp()) will either de-activate / delete your account and / or deny 
+				processing capability on your account on completion of 3 days from the date of that invoice 
+				which remains unpaid. 
+				<br/><br/>
+				You may from time to time be offered preferential pricing. Eligibility for such preferential 
+				pricing or discounts is conditional upon Your acceptance of responsibility for payment of any 
+				subscription fee in relation to all of Your branches. Without prejudice to any other rights 
+				that @(configParams.getCompanyApp()) may have under these Terms or at law, @(configParams.getCompanyApp()) reserves the right to render invoices 
+				for the full (non-discounted) subscription fee due or suspend or terminate Your use of the 
+				Service in respect of any or all of Your Organisation / branch in the event that any invoices 
+				for those subscription fee are not paid in full by the due date for payment.
+
+				<br/><br/>
+				You / company must only use @(configParams.getCompanyApp()) and Website for Your own lawful internal business purposes, 
+				in accordance with these Terms. You may use @(configParams.getCompanyApp()) and Website on behalf of others or in order to 
+				provide services to others but if You do so you must ensure that You are authorized to do so and 
+				that all persons for whom or to whom services are provided comply with and accept all terms of this 
+				Agreement that apply to You. @(configParams.getCompanyApp()) will not be directly or indirectly responsible for services provided 
+				by you to your customers.
+				<br/><br/>
+				Where available, subscribed by you / company and where this feature is deployed, automated bank account 
+				transaction data feeds are generally provided to You. @(configParams.getCompanyApp()) reserves the right to pass on any charges 
+				related to the provision of bank feed data on a case-by-case basis at @(configParams.getCompanyApp())'s sole discretion. 
+				@(configParams.getCompanyApp()) would first inform You / company via email to indicate what those charges are likely to be 
+				(as such charges may vary depending on Your bank and Your volume of bank feeds). You have the option 
+				to decide to discontinue use of automated bank feeds at any time. To exercise this option, you must 
+				give @(configParams.getCompanyApp()) sufficient prior notice of which automated bank account transaction data feeds you want to 
+				discontinue. Upon receiving such notice @(configParams.getCompanyApp()) will arrange for such feeds to be terminated in accordance 
+				with each bank's usual practices.
+				<br/><br/>
+				@(configParams.getCompanyApp()) will evolve over time based on user feedback and / or research. These Terms are not intended to 
+				answer every question or address every issue raised by the use of the @(configParams.getCompanyApp()) Service. @(configParams.getCompanyApp()) reserves the 
+				right to change these terms at any time, effective upon the posting of modified terms and @(configParams.getCompanyApp()) will 
+				make every effort to communicate these changes to You via email or notification via the Website. 
+				It is likely the terms of use will change over time. It is Your obligation to ensure that You have read, 
+				understood and agree to the most recent terms.
+				<br/><br/>
+				Confidential Information means all non-public information disclosed by a party (Discloser) to the other 
+				party (Recipient), whether orally or in writing, that is designated as confidential or that reasonably
+				should be understood to be confidential given the nature of the information and the circumstances of 
+				disclosure (Confidential Information). @(configParams.getCompanyApp()) Confidential Information includes without limitation 
+				@(configParams.getCompanyApp()) software (including without limitation the user interface design, workflows, logic, concept and 
+				layout).The Recipient must use the same degree of care that it uses to protect the confidentiality of 
+				its own confidential information (but in no event less than reasonable care) not to disclose or use any 
+				Confidential Information of the Discloser for any purpose outside the scope of this agreement. 
+				The Recipient must make commercially reasonable efforts to limit access to Confidential Information of 
+				Discloser to those of its employees and contractors who need such access for purposes consistent with 
+				this agreement and who have signed confidentiality agreements with Recipient no less restrictive than 
+				the confidentiality terms of this agreement.
+				<br/><br/>
+				Exclusions. Confidential Information excludes information that: (i) is or becomes generally known to 
+				the public without breach of any obligation owed to Discloser, (ii) was known to the Recipient prior 
+				to its disclosure by the Discloser without breach of any obligation owed to the Discloser, (iii) is 
+				received from a third party without breach of any obligation owed to Discloser, or (iv) was independently 
+				developed by the Recipient without use or access to the Confidential Information. The Recipient may 
+				disclose Confidential Information to the extent required by law or court order, but will provide 
+				Discloser with advance notice to seek a protective order.
+			    <br/><br/>
+				Reservation of Rights. The software, workflow processes, user interface, designs, know-how, and other 
+				technologies provided by @(configParams.getCompanyApp()) as part of the Service are the proprietary property of @(configParams.getCompanyApp()) and its licensors, 
+				and all right, title and interest in and to such items, including all associated intellectual property rights, 
+				remain with their respective owners. You / Customer may not remove or modify any proprietary marking or 
+				restrictive legends in the Service. @(configParams.getCompanyApp()) reserves all rights unless expressly granted in this agreement.
+			</div>	
+		</div>
+		<div id="restrictions" class="sidebox mainContent" style="float:left;width:680px;display: none;margin-left: 35px;">
+			 <h2 style="border-bottom: 2px solid #ccc;">Restrictions:</h2><br/>
+			  <div class="category_list">
+			  	You / Customer / User may not (i) sell, resell, rent or lease the product / @(configParams.getCompanyApp()); (ii) 
+			  	use the product / @(configParams.getCompanyApp()) to store or transmit infringing, unsolicited marketing emails, 
+			  	libelous, or otherwise objectionable, unlawful or tortious material, or to store or 
+			  	transmit material in violation of third-party rights; (iii) interfere with or disrupt 
+			  	the integrity or performance of the Service, including, but not limited to uploading or 
+			  	distributing in any way files that contain viruses or corrupted files that may damage 
+			  	the operation of the Services; (iv) attempt to gain unauthorized access to the product 
+			  	/ @(configParams.getCompanyApp()) or their related systems or networks; (v) reverse engineer product / @(configParams.getCompanyApp()); or 
+			  	(vi) access product / @(configParams.getCompanyApp()) to build a competitive service or product, or copy any feature, 
+			  	function or graphic for competitive purposes.
+			  	<br/><br/>
+			  	Limitation on Liability. @(configParams.getCompanyApp()), ITS DIRECTORS, Officers, agents, contractors, Shareholders 
+			  	or affiliates (RELEASED PARTIES) will not be liable in any way for any claim for: 
+			  	(a) punitive, EXEMPLARY or aggravated damages; (b) damages for loss of profits or REVENUE, 
+			  	failure to realize expected savings, loss of use or lack of availability of customer data; 
+			  	(c) indirect, CONSEQUENTIAL or special damages, ARISING from or in connection with the 
+			  	services, regardless of WHETHER or not customer informed or advised @(configParams.getCompanyApp()) of the possibility 
+			  	of such damages; (d) Contribution, indemnity or set-off in respect of any claims against 
+			  	customer; (e) any damages whatsoever relating to third-party products, client materials or 
+			  	any goods or services not developed or provided by @(configParams.getCompanyApp()); or (f) any damages whatsoever 
+			  	relating to interruption, delays, errors or OMISSIONS EVEN IF SUCH INTERRUPTION, DELAYS, 
+			  	ERRORS OR OMISSIONS WERE CAUSED BY ANY OF THE RELEASED PARTIES.@(configParams.getCompanyApp()) liability for all 
+			  	damages arising out of or related to this agreement (whether in contract, warranty tort, 
+			  	including negligence, or otherwise) does not exceed the amount paid by Customer within the 
+			  	12 month period prior to the event that gave rise to the liability.
+			  	<br/><br/>
+			  	If any third-party brings a claim against @(configParams.getCompanyApp()) or any of the Released Parties related to 
+			  	Customer's acts, omissions, data or information within @(configParams.getCompanyApp()), Customer must defend, indemnify 
+			  	and hold @(configParams.getCompanyApp()) or the Released Parties harmless from and against all damages, losses, and 
+			  	expenses of any kind (including reasonable legal fees and costs) related to such claim.
+			  	<br/><br/>
+			  	The laws of the state of Delaware,govern this agreement. Any dispute arising out of or 
+			  	related to this agreement must be exclusively brought in a court of competent jurisdiction 
+			  	in the state of Delaware. The prevailing party in litigation is not entitled to recover 
+			  	its attorney's fees and costs from the other party.
+			  	<br/><br/>
+			  	@(configParams.getCompanyApp()) can, without notice and in @(configParams.getCompanyApp())'s sole discretion, without any notice or liability to 
+			  	you / Customer, terminate Customer's right to the License to use @(configParams.getCompanyApp()) or any part of @(configParams.getCompanyApp()). 
+			  	@(configParams.getCompanyApp()) can also terminate, without any notice or liability to Customer, any part of the Service. 
+			  	@(configParams.getCompanyApp()) is constantly adding new products and features to the Service, so @(configParams.getCompanyApp()) can amend this 
+			  	Agreement as @(configParams.getCompanyApp()) sees fit. If You / Customer does not approve of any amendments or modifications, 
+			  	then You / Customer must quit using @(configParams.getCompanyApp()).
+			  	<br/><br/>
+			  	Entire Agreement and Changes. This agreement constitutes the entire agreement between the parties and 
+			  	supersedes any prior or contemporaneous negotiations or agreements, whether oral or written, 
+			  	related to this subject matter. You / Customer is not relying on any representation concerning this 
+			  	subject matter, oral or written, not included in this agreement. No representation, promise or inducement 
+			  	not included in this agreement is binding.
+			  	<br/><br/>
+			  	Customer may not assign or transfer the Agreement or a Customer account to a third party, unless 
+			  	as part of a merger or sale of substantially all the assets of Customer.No Partnership. Nothing 
+			  	in the Agreement creates a partnership or joint venture between the Customer and @(configParams.getCompanyApp()). 
+			  	@(configParams.getCompanyApp()) is not providing Customer with any advice, including financial, accounting, or tax.
+			  	<br/><br/>
+			  	Enforceability and Force Majeure. If any term of this agreement is invalid or unenforceable, 
+			  	the other terms remain in effect. Neither party is liable for force majeure events.
+			  	<br/><br/>
+			  	Money Damages Insufficient. Any breach by a party of this agreement or violation of the other 
+			  	party's intellectual property rights could cause irreparable injury or harm to the other party. 
+			  	The other party may seek a court order to stop any breach or avoid any future breach.
+			  	<br/><br/>
+			  	Survival of Terms and no CISG. Any terms that by their nature survive termination of this 
+			  	agreement for a party to assert its rights and receive the protections of this agreement, 
+			  	will survive. The UN Convention on Contracts for the International Sale of Goods does not apply.
+			  	<br/><br/>
+			  	English. The parties have agreed that this agreement and the related documents be drawn up in 
+			  	the English language. 
+				<br/><br/>
+			  	Age of Majority. By clicking "REGISTER COMPANY", You / Customer certifies that you / Customer is 
+			  	of the age of majority in whatever jurisdiction the Customer is located.
+			  	<br/><br/>
+			  	By clicking "REGISTER COMPANY", You / Customer acknowledge that you have read this agreement and 
+			  	agree to all its terms and conditions.
+			  	<br/><br/>
+			  	These Terms were last updated on 25THJanuary, 2014.
+			  </div>
+		</div>
+		<div id="disclaimer" class="sidebox mainContent" style="float:left;width:680px;display: none;margin-left: 35px;">
+			 <h2 style="border-bottom: 2px solid #ccc;">Disclaimer:</h2><br/>
+			  <div class="category_list">
+			  	We have taken reasonable care to ensure the proper performance of @(configParams.getCompanyApp()) and the accuracy of the 
+			  	information/images, computations, workflows and the reliability of the data on this website. 
+			  	@(configParams.getCompanyApp()) its affiliated companies, suppliers, or any of their employees, do not guarantee and do 
+			  	not make any representations or warranties, whether express or implied, and assume no liability 
+			  	or responsibility for the accuracy, availability of data, content and information or that the 
+			  	Services will meet your requirements, be uninterrupted, complete, timely, secure or error free 
+			  	or the accuracy of the information and/or images on @(configParams.getCompanyApp()) website.
+			  	<br/><br/>
+				We will not entertain requests for refunds and cancellation of subscriptions.We will not entertain requests for refunds.
+ 				<br/><br/>
+				This site may contain hyper-links to third party sites. @(configParams.getCompanyApp()) is not responsible for the content of, 
+				or the services offered by those sites. The hyper-link(s) are provided solely for your convenience 
+				and should not be construed as an express or implied endorsement by us of the site(s) or the products 
+				or services provided therein. You access those sites and use theirproducts and services solely at 
+				your own risk.
+				<br/><br/>
+				<b>Refund Policy:</b> @(configParams.getCompanyApp()) provides free trial usage of the product to all customers, before they pay the subscription fees. Once the customer pays the subscription, we do not offer refunds.
+			  </div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="row text-center" style="margin-bottom:100px;">
+		<div class="col-sm-12 text-center" style="margin-bottom:10px;">
+			<input type="checkbox" id="userAgreeCheck"/>&nbsp;&nbsp;<b>I agree to the terms and conditions</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="checkbox" id="userDisagreeCheck"/>&nbsp;&nbsp;<b>Disagree</b>
+		</div>
+		<div class="col-sm-12 text-center"><button id="submitTermsAndConditions" class="btn btn-success" style="width:200px !important; " disabled><b> OK </b></button></div>
+</div>
+
+</div>
+} else {
+	<script type="text/javascript">
+		window.location.href = 'signout';
+	</script>
+}
+}

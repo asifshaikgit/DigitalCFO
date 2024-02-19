@@ -1,0 +1,153 @@
+
+@(configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+<link rel="shortcut icon" href="assets/website/img/logo.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@(configParams.getCompanyApp())/Last Mile Project</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/website/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/website/css/style.css" rel="stylesheet">
+	<link href="assets/website/css/pricing.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/website/css/modern-business.css" rel="stylesheet">
+	<link href="assets/website/css/round-about.css" rel="stylesheet">
+	<link href="assets/website/css/footer.css" rel="stylesheet">
+	<link href="assets/website/css/pricing.css" rel="stylesheet">
+	<link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Arimo|Oswald|Raleway:400,800,900,600,700,600italic' rel='stylesheet' type='text/css'>
+    <!-- Custom Fonts -->
+    <link href="assets/website/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<script src="assets/website/js/jquery.js"></script>
+	 <script src="assets/website/js/bootstrap.min.js"></script> 
+	     
+		<style>
+				body{
+	font-family:arimo;
+}
+	.breadcrumb	a{
+		color: #B1283A;
+	}
+	.breadcrumb	a:hover{
+		color: #B1283A;
+	}
+	</style>
+	
+	<!-----Google Analytics Start----->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72593005-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<!-----Google Analytics End----->
+<script>
+    function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+    </script>	
+</head>
+
+<body>
+	@indexhead(){
+	}
+    <!-- Page Content -->
+   <div class="container">
+    <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Last Mile Project
+                    <small>@(configParams.getCompanyApp())</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a>
+                    </li>
+                    <li class="active">Last Mile Project</li>
+                </ol>
+            </div>
+        </div>
+
+         <!-- Intro Content -->
+        <div class="row">
+			<center><img class="img-responsive" src="assets/website/about_img/lastmile.jpg" alt=""></center>
+		<br>
+		</div>
+		<div class="row">
+           <div class="col-md-12">
+				<center><h2>Last Mile Project</h2></center>
+				<p style="text-align:justify; font-size:15px;">@(configParams.getCompanyApp())’s Last Mile Project works to bridge the gap between Urban India and Rural India. @(configParams.getCompanyApp()) vide its technology initiatives is committed to building an economic bridge between the Small Business and the Multi-National, the Panchayat and the Government, the Farmer and the Agro Company. <br/><br/>
+				Sabka Sath Sabka Vikas will reach fruition when every farmer’s and every small business owner’s contribution is merged and measured in the main stream economy. This merging ensures that the ‘Last Mile’ – and often ignored mile – becomes a part of the main financial stream. Helping them have transparent access to Government subsidies (which today doesn’t reach the individuals that really need them), other government and non-government aid and most importantly have parity with large corporates in terms of the financial technology being used. <br/><br/>
+				@(configParams.getCompanyApp()) offers the final connect. While connecting the last mile it becomes imperative that we make our solutions easy to use and simple to understand while also intelligent enough to connect to the complicated ERPs of the Governments and Large Corporates. <br/><br/>
+				We create a world where a single thumb impression of the farmer assures the government that the subsidized fertilizer has reached the right farmer, informs the corporate that their supply chain works to the benefit of the country, and gives both the Government and the Large Corporation, Consumption pattern analytics of the fertilizer, Business achieved by each Retailer and each Wholesaler and Demographic and Seasonal shifts in fertilizer consumption. <br/><br/>
+				We create a world where a single click by the small business owner links his supply to that of the stockist and that in turn links to the ERP of the Large Corporate. The small business owner becomes a part of the main supply chain and can track his goods as well as his payments. <br/><br/>
+				We create a world where a single click by the panchayat office links the panchayat information to the ERPs of the State Government. <br/><br/>
+				We create a world where Governments and Corporates can react in time and always have sufficient data.           
+				</p>
+			</div>   
+        </div>
+ 
+ <!-- /.container -->
+	<script src="assets/website/js/readmore.js"></script>
+  <script>
+    $('#sassz').readmore({
+      moreLink: '<a href="#">Read More</a>',
+      collapsedHeight: 418,
+      afterToggle: function(trigger, element, expanded) {
+        if(! expanded) {
+          $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+        }
+      }
+    });
+    $('#enterprizz').readmore({
+      moreLink: '<a href="#">Read More</a>',
+      collapsedHeight: 418,
+      afterToggle: function(trigger, element, expanded) {
+        if(! expanded) {
+          $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+        }
+      }
+    });
+ 
+   </script>
+
+</body>
+<!-- Call to Action Section -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="callout-dark text-center fade-in-b">
+					<h1>Start your <b>Free</b> @(configParams.getCompanyApp()) trial <a href="signUp#selectCountryDiv" target="_blank" class="btn btn-info"><strong>Register</strong></a> 
+					<a href="/requestdemo" class="btn btn-info"><strong>Request a Demo</strong></a></h1>
+					<p><font color="#ffffff">Try out @(configParams.getCompanyApp()) for 15 days, completely free of charge.</font></p>
+				</div>
+			</div>
+			
+		</div>
+        
+
+        <hr>
+<!-- Footer -->
+@indexfooter(configParams){
+}
+<!--footer End here-->
+</html>

@@ -1,0 +1,647 @@
+@(configParams: model.ConfigParams)(content: Html)
+<!-- Strat of Usage Answer's -->
+		<div class="panel panel-showtrans "  id="usage" style="display:none;" > 
+		<span class="close" onclick="closemodalU();" style="margin-top:-0px !important">&times;</span>		
+			<div class="panel-body">
+				<div class="panel-title">Usage</div>
+		
+				<div class="panel panel-showtrans" style="display:none;" id="Usagepaneltry">  
+					<div class="panel-body">
+				
+						
+						<!--1   + How Can I login?-->
+						<div style="margin-top:10px; display:none;" id="usage1_Ans">
+							<div>
+								<p>Please use login credentials sent through e-mail after the account set up.</p>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--2   + How to process Cash Sale Transaction? -->
+						<div style="margin-top:10px; display:none;" id="usage2_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction'</p><p style="margin-left:45px"> Select 'Sell on cash and payment now' option from Dropdown.</p><br>
+								<p>Step 3:	Select Branch, Project (if you want to allocate), Type of supply, Customer, Place of Supply and</p><p style="margin-left:45px"> PO reference if any and Product (Income item) from the dropdown below and barcode will</p><p style="margin-left:45px">  auto populate if it has been given at the time of creation of the item. </p><br>
+								<p>Step 4:	Price will be auto populated (based on Income setup) and then enter the no. of units.</p><p style="margin-left:45px"> GST will be computed automatically.</p><p style="margin-left:45px"> Check Net amount, Receipt details and add remarks if any.</p><br>
+								<p>Step 5:	Scan and 'Upload supporting document if any.</p><br>
+								<p>Step 6: Click on 'Submit for Accounting' and Journal entries are posted automatically.</p><br>
+							</div>
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:60%;margin-top:-10%;">
+								<h5 style="color:#fff"></h5>
+								<p style="margin-left:25px">Passing a transaction </p><p style="margin-left:25px">has become so much</p>
+								<p style="margin-left:25px">easier; just select the</p><p style="margin-left:25px">dropdowns and you have </p><p style="margin-left:25px"></p><p style="margin-left:25px"></p><p style="margin-left:25px">passed transactions</p><p style="margin-left:25px"></p>
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.2.png")" alt="register" style="height:10% !important; width:65%;margin-top:5%;margin-left:1% ;">
+							</div>
+							<div>
+								<h4 style="border:2px solid black;width:50%">&nbsp;&nbsp; After Accounting you can choose to print invoice in xlsx. Or PDF format</h4>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--3 + How to process Cash Sale transaction for a walk-in customer? -->
+						<div style="margin-top:10px; display:none;" id="usage3_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Sell on cash and payment now' option from Dropdown.</p><br>
+								<p>Step 3:	Select Branch, Project and Type of supply.</p><br>
+								<p>Step 4:	Please tick the checkbox &#9744; is a walk-in customer?</p><br>
+								<p>Step 5:	Enter Walk-in customer name, type and place of Supply & PO reference if any.</p><br>
+								<p>Step 6:	Select 'Product', 'Barcode', 'Price' is auto populated and enter 'Units'.</p><p style="margin-left:45px"> GST is automatically computed and now checks Invoice Value. </p><br>
+								<p>Step 7:	Update 'Receipt Details', 'Remarks', scan and upload 'Supporting documents' if any.</p><br>
+								<p>Step 8:	Click on 'Submit for Accounting' and Journal entries are posted automatically.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.3.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:50%">&nbsp;&nbsp; After Accounting you can choose to print invoice in xlsx. Or PDF format</h4>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--4   + How to process Credit Sale transaction? -->
+						<div style="margin-top:10px; display:none;" id="usage4_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' </p><p style="margin-left:45px">Select 'Sell on credit and collect payment later' option from dropdown.</p><br>
+								<p>Step 3:	Select Branch, Project, Type of supply, Customer, Place of Supply and PO reference if any and Product from dropdown.</p><br>
+								<p>Step 4:	Price will be auto populated and then enter the no. of units.</p><p style="margin-left:45px"> GST will be computed automatically.</p><p style="margin-left:45px"> Check Net amount, Receipt details and add remarks if any.</p><br>
+								<p>Step 5:	Scan and 'Upload supporting document if any.</p><br>
+								<p>Step 6: Click on 'Submit for Accounting' and Journal entries are posted automatically.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.4.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:50%">&nbsp;&nbsp; After Accounting you can choose to print invoice in xlsx. Or PDF format</h4>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--5 + How to add Discount for a Product / Customer? -->
+						
+							<!--5.1 Discount allowed for a Product -->
+						<div style="margin-top:10px; display:none;" id="usage5.1_Ans">
+							<div>
+								<h5 style="border:2px solid black;width:55%">&nbsp;&nbsp;<b> (PwC Tabulate allows you set up discount with reference to either item or customer.)</b></h5>
+							</div>
+							
+							<div>
+								<h5><b><u>Discount allowed for a Product:</u></b></h5>
+								<p>Step 1:	Under 'Options' - click on 'Chart of Accounts'.</p><br>
+								<p>Step 2:	Click on heading 'Income' and again click on + sign.</p><p style="margin-left:45px"> Select the product for which you want to allow discount</p><br>
+								<p>Step 3:	Select the product from the dropdown which is under the heading 'Branch / Max Discount (%) for walk-in Customer'</p><br>
+								<p>Step 4:	Click on Add / update of Chart of Accounts.</p><br>
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:55%">&nbsp;&nbsp;When you allow discount for a Product, you can even allow discounts for Walk-in Customers.</h4>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.5.1.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+							
+						</div>
+							<!--End 5.1 -->
+							
+							<!--5.2 Discount allowed for a Customer -->
+						<div style="margin-top:10px; display:none;" id="usage5.2_Ans">
+							<div>
+								<h5 style="border:2px solid black;width:55%">&nbsp;&nbsp;<b> (PwC Tabulate allows you set up discount with reference to either item or customer.)</b></h5>
+							</div>
+							
+							<div>
+								<h5><b><u>Discount allowed for a  Customer:</u></b></h5>
+								<p>Step 1:	Under 'Options' click on 'Customer'.</p><br>
+								<p>Step 2:	Select a Customer and now click on 'Edit'.</p><br>
+								<p>Step 3:	Under the heading 'Item of Sale / Discount%' (6th column), click on the dropdown and enter the discount percentage</p><br>
+								<p>Step 4: Click on 'Add / update Customer'.</p><br>
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:55%">&nbsp;&nbsp;This is the maximum discount allowed for the product. You cannot override the discount while creating transactions.</h4>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.5.2.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+							
+						</div>
+							<!--End 5.1 -->
+						<!-- End -->
+						
+						<!--6 + How to enter Advance received from Customer? -->
+						<div style="margin-top:10px; display:none;" id="usage6_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction'</p><p style="margin-left:45px"> Select 'Receive Advance from Customer' option from dropdown</p><br>
+								<p>Step 3:	Select Branch, Customer from whom you are receiving advance from the dropdown.</p><br>
+								<p>Step 4:	Select Product, Advance received and resultant advance is automatically updated.</p><br>
+								<p>Step 5:	Update 'Receipt Details' and then click on 'Submit for Accounting'.</p><br>
+								<p><b>Note:</b> GST has made it necessary for accepting advance against specific income items and also it is mandatory to show them in GST returns</p>
+							</div>
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:65% ;margin-top:-8%">
+								<h5 style="color:#fff"><b></b></h5>
+								<p style="margin-left:25px">PwC Tabulate auto</p><p style="margin-left:25px"></p><p style="margin-left:25px"><b> computes GST on </b></p>
+								<p style="margin-left:25px"><b> advances received.</b></p><p style="margin-left:25px"> </p><p style="margin-left:25px">Hence GST compliances </p><p style="margin-left:25px">are taken care of </p><p style="margin-left:25px"></p>
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.6.png")" alt="register" style="height:10% !important; width:65%;margin-top:2%;margin-left:1% ;">
+							</div>
+							
+						</div>
+						<!-- End -->
+						
+						<!--7   + How to record payment received from Customer? -->
+						<div style="margin-top:10px; display:none;" id="usage7_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction'.</p><p style="margin-left:45px">select 'Receive Payment from Customer' option from dropdown</p><br>
+								<p>Step 3:	Select Branch, Customer and the Invoice against which you are receiving payment and amount received details</p><br>
+								<p>Step 4:	Now click on 'Submit for Accounting'.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.7.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--8   + How to record Cash Purchases from Regular Supplier / Vendor? -->
+						<div style="margin-top:10px; display:none;" id="usage8_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction'</p><p style="margin-left:45px">Select 'Buy on Cash & pay right away' option from dropdown.</p><br>
+								<p>Step 3:	Choose Branch, Project, Type of Supply, Vendor, Place of Supply & PO reference if any.</p><br>
+								<p>Step 4: Supplier Invoice No. and Date to be entered in the tab 'Additional Details'.</p><br>
+								<p>Step 5:	Select Product/ enter the barcode , enter Price, Quantity as per purchase invoice</p><p style="margin-left:45px"> sent by the Supplier and select the GST rate from dropdown and then 'Submit for Approval'. </p><br>
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:60%">&nbsp;&nbsp;You have the option to Approve/ Reject/Seek clarification/Additional approval for this transaction. Select and then 'Complete Accounting'.<b style="color:red">  Journal entries and tax ledgers are updated automatically.</b></h4>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.8.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--9   + How to record Cash Purchases from Walk-in Vendor? -->
+						<div style="margin-top:10px; display:none;" id="usage9_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Buy on Cash & pay right away' option from dropdown.</p><br>
+								<p>Step 3:	Choose Branch, Project and Type of Supply.</p><br>
+								<p>Step 4:	Please tick the checkbox &#9744; is a walk-in Vendor?</p><br>
+								<p>Step 5:	Enter Vendor name, type and place of Supply & PO reference if any.</p><br>
+								<p>Step 6:	Supplier Invoice No. and Date to be entered in the tab 'Additional Details'</p><p style="margin-left:45px"> (also there is option to add GST no. of Walk-in Vendor)</p><br>
+								<p>Step 7: Select Product, enter Price, Quantity, GST rate as per Purchase Invoice sent by Supplier and click on 'Submit for Approval'. </p><br>
+								<p>Step 8: 'Approve' the transaction from dropdown and then click on 'Complete accounting'. </p><br>
+							</div>
+							
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:65%;margin-top:-8%">
+								<h5 style="color:#fff"><b></b></h5>
+								<p style="margin-left:25px">Journal entries and</p><p style="margin-left:25px">tax ledgers are </p><p style="margin-left:25px"><b> updated automatically.</b> </p>
+								<p style="margin-left:25px"><b></b></p><p style="margin-left:25px"> </p><p style="margin-left:25px"> </p><p style="margin-left:25px"> </p><p style="margin-left:25px"></p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.9.png")" alt="register" style="height:10% !important; width:65%;margin-top:5%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--10 + How to record Credit Purchases? -->
+						<div style="margin-top:10px; display:none;" id="usage10_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Buy on Credit & pay later' option from dropdown.</p><br>
+								<p>Step 3:	Choose Branch, Project, Type of Supply, Vendor, Place of Supply and PO reference if any.</p><br>
+								<p>Step 4: Supplier Invoice No. and Date to be entered in the tab 'Additional Details'.</p><br>
+								<p>Step 5:	Select Product, enter Price, Quantity as per purchase invoice sent by the Supplier and select the GST rate from dropdown and then 'Submit for Approval'. </p><br>
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:60%">&nbsp;&nbsp;You have the option to Approve/ Reject/Seek clarification/Additional approval for this transaction. Select and then 'Complete Accounting'.<b style="color:red">  Journal entries and tax ledgers are updated automatically .</b></h4>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.10.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--11 + How to record payment to Vendor / Supplier? -->
+						<div style="margin-top:10px; display:none;" id="usage11_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Pay Vendor / Supplier' option from dropdown.</p><br>
+								<p>Step 3:	Select Branch, Vendor to whom you wish to pay and then select the Invoice for which you to pay.</p><br>
+								<p>Step 4:	Enter Amount and then click on 'Submit for Approval'.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.11.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:60%">&nbsp;&nbsp;You have the option to Approve/ Reject/Seek clarification/Additional approval for this transaction. Select and then 'Complete Accounting'.<b style="color:red">  Journal entries and tax ledgers are updated automatically. </b></h4>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--12 + How to record advance paid to Vendor? -->
+						<div style="margin-top:10px; display:none;" id="usage12_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Pay advance to Vendor / Supplier' option from dropdown.</p><br>
+								<p>Step 3:	Choose Branch, Project, Type of Supply, Vendor and Place of Supply.</p><br>
+								<p>Step 4:	Select product and enter advance amount to be paid.</p><br>
+								<p>Step 5: Click on 'Submit for Approval'.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.12.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:60%">&nbsp;&nbsp;You have the option to Approve/ Reject/Seek clarification/Additional approval for this transaction. Select and then 'Complete Accounting'.<b style="color:red">  Journal entries and tax ledgers are updated automatically. </b> </h4>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--13 + How to record Deposit Cash in Bank?  -->
+						<div style="margin-top:10px; display:none;" id="usage13_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Deposit Cash in Bank' option from dropdown.</p><br>
+								<p>Step 3:	Select Branch, Bank where you want to deposit, input Instrument details (in case of Cheque / DD) and enter deposit amount.</p><br>
+								<p>Step 4:	Upload scan copy of supporting documents if any.</p><br>
+								<p>Step 5: Click on 'Submit for Accounting'.</p><br>
+								<p>Step 6: 'Approve' the transaction and click on 'Complete Accounting'.</p><br>
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:65%;margin-top:-8%">
+								<p style="margin-left:25px">Journal entries and</p><p style="margin-left:25px">tax ledgers are </p><p style="margin-left:25px"><b> updated automatically.</b> </p>
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.13.png")" alt="register" style="height:10% !important; width:65%;margin-top:8%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--14 + How to record Withdrawal of cash from Bank?  -->
+						<div style="margin-top:10px; display:none;" id="usage14_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Withdraw cash from Bank' option from dropdown.</p><br>
+								<p>Step 3:	Select Branch, Bank from where you want to withdraw and enter withdrawal amount.</p><br>
+								<p>Step 4:	Upload scan copy of supporting documents if any.</p><br>
+								<p>Step 5: Click on 'Submit for Accounting'.</p><br>
+								<p>Step 6: 'Approve' the transaction and click on 'Complete Accounting'</p><br>
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:65%;margin-top:-8%">
+								<p style="margin-left:25px">Journal entries and</p><p style="margin-left:25px">tax ledgers are </p><p style="margin-left:25px"><b> updated automatically.</b> </p>
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.14.png")" alt="register" style="height:10% !important; width:65%;margin-top:8%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--15 + How to transfer funds from one bank to another or one branch to another? -->
+						<div style="margin-top:10px; display:none;" id="usage15_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Transfer funds from one bank to another' option from dropdown.</p><br>
+								<p>Step 3:	Select transfer from Branch, Bank - transfer to Branch, Bank and enter amount.</p><br>
+								<p>Step 4:	Upload scan copy of supporting documents if any.</p><br>
+								<p>Step 5: Click on 'Submit for Accounting'.</p><br>
+								<p>Step 6: 'Approve' the transaction and click on 'Complete Accounting'.</p><br>
+							</div>
+							
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:65%;margin-top:-8%">
+								<p style="margin-left:25px">Journal entries and</p><p style="margin-left:25px">tax ledgers are </p><p style="margin-left:25px"><b> updated automatically.</b> </p>
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.15.png")" alt="register" style="height:10% !important; width:65%;margin-top:5%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--16 + How to record petty cash purchases? -->
+						<div style="margin-top:10px; display:none;" id="usage16_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Buy on Petty Cash Account' option from dropdown.</p><br>
+								<p>Step 3:	Choose Branch, Project, Type of Supply, Vendor, Place of Supply & PO reference if any.</p><br>
+								<p>Step 4: Supplier Invoice No. and Date to be entered in the tab 'Additional Details'.</p><br>
+								<p>Step 5:	Select Product, enter Price, Quantity as per purchase invoice sent by the Supplier and select the GST rate from dropdown and then 'Submit for Approval'. </p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.16.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:60%">&nbsp;&nbsp;You have the option to Approve/ Reject/Seek clarification/Additional approval for this transaction. Select and then 'Complete Accounting'.<b style="color:red">  Journal entries and tax ledgers are updated automatically .</b>  </h4>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--17 + How to record cash transfer to petty cash? -->
+						<div style="margin-top:10px; display:none;" id="usage17_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Transfer Main Cash to Petty Cash' option from dropdown.</p><br>
+								<p>Step 3:	Select Branch, cash available in the branch will be auto populated, enter the amount you wish to transfer to petty cash.</p><br>
+								<p>Step 4:	Input 'Purpose of transfer' and 'Upload' scan copy of documents if any.</p><br>
+								<p>Step 5:	Click on 'Submit for Accounting'.</p><br>
+								<p>Step 6: 'Approve' the transaction and click on 'Complete Accounting'.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.17.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--18 + How to transfer Inventory from one branch to another? -->
+						<div style="margin-top:10px; display:none;" id="usage18_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Transfer Inventory item from one Branch to another' option from dropdown.</p><br>
+								<p>Step 3:	Select 'Transfer Outward' from the dropdown.</p><br>
+								<p>Step 4:	Select Branch, Product, Price and Taxable value will be automatically calculated.</p><br>
+								<p>Step 5:	Click on submit for Approval.</p><br>
+								<p>Step 6: 'Approve' the transaction and click on 'Complete Accounting'</p><br>
+							</div>
+							
+							
+							
+							<div>
+								<h4 style="border:2px solid black;width:60%">&nbsp;&nbsp;Similarly 'Transfer Inward' can be recorded when Inventory is transferred from one branch to another.   </h4>
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:65%;margin-top:-8%">
+								<p style="margin-left:25px">Journal entries and</p><p style="margin-left:25px">tax ledgers are </p><p style="margin-left:25px"><b> updated automatically.</b> </p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.18.png")" alt="register" style="height:10% !important; width:65%;margin-top:5%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--19 + How to record Debit note or Credit note issued to Customer? -->
+						
+							<!--19.1  Credit Note-->
+						<div style="margin-top:10px; display:none;" id="usage19.1_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Credit Note for Customer' option from dropdown.</p><br>
+								<p>Step 3: Select 'Decrease in Price' or 'Decrease in Quantity' from the dropdown.</p><br>
+								<p>Step 4:	Select Branch and Project and enter dates. Select Customer and Sales Invoice, details of invoice will be auto populated.</p><br>
+								<p>Step 5:	Enter 'Revised Price' or 'Quantity' and PwC Tabulate will automatically compute the GST difference.</p><p style="margin-left:5px"> Check Net Value and 'Submit for Approval'.</p><br>
+								<p>Step 6:	'Approve' the transaction and click on 'Complete Accounting'</p><br>
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:65% ;margin-top:-7%">
+								<p style="margin-left:25px">Journal entries and</p><p style="margin-left:25px">tax ledgers are </p><p style="margin-left:25px"><b> updated automatically.</b> </p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.19.1.png")" alt="register" style="height:10% !important; width:65%;margin-top:5%;margin-left:1% ;">
+							</div>
+						</div>
+							<!-- End-->
+							
+							<!--19.2 Debit Note-->
+						<div style="margin-top:10px; display:none;" id="usage19.2_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Debit Note for Customer' option from dropdown.</p><br>
+								<p>Step 3:	Select 'Increase in Price' or 'Increase in Quantity' from the dropdown.</p><br>
+								<p>Step 4:	Select Branch and Project and enter dates. Select Customer and Sales Invoice, details of invoice will be auto populated.</p><br>
+								<p>Step 5:	Enter 'Revised Price' or 'Quantity' and PwC Tabulate will automatically compute the GST difference. Check Net Value and 'Submit for Approval'.</p><br>
+								<p>Step 6:	'Approve' the transaction and click on 'Complete Accounting'.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.19.2.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+							<!-- End-->
+						<!-- End -->
+						
+						<!--20 + How to record debit or credit received from Vendor? -->
+							
+							<!--20.1 Credit Note-->
+						<div style="margin-top:10px; display:none;" id="usage20.1_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Credit Note for Vendor' option from dropdown.</p><br>
+								<p>Step 3: Select 'Increase in Price' or 'Increase in Quantity' from the dropdown.</p><br>
+								<p>Step 4:	Select Branch and Project and enter dates. Select Vendor and Purchase Invoice, details of invoice will be auto populated.</p><br>
+								<p>Step 5: Enter 'Revised Price' or 'Quantity' and PwC Tabulate will automatically compute the GST difference. Check Net Value and 'Submit for Approval'.</p><br>
+								<p>Step 6: 'Approve' the transaction and click on 'Complete Accounting'.</p><br>
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:65% ;margin-top:-7%">
+								<p style="margin-left:25px">Journal entries and</p><p style="margin-left:25px">tax ledgers are </p><p style="margin-left:25px"><b> updated automatically.</b> </p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.20.1.png")" alt="register" style="height:10% !important; width:65%;margin-top:5%;margin-left:1% ;">
+							</div>
+						</div>
+							<!-- End-->
+							
+							<!--20.2 Debit Note-->
+						<div style="margin-top:10px; display:none;" id="usage20.2_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Debit Note for Vendor' option from dropdown.</p><br>
+								<p>Step 3:	Select 'Decrease in Price' or 'Decrease in Quantity' from the dropdown.</p><br>
+								<p>Step 4:	Select Branch and Project and enter dates. Select Customer and Sales Invoice, details of invoice will be auto populated.</p><br>
+								<p>Step 5:	Enter 'Revised Price' or 'Quantity' and PwC Tabulate will automatically compute the GST difference. Check Net Value and 'Submit for Approval'.</p><br>
+								<p>Step 6:	'Approve' the transaction and click on 'Complete Accounting'.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.20.2.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+							<!-- End-->
+						<!-- End -->
+						
+						<!--21  + How to create Adjustment Entries? -->
+						<div style="margin-top:10px; display:none;" id="usage21_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2:	Click on tab 'Create Transaction' and select 'Make Provision / Journal Entry' option from dropdown.</p><br>
+								<p>Step 3:	Select Branch, Debit / Credit Ledger as per the requirement.</p><br>
+								<p>Step 4:	Click on submit for Approval.</p><br>
+								<p>Step 5: 'Approve' the transaction and click on 'Complete Accounting'.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.21.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--22 + How to process Payroll? -->
+						<div style="margin-top:10px; display:none;" id="usage22_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2: Click on tab 'Create Transactions' and select 'Process Payroll' option from the dropdown.</p><br>
+								<p>Step 3: Select the Month, Branch, and feed in the Pay Days.</p><br>
+								<p>Step 4: In the table appearing below feed in the eligible days.</p><br>
+								<p>Step 5: Click on Submit for Payroll.</p><br>
+								<p>Step 6: Later under 'Options' select 'My Payroll'.</p><br>
+								<p>Step 7: Select the Month for which you want to generate the Payslip and then you can download.</p><br>
+							</div>
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:55%;margin-top:-8%">
+								<h5 style="color:#fff"><b></b></h5>
+								<p style="margin-left:25px">Generating Payslip </p><p style="margin-left:25px"></p><p style="margin-left:25px"> is in hassle free  </p>
+								<p style="margin-left:25px">PwC tabulate.</p><p style="margin-left:25px"> </p><p style="margin-left:25px"> </p><p style="margin-left:25px"> </p><p style="margin-left:25px"></p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/3.22.png")" alt="register" style="height:10% !important; width:65%;margin-top:4%;margin-left:1% ;">
+							</div>
+							
+						</div>
+						
+						<!-- End -->
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- End of Usage Answer's -->
+		
+		<!-- Start of Reports/Dashboard Answer's -->
+		<div class="panel panel-showtrans "  id="report" style="display:none;" > 
+		<span class="close" onclick="closemodal();" style="margin-top:-0px !important">&times;</span>
+			<div class="panel-body">
+				
+				<div class="panel-title">Reports / Dashboard</div>
+				
+				<div class="panel panel-showtrans" style="display:none;" id="reportpaneltry">  
+					<div class="panel-body">
+				
+						
+						<!--1 Where to view Inventory Report?  -->
+						<div style="margin-top:10px; display:none;" id="report1_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2: Now click on tab 'Find Reports'.</p><br>
+								<p>Step 3: Click on 'Inventory Report'.</p><br>
+								
+							</div>
+							
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;float: ;margin-top:-5%;margin-left:40%">
+								<h5 style="color:#fff"><b>Advanced Capability</b></h5>
+								<p style="margin-left:15px">* Inventory Report in</p><p style="margin-left:25px">PwC tabulate is</p><p style="margin-left:25px">extensive.</p><br>
+								<p style="margin-left:15px">* It drills down to the</p><p style="margin-left:25px"> source transaction </p><p style="margin-left:25px"> </p><p style="margin-left:25px">of every trading item</p><p style="margin-left:25px">under inventory.</p>
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/4.1.png")" alt="register" style="height:10% !important; width:65%;margin-top:2%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						
+						<!--2 Where to view Trial Balance?  -->
+						<div style="margin-top:10px; display:none;" id="report2_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2: Now click on tab 'Find Reports'.</p><br>
+								<p>Step 3: Click on 'Trial Balance' .</p><br>
+								
+							</div>
+							
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;float:;margin-top:-5%;margin-left:40%">
+								<h5 style="color:#fff"><b></b></h5>
+								<p style="margin-left:25px">In PwC tabulate it is</p><p style="margin-left:25px">possible to drill down </p>
+								<p style="margin-left:25px">into the source transaction </p><p style="margin-left:25px"> of each and every</p><p style="margin-left:25px">item appearing in</p><p style="margin-left:25px">the Trial Balance.</p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/4.2.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--3 Where to view P&L and Balance Sheet? -->
+						<div style="margin-top:10px; display:none;" id="report3_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2: Now click on tab 'Find Reports'.</p><br>
+								<p>Step 3: Click on 'P&L and Balance Sheet'.</p><br>
+								
+							</div>
+							
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;float: ;margin-top:-5%;margin-left:40%">
+								<h5 style="color:#fff"><b></b></h5>
+								<p style="margin-left:25px">The Financial Statements </p><p style="margin-left:25px"> </p><p style="margin-left:25px">are as per Schedule III </p>
+								<p style="margin-left:25px">of The Companies</p><p style="margin-left:25px">Act, 2013.</p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/4.3.png")" alt="register" style="height:10% !important; width:65%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--4 Where to view Bank book or Cash book? -->
+						<div style="margin-top:10px; display:none;" id="report4_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on 'Transactions'.</p><br>
+								<p>Step 2: Now click on tab 'Find Reports'.</p><br>
+								<p>Step 3: Click on 'Cash Book' or 'Bank Book' .</p><br>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--5 Tell me more about Dashboard. -->
+						<div style="margin-top:10px; display:none;" id="report5_Ans">
+							<div>
+								<p>Dashboard displays reports like Account Receivables, Account Payables, Expenses and Income reports which can be downloaded in excel for taking key business decisions.</p><p> This exclusive feature helps you to drill down to transaction level and analyze them.</p><p> It allows you to take reports Branch wise / Project wise.</p>
+							
+							</div>
+						</div>
+						<!-- End -->
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- End of Reports/Dashboard Answer's -->

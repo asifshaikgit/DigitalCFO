@@ -1,0 +1,353 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="plbsCoaMapping" class="tab-pane mainDiv" style="display: none;">
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="navbar-transaction">
+							<div class="dropdown" style="display:inline;">
+   									 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports
+    								<span class="caret"></span></button>
+    								<ul class="dropdown-menu" style="margin-top:10px;">
+										<li id="cashAndBankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="1">Cash Book</a></li>
+										<li id="bankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="2">Bank Book</a></li>
+										<li id="trialBalanceallBranches" onclick="changeReportPanel(this);"><a data-id="3">Trial Balance</a></li>
+										<li id="reportAllInventoryItems" onclick="changeReportPanel(this);"><a data-id="4">Inventory Report</a></li>
+										<li id="reportProfitLoss" onclick="changeReportPanel(this);"><a data-id="6">P&L and Balance Sheet</a></li>
+							</ul>
+ 						 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+	    <div class="panel-title">Mappings - COA</div>
+	    <div class="datascrolltable">
+
+		<table class="table" id="balanceSheetTable">
+			<thead class="tablehead1">
+				<tr>
+					<th style="width:350px !important;"><b class="fs-14">Profit & Loss Report Mappings</b></th>
+				</tr>
+				<tr>
+					<th style="width:350px !important;"><b>Particulars</b></th>
+					<th><b>Chart of Account mapping item</b></th>
+					<th><b>Save the association</b></th>
+					<th><b>Available Items</b></th>
+				</tr>
+				<tr>
+					<th colspan="4" style="text-align: center;"><b class="fs-14">INCOMES</b></th>
+				</tr>
+			</thead>
+				<tr>
+					<td style="width:350px !important; height: 20px;"><b>Revenue From Operations</b></td>
+					<td><select class="multipleCheckSelect" id="revenueFromOperationsSelect"  multiple="multiple" size="3" style="width:250px;"></select></td>
+					<td><button id="revenueFromOperationsSave"  class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('100','revenueFromOperationsSelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+					<td rowspan="2"><select id="incomecoaitems"   multiple="multiple" size="10" style="width:100%;"></select></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important; height: 20px;"><b>Other Income</b></td>
+					<td><select class="multipleCheckSelect" id="otherIncomeCOASelect"   multiple="multiple" size="3" style="width:250px;"></select></td>
+					<td><button id="otherIncomeCOASave"  class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('101','otherIncomeCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<thead class="tablehead1">
+					<tr>
+						<th colspan="4" style="text-align: center;"><b class="fs-14">EXPENSES</b></th>
+					</tr>
+				</thead>
+				<tr>
+					<td style="width:350px !important;"><b>Cost Of Materials Consumed</b></td>
+					<td><select class="multipleCheckSelect" id="costOfMaterialsConsumedCOASelect"  multiple="multiple" size="3" style="width:250px;"></select></td>
+					<td><button id="costOfMaterialsConsumedCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('200','costOfMaterialsConsumedCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+					<td rowspan="12"><select id="expensecoaitems"   multiple="multiple" size="25" style="width:100%"></select></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Purchases Of Stock-In-Trade</b></td>
+					<td><select class="multipleCheckSelect" id="purchasesOfStockInTradeCOASelect"   multiple="multiple" size="3" style="width:250px;"></select></td>
+					<td><button id="purchasesOfStockInTradeCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('201','purchasesOfStockInTradeCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Changes In Inventories Of Finished Goods Work-In-Progress And Stock-In-Trade</b></td>
+					<td><select class="multipleCheckSelect" id="cIIOfFGWIPAndStockInTradeCOASelect"   multiple="multiple" size="3" style="width:250px;"></select></td>
+					<td><button id="changesInInventoriesOfFinishedGoodsWorkInProgressAndStockInTradeCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('202','cIIOfFGWIPAndStockInTradeCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Employee Benefits Expense</b></td>
+					<td><select class="multipleCheckSelect" id="employeeBenefitsExpenseFinanceCostsCOASelect"   multiple="multiple" size="3" style="width:250px;"></select></td>
+					<td><button id="employeeBenefitsExpenseFinanceCostsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('203','employeeBenefitsExpenseFinanceCostsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Finance Costs</b></td>
+					<td><select class="multipleCheckSelect" id="financeCostsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="financeCostsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('204','financeCostsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Depreciation And Amortization Expense</b></td>
+					<td><select class="multipleCheckSelect" id="depreciationAndAmortizationExpenseCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="depreciationAndAmortizationExpenseCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('205','depreciationAndAmortizationExpenseCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Other Expenses</b></td>
+					<td><select class="multipleCheckSelect" id="otherExpensesCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="otherExpensesCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('206','otherExpensesCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;"><b>Exceptional Items</b></td>
+					<td><select class="multipleCheckSelect" id="exceptionalItemsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="exceptionalItemsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('207','exceptionalItemsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Extraordinary Items</b></td>
+					<td><select class="multipleCheckSelect" id="extraordinaryItemsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="extraordinaryItemsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('208','extraordinaryItemsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Tax Expense:</b></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Tax</b></td>
+					<td><select class="multipleCheckSelect" id="currentTaxCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="currentTaxCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('209','currentTaxCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deferred Tax</b></td>
+					<td><select class="multipleCheckSelect" id="deferredTaxCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="deferredTaxCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('210','deferredTaxCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<!-- not needed confirmed by Venkat
+				<tr>
+					<td style="width:350px !important;"><b>Profit/(Loss) From Discontinuing Operations</b></td>
+					<td><select class="multipleCheckSelect" id="profitLossFromDiscontinuingOperationsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="profitLossFromDiscontinuingOperationsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('Profit/(Loss) From Discontinuing Operations','profitLossFromDiscontinuingOperationsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>Tax Expense Of Discontinuing Operations</b></td>
+					<td><select class="multipleCheckSelect" id="taxExpenseOfDiscontinuingOperationsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="taxExpenseOfDiscontinuingOperationsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('Tax Expense Of Discontinuing Operations','taxExpenseOfDiscontinuingOperationsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<thead class="tablehead1">
+				<tr>
+					<td style="width:350px !important;"><b>Earnings Per Equity Share:</b></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				</thead>
+
+				<tr>
+					<td style="width:350px !important;">Basic</td>
+					<td><select class="multipleCheckSelect" id="earningsPerEquityShareBasicSelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="earningsPerEquityShareBasicSave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('Earnings Per Equity Share Basic','earningsPerEquityShareBasicSelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">Diluted</td>
+					<td><select class="multipleCheckSelect" id="earningsPerEquityShareDilutedCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="earningsPerEquityShareDilutedCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('Earnings Per Equity Share Diluted','earningsPerEquityShareDilutedCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				-->
+				<tr><td colspan="4">&nbsp;</td></tr>
+				<thead class="tablehead1">
+					<tr>
+						<th style="width:350px !important;"><b class="fs-14">Balance Sheet Mappings</b></th>
+					</tr>
+					<tr>
+						<th style="width:350px !important;"><b>Particulars</b></th>
+						<th><b>Chart of Account mapping item</b></th>
+						<th><b>Save the association</b></th><th><b>Available Items</b></th>
+					</tr>
+					<tr>
+						<th colspan="4" style="text-align: center;"><b class="fs-14">I. EQUITY AND LIABILITIES</b></th>
+					</tr>
+				</thead>
+				<tr>
+					<td style="width:350px !important;"><b>(1)Shareholder's funds</b></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td><td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(a) Share capital</td>
+					<td><select class="multipleCheckSelect" id="shareCapitalCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="shareCapitalCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('400','shareCapitalCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+					<td rowspan="15"><select id="liabilitiescoaitems"   multiple="multiple" size="25" style="width:100%"></select></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(b) Reserves and surplus</td>
+					<td><select class="multipleCheckSelect" id="reservesAndSurplusCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="reservesAndSurplusCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('401','reservesAndSurplusCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(c) Money received against share warrants</td>
+					<td><select class="multipleCheckSelect"  id="moneyReceivedAgainstShareWarrantsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="moneyReceivedAgainstShareWarrantsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('402','moneyReceivedAgainstShareWarrantsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;"><b>(2)Share application money pending allotment</b></td>
+					<td><select class="multipleCheckSelect"  id="shareApplicationMoneyPendingAllotmentCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="shareApplicationMoneyPendingAllotmentCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('403','shareApplicationMoneyPendingAllotmentCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;"><b>(3) Non-current liabilities</b></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(a) Long-term borrowings</td>
+					<td><select class="multipleCheckSelect" id="longTermBorrowingsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="longTermBorrowingsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('404','longTermBorrowingsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(b) Deferred tax liabilities (Net)</td>
+					<td><select class="multipleCheckSelect"  id="deferredTaxLiabilitiesNetCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="deferredTaxLiabilitiesNetCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('405','deferredTaxLiabilitiesNetCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(c) Other Long term liabilities</td>
+					<td><select class="multipleCheckSelect" id="otherLongTermLiabilitiesCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="otherLongTermLiabilitiesCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('406','otherLongTermLiabilitiesCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(d) Long-term provisions</td>
+					<td><select class="multipleCheckSelect" id="longTermProvisionsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="longTermProvisionsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('407','longTermProvisionsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;"><b>(4) Current liabilities</b></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(a) Short-term borrowings</td>
+					<td><select class="multipleCheckSelect"  id="shortTermBorrowingsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="shortTermBorrowingsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('408','shortTermBorrowingsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(b) Trade payables</td>
+					<td><select class="multipleCheckSelect"  id="tradePayablesCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="tradePayablesCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('409','tradePayablesCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(c) Other current liabilities</td>
+					<td><select class="multipleCheckSelect" id="otherCurrentLiabilitiesCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="otherCurrentLiabilitiesCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('410','otherCurrentLiabilitiesCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(d) Short-term provisions</td>
+					<td><select class="multipleCheckSelect" id="shortTermProvisionsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="shortTermProvisionsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('411','shortTermProvisionsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<thead class="tablehead1">
+					<tr>
+						<th colspan="4" style="text-align: center;"><b class="fs-14">II. ASSETS</b></th>
+					</tr>
+				</thead>
+				<tr>
+					<td style="width:350px !important;"><b>Non-current assets</b></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>	<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>(1)&nbsp;&nbsp;(a) Fixed assets</b></td>
+					<td></td>
+					<td></td>
+
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(i) Tangible assets</td>
+					<td><select class="multipleCheckSelect"  id="tangibleAssetsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="tangibleAssetsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('300','tangibleAssetsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+					<td rowspan="16"><select id="assetsscoaitems"   multiple="multiple" size="25" style="width:100%"></select></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(ii) Intangible assets</td>
+					<td><select class="multipleCheckSelect" id="intangibleAssetsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="intangibleAssetsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('301','intangibleAssetsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(iii) Capital work-in-progress</td>
+					<td><select class="multipleCheckSelect" id="capitalWorkInProgressCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="capitalWorkInProgressCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('302','capitalWorkInProgressCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(iv) Intangible assets under development</td>
+					<td><select class="multipleCheckSelect" id="intangibleAssetsUnderDevelopmentCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="intangibleAssetsUnderDevelopmentCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('303','intangibleAssetsUnderDevelopmentCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(b) Non-current investments</td>
+					<td><select class="multipleCheckSelect" id="nonCurrentInvestmentsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="nonCurrentInvestmentsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('304','nonCurrentInvestmentsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(c) Deferred tax assets (net)</td>
+					<td><select class="multipleCheckSelect" id="deferredTaxAssetsNetCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="deferredTaxAssetsNetCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('305','deferredTaxAssetsNetCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(d) Long-term loans and advances</td>
+					<td><select class="multipleCheckSelect" id="longTermLoansAndAdvancesCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="longTermLoansAndAdvancesCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('306','longTermLoansAndAdvancesCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(e) Other non-current assets</td>
+					<td><select class="multipleCheckSelect" id="otherNonCurrentAssetsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="otherNonCurrentAssetsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('307','otherNonCurrentAssetsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;"><b>(2) Current assets</b></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(a) Current investments</td>
+					<td><select class="multipleCheckSelect" id="currentInvestmentsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="currentInvestmentsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('308','currentInvestmentsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(b) Inventories</td>
+					<td><select class="multipleCheckSelect" id="inventoriesCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="inventoriesCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('309','inventoriesCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(c) Trade receivables</td>
+					<td><select class="multipleCheckSelect" id="tradeReceivablesCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="tradeReceivablesCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('310','tradeReceivablesCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(d) Cash and cash equivalents</td>
+					<td><select class="multipleCheckSelect" id="cashAndCashEquivalentsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="cashAndCashEquivalentsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('311','cashAndCashEquivalentsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(e) Short-term loans and advances</td>
+					<td><select class="multipleCheckSelect" id="shortTermLoansAndAdvancesCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="shortTermLoansAndAdvancesCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('312','shortTermLoansAndAdvancesCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+				<tr>
+					<td style="width:350px !important;">&nbsp;&nbsp;(f) Other current assets</td>
+					<td><select class="multipleCheckSelect" id="otherCurrentAssetsCOASelect"   multiple="multiple" size="3" style="width:200px"></select></td>
+					<td><button id="otherCurrentAssetsCOASave" class="btn btn-submit btn-idos" title="Save association" onclick="savePLBSCOAAssociation('313','otherCurrentAssetsCOASelect');"><span class="cashAndBankBooksAllBranches">&nbsp;&nbsp;Save&nbsp;&nbsp;</span></button></td>
+				</tr>
+
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	</div>
+	</div>
+	</div>
+</div>

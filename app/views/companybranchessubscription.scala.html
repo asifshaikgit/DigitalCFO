@@ -1,0 +1,73 @@
+@(fullName:String, email:String, role:String, orgn:model.Organization, allowedProcurement:String, orgActiveBranches:List[model.Branch], configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams){
+<head>
+<script type="text/javascript">
+$(document).ready(function(){
+$('#subscribeForBranches option[value=""]').remove();
+$('.multiScbscribeBranches').multiselect({
+    buttonClass: 'btn',
+    buttonWidth: '350px',
+    maxHeight:   90,
+    includeSelectAllOption: true,
+    enableFiltering :true,
+    buttonText: function(options) {
+      if (options.length == 0) {
+              return 'None selected <b class="caret"></b>';
+          }
+          else if (options.length > 6) {
+              return options.length + ' selected  <b class="caret"></b>';
+          }
+          else {
+              var selected = '';
+              options.each(function() {
+          selected += $(this).text() + ', ';
+              });
+
+              return options.length + ' selected  <b class="caret"></b>';
+      }
+    },
+    onChange: function(element, checked) {
+      if(checked == true) {
+      }
+      else if(checked == false) {
+      }
+    }
+  });
+  $('#loadingIdos').hide();
+});
+</script>
+</head>
+<div class="main-header">&nbsp;
+	<div class="header-other-pages"><img id="companyLogo" alt="logo" src="@(configParams.getCompanyLogoPath())" align="top" style="margin-top: -2px; margin-left: 4px;margin-bottom: 4px; margin-right: 4px;"></img><a style="float: right;margin-top: 15px;" href="" onClick="doLogout();"> Logout </a><b style="float: right;margin-top: 15px;">&nbsp;&nbsp; | &nbsp;&nbsp;</b><b style="float:right;margin-top: 15px;">Welcome @{fullName}</b></div>
+</div>
+<div class="sub-header">&nbsp;</div>
+<div id="twocolumns">
+ 	<b>Please Choose Your Preferred Currency</b>
+ 	<b style="margin-left: 100px;">Please Choose State</b>
+    <b style="margin-left: 100px;">Select the branch which you want to subscribe for</b>
+	<aside class="browse_category" style="margin-top: 12px;">
+		<select name="preferredCurrency" id="preferredCurrency" style="width:280px;">
+			<option value="">--Please Select--</option>
+	 		<option value="">U.S. Dollar(USD)</option>
+	 		<option value="">Singapore Dollar(SGD)</option>
+	 		<option value="">European Euro (EUR)</option>
+	 		<option value="">British Pound (GBP)</option>
+	 		<option value="">Indian Rupees (INR)</option>
+	 		<option value="">Arab Emirate Dirham(AED)</option>
+	 	</select>
+	</aside>
+	<aside class="browse_category" style="margin-left:80px; margin-top: 12px;">
+	 	<select name="preferredCurrencyState" id="preferredCurrencyState" style="width:200px;">
+	 		<option value="">--Please Select--</option>
+ 		</select>
+ 	</aside>
+ 	<aside class="browse_category" style="margin-top: 12px;margin-left: 10px">
+		<select multiple="multiple" class="multiScbscribeBranches" name="subscribeForBranches" id="subscribeForBranches" style="width:350px;">
+			@for(branch <- orgActiveBranches) {
+				<option value="@branch.id">@branch.name</option>
+			}
+		</select>
+		<button style="width:350px;margin-top: 10px;" id="paywithpaypalButton" class="paywithpaypalButton btn btn-primary" title="Reset" style="vertical-align: top;">Proceed with payment</button>
+	</aside>
+</div>
+}

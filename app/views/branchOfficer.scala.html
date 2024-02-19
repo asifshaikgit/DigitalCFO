@@ -1,0 +1,42 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+ <div id="branchOfficerViewSetup" class="tab-pane mainDiv" style="display: none">
+	<div id="officerContainer" class="create-form">
+		<fieldset class="overview" style="margin-top: 10px;">
+			<legend class="legend-data-table-title" style="font-size: 16px;"><i class="fa fa-user pr-5 fs-18"></i>Branch Officer Details</legend>
+			<input type="hidden" name="officerHiddenId" id="officerHiddenId" value="">
+			<div class="officerDetails" style="width: 100%">
+				<table class="table table-hover table-striped table-bordered excelFormTable transaction-create" id="officerTable" style="margin-top: 0px;">               
+					<thead class="tablehead1"><tr><th>Name</th><th>Designation</th><th>Country</th><th>City</th><th>Email</th><th>Official Phone Number</th><th>Personal Phone Number</th><th>ID</th></tr></thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</fieldset>
+	</div>
+	<div style="margin-top:10px; margin-left:0px;" id="chartOfAccountTree">
+		<ul id="mainBranchIncomeChartOfAccount" class="treeview-black mainBranchIncomeChartOfAccount"></ul>
+	</div>
+	<script type="text/javascript">
+		var json = {};
+		json.email = '@email';
+		ajaxCall('/officer/getDetails', json, '', '', '', '', 'getOfficerDetailsSuccess', '', false);
+		function getOfficerDetailsSuccess(data) {
+			if (data.result) {
+				var download = '';
+				if (!isEmpty(data.uploadId)) {
+					download = '<span onclick="downloadfile(\'' + data.uploadId + '\')" class="fa fa-download"></span>';
+				}
+				$('#officerHiddenId').val(data.id);
+				$('#officerTable').append('<tr><td>' + data.name + '</td><td>' + data.designation + '</td><td>' + data.country + '</td><td>' + data.city + '</td>'
+				 	+ '<td>' + data.email + '</td><td>' + data.officalPhoneNumber + '</td><td>' + data.personalPhoneNumber + '</td><td>' + download + '</td></tr>');
+			}
+		}
+	</script>
+	 @if(role.equalsIgnoreCase("OFFICERS")){
+		 <script type="text/javascript">
+		 $(document).ready(function(){
+			 $('#branchOfficerViewSetup').show();
+			 $('li#branchOfficerViewSetupId').addClass('active');
+		 });
+	 	</script>
+ 	}
+</div>

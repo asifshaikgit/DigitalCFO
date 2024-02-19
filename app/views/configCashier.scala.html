@@ -1,0 +1,82 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="cashierCount" class="tab-pane mainDiv divform" style="display: none;">
+	<div class="content">
+	<div class="panel panel-showtrans">
+		<legend class="panel-title">Cash Count/Daily Bank Balance Setup</legend>
+		<b style="margin-left:5px;">Instruction's</b><br/>
+		<div class="panel-body" style="width: 59%;">
+			<textarea name="cashierInstruction" id="cashierInstruction" rows="2" style="width: 100%" readonly="readonly"></textarea>
+			<table class="table table-bordered" id="presentcashCountDetailtsTable" style="margin-top: 0px; margin-bottom: 0px;">
+				<thead class="tablehead1"><tr><th>Total Cash Credited</th><th>Total Cash Debited</th><th>Resultant Cash</th></tr></thead>
+				<tbody><tr id="cashDetailsRow">
+		          	<td><input name="branchCahCountId" id="branchCahCountId" type="hidden" value=""/><input type="text" style="width: 180px;" readonly="readonly" name="cashCreditedTotal" id="cashCreditedTotal"></td>
+					<td><input type="text" style="width: 180px;" readonly="readonly" name="cashDebitedTotal" id="cashDebitedTotal"></td>
+					<td><input type="text" style="width: 180px;" readonly="readonly" name="resultantCashTotal" id="resultantCashTotal"></td>
+		     	</tr></tbody>
+			</table>
+			<table class="table  table-bordered" id="prevcashCountDetailtsTable" style="margin-top: 0px; margin-bottom: 0px;">
+				<thead></thead>
+				<thead class="tablehead1"><tr><th>Last Recorded Cash Count Notes Total</th><th>Last Recorded Cash Count Coins Total</th><th>Last Recorded Cash Count Smaller Coins Total</th><th>Last Recorded Cash Count Grand Total</th></tr></thead>
+				<tbody><tr id="cashCountNotesRow">
+			       	<td><input type="text" readonly="readonly" name="prevNotesTotal" id="prevNotesTotal"></td>
+			       	<td><input type="text" readonly="readonly" name="prevCoinsTotal" id="prevCoinsTotal"></td>
+			       	<td><input type="text" readonly="readonly" name="prevSmallerCoinsTotal" id="prevSmallerCoinsTotal"></td>
+					<td><input type="text" readonly="readonly" name="prevGrandTotal" id="prevGrandTotal"></td>
+		        </tr></tbody>
+			</table>
+            <script>displayCashierInformation();</script>
+            <h5 class="alert success" style="margin-top: 0px; width: 570px"><b>Notes Details</b><i class="fa fa-plus-circle pl-5 addnew" id="newCashCountNotesId"></i><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc=""></i></h5>
+			<div class="notesDetails">
+				<table class="table table-hover table-striped table-bordered" id="cashCountNotesDetailsTable" style="margin-top: 0px;">
+					<thead></thead>
+					<thead class="tablehead1"><tr><th>Denomination</th><th>Multiply</th><th>No's</th><th>Total</th></tr></thead>
+					<tbody><tr id="cashCountNotesRow">
+				       	<td><input type="text" id="denomination" name="notesDenomination" onkeypress="return isNumber(event)" onblur="javascript:calculaterowdenomination(this);"></td>
+						<td><b style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x</b></td>
+						<td><input type="text" style="width: 188px;" id="count" name="notesCount" value="0" onkeypress="return isNumber(event)" onblur="javascript:calculaterowdenomination(this);"></td>
+						<td><input type="text" style="width: 188px;"  id="total" name="notesTotal" readonly="readonly" style="float: right;"></td>
+					</tr></tbody>
+				</table>
+				<b style="margin-left: 385px;">Notes Total:</b><input type="text" name="noteTotal" id="noteTotal" readonly="readonly">
+			</div>
+			<h5 class="alert success" style="margin-top: 0px;"><b>Coins Details</b><i class="fa fa-plus-circle pl-5 addnew" id="newCashCountCoinsId"></i><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc=""></i></h5>
+			<div class="conDetails" style="margin-top: 0px;">
+				<table class="table table-hover table-striped table-bordered" id="cashCountCoinDetailsTable" style="margin-top: 0px;">
+					<thead class="tablehead1"><tr><th>Denomination</th><th>Multiply</th><th>No's</th><th>Total</th></tr></thead>
+					<tbody><tr id="cashCountCoinsRow">
+			       		<td><input type="text" id="denomination" name="coinsDenomination" onkeypress="return isNumber(event)" onblur="javascript:calculaterowdenomination(this);"></td>
+					    <td><b style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x</b></td>
+					    <td><input style="width: 188px;" type="text" id="count" name="coinsCount" value="0" onkeypress="return isNumber(event)" onblur="javascript:calculaterowdenomination(this);"></td>
+					    <td><input style="width: 188px;" type="text" id="total" name="coinsTotal" readonly="readonly" style="float: right;"></td>
+			     	</tr></tbody>
+					</table>
+				<b style="margin-left: 79px;">Smaller Coins Total: </b><input type="text" name="smallerCoinsTotal" id="smallerCoinsTotal" onkeypress="return onlyDotsAndNumbers(event)" onblur="javascript:calculaterowdenomination(this);">&nbsp;&nbsp;&nbsp;&nbsp;<b>Coins Total: </b><input type="text" name="coinTotal" id="coinTotal" readonly="readonly">
+			</div><br/>
+		    <b>Cash Supporting Document :</b>
+		    <select style="width:156px;" id="docuploadurl" name="cashcountdocupload" readonly="readonly"><option value="">--Please Select--</option></select>
+            <!-- <input type="button" class="btn btn-primary" id="cashcountdocupload" value="Upload" onclick="uploadFile(this.id)"> -->
+            <button id="cashcountdocuploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+            <button id="cashcountdocuploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+            <button id="cashcountdocuploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+            <b style="margin-left: 0px;">Total: </b><input type="text" name="grandTotal" id="grandTotal" readonly="readonly"><br/><br/>
+            <button id="completeCashCountForTheDay" class="completeCashCountForTheDay btn btn-submit btn-idos" title="Cancel">Submit Cash/Bank Balance</button>
+		</div>
+		<div class="panel-body" style="margin-top: -652px; float: right; margin-right:5px; width:40%">
+			<table class="table table-hover table-striped table-bordered" id="bankBalanceTable" style="margin-top: 0px; margin-bottom: 0px;">
+			   <thead></thead>
+			   <thead class="tablehead1"><tr><th>Bank Name</th><th>Bank Balance</th><th>Upload Balance Statement</th></tr></thead>
+			   <tbody></tbody>
+			</table><br/><br/>
+			<table class="table  table-bordered" id="presentPettyCashDetailsTable" style="margin-top: 0px; margin-bottom: 0px;">
+				<thead class="tablehead1"><tr><th>Total Main Cash To Petty Cash</th><th>Resultant Petty Cash</th><th>Debitted Petty Cash Amount</th></tr></thead>
+			<tbody><tr id="cashDetailsRow">
+       	   		<td><input type="text" readonly="readonly" name="mainToPettyTotal" id="mainToPettyTotal"></td>
+          		<td><input type="text" readonly="readonly" name="resultantPettyCash" id="resultantPettyCash"></td>
+          		<td><input type="text" readonly="readonly" name="debittedPettyCashTotal" id="debittedPettyCashTotal"></td>
+			</tr></tbody>
+			</table>
+		</div>
+
+		</div>
+	</div>
+</div>

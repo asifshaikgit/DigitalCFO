@@ -1,0 +1,138 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+@if(role.contains("CREATOR")){
+	<div class="transactionDetailsTable" id="transactionQuotationTable" style="overflow: auto; display: none;">
+		<table class="table excelFormTable transaction-create" >
+			<thead class="tablehead1">
+				<tr>
+					<th>Branches  <span class="snglUsrDply">& Projects</span><i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+					<th>Customer for Quotation</th>
+					<th>Reference</th>
+					<th>Total Net Amount</th><th>Transaction notes</th>
+					<th>Private notes</th><th>Supporting Docs</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <tr id="quotattrid">
+				<td>
+					<select class="txnBranches" name="quotationTxnForBranches" id="quotationTxnForBranches" onChange="populateProjectItemBasedOnTxnPurposeBranchSelection(this); getCustomerListForBranch(this);"><option value="">Please Select</option>	</select>
+					<br>
+					<select class="txnForProjects" name="quotationTxnForProjects" id="quotationTxnForProjects">
+						<option value="">Please Select</option>
+					</select>
+
+				</td>
+				<td>
+					<select class="masterList" name="quotationCustomer" id="quotationCustomer" onChange="populatecustvendspecifics(this);"><option value="">--Please Select--</option></select>
+				</td>
+				<td>
+					<input class="txnPoReference"  placeholder="Reference" type="text" name="quotation_reference" id="quotation_reference"/>
+				</td>
+				<td>
+					<input type="text" class="netAmountValTotal" name="quotationnetamntTotal" id="quotationnetamntTotal" readonly="readonly" placeholder="Net Result">
+				</td>
+
+				<td>
+					<textarea class="voiceRemarksClass" name="quotationRemarks" id="quotationRemarks" rows="3" placeholder="Input Remarks"></textarea></td>
+				<td>
+					<textarea class="voiceRemarksClassPrivate" style="margin-bottom: 10px;" name="quotationRemarksPrivate" id="quotationRemarksPrivate" rows="3" placeholder="Input Private Remarks"></textarea></td>
+				<td>
+					<select class="txnUploadSuppDocs" id="quotationuploadSuppDocs" name="quotationuploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+					<br>
+					<button id="quotationuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+					<button id="quotationuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="quotationuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+					  <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+				 </td>
+			 </tr>
+			</tbody>
+		</table>
+		<div id="staticsellmultipleitemsquotation"  class="staticsellmultipleitems" style="overflow: auto; max-height:180px;">
+			<table class="multipleItemsTable" id="multipleItemsTableQuotation">
+			  <thead class="tablehead1">
+				<tr><th><button class="addnewItemForTransaction" id="addnewItemForTransaction"><i class="fa fa-plus-circle fa-lg"></i></button>Item</th><th>Price</th><th>Units</th><th>Gross</th><th>Net Amount</th><th><button class="removeItemForTransaction" id="removeItemForTransaction"><i class="fa fa-minus-circle fa-lg"></i></button> </th></tr>
+			 </thead>
+				<tbody>
+					<tr id="quotat0">
+						<td><select class="txnItems"  name="quotationItem" id="quotationItem" onChange="populateQuotationData(this);"><option value="">Please Select</option></select></td>
+						<td><input class="txnPerUnitPrice"  placeholder="Price Per Unit" type="text" name="quotationpriceperunits" id="quotationpriceperunits" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateGross(this); calcNetAmtQuotation(this);"></td>
+						<td><input class="txnNoOfUnit"   type="text" name="quotationunits" id="quotationunits" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="checkStockAvailableForSellTran(this);calculateGross(this); calcNetAmtQuotation(this);"  placeholder="Units(if any)"></td>
+						<td><input class="txnGross" placeholder="Gross Amount" type="text" name="quotationgross" id="quotationgross" readonly="readonly"></td>
+						<td><input class="netAmountVal" placeholder="Net Amount" type="text" readonly="true"></td>
+						<td><input class="removeTxnCheckBox" type="checkbox" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<button id="accountingcancelButton" class="compcancelButton btn btn-cancel cancel" title="Cancel" onClick="cancel()" >Cancel Transaction</button>
+		<button id="quotationsubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+	</div>
+	<!-- end make Quotation-->
+
+	<div class="transactionDetailsTable" id="transactionProformaTable" style="overflow: auto; display: none;">
+		<table class="table excelFormTable transaction-create">
+			<thead class="tablehead1">
+				<tr>
+					<th>Branches  <span class="snglUsrDply">& Projects</span><i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+					<th>Customer for Proforma</th>
+					<th>Proforma Items & pricing</th>
+					<th>Reference & Net Amount</th>
+					<th>Transaction notes & Upload</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <tr id="profortrid">
+				<td>
+					<select class="txnBranches" name="proformaTxnForBranches" id="proformaTxnForBranches" onChange="populateProjectItemBasedOnTxnPurposeBranchSelection(this); getCustomerListForBranch(this);"><option value="">Please Select</option>	</select>
+					<br>
+					<select class="txnForProjects" name="proformaTxnForProjects" id="proformaTxnForProjects">
+						<option value="">Please Select</option>
+					</select>
+					<button id="accountingcancelButton" class="compcancelButton btn btn-cancel cancel" title="Cancel" onClick="cancel()" style="margin-left: 0px; margin-top: 100px; width: 140px;">Cancel Transaction</button>
+				</td>
+				<td>
+					<select class="masterList" name="proformaCustomer" id="proformaCustomer" onChange="populatecustvendspecifics(this);"><option value="">--Please Select--</option></select>
+				</td>
+				<td>
+					<div id="staticsellmultipleitemsproforma"  class="staticsellmultipleitems" style="overflow: auto; height:180px; ">
+						<div><span class="addnewItemForTransaction" id="addnewItemForTransaction" style="cursor:pointer"><i class="fa fa-plus-circle fa-lg"></i> Add</span></div>
+						<table class="multipleItemsTable" id="multipleItemsTableProforma"  style="margin-top: 5px;">
+						  <thead class="tablehead1">
+							<tr><th>Item</th><th>Price</th><th>Units</th><th>Gross</th><th>Tax Desc</th><th>TaxAmt</th><th>Net Amt</th></tr>
+						 </thead>
+							<tbody>
+								<tr id="proforma0">
+									<td><select class="txnItems" name="proformaItem" id="proformaItem" onChange="populateSellTranData(this);"><option value="">Please Select</option></select></td>
+									<td><input class="txnPerUnitPrice" placeholder="Price Per Unit" type="text" name="proformapriceperunits" id="proformapriceperunits" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateGross(this); calculateNetAmountForSell(this);"></td>
+									<td><input class="txnNoOfUnit" type="text" name="proformaunits" id="proformaunits" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="checkStockAvailableForSellTran(this); calculateGross(this); calculateNetAmountForSell(this);"  placeholder="Units(if any)"></td>
+									<td><input class="txnGross" placeholder="Gross Amount" type="text" name="proformagross" id="proformagross" readonly="readonly"></td>
+									<td><input type="text" class="txnTaxTypes" name="proformataxtypes" id="proformataxtypes" readonly="readonly" placeholder="Tax Rate"></td>
+									<td><input type="text" class="txnTaxAmount" name="proformataxamnt" id="proformataxamnt" readonly="readonly" placeholder="Tax Amount"></td>
+									<td><input type="text" class="netAmountVal" name="proformanetamnt" id="proformanetamnt" readonly="readonly" placeholder="Net Result"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</td>
+				<td>
+					<input class="txnPoReference"  placeholder="Reference" type="text" name="proforma_reference" id="proforma_reference"/>
+					<input type="text" class="netAmountValTotal" name="proformanetamntTotal" id="proformanetamntTotal" readonly="readonly" placeholder="Net Result">Detailed Result<div class="netAmountDescriptionDisplay" id="proformanetAmountLabel"></div>
+				</td>
+
+				<td>
+					<textarea class="voiceRemarksClass" name="proformaRemarks" id="proformaRemarks" rows="3" placeholder="Input Remarks"></textarea>
+					<textarea class="voiceRemarksClassPrivate" style="margin-bottom: 10px;" name="proformaRemarksPrivate" id="proformaRemarksPrivate" rows="3" placeholder="Input Private Remarks"></textarea>
+					<br/>
+					<select class="txnUploadSuppDocs" id="proformauploadSuppDocs" name="proformauploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+					<br/>
+					<button id="proformauploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+					<button id="proformauploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="proformauploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+					  <input style="width: 60px;" type="button" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-submit" value="+">
+					  <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+					  <button style="margin-top: 20px;" id="proformasubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+				 </td>
+			 </tr>
+			</tbody>
+		</table>
+	</div>
+}

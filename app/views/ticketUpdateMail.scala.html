@@ -1,0 +1,48 @@
+@(name:String, ticketId:String, subject:String, content:String, reportedBy:String, assignedTo:String, closedBy:String,configParams:model.ConfigParams)
+<meta charset="UTF-8">
+<table style="width: 60%;font-family: 'Montserrat', sans-serif;" class="table">
+	<tbody>
+				<tr id="emailHeader">
+				<td>
+				</td>
+			</tr>
+		<tr id="emailBody" style="font-size: 14px;">
+			<td>
+				<table>
+					<tr>
+					  <td style="font-size: 14px;">@{name} has updated the ticket with ID : @{ticketId}.</td>
+					</tr>
+					<tr>
+					  <td style="font-size: 14px;"><b>Subject :</b> @{subject}</td>
+					</tr>
+					<tr>
+					  <td style="font-size: 14px;">@{name} @{content}</td>
+					</tr>
+					<tr></tr>
+					<tr>
+					  <td style="font-size: 14px;"><b >Ticket ID :</b> @{ticketId}</td>
+					</tr>
+					<tr>
+					  <td style="font-size: 14px;"><b>Reported By :</b> @{reportedBy}</td>
+					</tr>
+					<tr>
+					  <td style="font-size: 14px;"><b>Assigned To :</b> @{assignedTo}</td>
+					</tr>
+					<tr>
+					  <td style="font-size: 14px;"><b>Closed By :</b> @{closedBy}
+						<br/>
+						<br/>
+						<br>
+						<b style="font-size: 14px;"> Please contact us at <a href="#" target="_blank">@(configParams.getCompanySupportEmail())</a> or on phone @(configParams.getCompanyMobile()) for any assistance. </b>
+						<br/>
+						<br/>
+					 </td>
+					</tr>
+					<tr  id="emailFooter">
+						<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+					</tr>
+				</table>
+			</td>
+ 		</tr>
+	</tbody>
+</table>

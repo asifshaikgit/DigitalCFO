@@ -1,0 +1,229 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="companyDetails" class="tab-pane mainDiv" style="display: none;">
+	<div class="content">
+		<legend class="panel-title" style="text-align: center;">Head Office Setup</legend>
+			<div class="organizationDetails" style="margin-bottom: 10px;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body">
+					<legend class="panel-title">Identity Details<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="This information will enable you to create your organisation identity.If you do not have a website please ignore that field.The details provided at the time of registration are by default considered as Head Office details. If you need to add/edit information for the Head Office, please click on Branch Setup and click on Edit button corresponding to Head Office. These details require one time setup, so please spare time to setup the details and you will derive huge efficiencies every day for as long as your business is in existence."></i></legend>
+					
+						<table class="table" id="organizationDetailsTable" style="margin-top: 0px;">
+							<thead class="tablehead1">
+								<tr>
+									<th>Company Name</th><th>Address</th><th>Email</th><th>Phone Number</th><th>Website</th>
+									<th>HO Country<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Country where Head Office is located."></i></th>
+									<th>HO Currency<i class="fa fa-info-circle pl-5 help-info userpopoverinfoleft" longdesc="Currency where Head Office is located."></i></th>
+									@if(configParams.getDeploymentType() == "1"){
+										<th>Upload Logo<i class="fa fa-info-circle pl-5 help-info userpopoverinfoleft" longdesc="Upload company logo which you want printed on your invoices and other documents."></i></th>
+									}
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="organizationCurrentRow">
+									<td><input id="hiddenOrgId" type="hidden" value="">
+										<input type="text" id="companyName" name="companyName"></td>
+									<td><textarea name="registeredaddress" id="registeredaddress" class="text-area-2x"></textarea></td>
+									<td><input type="text" id="corporateemail" name="corporateemail" readonly="readonly"></td>
+									<td><select class="countryPhnCode m-bottom-10" name="orgregPhnNocountryCode" id="orgregPhnNocountryCode"><option value="">--Please Select--</option></select><br/>
+										<input type="text" id="regPhoneNumber1" maxlength="3" style="width: 25px;vertical-align: top;" onkeypress="return isNumber(event)" onKeyup="autotab(this)" name="regPhoneNumber1">-
+										<input type="text" id="regPhoneNumber2" maxlength="3" style="width: 25px;vertical-align: top;" onkeypress="return isNumber(event)" onKeyup="autotab(this)" name="regPhoneNumber2">-
+										<input type="text" id="regPhoneNumber3" maxlength="4" style="width: 30px;vertical-align: top;" onkeypress="return isNumber(event)" name="regPhoneNumber3"></td>
+									<td><input type="text" id="weburl" name="weburl"><br>
+										India GST legislation Applicable:
+									</td>
+									<td><select class="countryDropDown" id="country" name="country" onchange="changeCountry(this)"><option value="">--Please Select--</option></select></br>
+										<select name="GSTApplicable" id="GSTApplicable">
+											<option value="">--Please Select--</option>
+											<option value="0">No</option>
+											<option value="1">Yes</option>
+										</select>
+									</td>
+									<td><select class="currencyDropDown" id="currency" name="currency"><option value="">--Please Select--</option></select>
+									<br><input name="isCompositionScheme" id="isCompositionScheme" type="checkbox"><span id="isCompositionSchemeSpan">Is GST Composition Scheme Applicable ?</span>
+									</td>
+									@if(configParams.getDeploymentType() == "1"){
+										<td id="orgLogo"><input type="text" id="uploadLogo" name="orgLogoUploads" readonly="readonly"><br/>
+											<button id="orgLogoUploadsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button><button id="orgLogoUploadsDownloadBtn" style="display: none;" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button><button id="orgLogoUploadsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:60px;" onclick="deleteUploadedFile(this);"></button>
+										</td>
+									}
+								</tr>
+							</tbody>
+						</table>
+						@if(configParams.getDeploymentType() == "2"){
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<div class="input-group" style="margin-bottom:10px; width:100px;">
+											<span class="input-group-btn">
+												<span class="btn btn-submit btn-file">
+													Select company logo file&hellip; <input type="file" id="uploadorglogofile" name="uploadorglogofile"/>
+												</span>
+											</span>
+											 <input type="text" id="uploadorglogotxt" class="form-control" readonly  style="margin-bottom: -7px;  width:200px;">
+										</div>
+									</td>
+									<td></td>
+									<td>
+										<button type="button" style="margin-left: 10px; margin-bottom: 9px;" id="uploadOrgLogo" class="btn btn-submit btn-idos" title="Upload Company Logo" onclick="uploadOrgLogo();"><i class="fa fa-upload"></i>Upload company Logo</button>
+									</td>
+									<td colspan="5"><b style="margin-left: 10px; margin-bottom: -9px; color: red;">*Maximum logo file size allowed is 512 KB.</b></td>
+								</tr>
+							</tbody>
+						</table>
+						}
+					</div>
+				</div>
+			</div> 
+		
+		<div class="panel panel-showtrans"> 
+			@if(configParams.getCompanyOwner().equals("PWC")){
+			<button class="btn btn-submit" id="add-new-admin" href="#companyDetails" onclick="newAdminPWC(this.id)">
+			<i id="plusminus" class="fa fa-plus-circle fa-lg" ></i><b>&nbsp;Do you want someone else in your company to configure @(configParams.getCompanyApp()). If YES click here.</b>
+			}
+			
+			@if(!configParams.getCompanyOwner().equals("PWC")){
+			<button class="btn btn-submit" id="add-new-admin" href="#companyDetails" onclick="newAdmin(this.id)">
+	 			<i class="fa fa-plus-circle fa-lg"></i><b>&nbsp;DO YOU WANT SOMEONE ELSE IN YOUR COMPANY TO CONFIGURE @(configParams.getCompanyApp()). IF YES CLICK HERE.</b>
+	 		}
+			</button>
+			<div class="panel-body" >
+				<table id="newadmintable">
+					<tr>
+						<td><div class="newadmin" id="newadmin" class="controls" style="display: none;">
+							<input type="hidden" id="existingUserHidden" name="existingUserHidden" class="input-medium" value="">
+							<b class="table-head-color">Full Name: </b>
+							<input type="text" id="newadminfullname" name="newadminfullname" class="input-medium" onkeypress="return allowOnlyAlpha(event);">
+							<b class="table-head-color">E-mail: </b>
+							<input type="text" id="newadminemail" name="email" class="input-medium"  onblur="return emailFieldValidation(this);"  onfocus="getExistedEmail(this);">
+						</div></td>
+					</tr>
+					<tr>
+						<td align="left">
+							<div id="newadminButton" style="display: none;">
+							@if(configParams.getCompanyOwner().equals("PWC")){
+								<button style="margin-top: 30px;" id="adminClose" class="adminClose btn btn-cancel btn-idos" title="Cancel" onClick="newAdminPWC(this.id)">Cancel</button>
+								}
+							@if(!configParams.getCompanyOwner().equals("PWC")){
+							    <button style="margin-top: 30px;" id="adminClose" class="adminClose btn btn-cancel btn-idos" title="Cancel" onClick="newAdmin(this.id)">Cancel</button>
+							}
+							<button style="margin-left: 20px; margin-top: 30px;" id="addNewAdmin" class="addNewAdmin btn btn-submit btn-idos" title="Add New Admin" >Add New Admin</button>
+							</div>
+						</td>
+					</tr>
+					<tr><td><div class="newadmin"><b id="dupemaillabel" class="duplabel" ></b></div></td></tr>
+				</table>
+			</div>
+			<div>
+				<!--<b>Back Dated Transactions Limit : <input type="text" style="width:50px;" onkeypress="return allowOnlyNumbers(event);" onkeyup="validateBackDatedDays(this);"  id="backDatedTxnLimit"/> Days</b>
+				
+			    code commented as instructed in PBI- 3410 <button id="configTdsOnTransactions" style="display:inline-block;float:right"
+					 class="btn btn-submit" data-toggle="collapse" data-target="#applyTdsForTransDiv" 
+					 onclick="getTdsApplicableTransactions(this);" title="Configure TDS Applicable Transactions">Configure TDS Applicable Transactions</button>-->
+			</div>
+			<div id="applyTdsForTransDiv" class="collapse" style="margin-top:20px;margin-bottom:20px;">
+							<div class="row">
+								<div class="col-sm-4 text-right">
+									<select class="" multiple="multiple" name="tdsApplyForTrans"  title="Select Transactions" id="tdsApplyForTrans"> 
+									<option value="3">Buy on cash &amp; pay right away</option>
+									<option value="4">Buy on credit &amp; pay later</option>
+									<option value="8">Pay advance to vendor or supplier</option>
+									<option value="11">Buy on Petty Cash Account</option>
+									<option value="32">Credit Note for vendor</option>
+									<option value="33">Debit Note for vendor</option>
+									<option value="20">Make Provision/Journal Entry</option>
+								</select>
+								</div>
+								<div class="col-sm-4">
+									<button id="saveTdsApplyTransactions" onclick="saveTdsApplyTransactions(this);" class="btn btn-submit" title="Add Taxes">Add TDS Applicable Transactions</button>
+								</div>
+								<div class="col-sm-4 text-center">
+									<button id="tdsCancel" class="btn btn-cancel" title="Reset all" onClick="resetApplyTransScreen();">Cancel</button>
+								</div>
+							</div>
+				</div>
+		</div>
+		
+		<div class="organizationFinancialDetails">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<legend class="panel-title">Financial Details<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Please select the start / end date for the financial year of your organisation. Uploading the information in different fields will enable real-time and easy access to these frequently used documents. Additionally you can upload certain routinely used templates (depreciation template, tax computation template, payroll computation template, Training template, appointment letter template and so on) so that your staff can access these templates in real-time and you can maintain consistency in processing information across different branches."></i></legend>
+					<table class="table excelFormTable" id="organizationFinancialDetailsTable" style="margin-top: 0px;">               
+						<thead class="tablehead1">
+							<tr>
+								<th>Financial Year Start</th><th>Financial Year End</th>
+								<th>Upload Audited Accounts<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Insert your audited accounts of previous years in different work sheets of Microsoft Excel and upload it here for any future reference."></i></th>
+								<th>Upload Tax Returns</th><th>Upload Organisation Chart</th>
+							    <th id="uploadAccountingManual">Upload Accounting Manual</th>
+								<th id="uploadPartnershipDeed">Upload Partnership Deed/Incorporation Documents </th>
+								<th>Upload List Of Signatories</th>
+								<th>Upload Templates For The company<i class="fa fa-info-circle pl-5 help-info userpopoverinfoleft" longdesc="@(configParams.getCompanyApp()) has created a simple and unique method for your company to ensure uniformity and standardization across all your branches and departments. Every company has its specific / customized methods for computing payroll, amortization, selling prices and other expenses and incomes. You can create templates in Microsoft Excel using different worksheets within the same Excel file and upload this template here. Users of @(configParams.getCompanyApp()) at all branches / departments will be able to download this template sheet and compute the transaction and upload the Excel sheet to support any income or expense."></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="organizationFinDetails">
+								<td><input type="text" id="fincstartyear" name="fincstartyear" class="fincyear"></td>    
+								<td> <input type="text" id="fincendyear" name="fincendyear" class="fincyear"></td>
+								<td id="auditedAccounts">
+								<select name="auditedAccountsUpload" class="orgSelect" id="auditedAccountsUploads"><option value="">Select a file</option></select><br>
+								<button id="auditedAccountsUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+								<button id="auditedAccountsUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+								<button id="auditedAccountsUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:12px;" onclick="deleteUploadedFile(this);"></button></td>
+								<td id="taxReturns">
+								<select name="taxReturnsUpload" class="orgSelect" id="taxReturnsUploads" ><option value="">Select a file</option></select><br>
+								<button id="taxReturnsUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+								<button id="taxReturnsUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+								<button id="taxReturnsUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:12px;" onclick="deleteUploadedFile(this);"></button></td>
+								
+								<td id="organizationChart">
+								<select name="organizationChartUpload" class="orgSelect" id="organizationChartUploads" ><option value="">Select a file</option></select><br>
+								<button id="organizationChartUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+								<button id="organizationChartUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+								<button id="organizationChartUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:12px;" onclick="deleteUploadedFile(this);"></button></td>
+								
+								<td id="accountingManual">
+								<select name="accountingManualUpload" class="orgSelect" id="accountingManualUploads" ><option value="">Select a file</option></select><br>
+								<button id="accountingManualUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+								<button id="accountingManualUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+								<button id="accountingManualUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:12px;" onclick="deleteUploadedFile(this);"></button></td>
+								
+								<td id="listOfStatergies">
+								<select name="listOfStatergiesUpload" class="orgSelect" id="listOfStatergiesUploads" ><option value="">Select a file</option></select><br>
+								<button id="listOfStatergiesUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+								<button id="listOfStatergiesUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+								<button id="listOfStatergiesUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:12px;" onclick="deleteUploadedFile(this);"></button></td>
+								
+								<td id="templatesForCompany">
+								<select name="templatesForCompanyUpload" id="templatesForCompanyUploads" class="orgSelect" id="templatesForCompanyUploads" ><option value="">Select a file</option></select>
+								<br>
+								<button id="templatesForCompanyUploadBtn" value="&#xf093"  class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+								<button id="templatesForCompanyUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+								<button id="templatesForCompanyUploadDelBtn" value="&#xf1f8"  class="fa fa-trash btn btn-cancel" style="margin-left:12px;" onclick="deleteUploadedFile(this);"></button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+				
+		
+				<div class="font-size-11">
+				<div style="float: left; margin-top: -2px;">
+				<input type="checkbox" name="productListing" id="productListing">&nbsp;&nbsp;</div>
+				
+			<div id="organizationDetailsDiv">
+					<p><b>PLEASE CLICK HERE IF YOU WISH TO LIST IN @(configParams.getCompanyApp()) THE GOODS AND SERVICES THAT YOU BUY, DEAL WITH OR SELL. THIS INFORMATION IS USED FOR UNDERSTANDING THE VARIOUS TYPES OF GOODS AND SERVICES THAT @(configParams.getCompanyApp()) USERS BUY, DEAL WITH AND SELL. WE DO NOT DISPLAY YOUR NAME OR YOUR COMPANY NAME TO ANYONE. WE ONLY USE THIS INFORMATION TO HELP YOU OBTAIN BEST PRICES FOR YOUR PURCHASES AND EXPENSES IN THE MEDIUM TO LONG RUN AND HELP YOU SAVE MONEY ACROSS ALL YOUR BRANCHES WHENEVER YOU INCUR ANY EXPENSE.
+					<br/><br/>WE STRONGLY ADVISE YOU TO CLICK ON "VENDOR / SUPPLIER" ICON ON @(configParams.getCompanyApp()) WEBSITE AND LIST THE GOODS AND SERVICES THAT YOU SELL AND @(configParams.getCompanyApp()) WILL HELP YOU IN GENERATING SALES LEADS AND HELP YOU TO INCREASE YOUR SALES. AMAZING ISN'T! 
+					<br/><br/>PLEASE WRITE TO US &#64; @(configParams.getCompanySupportEmail()) IF YOU NEED ANY CLARIFICATION.</b></p></div>
+			</div>
+				
+		    <div id="vendorSpecificOrgDetailsDiv">
+			         <p><b>PLEASE CLICK HERE IF YOU WISH TO SELL PRODUCTS ON KPMG PLATFORM.
+			         <br/><br/>PLEASE WRITE TO US AT <a>@(configParams.getCompanySupportEmail()) </a> IF YOU NEED ANY CLARIFICATION.
+			         </b></p>
+			</div>
+			<button style="margin-bottom: 20px;" id="completecompanyDetails" class="completecompanyDetails btn btn-submit btn-idos" title="Save Organisation Details">Save Organisation Details</button>
+			<br/><br/>
+		</div> 
+	
+	</div>
+</div>

@@ -1,0 +1,880 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="pendingExpense" style="display: none;" >
+
+	<div class="content ">
+		<div class="page-header">
+			<div class="panel">
+				<b style="float: left;"><i class="fa fa-download pr-5"></i>Download Company Template</b>
+				@if(role.contains("APPROVER")|| role.contains("ACCOUNTANT") || role.contains("AUDITOR")){
+					<img src='@routes.Assets.at("images/weightedaverage.jpg")' style="float: left; margin-top: 2px;" class="pl-5 pr-5"></img>
+					<b style="float: left;">Weighted Average Price</b>
+					<i style="top: 11px;" class="fa fa-info-circle fa-lg app-image-adjust pr-5 pl-5 help-info-head userpopoverinfo" longdesc="IDOS provides you the capability to analyze the price at which you have been purchasing this item. Select on the dropdown below, if you wish to analyze the weighted average price of this item in the last 1, 3, 6 or 12 months and click on ANALYZE PRICE Button. IDOS will display the average price you have been paying for this item in the last 1,3,6, or 12 months as selected by you. Further IDOS will display the price your other branches are paying for this item and which vendor is supplying this item at the lowest price. IDOS even provides you information about ALTERNATE VENDORS  (if any) in your location, who can supply this item at a price lower than the weighted average price you have been paying. Using this information you can plan to make your purchases for those vendors who can give you the best price and thereby you can save money on all your regular purchases."></i>
+				}
+				<img src='@routes.Assets.at("images/red.png")' class="pl-5 pr-5"></img><b>Exceeding Budget</b>
+				<img src='@routes.Assets.at("images/green.png")' class="pl-5 pr-5"></img><b>Rules Not Followed</b>
+				<img src='@routes.Assets.at("images/blue.png")' class="pl-5 pr-5"></img><b>Exceeding Budget & Rules Not Followed</b>
+			</div>
+		</div>
+	</div>  
+
+
+	@if(role.contains("CREATOR") || role.contains("APPROVER") || role.contains("ACCOUNTANT") || role.contains("AUDITOR")){
+		<div class="content">
+			  	@if(role.contains("CREATOR")){
+			   		@if(allowedProcurement=="0"){                                       
+		      		<button id="newExpenseButton" class="newExpenseButton btn btn-primary btn-idos" title="Create New Expense"><i class="fa fa-plus pr-5"></i>Create New Transaction</button> 
+		      		} 
+		      		@if(allowedProcurement=="1"){
+		       		<button id="newExpenseButton" class="newExpenseButton btn btn-primary btn-idos" title="Create New Procurement"><i class="fa fa-plus pr-5"></i>Create New Procurement</button>
+		      		}                                        
+		  		} 
+		  		@if(!role.contains("CREATOR")){
+					@if(role.contains("ACCOUNTANT")){			
+					   	<button id="newExpenseButton" class="newExpenseButton btn btn-primary btn-idos" title="Create New Expense"><i class="fa fa-plus pr-5"></i>Create New Transaction</button> 
+					}
+				} 
+		 		@if(role.contains("APPROVER")|| role.contains("CONTROLLER")){
+			  	    <button id="cashBalanceAllBranches" style="width: 210px;margin-left:5px;" class="cashBalanceAllBranches btn btn-primary btn-idos" title="Cash Balance" onclick="branchWiseCashExpenseReceivablesPayables(this);"><span class="cashBalanceAllBranchesDisplayText"></span></button>
+					<button id="bankBalanceAllBranches" style="width: 210px;margin-left:5px;" class="bankBalanceAllBranches btn btn-primary btn-idos" title="Bank Balance" onclick="branchWiseCashExpenseReceivablesPayables(this);"><span class="bankBalanceAllBranchesDisplayText"></span></button>
+					<button id="accountsReceivablesAllBranches" style="width: 270px;margin-left:5px;" class="accountsReceivablesAllBranches btn btn-primary btn-idos" title="Accounts Receivables" onclick="branchWiseCashExpenseReceivablesPayables(this);"><span class="accountsReceivablesAllBranchesDisplayText"></span></button>
+					<button id="accountsPayablesAllBranches" style="width: 250px;margin-left:5px;" class="accountsPayablesAllBranches btn btn-primary btn-idos" title="Accounts Payables" onclick="branchWiseCashExpenseReceivablesPayables(this);"><span class="accountsPayablesAllBranchesDisplayText"></span></button>
+				}else{
+				    @if(role.contains("ACCOUNTANT") || role.contains("AUDITOR") || role.contains("CONTROLLER")){
+						<button id="cashAndBankBooksAllBranches" style="width: 210px;margin-left:0px;" class="cashAndBankBooksAllBranches btn btn-primary btn-idos" title="Cash Balance" onclick="showCashAndBankBook(this);"><span class="cashAndBankBooksAllBranches">Cash & Bank Book</span></button>
+						<button id="trialBalanceallBranches" style="width: 210px;margin-left:2px;" class="trialBalanceallBranches btn btn-primary btn-idos" title="Cash Balance" onclick="showTrialBalance(this);"><span class="trialBalanceallBranches">Trial Balance</span></button>
+					}
+				}
+				@if(role.contains("CREATOR") || role.contains("APPROVER")|| role.contains("ACCOUNTANT") || role.contains("AUDITOR")){                         
+		   			<button id="newSearchTransactionButton" style="float: right;margin-right:5px;" class="newSearchTransactionButton btn btn-primary btn-idos" title="Search Transaction"><i class="fa fa-search pr-5"></i>Search Transaction</button>                                          
+			   	}
+	 	</div> 
+	}
+	@if(role.contains("APPROVER")|| role.contains("CONTROLLER")){
+		@if(role.contains("ACCOUNTANT") || role.contains("AUDITOR") || role.contains("CONTROLLER")){
+		<div class="action-bar">
+			<div class="actions button-set">  
+				<button id="cashAndBankBooksAllBranches" style="width: 210px;margin-left:0px;" class="cashAndBankBooksAllBranches btn btn-primary btn-idos" title="Cash Balance" onclick="showCashAndBankBook(this);"><span class="cashAndBankBooksAllBranches">Cash & Bank Book</span></button>
+				<button id="trialBalanceallBranches" style="width: 210px;margin-left:2px;" class="trialBalanceallBranches btn btn-primary btn-idos" title="Cash Balance" onclick="showTrialBalance(this);"><span class="trialBalanceallBranches">Trial Balance</span></button>
+				<button id="reportAllInventoryItems" style="width: 210px;margin-left:2px;" class="reportAllInventoryItems btn btn-primary btn-idos" title="Inventory Report" onclick="reportAllInventory(this);"><span class="reportAllInventorySpan">Inventory Report</span></button>
+			</div>
+		</div>
+		}
+	}	    
+	
+	
+	<!--  start create new  transaction  -->
+	<div id="createExpense"  style="display: none;" class="content">
+		<div class="page-header">
+			<div class="panel">
+				<div class="panel-title">Create Transaction</div>
+				<div class="panel-body">	
+			@if(role.contains("CREATOR")){
+				@if(allowedProcurement=="0"){
+					<a class="btn btn-submit" data-toggle="collapse" href="#CreateNewTransaction" aria-expanded="false" aria-controls="collapseExample">
+						What do you want to do?
+					</a>
+					
+					<button class="btn btn-whatdoyou" type="button" data-toggle="collapse" data-target="#whatdoineedtodo" aria-expanded="false" aria-controls="collapseExample">What do i need to do?</button>
+					
+					<div class="margin-t-10 collapse" id="whatdoineedtodo" aria-expanded="true" style="height: 0px;">
+						<div class="well">
+						More info select ...
+						</div>
+					</div>
+					<div class="margin-t-10 collapse" onClick="cancel()">  sunil     
+						<button class="trans-button pr-5">WHAT DO YOU WANT TO DO?</button>
+						<div style="float: left; margin: -7px 30px 0 10px;" class="refresh-32 pl-5" id="refreshTransactionList" title="Refresh the drop down" onclick="getSellReceiveData();"></div>
+						<div class="openWhatDoINeedToDo pl-5" style="display:none;">
+							<div class="b-left" style="height: 38px; float: left;"></div>
+			            	<div class="tooltip-custom" id="transWhatToDo">
+			            		<button class="trans-button">WHAT DO I NEED TO DO?</button>
+			            		<span></span>
+			            	</div>
+			            </div>
+	            	</div>
+	            	
+	            	<!--- Start What do you -->
+				    <div class="margin-t-10 collapse" id="CreateNewTransaction" aria-expanded="false" style="height: 0px; width: 390px;">
+						<div class="form-group">
+			            	<select class="form-control"  name="whatYouWantToDo" id="whatYouWantToDo" style="width: 500px;" onChange="javascript:whatYouWantToDo(this);">
+            					<option value="">---------------------------------Please Select------------------------------------</option>
+            				</select>
+						</div>
+				  	</div>
+	            	
+            <!-- soccpn transaction -->
+            <div class="transactionDetailsTable" id="transactionDetailsSOCCPNTable" style="display: none;">
+            <table class="table table-striped table-bordered excelFormTable transaction-create">               
+	            <thead class="tableheadincometxn"><tr>
+	                <th>Sunil Select Branches &<br/>Projects<i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+	                <th>What do you <br/>want to sell</th><th>Select to which <br/>customer you want <br/>to sell</th><th>Knowledge <br/>Library</th>
+	                <th>Input number of units <br/>being sold. For <br/>services input 1</th><th>Adjustments</th><th>Net Amount</th><th class="paymentDetailsLabel" style="display: none">Receipt Details</th><th>Transaction notes</th>
+              	</tr></thead>
+	            <tbody>
+	             <tr id="soccpntrid"> 
+	                <td><select class="txnBranches" name="soccpnTxnForBranches" id="soccpnTxnForBranches" onChange="showTransactionBranchKnowledgeLiabrary(this),populateProjectItemBasedOnTxnPurposeBranchSelection(this)"><option value="">--Please Select--</option></select>
+		                <br/><select name="soccpnTxnForProjects" id="allTxnProjectPurposeData" class="m-top-10"><option value="">--Please Select--</option></select>
+		                <button id="accountingcancelButton" style="margin-top: 61px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	               	</td>
+             	  	<td><select class="txnItems" name="soccpnItem" id="soccpnItem" onChange="showTransactionBranchKnowledgeLiabrary(this);"><option value="">--Please Select--</option></select><br/>
+             	  		Item details<div class="itemParentNameDiv"></div><div class="inventoryItemInStock"></div>
+             	  	</td>
+             	  	<td><select style="width: 146px;" class="masterList" name="soccpnCustomer" id="soccpnCustomer" onchange="getAdvanceDiscount(this);"><option value="">--Please Select--</option></select>
+             	  		<br/><input class="unavailable" style="margin-top: 10px;" placeholder="Customer? Input Name" type="text" name="soccpnUnAvailableCustomer" id="soccpnUnAvailableCustomer" onkeyup="return whenMasterListDontHaveData(this)">
+             	  		<br/><input class="unavailablecustomerdiscount" id="unavailablecustomerdiscountId" style="margin-top: 10px;" placeholder="Discount" type="text" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="placeDiscountIntoDiscoutBTag(this);">
+             	  		<span class="withholdingRatePercentageSpan" style="position: relative; right: 20px; top: 5px;">%</span>
+             	  	</td>
+	             	<td><div class="klBranchSpecfTd" style="height: 175px;overflow: auto; width:100px;"></div></td>
+             	  	<td><input class="txnNoOfUnit" type="text" name="soccpnunits" id="soccpnunits" onkeypress="return isNumber(event)" onkeyup="calculateGross(this);" placeholder="Units(if any)">
+             	  		<br/><input class="txnPerUnitPrice" style="margin-top: 10px;" placeholder="Price Per Unit" type="text" name="soccpnpriceperunits" id="soccpnpriceperunits" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly">
+            	  		<br/><input class="txnGross" style="margin-top: 10px;" placeholder="Gross Amount" type="text" name="soccpngross" id="soccpngross" readonly="readonly">
+            	  	</td>
+             	  	<td><input type="text" class="customerAdvance" style="margin-bottom: 10px;" placeholder="Advance Available" name="soccpncustomeradvance" id="soccpncustomeradvance" readonly="readonly">
+             	  		<br><input type="text" placeholder="Advance to Adjust?" name="soccpnhowmuchfromadvance" id="soccpnhowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return whenAdvanceIsEmpty(this)">
+             	  		<br/>Discount(%):<b class="discountavailable" id="soccpndiscountavailable"></b>
+             	  		<div class="individualtaxdiv"></div><div class="individualtaxformuladiv" style="display:none;"></div>
+             	  	</td>
+             	  	<td class="soccpnnetamount"><div id="socpnnetcalculatediv" style="height: 175px;overflow: auto; width:135px;"><button id="calculateNetAmount" class="calculateNetAmount btn btn-primary btn-idos" title="Calculate Net Amount" onclick="return calculateNetAmount(this);" style="width: 135px;">Display Amount</button>
+                    	<input type="text" class="netAmountVal" name="soccpnnetamnt" id="soccpnnetamnt" readonly="readonly" style="width: 119px; margin-top: 10px;" placeholder="Net Result">
+                    	Detailed Result<h5 class="netAmountDescriptionDisplay" id="netAmountLabel"></h5></div>
+	                </td>
+             	  	<td class="paymentDetails" style="display: none"><select style="width: 155px;" name="socpnreceiptdetail" id="socpnreceiptdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select Mode of reciept"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+           				<div id="receiptBankDetails">Input receipt details<br/><textarea rows="6" name="receiptBranchBankAccount" id="receiptBranchBankAccount"></textarea></div>
+	             	</td>
+             	  	<td><textarea class="voiceRemarksClass" style="margin-bottom: 10px;" name="socpnRemarks" id="socpnRemarks" rows="1" placeholder="Input Remarks"></textarea>
+						<!-- <div style="height: 27px;">Voice Remarks<input id="mic" style="float:right" onwebkitspeechchange="transcribe(this)"  x-webkit-speech></div>-->
+	             	  <br/><input type="text" placeholder="Supporting Documents" style="width:140px; margin: 10px 0;" id="socpnuploadSuppDocs" name="socpnuploadSuppDocs" readonly="readonly"><br/>
+	                      <input type="button" id="socpnuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                      <input style="width:71px;" type="button" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                      <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+	                      <button style="margin-top: 15px;" id="soccpnsubmitForAccounting" class="submitForAccounting btn btn-primary btn-idos btn-custom" title="Submit for Accounting">Submit for Accounting</button>
+	                 </td>
+	             </tr>
+	            </tbody>
+            </table>              
+            </div>
+            <!--end soccpn transaction -->
+            <!-- soccpl transaction -->
+            <div class="transactionDetailsTable" id="transactionDetailsSOCCPLTable" style="display: none;">
+	            <table class="table table-striped table-bordered excelFormTable transaction-create">               
+		            <thead class="tableheadincometxn"><tr>
+		            	<th>Select branches &<br/>projects<i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+		              	<th>What do you <br/>want to sell</th><th>Select to which <br/>customer you want <br/>to sell</th><th>Knowledge <br/>Library</th>
+		              	<th>Input number of units <br/>being sold. For <br/>services input 1</th><th>Adjustments</th><th>Net Amount</th><th class="paymentDetailsLabel" style="display: none">Receipt Details</th><th>Transaction notes</th>
+		            </tr></thead>
+		            <tbody>
+	             		<tr id="soccpltrid"> 
+			                <td><select class="txnBranches" name="soccplTxnForBranches" id="soccplTxnForBranches" onChange="showTransactionBranchKnowledgeLiabrary(this),populateProjectItemBasedOnTxnPurposeBranchSelection(this)"><option value="">--Please Select--</option></select>
+				                <br/><select name="soccplTxnForProjects" style="margin-top: 10px;" id="soccplTxnForProjects"><option value="">--Please Select--</option></select>
+				                <br/><br/><br/><button id="accountingcancelButton" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()" style="margin-top: 20px;">Cancel Transaction</button>
+			            	</td>
+			             	<td><select class="txnItems" name="soccplItem" id="soccplItem" onChange="showTransactionBranchKnowledgeLiabrary(this);"><option value="">--Please Select--</option></select>
+			             		Item details<div class="itemParentNameDiv"></div><div class="inventoryItemInStock"></div>
+			             	</td>
+		             	  	<td><select class="masterList" name="soccplCustomer" id="soccplCustomer" onchange="getAdvanceDiscount(this);"><option value="">--Please Select--</option></select>
+		             	  		<div style="display:none;"><br/><input class="unavailable" type="text" name="soccplUnAvailableCustomer" id="soccplUnAvailableCustomer" onkeyup="return whenMasterListDontHaveData(this)" placeholder="Customer?Input name" style="margin-top: 10px;"></div>
+		             	  	</td>
+		             	  	<td><div class="klBranchSpecfTd" style="height: 175px;overflow: auto; width:155px;"></div></td>
+		             	  	<td><input class="txnNoOfUnit" placeholder="Units(if any)" style="margin-bottom: 10px;" type="text" name="soccplunits" id="soccplunits" onkeypress="return isNumber(event)" onkeyup="calculateGross(this);">
+		             	  		<br/><input class="txnPerUnitPrice" placeholder="Price Per Unit" style="margin-bottom: 10px;" type="text" name="soccplpriceperunits" id="soccplpriceperunits" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly">
+		             	  		<br/><input class="txnGross" placeholder="Gross Amount" type="text" name="soccplgross" id="soccplgross" readonly="readonly">
+		             	  	</td>
+		             	  	<td><input type="text" class="customerAdvance" placeholder=">Advance Available" style="margin-bottom: 10px;" name="soccplcustomeradvance" id="soccplcustomeradvance" readonly="readonly">
+		             	  		<br><input type="text" name="soccplhowmuchfromadvance" placeholder="Advance to Adjust?" id="soccplhowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return whenAdvanceIsEmpty(this)">
+		             	  		<br/>Discount(%):<b class="discountavailable" id="soccpldiscountavailable"></b>
+		             	  		<div class="individualtaxdiv"></div><div class="individualtaxformuladiv" style="display:none;"></div>
+		             	  	</td>
+		             	  	<td class="soccplnetamount"><div id="socplnetcalculatediv" style="height: 175px;overflow: auto; width:150px;">
+		             	  		<button id="calculateNetAmount" class="calculateNetAmount btn btn-primary btn-idos m-bottom-10" title="Calculate Net Amount" onclick="return calculateNetAmount(this);" style="width: 150px;">Display Amount</button>
+		                      	<input type="text" placeholder="Net Result" class="netAmountVal" name="soccplnetamnt" id="soccplnetamnt" readonly="readonly" style="width: 135px; margin-bottom: 10px;">
+		                      	Detailed Result<h5 class="netAmountDescriptionDisplay" id="socplnetAmountLabel"></h5></div>
+		                    </td>
+		             	  	<td class="paymentDetails" style="display: none"><select name="socplreceiptdetail" id="socplreceiptdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select Mode of reciept"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+		             	  		<div id="socplreceiptBankDetails"><br/><textarea rows="5" placeholder="Input receipt details" style="margin-top: 10px;" name="socplreceiptBranchBankAccount" id="socplreceiptBranchBankAccount"></textarea></div>
+		             	  	</td>
+		             	  	<td><textarea placeholder="Input Remarks" style="margin-bottom: 10px;" name="socplRemarks" id="socplRemarks" rows="1"></textarea>
+		             	 		<br/><input type="text" placeholder="Supporting Documents" style="width:140px; margin-bottom: 10px;" id="socpluploadSuppDocs" name="socpluploadSuppDocs" readonly="readonly"><br/>
+		                      	<input type="button" id="socpluploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+		                      	<input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+		                      	<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+		                      	<button id="soccplsubmitForAccounting" style="margin-top: 24px;" class="submitForAccounting btn btn-primary btn-idos btn-custom" title="Submit for Accounting">Submit for Accounting</button>
+		                     </td>
+	             		</tr>
+		            </tbody>
+	            </table> 
+            </div>
+            <!--end socpl transaction -->	                       
+		    <!--bocpra transaction -->     
+            <div class="transactionDetailsTable" id="transactionDetailsBOCPRATable" style="display: none;">
+	            <table class="table table-striped table-bordered excelFormTable transaction-create">               
+		            <thead class="tableheadexpensetxn"><tr>
+	                	<th>Select Branches &amp;<br/>Projects &amp;<br/>Procurement Request<i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+	                	<th>What do you want<br/>to buy</th><th>Select vendor from <br/>whom to buy</th><th>Knowledge <br/>Library</th>
+	                	<th>Input number of units <br/>to buy. For <br/>services input 1</th><th>Adjustments</th><th>Net Amount</th>
+	                	<th class="paymentDetailsLabel" style="display: none">Payment Details</th><th>Transaction notes</th>
+	              	</tr></thead>
+	              	<tbody><tr id="bocpratrid"> 
+	                  	<td><select class="txnBranches" style="margin-bottom: 10px;" name="bocpraTxnForBranches" id="bocpraTxnForBranches" onChange="showTransactionBranchKnowledgeLiabrary(this),populateProjectItemBasedOnTxnPurposeBranchSelection(this)"><option value="">--Please Select--</option></select>
+		                  	<br/><select name="bocpraTxnForProjects" style="margin-bottom: 10px;" id="bocpraTxnForProjects"><option value="">--Please Select--</option></select>
+		                  	<br/><select name="procurementRequestForCreator" style="margin-bottom: 10px;" id="procurementRequestForCreator" onchange="populatebasedonprocurementrequest(this);"><option value="">--Please Select--</option></select>
+		                  	<br/><button id="accountingcancelButton" style="margin-top: 35px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	                  	</td>
+	               	  	<td><select class="txnItems" style="margin-bottom: 10px;" name="bocpraItem" id="bocpraItem" onChange="showTransactionBranchKnowledgeLiabrary(this);"><option value="">--Please Select--</option></select>
+	               	  		<div style="height: 150px;overflow: auto;">Item details<div class="itemParentNameDiv"></div><div class="actualbudgetDisplay"></div><div class="budgetDisplay"></div><div class="amountRangeLimitRule"></div></div>
+	               	  	</td>
+	               	  	<td><select class="masterList" style="margin-bottom: 10px;" name="bocpraVendor" id="bocpraVendor" onchange="getAdvanceDiscount(this);"><option value="">--Please Select--</option></select>
+	               	  		<br/><input class="unavailable" placeholder="Vendor? Input name" type="text" name="bocpraUnAvailableVendor" id="bocpraUnAvailableVendor" onkeyup="return whenMasterListDontHaveData(this)">
+	               	  	</td>
+	               	  	<td><div class="klBranchSpecfTd" style="height: 200px;overflow: auto; width:148px;"></div></td>
+	               	  	<td><input class="txnNoOfUnit" placeholder="Units (if any)" style="margin-bottom: 10px;" type="text" name="bocpraunits" id="bocpraunits" onkeypress="return isNumber(event)" onkeyup="calculateGross(this);">
+	               	  		<br/><input class="txnPerUnitPrice" placeholder="Price Per Unit" style="margin-bottom: 10px;" type="text" name="bocprapriceperunits" id="bocprapriceperunits" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="calculateGross(this);">
+	               	  		<br/><input class="txnGross" placeholder="Gross Amount" type="text" name="bocpragross" id="bocpragross" readonly="readonly">
+	               	  	</td>
+	               	  	<td><input type="text" class="customerAdvance" placeholder="Advance available" style="margin-bottom: 10px;" name="bocpravendoradvance" id="bocpravendoradvance" readonly="readonly">
+	               	  		<br><input type="text" name="bocprahowmuchfromadvance" placeholder="Advance to Adjust?" style="margin-bottom: 10px;" id="bocprahowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return whenAdvanceIsEmpty(this)">
+	               	  		<div class="inputtaxbuttondiv"></div><div class="inputtaxcomponentsdiv"></div><div class="withholdingtaxcomponenetdiv"></div>
+	               	  	</td>
+	               	  	<td class="bocpranetamount"><div id="bocpranetcalculatediv" style="height: 200px;overflow: auto; width:180px;">
+	               	  		<button id="calculateNetAmount" class="calculateNetAmount btn btn-primary btn-idos m-bottom-10" title="Calculate Net Amount" onclick="return calculateNetAmount(this);" style="width: 178px;">Display Amount</button>
+	                        <input type="text" placeholder="Net Result" class="netAmountVal" name="bocpranetamnt" id="bocpranetamnt" readonly="readonly" style="width: 165px; margin-bottom: 10px;">
+	                        Detailed result<h5 class="netAmountDescriptionDisplay" id="bocpranetAmountLabel"></h5></div>
+	                    </td>
+	               	  	<td class="paymentDetails" style="display: none"><select name="bocprapaymentdetail" id="bocprapaymentdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select Mode of payment"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+	               	  		<div id="paymentBankDetails"><br/><textarea rows="3" placeholder="Input Payment Details" style="margin-top: 10px;" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+	               	  	</td>
+	               	  	<td><div id="procurementRequestRemarks"></div><textarea name="bocpraRemarks" id="bocpraRemarks" rows="1" placeholder="Input Remarks" style="margin-bottom: 10px;"></textarea>
+	               	  		<br/><input type="text" style="width:140px;" id="bocprauploadSuppDocs" name="bocprauploadSuppDocs" readonly="readonly" placeholder="Supporting Documents" style="margin-bottom: 10px;"><br/>
+	                        <input type="button" id="bocprauploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                        <input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                        <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+	                        <br/><button style="margin-top: 39px;" id="bocprasubmitForApproval" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button></td>
+	            	</tr></tbody>
+	            </table>               
+            </div>
+            <!-- end bocpra transaction --> 
+             <!-- Withdraw Cash From Bank Start--> 
+            <div class="transactionDetailsTable" id="transactionDetailsWCAFBNKTable" style="display: none;">
+            	<table class="table table-striped table-bordered excelFormTable transaction-create">
+            		<thead class="tableheadexpensetxn"><tr>
+            				<th>Select Branch</th><th>Select Bank</th><th>Bank Details</th><th>Knowledge Library</th><th>Amount Withdrawal</th><th>Amount Left</th><th>Documents</th><th>Remarks</th>
+            			</tr>
+            		</thead>
+            		<tbody>
+            			<tr id="wcabnktrid">
+            				<td><select class="txnBranches" name="wcafbnkTxnForBranches" id="wcafbnkTxnForBranches" onchange="showAllBanksAccountsForTheBranch(this)" style="width:160px;"><option>--Please Select--</option></select><br/>
+            				<button id="accountingcancelButton" style="margin-top: 105px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button></td>
+            				<td><select class="txnBranchBanks" name="branchBankAccounts" id="branchBankAccounts" style="width:160px;" onchange="showBranchBankDetails(this);"><option>--Please Select--</option></select></td>
+            				<td><div class="txnBranchBankDetails" style="height: 150px;overflow: auto;width:170px;"></div></td>
+            				<td><div class="klBranchCashierTd" style="height: 180px;overflow: auto; width:170px;"></div></td>
+            				<td><input style="width:87%;" name="withdrawalAmount" id="withdrawalAmount" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="checkForAmountInLimit(this);"></td>
+            				<td><input style="width:87%;"  name="leftAmountInBank" id="leftAmountInBank" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly"></td>
+            				<td><input type="text" style="width:140px;" id="wcafbnkuploadSuppDocs" name="wcafbnkuploadSuppDocs" readonly="readonly" placeholder="Supporting Documents" style="margin-bottom: 10px;"><br/>
+	                        <input type="button" id="wcafbnkuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                        <input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                        <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div></td>
+	                        <td><textarea name="wcafbnkRemarks" id="wcafbnkRemarks" rows="1" placeholder="Input Remarks" style="margin-bottom: 10px;width:150px;"></textarea><br/>
+	                        <button style="margin-top: 95px;" id="wcabnksubmitForApproval" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button></td>
+            			</tr>
+            		</tbody>           		
+            	</table>
+            </div>
+            <!-- Withdraw Cash From Bank End--> 
+            <!-- Deposit Cash In Bank Start -->
+            <div class="transactionDetailsTable" id="transactionDetailsDCAIBNKTable" style="display: none;">
+            	<table class="table table-striped table-bordered excelFormTable transaction-create">
+            		<thead class="tableheadexpensetxn"><tr>
+            				<th>Select Branch</th><th>Select Bank</th><th>Bank Details</th><th>Knowledge Library</th><th>Deposit Amount</th><th>Total Amount</th><th>Documents</th><th>Remarks</th>
+            			</tr>
+            		</thead>
+            		<tbody>
+            			<tr id="dcabnktrid">
+            				<td><select class="txnBranches" name="dcaibnkTxnForBranches" id="dcaibnkTxnForBranches" onchange="showAllBanksAccountsForTheBranch(this)" style="width:160px;"><option>--Please Select--</option></select><br/>
+            				<button id="accountingcancelButton" style="margin-top: 105px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button></td>           				
+            				<td><select class="txnBranchBanks" name="branchBankAccounts" id="branchBankAccounts" style="width:160px;" onchange="showBranchBankDetails(this);"><option>--Please Select--</option></select></td>
+            				<td><div class="txnBranchBankDetails" style="height: 150px;overflow: auto;width:170px;"></div></td>
+            				<td><div class="klBranchCashierTd" style="height: 180px;overflow: auto; width:170px;""></div></td>
+            				<td><input style="width:87%" name="depositAmount" id="depositAmount" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="checkForAmountInLimit(this);"></td>
+            				<td><input style="width:87%;" name="totalAmountInBank" id="totalAmountInBank" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly"></td>
+            				<td><input type="text" style="width:140px;" id="dcaibnkuploadSuppDocs" name="dcaibnkuploadSuppDocs" readonly="readonly" placeholder="Supporting Documents" style="margin-bottom: 10px;"><br/>
+	                        <input type="button" id="wcafbnkuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                        <input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                        <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div></td>
+	                        <td><textarea name="dcaibnkRemarks" id="dcaibnkRemarks" rows="1" placeholder="Input Remarks" style="margin-bottom: 10px;width:150px;"></textarea><br/>
+	                        <button style="margin-top: 95px;" id="dcabnksubmitForApproval" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button></td>
+            			</tr>
+            		</tbody>           		
+            	</table>
+            </div>
+            <!-- Deposit Cash In Bank End-->
+            <!-- Transfer Fund From One Bank To Another Bank Start -->
+            <div class="transactionDetailsTable" id="transactionDetailsTFFTBNKTable" style="display: none;">
+            	<table class="table table-striped table-bordered excelFormTable transaction-create">
+            		<thead class="tableheadexpensetxn"><tr>
+            				<th>Transfer From Branch</th><th>Transfer From Bank</th><th>Bank Details</th><th>Transfer To Branch</th><th>Transfer To Bank</th><th>Bank Details</th><th>Amount</th><th>Purpose</th><th>Documents && Remarks</th>
+            			</tr>
+            		</thead>
+            		<tbody>
+            			<tr id="tffbnktrid">
+            				<td><select class="txnBranches" name="tfftbnkTxnFormBranches" id="tfftbnkTxnFromBranches" onchange="showAllBanksAccountsForTheBranch(this)" style="width:160px;"><option>--Please Select--</option></select><br/>
+            				<button id="accountingcancelButton" style="margin-top: 115px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button></td>           				
+            				<td><select class="txnBranchBanks" name="fromBranchBankAccounts" id="fromBranchBankAccounts" onchange="showBranchBankDetails(this);"><option>--Please Select--</option></select></td>
+            				<td><div class="txnFromBranchBankDetails" style="height: 150px;overflow: auto;width:136px;"></div></td>
+            				<td><select class="txnBranches" name="tfftbnkTxnToBranches" id="tfftbnkTxnToBranches" onchange="showAllBanksAccountsForTheBranch(this)"><option>--Please Select--</option></select></td>
+            				<td><select class="txnBranchBanks" name="toBranchBankAccounts" id="toBranchBankAccounts" onchange="showBranchBankDetails(this);"><option>--Please Select--</option></select></td>
+            				<td><div class="txnToBranchBankDetails" style="height: 150px;overflow: auto;width:136px;"></div></td>
+            				<td><input placeholder="Transfer Amount" name="transferAmount" id="transferAmount" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="checkForAmountInLimit(this);"><br/>
+            				<br/><input placeholder="Result Amount" name="totalAmtInBank" id="totalAmtInBank" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly"></td>
+            				<td><textarea name="tfftbnkPurpose" id="tfftbnkPurpose" rows="1" placeholder="Transfer Purpose" style="margin-bottom: 10px;"></textarea></td>
+            				<td><textarea name="tfftbnkRemarks" id="tfftbnkRemarks" rows="1" placeholder="Input Remarks" style="margin-bottom: 10px;"></textarea>
+	               	  		<br/><input type="text" style="width:140px;" id="tfftbnkuploadSuppDocs" name="tfftbnkuploadSuppDocs" readonly="readonly" placeholder="Supporting Documents" style="margin-bottom: 10px;"><br/>
+	                        <input type="button" id="tfftbnkuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                        <input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                        <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+	                        <button style="margin-top: 50px;" id="tffbnksubmitForApproval" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button></td>
+            			</tr>
+            		</tbody>           		
+            	</table>
+            </div>
+            <!-- Transfer Fund From One Bank To Another Bank End --> 
+            @restconfig(fullName,email,role,orgn,allowedProcurement){
+            }
+            <!-- start bptyca -->
+            <div class="transactionDetailsTable" id="transactionDetailsBPTYCATable" style="display: none;">
+	            <table class="table table-striped table-bordered excelFormTable transaction-create">               
+	              	<thead class="tableheadexpensetxn"><tr>
+	                  	<th>Select Branches & <br/>Projects &amp;<br/>Procurement Request<i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+	                  	<th>What do you want<br/>to buy</th><th>Select vendor from <br/>whom to buy</th><th>Knowledge <br/>Library</th>
+	                  	<th>Input number of units <br/>to buy. For <br/>services input 1</th><th>Adjustments</th><th>Net Amount</th><th class="paymentDetailsLabel" style="display: none">Payment Details</th><th>Transaction notes</th>
+               		</tr></thead>
+	              	<tbody><tr id="bptycatrid">
+	              	  	<td><select class="txnBranches" style="margin-bottom: 10px;" name="bptycaTxnForBranches" id="bptycaTxnForBranches" onChange="showTransactionBranchKnowledgeLiabrary(this),populateProjectItemBasedOnTxnPurposeBranchSelection(this)"><option value="">--Please Select--</option></select>
+		                  	<br/><select name="bptycaTxnForProjects" style="margin-bottom: 10px;" id="bptycaTxnForProjects"><option value="">--Please Select--</option></select>
+		                  	<br/><select name="procurementRequestForCreator" style="margin-bottom: 10px;" id="procurementRequestForCreator" onchange="populatebasedonprocurementrequest(this);"><option value="">--Please Select--</option></select>
+		                  	<br/><button id="accountingcancelButton" style="margin-top: 38px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	                  	</td>
+	                  	<td><select class="txnItems" style="margin-bottom: 10px;" name="bptycaItem" id="bptycaItem" onChange="showTransactionBranchKnowledgeLiabrary(this);"><option value="">--Please Select--</option></select>
+	               	  		<div style="height: 150px;overflow: auto;">Item details<div class="itemParentNameDiv"></div><div class="actualbudgetDisplay"></div><div class="budgetDisplay"></div><div class="amountRangeLimitRule"></div></div>
+	               	  	</td>
+	               	  	<td><select class="masterList" name="bptycaVendor" id="bptycaVendor" onchange="getAdvanceDiscount(this);"><option value="">--Please Select--</option></select>
+	               	  		<br/><input class="unavailable" placeholder="Vendor? Input name" style="margin-top: 10px;" type="text" name="bptycaUnAvailableVendor" id="bptycaUnAvailableVendor" onkeyup="return whenMasterListDontHaveData(this)">
+	               	  	</td>
+	               	 	<td><div class="klBranchSpecfTd" style="height: 180px;overflow: auto; width:97px;"></div></td>
+	               	  	<td><input class="txnNoOfUnit" placeholder="Units (if any)" style="margin-bottom: 10px;" type="text" name="bptycaunits" id="bptycaunits" onkeypress="return isNumber(event)" onkeyup="calculateGross(this);">
+		               	  	<br/><input class="txnPerUnitPrice" placeholder="Price Per Unit" style="margin-bottom: 10px;" type="text" name="bptycapriceperunits" id="bptycapriceperunits" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="calculateGross(this);">
+		               	  	<br/><input class="txnGross" placeholder="Gross Amount" type="text" name="bptycagross" id="bptycagross" readonly="readonly">
+		               	  	<div class="branchAvailablePettyCash"></div>
+	               	  	</td>
+	               	  	<td></td><td class="bocpranetamount"></td><td class="paymentDetails" style="display: none"></td><td></td>
+              		</tr></tbody>
+	            </table>               
+            </div>
+            <!-- end  bptyca-->
+            <!-- start bocapl -->
+            <div class="transactionDetailsTable" id="transactionDetailsBOCAPLTable" style="display: none;">
+	            <table class="table table-striped table-bordered excelFormTable transaction-create">               
+	              	<thead class="tableheadexpensetxn"><tr>
+	                  	<th>Select Branches & <br/>Projects &amp;<br/>Procurement Request<i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+	                  	<th>What do you want<br/>to buy</th><th>Select vendor from <br/>whom to buy</th><th>Knowledge <br/>Library</th>
+	                  	<th>Input number of units <br/>to buy. For <br/>services input 1</th><th>Adjustments</th><th>Net Amount</th><th class="paymentDetailsLabel" style="display: none">Payment Details</th><th>Transaction notes</th>
+	                </tr></thead>
+	              	<tbody><tr id="bocapltrid"> 
+	                  	<td><select style="margin-bottom: 10px;" class="txnBranches" name="bocaplTxnForBranches" id="bocaplTxnForBranches" onChange="showTransactionBranchKnowledgeLiabrary(this),populateProjectItemBasedOnTxnPurposeBranchSelection(this)"><option value="">--Please Select--</option></select>
+		                  	<br/><select style="margin-bottom: 10px;" name="bocaplTxnForProjects" id="bocaplTxnForProjects"><option value="">--Please Select--</option></select>
+		                  	<br/><select name="procurementRequestForCreator" style="margin-bottom: 10px;" id="procurementRequestForCreator" onchange="populatebasedonprocurementrequest(this);"><option value="">--Please Select--</option></select>
+		                  	<br/><button id="accountingcancelButton" style="margin-top: 36px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	                  	</td>
+	               	  	<td><select style="margin-bottom: 10px;" class="txnItems" name="bocaplItem" id="bocaplItem" onChange="showTransactionBranchKnowledgeLiabrary(this);"><option value="">--Please Select--</option></select>
+	               	  		<div style="height: 150px;overflow: auto;">Item details<div class="itemParentNameDiv"></div><div class="actualbudgetDisplay"></div><div class="budgetDisplay"></div><div class="amountRangeLimitRule"></div></div>
+	               	  	</td>
+	               	  	<td><select class="masterList" name="bocaplVendor" id="bocaplVendor" onchange="getAdvanceDiscount(this);"><option value="">--Please Select--</option></select>
+	               	  		<div style="display:none;"><input class="unavailable" placeholder="Vendor? Input Name" style="margin-top: 10px;" type="text" name="bocaplUnAvailableVendor" id="bocaplUnAvailableVendor" onkeyup="return whenMasterListDontHaveData(this)"></div>
+	               	  	</td>
+	               	  	<td><div class="klBranchSpecfTd" style="height: 200px;overflow: auto; width:148px;"></div></td>
+	               	  	<td><input class="txnNoOfUnit" placeholder="Units (if any)" style="margin-bottom: 10px;" type="text" name="bocaplunits" id="bocaplunits" onkeypress="return isNumber(event)" onkeyup="calculateGross(this);">
+		               	  	<br/><input placeholder="Price Per Unit" style="margin-bottom: 10px;" class="txnPerUnitPrice" type="text" name="bocaplpriceperunits" id="bocaplpriceperunits" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="calculateGross(this);">
+		               	  	<br/><input placeholder="Gross Amount" class="txnGross" type="text" name="bocaplgross" id="bocaplgross" readonly="readonly">
+	               	  	</td>
+	               	  	<td><input type="text" placeholder="Advance available" style="margin-bottom: 10px;" class="customerAdvance"  name="bocaplvendoradvance" id="bocaplvendoradvance" readonly="readonly">
+		               	  	<br><input type="text" placeholder="Advance to Adjust?" style="margin-bottom: 10px;" name="bocaplhowmuchfromadvance" id="bocaplhowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return whenAdvanceIsEmpty(this)">
+		               	  	<div class="inputtaxbuttondiv"></div><div class="inputtaxcomponentsdiv"></div>
+	               	  	</td>
+	               	  	<td class="bocaplnetamount"><div id="bocaplnetcalculatediv" style="height: 200px;overflow: auto; width:180px;">
+	               	  		<button id="calculateNetAmount" class="calculateNetAmount btn btn-primary btn-idos m-bottom-10" title="Calculate Net Amount" onclick="return calculateNetAmount(this);" style="width: 178px;">Display Amount</button>
+	                        <input type="text" placeholder="Net Result" class="netAmountVal" name="bocaplnetamnt" id="bocaplnetamnt" readonly="readonly" style="width: 165px; margin-bottom: 10px;">
+	                        Detailed result<h5 class="netAmountDescriptionDisplay" id="bocaplnetAmountLabel"></h5></div>
+	                    </td>
+	               	  	<td class="paymentDetails" style="display: none"><select name="bocprapaymentdetail" id="bocaplpaymentdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select Mode of payment"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+	               	  		<div id="paymentBankDetails"><br/><textarea rows="3" placeholder="Input payment Details" style="margin-top: 10px;" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+	               	  	</td>
+	               	  	<td><div id="procurementRequestRemarks"></div><textarea name="bocaplRemarks" placeholder="Input Remarks" style="margin-bottom: 10px;" id="bocaplRemarks" rows="1"></textarea>
+	               	  		<br/><input type="text" style="width: 140px; margin-bottom: 10px;" placeholder="Supporting Documents" id="bocapluploadSuppDocs" name="bocapluploadSuppDocs" readonly="readonly"><br/>
+	                        <input type="button" id="bocapluploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                        <input type="button" style="width: 71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                        <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div><br/>
+                         	<button style="margin-top: 30px;" id="bocaplsubmitForApproval" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button>
+                         </td>
+	               </tr></tbody>
+	            </table>                
+            </div>
+            <!-- end  bocapl-->
+		    <!-- start  rcpfcc-->
+            <div class="transactionDetailsTable" id="transactionDetailsRCPFCCTable" style="display: none;">
+	            <table class="table table-striped table-bordered excelFormTable transaction-create">               
+	              	<thead class="tableheadreceivetxn"><tr>
+	                  <th>Select<br/>customer</th><th>Select the invoice<br/>against which you<br/>have received payments</th><th>Outstandings <br>amount</th>
+	                  <th>Adjust advance?</th><th>Payment Received</th><th>Balance due on <br/>this invoice</th><th class="paymentDetailsLabel" style="display: none">Receipt Details</th><th>Transaction notes</th>
+	                </tr></thead>
+	              	<tbody><tr id="rcpfcctrid"> 
+	               	  	<td><select class="masterListCustVend" name="rcpfccCustomers" id="rcpfccCustomers" onchange="getInvoices(this);"><option value="">--Please Select--</option></select>
+	               	  		<button id="accountingcancelButton" style="margin-top: 86px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	               	  	</td>
+	               	  	<td><select class="pendingTxns" style="margin-bottom: 10px;" name="rcpfccpendingInvoices" id="rcpfccpendingInvoices" onchange="getOutstandings(this);"><option value="">--Please Select--</option></select><br/>
+	               	  		Knowledge Library<br/><div class="klBranchSpecfTd" style="height: 100px;overflow: auto; width:160px;"></div>
+	               	  	</td>
+	               	  	<td class="vendcustoutstandings"><div style="height: 150px;overflow: auto;"><div id="rcpfccvendcustoutstandingsgross" style="width:140px;"></div><div id="rcpfccvendcustoutstandingsnet" style="width:140px;"></div><div id="rcpfccvendcustoutstandingsnetdescription" style="width:140px;"></div><div id="rcpfccvendcustoutstandingspaid" style="width:140px;"></div><div id="rcpfccvendcustoutstandingsnotpaid" style="width:140px;"></div><div id="rcpfccvendcustoutstandingssalesreturn" style="width:140px;"></div></div></td>
+	               	  	<td class="vendcustadjustment"><input type="text" placeholder="Advance available" style="margin-bottom: 10px;" class="customerAdvance"  name="rcpfcccustomeradvance" id="rcpfcccustomeradvance" readonly="readonly">
+	               	  		<br><input class="creditadvanceadjustment" placeholder="Advance to Adjust" type="text" name="rcpfcchowmuchfromadvance" id="rcpfcchowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return whenAdvanceIsEmpty(this)">
+	               	  	</td>
+	               	  	<td class="actualPayment"><input type="text" placeholder="Amount Received" style="margin-bottom: 10px;" class="paymentreceivedmade" name="rcpfccpaymentreceived" id="rcpfccpaymentreceived" onkeypress="return onlyDotsAndNumbers(event)" onblur="validatePayment(this);" onkeyup="validatePayment(this);">
+	               	  		<br/><input type="text" name="rcpfccTaxAdjusted" placeholder="Tax Withheld" id="rcpfccTaxAdjusted" onkeypress="return onlyDotsAndNumbers(event)" onblur="validatePayment($(rcpfccpaymentreceived));" onkeyup="validatePayment($(rcpfccpaymentreceived));">
+	               	  	</td>
+	               	  	<td><input placeholder="Due balance" class="dueBalance" type="text" name="rcpfccduebalance" id="rcpfccduebalance" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly"></td>
+	               	  	<td class="paymentDetails"><select name="rcpfccpaymentdetail" id="rcpfccpaymentdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select Mode of reciept"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+	               	  		<div id="paymentBankDetails"><textarea placeholder="Input receipt details" style="margin-top: 10px;" rows="6" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+	               	  	</td>
+	               	  	<td><textarea placeholder="Input Remarks" name="rcpfccRemarks" id="rcpfccRemarks" rows="1"></textarea>
+	               	  		<br/><input type="text" placeholder="Supporting Documents" style="width:140px; margin: 10px 0" id="rcpfccuploadSuppDocs" name="rcpfccuploadSuppDocs" readonly="readonly"><br/>
+	                        <input type="button" id="rcpfccuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                        <input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                        <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+	                        <button id="rcpfccssubmitForAccounting" style="margin-top: 10px;" class="submitForAccounting btn btn-primary btn-idos btn-custom" title="Submit for Accounting">Submit for Accounting</button></td>
+               		</tr></tbody>
+	            </table>                
+            </div>
+            <!-- end  rcpfcc-->
+            <!-- start  rcafcc-->
+            <div class="transactionDetailsTable" id="transactionDetailsRCAFCCTable" style="display: none;">
+	            <table class="table table-striped table-bordered excelFormTable transaction-create">               
+	              	<thead class="tableheadreceivetxn"><tr>
+	                  	<th>Select customer from<br/>whom you are<br/> receiving advance</th><th>Select the item <br/>for which advance<br/>is being received</th>		                      
+	                  	<th>Purpose Of Advance </th><th>Existing advance</th><th>Amount Of Advance Received</th>
+	                  	<th>Resultant Advance</th><th>Receipt Details</th><th>Transaction notes</th>
+	                </tr></thead>
+	              	<tbody><tr id="rcafcctrid"> 
+	                  	<td><select class="masterListCustVend" name="rcafccCustomers" id="rcafccCustomers" onchange="populatecustvendspecifics(this);"><option value="">--Please Select--</option></select>
+	                  		<button id="accountingcancelButton" style="margin-top: 86px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	                  	</td>
+	                  	<td><select class="masterListItems" style="margin-bottom: 10px;" name="rcafccItems" id="rcafccItems" onchange="getAdvanceTxnItemParent(this);"><option value="">--Please Select--</option></select>
+	                  		<br/>Item details<div class="itemParentNameDiv"></div>
+	                  	</td>		                   	  		                   		        		                  		                   
+	               	  	<td><textarea placeholder="Details" style="width: 195px;" rows="8" class="advancePurpose" name="rcafccadvancepurpose" id="rcafccadvancepurpose" rows="1"></textarea></td>
+	               	  	<td><div class ="customerVendorExistingAdvance" style="width:150px;"></div></td>
+	               	  	<td><input style="width: 155px;" placeholder="Amount received" type="text" name="rcafccAmountOfAdvanceReceived" id="rcafccAmountOfAdvanceReceived" onkeypress="return onlyDotsAndNumbers(event)" onblur="showResultantAdvance(this);"></td>
+	               	  	<td><div class="resultantAdvance" style="width:140px;"></div></td>
+	               	  	<td class="paymentDetails"><select style="width: 155px;" name="rcafccpaymentdetail" id="rcafccpaymentdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select mode of receipt"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+		               	  	<div id="paymentBankDetails"><textarea placeholder="Input Receipt Details" style="margin-top: 10px;" rows="5" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+		               	  </td>
+	               	  	<td><textarea placeholder="Input Remarks" name="rcafccRemarks" id="rcafccRemarks" rows="1"></textarea>
+	               	  		<br/><input placeholder="Supporting Documents" type="text" style="width:140px; margin-bottom: 10px; margin-top: 10px;" id="rcafccuploadSuppDocs" name="rcafccuploadSuppDocs" readonly="readonly"><br/>
+	                        <input type="button"  id="rcafccuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                        <input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                        <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+	                        <button id="rcafccssubmitForAccounting" style="margin-top: 10px;" class="submitForAccounting btn btn-primary btn-idos btn-custom" title="Submit for Accounting">Submit for Accounting</button>
+	                    </td>
+	               </tr>
+	              </tbody>
+	            </table>                 
+            </div>
+            <!-- end rcafcc-->
+            <!-- start  mcpfcv-->
+           	<div class="transactionDetailsTable" id="transactionDetailsMCPFCVTable" style="display: none;">
+           		<table class="table table-striped table-bordered excelFormTable transaction-create">               
+           			<thead class="tableheadpaytxn"><tr>
+	                 	<th>Select vendor to whom you wish to pay</th><th>Select invoice for which you wish to pay this vendor</th><th>Knowledge Library</th>
+	                 	<th>Amount outstanding against this invoice</th><th>Adjust advance?</th><th>Amount you wish to pay</th>
+	                 	<th>Balance due on this invoice</th><th class="paymentDetailsLabel" style="display: none">Payment Details</th><th>Transaction notes</th>
+	               	</tr></thead>
+		            <tbody><tr id="mcpfcvtrid"> 
+             	  		<td><select class="masterListCustVend" name="mcpfcvVendors" id="mcpfcvVendors" onchange="getInvoices(this);"><option value="">--Please Select--</option></select>
+             	  			<button id="accountingcancelButton" style="margin-top: 91px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+             	  		</td>
+		             	<td><select class="pendingTxns" name="mcpfcvpendingInvoices" id="mcpfcvpendingInvoices" onchange="getOutstandings(this);"><option value="">--Please Select--</option></select><br/></td>
+	             	  	<td><div class="klBranchSpecfTd" style="height: 155px;overflow: auto; width:165px;"></div></td>
+	             		<td class="vendcustoutstandings"><div style="height: 155px;overflow: auto;"><div id="mcpfcvvendcustoutstandingsgross" style="width:160px;"></div><div id="mcpfcvvendcustoutstandingsnet" style="width:160px;"></div><div id="mcpfcvvendcustoutstandingsnetdescription" style="width:160px;"></div><div id="mcpfcvvendcustoutstandingspaid" style="width:160px;"></div><div id="mcpfcvvendcustoutstandingsnotpaid" style="width:160px;"></div><div id="mcpfcvvendcustoutstandingspurchasereturn" style="width:160px;"></div><div id="mcpfcvtxninprogress" style="width:160px;"></div></div></td>
+	             	  	<td class="vendcustadjustment"><input type="text" placeholder="Advance available" style="margin-bottom: 10px;" class="customerAdvance"  name="mcpfcvvendoradvance" id="mcpfcvvendoradvance" readonly="readonly">
+             	  			<br><input class="creditadvanceadjustment" placeholder="Advance to adjust" type="text" name="mcpfcvhowmuchfromadvance" id="mcpfcvhowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return whenAdvanceIsEmpty(this)">
+             	  		</td>
+	             	  	<td class="actualPayment"><input type="text" placeholder="Amount" style="margin-bottom: 10px;" class="paymentreceivedmade" name="mcpfcvpaymentreceived" id="mcpfcvpaymentreceived" onkeypress="return onlyDotsAndNumbers(event)" onblur="validatePayment(this);" onkeyup="validatePayment(this);">
+		             		<br/>Tax you must withhold<div class="vendorActPayment"></div>
+		             	</td>
+	             	  	<td><input type="text" placeholder="Amount" class="dueBalance" name="mcpfcvduebalance" id="mcpfcvduebalance" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly"></td>
+	             	  	<td class="paymentDetails" style="display: none;"><select name="mcpfcvpaymentdetail" id="mcpfcvpaymentdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select mode of receipt"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+		             		<div id="paymentBankDetails"><textarea placeholder="Input receipt Details" style="margin-top: 10px;" rows="3" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+		             	</td>
+	             	  	<td><textarea placeholder="Input Remarks" name="mcpfcvRemarks" id="mcpfcvRemarks" rows="1"></textarea>
+	             	  		<br/><input type="text" placeholder="Supporting Documents" style="width:140px; margin-bottom: 10px; margin-top: 10px;" id="mcpfcvuploadSuppDocs" name="mcpfcvuploadSuppDocs" readonly="readonly"><br/>
+	                      	<input type="button" id="mcpfcvuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                      	<input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                      	<div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin-top: 10px;"></div>
+	                      	<button id="mcpfcvsubmitForApproval" style="margin-top: 5px;" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button>
+	                    </td>
+     				</tr></tbody>
+           		</table>                
+           </div>
+           <!-- end rcpfcv-->
+		   <!-- start pcafcv-->
+           <div class="transactionDetailsTable" id="transactionDetailsPCAFCVTable" style="display: none;">
+           		<table class="table table-striped table-bordered excelFormTable transaction-create">               
+           			<thead class="tableheadpaytxn"><tr>
+	                 	<th>Select vendor to whom you are paying advance</th><th>Select the item for which you are paying advance</th><th>Purpose of advance</th>
+	                 	<th>Existing advance</th><th>Amount of advance being paid</th><th>Resultant advance</th><th class="paymentDetailsLabel" style="display: none">Payment Details</th><th>Transaction notes</th>
+	               	</tr></thead>
+	             	<tbody><tr id="pcafcvtrid"> 
+              	  		<td><select style="width: 160px;" class="masterListCustVend" name="pcafcvVendors" id="pcafcvVendors" onchange="populatecustvendspecifics(this);"><option value="">--Please Select--</option></select>
+	              	  		<button id="accountingcancelButton" style="margin-top: 91px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button></td>
+	                 	<td><select style="width: 200px;" class="masterListItems" name="pcafcvItems" id="pcafcvItems" onchange="getAdvanceTxnItemParent(this);"><option value="">--Please Select--</option></select><div class="itemParentNameDiv"></div></td>		                   	  		                   		        		                  		                   
+	              	  	<td><textarea placeholder="Details" style="width: 250px;" rows="8" class="advancePurpose" name="pcafcvadvancepurpose" id="pcafcvadvancepurpose"></textarea></td>
+	              	  	<td><div class="customerVendorExistingAdvance" style="width:152px;"></div></td>
+	              	  	<td><input placeholder="Advance Received" style="width: 180px;" type="text" name="pcafcvAmountOfAdvanceReceived" id="pcafcvAmountOfAdvanceReceived" onkeypress="return onlyDotsAndNumbers(event)" onblur="showResultantAdvance(this);"></td>
+	              	  	<td><div class="resultantAdvance" style="width:142px;"></div></td>
+	              	  	<td class="paymentDetails" style="display: none;"><select name="pcafcvpaymentdetail" id="pcafcvpaymentdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select mode of receipt"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+	              	  		<div id="paymentBankDetails"><textarea placeholder="Input receipt Details" style="margin-top: 10px;" rows="3" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+	              	  	</td>
+	              	  	<td><div style="width:160px;"><textarea placeholder="Input Remarks" name="pcafcvRemarks" id="pcafcvRemarks" rows="1"></textarea>
+	              	  		<br/><input type="text" placeholder="Supporting Documents" style="width:140px; margin-bottom: 10px; margin-top: 10px;" id="pcafcvuploadSuppDocs" name="pcafcvuploadSuppDocs" readonly="readonly"><br/>
+	                       	<input type="button" id="pcafcvuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                       	<input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                       	<div id="moreSupportingDocDiv" style="margin-top: 10px;" class="moreSupportingDocDiv"></div>
+	                       <button id="pcafcvsubmitForApproval" style="margin-top: 5px;" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button></div></td>
+	             	</tr></tbody>
+	           </table>                 
+           </div>
+           <!-- end  pcafcv-->
+	   	   <!-- start rsaafv -->
+           <div class="transactionDetailsTable" id="transactionDetailsRSAAFVTable" style="display: none;">
+	           <table class="table table-striped table-bordered excelFormTable transaction-create">
+            		<thead class="tableheadpaytxn"><tr>
+	                	<th>Select vendor from whom you are receiving special adjustments</th><th>Available special adjustment name & amount in vendor account</th><th>Knowledge library</th>
+	                	<th>Select project</th><th>Amount</th><th>Amount</th><th class="paymentDetailsLabel" style="display: none">Mode of receipt</th><th>Transaction notes</th>
+	              	</tr></thead>
+	            	<tbody><tr id="rsaafvtrid">
+	            		<td><select class="masterListCustVend" name="rsaafvVendors" id="rsaafvVendors" onchange="getSpecialAdjustments(this);"><option value="">--Please Select--</option></select>
+	             	  		<button id="accountingcancelButton" style="margin-top: 86px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	             	  	</td>
+	              		<td><div class="availableSpcAdjustName" style="width:150px;"></div><div class="availableSpcAdjustVendorAccount" style="width:140px;"></div></td>
+	              		<td><div class="klBranchSpecfTd" style="height: 100px;overflow: auto; width:150px;"></div></td>		                    
+	              		<td><select class="masterListProject" name="rsaafvTxnForProjects" id="rsaafvTxnForProjects"><option value="">--Please Select--</option></select></td>
+	              		<td><input placeholder="Received Amount" class="specAdjustReceivPayAmount" name="rsaafvReceivedAmount" id="rsaafvReceivedAmount" onkeypress="return onlyDotsAndNumbers(event)" onblur="validateTotal(this);"></td>
+	              		<td><div class="adjustmentTotalAmount" style="width:140px;"></div></td>
+	              		<td class="paymentDetails" style="display: none"><select name="rsaafvpaymentdetail" id="rsaafvpaymentdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select mode of receipt"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+	             			<div id="paymentBankDetails"><textarea rows="6" placeholder="Input receipt Details" style="margin-top: 10px;" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+	             		</td>
+	             		<td><textarea placeholder="Input Remarks" name="rsaafvRemarks" id="rsaafvRemarks" rows="1"></textarea>
+		             		<br/><input type="text" placeholder="Supporting Documents" style="width:140px; margin-bottom: 10px; margin-top: 10px;" id="rsaafvuploadSuppDocs" name="rsaafvuploadSuppDocs" readonly="readonly"><br/>
+		                    <input type="button" id="rsaafvuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+		                    <input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+		                    <div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin-top: 10px;"></div>
+		                    <button id="rsaafvsubmitForAccounting" class="submitForAccounting btn btn-primary btn-idos btn-custom" title="Submit for Accounting">Submit for Accounting</button>
+		                </td>
+	              	</tr></tbody>
+	           </table>
+           </div>
+           <!-- end rsaafv-->
+           <!-- start psaatv -->
+           <div class="transactionDetailsTable" id="transactionDetailsPSAATVTable" style="display: none;">
+	           <table class="table table-striped table-bordered excelFormTable transaction-create">
+             		<thead class="tableheadpaytxn"><tr>
+                 		<th>Select vendor to whom you are paying special adjustments</th><th>Available special adjustment name & amount in vendor account</th><th>Knowledge library</th>
+	                 	<th>Select project</th><th>Amount</th><th>Amount</th><th class="paymentDetailsLabel" style="display: none">Mode of receipt</th><th>Transaction notes</th>
+	               	</tr></thead>
+	             	<tbody><tr id="psaatvtrid">
+	             		<td><select class="masterListCustVend" name="psaatvVendors" id="psaatvVendors" onchange="getSpecialAdjustments(this);"><option value="">--Please Select--</option></select>
+	              	  		<button id="accountingcancelButton" style="margin-top: 91px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	              	  	</td>
+	               		<td><div class="availableSpcAdjustName" style="width:185px;"></div><div class="availableSpcAdjustVendorAccount" style="width:140px;"></div></td>
+	               		<td><div class="klBranchSpecfTd" style="height: 100px;overflow: auto; width:180px;"></div></td>		                    
+	               		<td><select class="masterListProject" name="psaatvTxnForProjects" id="psaatvTxnForProjects"><option value="">--Please Select--</option></select></td>
+	               		<td><input placeholder="Payment Amount" class="specAdjustReceivPayAmount" name="psaatvReceivedAmount" id="psaatvReceivedAmount" onkeypress="return onlyDotsAndNumbers(event)" onblur="validateTotal(this);"></td>
+	               		<td><div class="adjustmentTotalAmount" style="width:180px;"></div></td>
+	               		<td class="paymentDetails" style="display: none"><select name="psaatvpaymentdetail" id="psaatvpaymentdetail" onchange="listAllBranchBankAccounts(this);"><optgroup label="Select mode of receipt"></optgroup><option value="1">CASH</option><option value="2">BANK</option></select>
+	              			<div id="paymentBankDetails"><textarea placeholder="Input Receipt Details" style="margin-top: 10px;" rows="3" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+	              		</td>
+	              		<td><textarea placeholder="Input Remarks" name="psaatvRemarks" id="psaatvRemarks" rows="1"></textarea>
+	              			<br/><input placeholder="Supporting Documents" type="text" style="width:140px; margin-bottom: 10px; margin-top: 10px;" id="psaatvuploadSuppDocs" name="psaatvuploadSuppDocs" readonly="readonly"><br/>
+	                     	<input type="button" id="psaatvuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                     	<input type="button" style="width:71px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                     	<div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin-top: 10px;"></div>
+	                     	<button id="psaatvsubmitForApproval" style="margin-top: 5px;" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button>
+	                    </td>
+	               	</tr></tbody>
+	           </table>
+           </div>
+           <!-- end  psaatv-->
+           <!-- start  srtfcc-->
+           <div class="transactionDetailsTable" id="transactionDetailsSRTFCCTable" style="display: none;">
+	           <table class="table table-striped table-bordered excelFormTable transaction-create">               
+	             	<thead class="tableheadreturnstxn"><tr>
+	                 	<th>Select customer who is making the return</th><th>Select the item for which you are processing this return</th><th>Knowledge Library</th>
+	                 	<th>Select the invoice against which you are processing this return</th><th>Invoice value</th><th>Amount for which this return is being processed</th>
+	                 	<th>Balance due on this invoice</th><th class="paymentDetailsLabel" style="display: none">Payment Details</th><th>Transaction notes</th>
+	               	</tr></thead>
+	             	<tbody><tr id="srtfcctrid"> 
+	                 	<td><select class="masterListCustVend" name="srtfccCustomers" id="srtfccCustomers" onchange="populatecustvendspecifics(this);"><option value="">--Please Select--</option></select>
+	                 		<button id="accountingcancelButton" style="margin-top: 91px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	                 	</td>
+	                 	<td><select class="masterListItems" name="srtfccItems" id="srtfccItems" onchange="getklinvoices(this);"><option value="">--Please Select--</option></select><div class="itemParentNameDiv"></div></td>		                   	  		                    		                   	  		                   		        		                  		                   
+	              	  	<td><div class="klBranchSpecfTd" style="height: 150px;overflow: auto;width:155px;"></div></td>
+	              	  	<td><select class="salesExpenseTxns" name="srtfccInvoices" id="srtfccInvoices" onchange="getInvoiceValue(this);"><option value="">--Please Select--</option></select><br/></td>
+	              	  	<td><input placeholder="Amount" style="margin-bottom: 10px;" type="text" class="invValue" name="srtfccInvoiceValue" id="srtfccInvoiceValue" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly">
+	              	  		Return details<div class="returnDetails"></div><div class="maxReturnAmount"></div>
+	              	  	</td>
+	              	  	<td><input type="text" placeholder="Amount" name="srtfccReturnValue" id="srtfccReturnValue" onkeypress="return onlyDotsAndNumbers(event)" onblur="validateReturn(this)"></td>
+	              	  	<td><div class="balanceDueReturns" style="width:150px;"></div></td>
+	              	  	<td class="paymentDetails" style="display: none"><select name="srtfccpaymentdetail" id="srtfccpaymentdetail" onchange="listAllBranchBankAccounts(this);"><option value="1">CASH</option><option value="2">BANK</option></select>
+	              	  		<div id="paymentBankDetails"><textarea placeholder="Bank Details" style="margin-top: 10px;" rows="3" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+	              	  	</td>
+	              	  	<td><div><textarea placeholder="Input Remarks" name="srtfccRemarks" id="srtfccRemarks" rows="1"></textarea>
+	              	  		<br/><input type="text" placeholder="Supporting Documents" style="width:140px; margin-bottom: 10px; margin-top: 10px;" id="srtfccuploadSuppDocs" name="srtfccuploadSuppDocs" readonly="readonly"><br/>
+	                       	<input type="button" id="srtfccuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                       	<input type="button" style="width:70px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                       	<div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin-top: 10px;"></div>
+	                       	<button id="srtfccsubmitForApproval" style="margin-top: 5px;" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button></div>
+	                    </td>
+	              	</tr></tbody>
+	           </table>                
+           </div>
+           <!-- end  srtfcc-->
+           <!-- start  prtfcv-->
+           <div class="transactionDetailsTable" id="transactionDetailsPRTFCVTable" style="display: none;">
+	           <table class="table table-striped table-bordered excelFormTable transaction-create">               
+	             	<thead class="tableheadreturnstxn"><tr>
+		                 <th>Select vendor to whom you are making the return</th><th>Select the item for which you are processing this return</th><th>Knowledge Library</th>
+		                 <th>Select the invoice against which you are processing this return</th><th>Invoice Value</th><th>Amount for which this return is being processed</th>
+		                 <th>Balance due on this invoice</th><th class="paymentDetailsLabel" style="display: none">Payment Details</th><th>Transaction notes</th>
+		         	</tr></thead>
+	             	<tbody><tr id="prtfcvtrid"> 		                      
+	              	  	<td><select class="masterListCustVend" name="prtfcvVendors" id="prtfcvVendors" onchange="populatecustvendspecifics(this);"><option value="">--Please Select--</option></select>
+	              	  		<button id="accountingcancelButton" style="margin-top: 91px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+	              	  	</td>		                    		                   	  		                   		        		                  		                   
+	              	  	<td><select class="masterListItems" name="prtfcvItems" id="prtfcvItems" onchange="getklinvoices(this);"><option value="">--Please Select--</option></select><div class="itemParentNameDiv"></div></td>
+	              	  	<td><div class="klBranchSpecfTd" style="height: 150px;overflow: auto; width:155px;"></div></td>
+	              	  	<td><select class="salesExpenseTxns" name="prtfcvInvoices" id="prtfcvInvoices" onchange="getInvoiceValue(this);"><option value="">--Please Select--</option></select><br/></td>
+	              	  	<td><input type="text" style="margin-bottom: 10px;" placeholder="Amount" class="invValue" name="prtfcvInvoiceValue" id="prtfcvInvoiceValue" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly">
+	              	  		Return details<div class="returnDetails"></div><div class="maxReturnAmount"></div>
+	              	  	</td>
+	              	  	<td><input placeholder="Amount" type="text" name="prtfcvReturnValue" id="prtfcvReturnValue" onkeypress="return onlyDotsAndNumbers(event)" onblur="validateReturn(this)"></td>
+	              	  	<td><div class="balanceDueReturns" style="width:150px;"></div></td>
+	              	  	<td class="paymentDetails" style="display: none"><select name="prtfcvpaymentdetail" id="prtfcvpaymentdetail" onchange="listAllBranchBankAccounts(this);"><option value="1">CASH</option><option value="2">BANK</option></select>
+	              	  		<div id="paymentBankDetails"><textarea placeholder="Bank Details" style="margin-top: 10px;" rows="3" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea></div>
+	              	  	</td>
+	              	  	<td><textarea placeholder="Input Remarks" name="prtfcvRemarks" id="prtfcvRemarks" rows="1"></textarea>
+	              	  		<br/><input placeholder="Supporting Documents" type="text" style="width:140px; margin-bottom: 10px; margin-top: 10px;" id="prtfcvuploadSuppDocs" name="prtfcvuploadSuppDocs" readonly="readonly"><br/>
+	                       	<input type="button" id="prtfcvuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                       	<input type="button" style="width:70px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                       	<div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin-top: 10px;"></div>
+	                       	<button id="prtfcvsubmitForApproval" style="margin-top: 5px;" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button>
+	                    </td>
+	              	</tr></tbody>
+	           </table>                
+           </div>
+           <!-- end  prtfcv-->
+           <!-- start tifbtb -->
+           <div class="transactionDetailsTable" id="transactionDetailsTIFBTBTable" style="display: none;">
+           		 <table class="table table-striped table-bordered excelFormTable transaction-create">
+           		 	<thead class="tableheadtransferinventorytxn"><tr>
+           		 		<th>Select Inventory Item</th><th>Select Branch(Transfer From)</th><th>Units Of Transfer</th><th>Select Branch(Transfer To)</th><th>Resultant Units</th><th>Documents</th><th>Remarks</th>
+           		 	</tr></thead>
+           		 	<tbody><tr id="tifbtbtrid">
+           		 		<td><select style="width:200px;" class="masterInventoryList" name="tifbtbItems" id="tifbtbItemsId" onchange="getItemStockBranches(this);"><option value="">--Please Select--</option></select><br/>
+           		 		<br/><div class="parentInventoryItemName"></div>
+           		 		<button id="accountingcancelButton" style="margin-top: 13px;" class="compcancelButton btn btn-primary btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button></td>
+           		 		<td><select style="width:200px;" class="inventoryTxnBranch" name="inventoryTransferFromBranch" id="inventoryTransferFromBranchId" onchange="getStocks(this);"><option value="">--Please Select--</option></select>
+           		 		<br/><b>Available Stock:</b><div class="availableStock"></div><b>Stock Transfer In Progress:</b><div class="stockTransferInProgress"></div></td>
+           		 		<td><input style="width:180px;" name="unitToTransfer" id="unitToTransferId" onkeypress="return isNumber(event)" onkeyup="return checkStockTransferCheck(this);"></td>
+           		 		<td><select style="width:200px;" class="inventoryTxnBranch" name="inventoryTransferToBranch" id="inventoryTransferToBranchId" onchange="getStocks(this);"><option value="">--Please Select--</option></select>
+           		 		<br/><b>Available Stock:</b><div class="availableToStock"></div></td>
+           		 		<td>Receiving Branch:<br/><input style="width:180px;" name="resultantStock" id="resultantStockId" readonly="readonly">
+           		 		<br/>Transferring Branch:<br/><input style="width:180px;" name="resultantTransferringStock" id="resultantTransferringStockId" readonly="readonly"></td>
+           		 		<td><input type="text" placeholder="Supporting Documents" style="width:170px; margin-bottom: 10px;" id="tifbtbuploadSuppDocs" name="tifbtbuploadSuppDocs" readonly="readonly"><br/>
+	                    <input style="width:91px;" type="button" id="tifbtbuploadSuppDocs" value="Upload" class="btn btn-primary btn-idos" onclick="uploadFile(this.id)">
+	                    <input type="button" style="width:91px;" id="addMoreSupportingDocuments" name="addMoreSupportingDocuments" class="btn btn-primary btn-idos" value="+">
+	                    <div id="moreSupportingDocDiv" style="margin-top: 10px;" class="moreSupportingDocDiv"></div></td>
+	                    <td><div><textarea placeholder="Input Remarks" name="tifbtbRemarks" id="tifbtbRemarks" rows="3"></textarea></div>
+	                    <button id="tifbtbsubmitForApproval" style="margin-top: 1px;" class="submitForApproval btn btn-primary btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button></td>
+           		 	</tr></tbody>
+           		 </table>
+           </div>
+           <!-- end tifbtb -->
+			}
+			@if(allowedProcurement=="1"){   
+			<table class="table table-hover table-striped table-bordered transaction-create" id="procurementRequestTable" style="margin-top:0px;width:300px;">               
+				<thead class="tablehead1"><tr><th>Select Item To Procure</th><th>No 0f Units</th><th>Procurement Remarks</th></tr></thead>
+				<tbody><tr>
+					<td><select name="procurementItem" id="procurementItem"></select></td>
+					<td><input name="procurementNoOfUnits" id="procurementNoOfUnits" onkeypress="return isNumber(event)"></td>
+				  	<td><textarea name="procurementRemarks" id="procurementRemarks"></textarea></td>
+			  	</tr></tbody>
+			</table>
+			<div class="forAllTransactionForm">
+				<div class="control-group" style="margin-top: 10px;">
+					<button id="submitForProcurement" style="width: 140px;" class="submitForProcurement btn btn-primary btn-idos" title="Submit for Procurement">Submit for Procurement</button>
+			      	<button id="accountingcancelButton" style="width: 140px !important;" class="compcancelButton btn btn-primary btn-idos" title="Cancel" onClick="cancel()">Cancel</button>
+				</div>	
+			</div>   
+			} 
+			}
+			@configProvisionJournal(fullName,email,role,orgn,allowedProcurement){
+			}
+		</fieldset>
+			</div>
+			</div> <!--  end transaction panel -->
+		</div> <!--  end transaction page-header -->
+	</div> 
+	<!--  End create new transaction  -->
+	
+	
+	<!-- expense transaction table -->
+	@if(role.contains("CREATOR") || role.contains("APPROVER") || role.contains("ACCOUNTANT") || role.contains("AUDITOR")){
+
+	<!--start search-->
+	<div class="content ">
+ 		<!-- Start Page Header -->
+		<div class="page-header">
+			<div id="searchTransaction" class="panel" style="display: none;">
+				<div data-toggle="collapse" data-target="#searh" class="accordion-toggle">
+				    <div class="panel-title">
+				          Searsh Transaction Based on Searsh Criteria
+				     </div>
+		        </div>
+				<div class="hiddenRow">
+					<div id="search-launch-top" class="accordian-body collapse"><i class="fa fa-times-circle fa-2x close-legend" id="searchTransactionClose" onClick="cancelSearch()"></i></div>
+					
+					<div id="transactionSearchDetails" class="panel-body">
+						<table class="table table-bordered table-striped" id="transactionSearchDetailsTable">               
+							<thead>
+								<tr>
+									<th>Category Transaction Ref. Number</th>
+									<th>Transaction Question Type</th>
+									<th>Item</th>
+									<th>Select date range</th>
+									<th>Select Branch & Project</th>
+									<th>Select Amount Range</th>
+									<th>With/Without Supporting Document</th>
+									<th>With/Without Remarks</th>
+									<th>Select Vendor or Customer</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="transactionSearchTr"> 
+								 	<td><select name="searchCategory" id="searchCategory" onchange="populateSearchItemBasedOnCategory(this);" class="form-control proyect">
+								 		<option value="">--Please Select--</option></select>
+								 		<br/>
+								 		<input type="text" name="searchTxnRefNumber" id="searchTxnRefNumber" class="m-top-10" placeholder="Transaction Ref. Number">
+								 	</td>
+								 	<td><select name="searchTxnQuestion" id="searchTxnQuestion"><optgroup label="Transaction Questions"></optgroup><option value="">--Please Select--</option>
+								 		<option value="1">Sell on cash & collect payment now</option><option value="2">Sell on credit & collect payment later</option><option value="3">Buy on cash & pay right away</option>
+								 		<option value="4">Buy on credit & pay later</option><option value="5">Receive payment from customer</option><option value="6">Receive advance from customer</option>
+								 		<option value="7">Pay vendor/supplier</option><option value="8">Pay advance to vendor or supplier</option><option value="9">Receive special adjustments amount from vendors</option>
+								 		<option value="10">Pay special adjustments amount to vendors</option><option value="11">Buy on Petty Cash Account</option><option value="12">Sales returns</option>
+								 		<option value="13">Purchase returns</option><option value="14">Transfer main cash to petty cash</option><option value="20">Make Provision/Journal Entry</option>
+								 		<option value="22">Withdraw Cash From Bank</option><option value="23">Deposit Cash In Bank</option><option value="24">Transfer Funds From One Bank To Another</option>
+								 		<option value="25">Transfer Inventory Item From One Branch To Another</option><option value="26">Inventory Opening Balance</option>
+								 		</select>
+								 		<br/><select name="searchUserType" id="searchUserType" class="m-top-10"><optgroup label="Type"></optgroup><option value="">--Please Select--</option><option value="1">Created By</option><option value="2">Approved By</option></select>
+								 	</td>
+								 	<td><select name="searchItems" id="searchItems"></select><br/>
+								 		<select name="searchTxnStatus" id="searchTxnStatus" class="m-top-10"><optgroup label="Transaction Status"></optgroup>
+								 		<option value="">---Please select---</option><option value="Require Approval">Require Approval</option><option value="Require Clarification">Require Clarification</option><option value="Clarified">Clarified</option><option value="Approved">Approved</option>
+								 		<option value="Require Additional Approval">Require Additional Approval</option><option value="Rejected">Rejected</option><option value="Accounted">Accounted</option></select>
+								 	</td>  
+								 	<td><input type="text" id="searchFromDate" name="searchFromDate" class="myPicker m-bottom-10 calendar" placeholder="From Date">
+								 		<br/><input type="text" id="searchToDate" name="searchToDate" class="myPicker calendar" placeholder="To Date">
+								 	</td>
+								 	<td><select name="searchBranch" id="searchBranch"><option value="">--Please Select--</option></select>
+								 		<br/><select name="searchProject" id="searchProject" class="m-top-10"><option value="">--Please Select--</option></select>
+								 	</td>
+								 	<td><input type="text" name="amountFrom" id="amountFrom" onkeypress="return onlyDotsAndNumbers(event)" placeholder="From Amount" class="m-bottom-10 money"><br/>
+										<input type="text" name="amountTo" id="amountTo" onkeypress="return onlyDotsAndNumbers(event)" placeholder="To Amount" class="money">
+									</td>
+					              	<td><select name="searchWithWithoutSuppDoc" id="searchWithWithoutSuppDoc"><optgroup label="Supporting Docs"></optgroup>
+						              	<option value="">--Please Select--</option><option value="1">Yes</option><option value="0">No</option></select><br/>
+						              	<select name="txnSearchPayMode" id="txnSearchPayMode" class="m-top-10"><optgroup label="Pay Mode"></optgroup><option value="">--Please Select--</option><option value="1">CASH</option><option value="2">BANK</option></select>
+					              	</td>
+								    <td><select name="txnSearchRemarks" id="txnSearchRemarks" class="m-bottom-10"><optgroup label="Remarks"></optgroup><option value="">--Please Select--</option><option value="1">Yes</option><option value="0">No</option></select>
+										<br/><select name="txnSearchException" id="txnSearchException"><optgroup label="Transaction Exception"></optgroup><option value="">--Please Select--</option><option value="1">Transaction Exceeding Budget</option>
+										<option value="2">Knowledge Liabrary Not Followed</option><option value="3">Transaction Exceeding Budget & Knowledge Liabrary Not Followed</option></select>
+									</td>
+					              	<td><select name="searchVendor" id="searchVendor" class="m-bottom-10"><option value="">--Please Select--</option></select><br/>
+					              		<select name="searchCustomer" id="searchCustomer"><option value="">--Please Select--</option></select>
+					              	</td>
+								</tr>
+							</tbody>
+						</table>  
+						<script>
+							var maximumYear=new Date().getFullYear()+30;
+							$(function() {
+								$(".myPicker").datepicker({
+									changeMonth : true,
+									changeYear : true,
+									dateFormat:  'MM d,yy',
+									yearRange: ''+new Date().getFullYear()-100+':'+maximumYear+'',
+									onSelect: function(x,y){
+								        $(this).focus();
+								    }
+								});
+							});
+						</script><br/>
+						<div>
+						    <button id="searchTransactionCriteriaBased" class="searchTransactionCriteriaBased btn btn-primary btn-idos" title="Search Transaction">Search Transaction</button>
+							@if(role.contains("ACCOUNTANT")){
+							<button id="downloadTransaction" class="downloadTransaction btn btn-primary btn-idos" title="Submit for Accounting">Download Transaction's</button> 
+							as <select name="downloadTransactionAs" id="downloadTransactionAs" style="width:70px;"><option value="xls">XLS</option><option value="csv">CSV</option></select>
+							}
+						</div>	                    
+					</div> 
+				</div>
+			</div>                  	   
+		</div> <!-- End Page Header -->
+	</div>
+	<!--end search-->
+	
+	@if(role.contains("CREATOR") || role.contains("APPROVER") || role.contains("ACCOUNTANT") || role.contains("AUDITOR")){
+		<div class="content ">
+		    <!-- Start Panel -->    
+			<div class="panel panel-showtrans">
+				<div class="panel-body table-responsive">
+					<table></table>
+		           	<table id="transactionTable" class="table display">
+		              <thead>
+		                  <tr>
+								<th>BRANCH</th>
+								<th>ITEM</th>
+								<th>CUSTOMER/VENDOR	</th>
+								<th>DATE</th>
+								<th>PAY MODE</th>
+								<th>UNIT PRICE</th>
+								<th>AMOUNT/DESCRIPTION</th>
+								<th>STATUS</th>
+								<th>DOCUMENTS</th>
+								<th>REMARKS</th>
+		                  </tr>
+		              </thead>
+		              <tbody></tbody>
+		           </table>
+				</div>
+			</div>
+		    <!-- End Panel -->
+		    
+	    </div>
+	}
+}
+</div>
+<!--  end all -->
+@if(role.contains("ACCOUNTANT") || role.contains("AUDITOR") || role.contains("CONTROLLER")){
+	@configCasBankBook(fullName,email,role,orgn,allowedProcurement){
+	}
+	@trialBalance(fullName,email,role,orgn,allowedProcurement){
+	}
+	@periodicInventory(fullName,email,role,orgn,allowedProcurement){
+	}
+}

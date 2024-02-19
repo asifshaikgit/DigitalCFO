@@ -1,0 +1,162 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+@if(role.contains("CREATOR")){
+<div class="transactionDetailsTable" id="creditDebitTxnDiv" style="overflow: auto; display: none;">
+	<table class="table excelFormTable transaction-create" id="txnCrditDebitTable">
+		<thead class="tablehead1">
+			<tr id="cdtdbtHeadTr">
+				<th>Increase/Decrease</th><th>From and To Date</th><th>Branches<i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Please select for which branch or project you want to create this transaction."></i></th>
+				<th>Customer</th><th>Type of Supply</th><th>Place of Supply</th>
+				<th>Total Net Amount</th><th>Transaction notes<th>Supporting Docs</th>
+			</tr>
+		</thead>
+		<tbody>
+		 <tr id="cdtdbttrid">
+			<td>
+				<select class="creditDebitType" id="cdtdbtTxnType" onChange="resetCreditDebitTxn();"><option value="">Please Select</option></select></td>
+			<td>
+				<input class="datepicker" name="txnFromDate" type="text" id="cdtdbtFromDate"/></br>
+				<input class="datepicker" name="txnToDate" type="text" id="cdtdbtToDate"/></td>
+			<td>
+				<select class="txnBranches" name="cdtdbtTxnForBranches" id="cdtdbtTxnForBranches" onChange="checkCreditDebitType(this); populateProjectItemBasedOnTxnPurposeBranchSelection(this); getCustomerListForBranch(this);"><option value="">Please Select</option></select>
+				<p class="para-tm5-bm0 snglUsrDply">Project</p><select class="txnForProjects" id="cdtdbtTxnForProjects"><option value="">Please Select</option></select></td>
+			<td>
+				<select class="masterList" name="cdtdbtCustomer" id="cdtdbtCustomer" onChange="checkCreditDebitType(this);  populatecustvendspecifics(this); getCustomerGstinList(this); getklinvoices(this);"><option value="">--Please Select--</option></select>
+				<p class="para-tm5-bm0">Sales Invoices</p>
+				<select class="salesExpenseTxns" id="cdtdbtInvoices" onchange="getInvoiceValue(this);"><option value="">--Please Select--</option></select></td>
+			<td>
+				<select class="txnTypeOfSupply" id="cdtdbtTypeOfSupply" onChange="resetBasedOnTypeOfSupply(this);" disabled="true"><option value="">--Please Select--</option><option value="1">Regular Supply</option><option value="2">Supply applicable for Reverse Charge</option><option value="3">This is an Export Supply</option><option value="4">This is supply to SEZ Unit or SEZ Developer</option><option value="5">This is deemed Export Supply</option><option value="6">Supply made through E-commerce Operator</option><option value="7">Bill of Supply</option></select><p class="para-tm5-bm0" name="withWithoutTaxPara" style="display: none;">With / Without IGST<select class="txnWithWithoutTaxCls" id="cdtdbtWithWithoutTax" onChange="resetBasedOnWithWithoutTax(this);" disabled="true"><option value="">--Please Select--</option><option value="1">On payment of IGST</option><option value="2">Under Bond / LUT without payment of IGST</option></select></p></td>
+			<td>
+				<select class="placeOfSply txnDestGstinCls" name="txnPlaceOfSply" id="cdtdbtPlaceOfSply" disabled="true"></select></br><button class="btn btn-submit" id="popupAddiDetails" style="margin-top: 28px;" onClick="generatePDFInvoice(this);">Additional Details</button></td>
+			<td>
+				<input type="text" class="netAmountValTotal" id="cdtdbtnetamntTotal" readonly="true" placeholder="Net Result">
+				<p class="para-tm5-bm0">Total Invoice Value</p>
+				<input type="text" class="totalInvoiceValue" id="cdtdbtTotalInvoiceValue" readonly="true" placeholder="Total Invoice Value"></td>
+			<td>
+				<textarea class="voiceRemarksClass" name="cdtdbtRemarks" id="cdtdbtRemarks" rows="4" placeholder="Input Remarks"></textarea>
+			</td>
+			<td>
+				<select id="cdtdbtUploadSuppDocs" name="txnUploadSuppDocs" class="txnUploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+				<br>
+				<button id="txnUploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+				<button id="txnUploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                <button id="txnUploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+				<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+			 </td>
+		 </tr>
+		</tbody>
+	</table>
+	<span style="height:25px; font-size: 11px;">
+		<div class="itemParentNameDiv" style="max-width:25%; display:inline-block;"></div><span class="snglUsrDply"><div class="actualbudgetDisplay" style="max-width:25%; display:inline-block;"></div><div class="budgetDisplay" style="max-width:25%; display:inline-block;"></div><div class="amountRangeLimitRule" style="max-width:25%; display:inline-block;"></div></span>
+	</span>
+	<div id="staticsellmultipleitemscdtdbt" class="staticsellmultipleitems" style="max-height: 350px; overflow:auto;">
+		<table class="multipleItemsTable" id="multipleItemsTablecdtdbt" name="multipleItemsTablecdtdbt">
+		<thead><tr><th><button style="display:none;" class="addnewItemForTransaction" id="addnewItemForTransaction" title="add more items"><i class="fa fa-plus-circle fa-lg"></i></button>Item</th><th>Revised Price</th><th>Resultant<br>Units</th><th>Discount</th><th>Taxable Value</th><th>Tax Rate &amp;Amt <div id="taxNameList"></div></th><th>Invoice Value</th><!--<th>Available<br>Advance</th><th>Adv. Adj</th><th>Adv.Tax Adj<div id="advAdjTaxNameList"></div></th>--><th>Net</th><th>Detailed Result</th><th><button class="removeItemForTransaction" id="removeItemForTransaction" title="remove items"><i class="fa fa-minus-circle fa-lg"></i></button></th></tr> </thead>
+		 <tbody>
+			 <tr id="cdtdbt0">
+				<td><select class="txnItems" id="cdtdbtItem" readonly="true"><option value="">Please Select</option></select></td>
+				<td><input class="txnPerUnitPrice" placeholder="Price Per Unit" type="text" id="cdtdbtPerUnitPrice"  onkeypress="return onlyDotsAndNumbers(event);" onblur="checkData4CreditDebitNote(this, 'txnPerUnitPriceHid');" onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);"/><input type="hidden" class="txnPerUnitPriceHid"/></td>
+				<td>
+					<input class="txnNoOfUnit" type="text" id="cdtdbtUnits" placeholder="Units(if any)" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);" onblur="checkData4CreditDebitNote(this, 'txnNoOfUnitHid'); checkStockAvailableForSellTran(this);" /><input type="hidden" class="txnNoOfUnitHid"/>
+				</td>
+				<td>
+					<input type="text" class="txnDiscountPercent" id="cdtdbtDiscountPercent" placeholder="%" onkeypress="return onlyDotsAndNumbers(event);" onblur="checkData4CreditDebitNote(this, 'txnDiscountPercentHid'); " onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);" readonly="true"/>%<input type="hidden" class="txnDiscountPercentHid"/><br>
+				<input type="text" class="txnDiscountAmount" id="cdtdbtDiscountAmt"  placeholder="Amount" readonly="true"/></td>
+				<td><input class="txnGross"  placeholder="Gross Amount" type="text" id="cdtdbtGross" readonly="true"></td>
+				<td><div id="taxCell"><div id="taxCell0"></div><div id="taxCell1"></div><div id="taxCell2"></div><div id="taxCell3"></div><div id="taxCell4"></div></div><input type="hidden" class="txnTaxTypes" id="cdtdbtTaxtypes"/><input type="hidden" class="itemTaxAmount"/></td>
+				<td><input type="text" class="invoiceValue" placeholder="Invoice Value" id="cdtdbtInvoiceValue" readonly="true"/></td>
+				<!--<td><input type="text" class="customerAdvance" placeholder="Advance Available" id="cdtdbtCustomeradvance" readonly="true"/></td>
+				<td><input type="text" class="howMuchAdvance" placeholder="Advance to Adjust?" id="cdtdbtHowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event);" onblur="checkData4CreditDebitNote(this, 'howMuchAdvanceHid'); checkStockAvailableForSellTran(this);" onkeyup="adjustAdvance(this);" readonly="true"/><input type="hidden" class="howMuchAdvanceHid"/></td>
+				<td><div id="advAdjTaxCell"><div id="advAdjTaxCell0"></div><div id="advAdjTaxCell1"></div><div id="advAdjTaxCell2"></div><div id="advAdjTaxCell3"></div><div id="advAdjTaxCell4"></div></div></td>-->
+				<td><input type="text" class="netAmountVal" id="cdtdbtNetamnt" readonly="true" placeholder="Net Result"></td>
+				<td><div class="netAmountDescriptionDisplay" id="netAmountLabel"></div></td>
+				<td><input class="removeTxnCheckBox" type="checkbox"/></td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<button id="accountingcancelButton" class="compcancelButton btn btn-cancel cancel" title="Cancel" onClick="cancel(); deleteUncomittedFiles();" >Cancel Transaction</button>
+	<button  id="cdtdbtSubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+</div>
+<!-- end credit/debit note customer -->
+<div class="transactionDetailsTable" id="creditDebitVendTxnDiv" style="overflow: auto; display: none;">
+	<table class="table excelFormTable transaction-create" id="txnCrditDebitVendTable">
+		<thead class="tablehead1">
+			<tr><th>Increase/Decrease</th><th>From and To Date</th>
+			<th>Branches</th>
+			<th>Vendor/ Supplier<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="From whom to buy / what payment / who to pay"></i></th><th>Type of Supply</th><th>Place of Supply</th>
+			<th>Total Net Amount</th><th class="paymentDetailsLabel">Payment Details</th>
+			<th>Transaction notes</th><th>Supporting Docs</th>
+			</tr>
+		</thead>
+		<tbody><tr id="cdtdbvtrid">
+			<td><select class="creditDebitType" id="cdtdbvTxnType" onChange="resetCreditDebitTxn();"><option value="">Please Select</option></select></td>
+			<td>
+				<input class="datepicker" name="txnFromDate" type="text" id="cdtdbvFromDate"/><br>
+				<input class="datepicker" name="txnToDate" type="text" id="cdtdbvToDate"/></td>
+			<td><select class="txnBranches" id="cdtdbvTxnForBranches" onChange="checkCreditDebitType(this); populateProjectItemBasedOnTxnPurposeBranchSelection(this); getCustomerListForBranch(this); fetchBranchInTaxesCess(this);"><option value="">--Please Select--</option></select><br>
+			<p class="para-tm5-bm0 snglUsrDply">Project</p><select class="txnForProjects" name="cdtdbvTxnForProjects" id="cdtdbvTxnForProjects"><option value="">--Please Select--</option></select></td>
+			<td><div class="regCustomerDivCls">
+				<select class="masterList" name="cdtdbvVendor" id="cdtdbvVendor" onchange="checkCreditDebitType(this); populatecustvendspecifics(this); getklinvoices(this); getVendorGstinList(this);"><option value="">--Please Select--</option></select></div>
+				<p class="para-tm5-bm0">Transaction List</p>
+				<select class="salesExpenseTxns" name="cdtdbvInvoices" id="cdtdbvInvoices" onchange="getInvoiceValue(this);"><option value="">--Please Select--</option></select></td>
+			<td><select class="txnTypeOfSupply" id="cdtdbvTypeOfSupply" onChange="resetBasedOnTypeOfSupply(this); clearMainTransTableFields(this);" disabled="true"></select></td>
+			<td><div class="regCustomerDivCls"><select class="placeOfSply txnDestGstinCls" name="txnPlaceOfSply" id="cdtdbvPlaceOfVend" onChange="disableWalkinVendor(this); resetMultiItemsTableFieldsData(this);" disabled="true"><option value="">--Please Select--</option></select></div></td>
+			<td><input type="text" class="netAmountValTotal" name="cdtdbvnetamntTotal" id="cdtdbvnetamntTotal" readonly="true" placeholder="Net Result"><br><button type="button" class="btn btn-submit" onclick="setAdditionalBuyTxnDetails(this);" style="margin-top:28px;" id="popupCdtDbvTxnAddDetailBtn">Additional Details</button></td>
+			<td class="paymentDetails"><div id="paymentBankDetails"><textarea rows="3" name="paymentBranchBankAccount" id="paymentBranchBankAccount"></textarea>
+			</div><div class="invDateDiv">Vendor Invoice Date<br/><input type="text" name="vendorInvoiceDate" id="vendorInvoiceDate" class="datepicker"></div></td>
+			<td><div id="procurementRequestRemarks"></div><textarea class="voiceRemarksClass" name="cdtdbvRemarks" id="cdtdbvRemarks" rows="3" placeholder="Input Remarks"></textarea></td>
+			<td><select id="cdtdbvuploadSuppDocs" name="cdtdbvuploadSuppDocs" class="txnUploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select><br>
+				<button id="cdtdbvuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+				<button id="cdtdbvuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                <button id="cdtdbvuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+				<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div></td>
+		</tr></tbody>
+	</table>
+	<span style="width:100%; height:25px; font-size: 11px;">
+		<div class="itemParentNameDiv" style="max-width:25%; display:inline-block;"></div><span class="snglUsrDply"><div class="actualbudgetDisplay" style="max-width:25%; display:inline-block;"></div><div class="budgetDisplay" style="max-width:25%; display:inline-block;"></div><div class="amountRangeLimitRule" style="max-width:25%; display:inline-block;"></div></span>
+	</span>
+	<div id="staticsellmultipleitemscdtdbv" class="staticbuymultipleitems" style="max-height: 350px; overflow:auto;">
+		<table class="multipleItemsTable" id="multipleItemsTablecdtdbv">
+		<thead>
+			<tr id="cdtdbvHeadTr"><th><button style="display:none;" class="addnewItemForTransaction" id="addnewItemForTransaction" title="add more items"><i class="fa fa-plus-circle fa-lg"></i></button>Item</th><!--<th>Knowledge Library</th>--><th class="rcmCompToshowGood" style="display:none;">Reverse Charge Items</th><th class="rcmCompToshowGood" style="display:none;">Duties</br> and taxes</th><th>Revised Price</th><th>Resultant<br>Units</th><th>Gross</th><th>GST Rate</th><th>Tax Amount<div id="taxNameList"></div></th><th>Cess Rate</th><th>Cess Amt</th><th>Resultant </br> WHTax</th><!--<th>Advance</th><th>Adv. Adj.</th>--><th>NetAmt </th><th>Detailed Result</th><th><button class="removeItemForTransaction" id="removeItemForTransaction" title="remove items"><i class="fa fa-minus-circle fa-lg"></i></button></th></tr>
+		</thead>
+		<tbody>
+			<tr id="cdtdbv0">
+				<td><select class="txnItems"  name="cdtdbvItem" id="cdtdbvItem" onChange="populateBuyTranData(this);"><option value="">Please Select</option></select></td>
+				<!--<td><div class="klBranchSpecfTd" style="height: 50px; overflow: auto;"></div></td> -->
+				<td class="rcmCompToshowGood" style="display:none;"><select class="txnRcmTaxItem"><option value="">Please Select</option></select></td>
+				<td  class="rcmCompToshowGood" style="display:none;"><input type="text" class="txnDutiesAndTaxes" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateNetAmount(this);">
+					<input type="hidden" class="txnDutiesAndTaxesHid" ></td>
+				<td><input class="txnPerUnitPrice" placeholder="Price Per Unit" type="text" name="cdtdbvpriceperunits" id="cdtdbvpriceperunits" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateGross(this); calculateNetAmount(this);" onblur="checkData4CreditDebitNote(this, 'txnPerUnitPriceHid');"/><input type="hidden" class="txnPerUnitPriceHid"/></td>
+				<td><input class="txnNoOfUnit" type="text" name="cdtdbvunits" id="cdtdbvunits" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateGross(this); calculateNetAmount(this);" onblur="checkData4CreditDebitNote(this, 'txnNoOfUnitHid'); checkStockAvailableForSellTran(this);" placeholder="Units(if any)"/><input type="hidden" class="txnNoOfUnitHid"/></td>
+				<td><input class="txnGross" placeholder="Gross Amount" type="text" name="cdtdbvgross" id="cdtdbvgross" readonly="true"></td>
+				<td><select class="txnGstTaxRate" id="cdtdbvTaxRate" onChange="calculateNetAmount(this);"><option value="">Select</option></select></td>
+				<td><div id="taxCell"><div id="taxCell0"></div><div id="taxCell1"></div><div id="taxCell2"></div></div>
+					<input class="txnTaxTypes" placeholder="Taxes" type="hidden" name="cdtdbvInTaxDetails" id="cdtdbvInTaxDetails" readonly="true"/>
+				</td>
+				<td><select class="txnCessRate" id="cdtdbvCessRate" onChange="calculateNetAmount(this);"><option value=""> Select</option></select></td>
+				<td><input type="text" class="txnCessTaxAmt" id="cdtdbvCessAmt" readonly="true" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateNetAmountWhenTaxAmtChangedForBuy(this);"/>
+					<input type="hidden" class="itemTaxAmount" name="cdtdbvTotaltaxamnt" id="cdtdbvTotaltaxamnt" readonly="true" placeholder="Tax Amount"/>
+					<input type="hidden" class="actualbudgetDisplayVal" id="cdtdbvactualbudgetDis" name="cdtdbvactualbudgetDis" value="0"/>
+					<input type="hidden" class="budgetDisplayVal" id="cdtdbvbudgetDisplay" name="cdtdbvbudgetDisplay" value="0"/>
+					<input type="hidden" class="amountRangeFromLimit" id="cdtdbvAmountRangeFromLimit" value="0"/>
+					<input type="hidden" class="amountRangeToLimit" id="cdtdbvAmountRangeToLimit" value="0"/>
+				</td>
+				<td>
+					<input type="text" class="withholdingtaxcomponenetdiv" name="cdtdbvwithheldingtaxamnt" id="cdtdbvwithheldingtaxamnt" onkeyup="calculateNetAmountOnTdsChange(this);" readonly placeholder="Withholding Tax"/>
+					<input type="hidden" class="txnLeftOutWithholdTransIDs"/>
+				</td>
+				<!--<td><input type="text" class="customerAdvance" placeholder="Advance Available" name="cdtdbvvendoradvance" id="cdtdbvvendoradvance" readonly></td>
+				<td><input type="text" class="howMuchAdvance" placeholder="Advance to Adjust?" name="cdtdbvhowmuchfromadvance" id="cdtdbvhowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateNetAmountWhenAdvanceChangedForBuy(this);" readonly="true" disabled></td>-->
+				<td><input type="text" class="netAmountVal" name="cdtdbvnetamnt" id="cdtdbvnetamnt" readonly="true" placeholder="Net Amount"></td>
+				<td><div class="netAmountDescriptionDisplay" id="cdtdbvnetAmountLabel"></div></td>
+				<td><input class="removeTxnCheckBox" type="checkbox" /></td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<button id="accountingcancelButton" class="compcancelButton btn btn-cancel btn-customred" title="Cancel" onClick="cancel(); deleteUncomittedFiles();">Cancel Transaction</button>
+	<button id="cdtdbvsubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+</div>
+<!-- end credit/debit note vendor -->
+}

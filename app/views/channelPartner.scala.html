@@ -1,0 +1,26 @@
+@(email:String, subject:String, phone:String, msg:String, name:String,configParams:model.ConfigParams)
+<table style="width: 600px;font-family: sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td>
+				@(configParams.getCompanyApp()) CORP - Accounting Simplified
+			</td>
+		</tr>
+		<tr id="emailBody">
+			<td>
+				<table>
+					<tbody style="font-family: sans-serif;">
+						<tr><td style="width: 200px;">Name</td><td>@name</td></tr>
+						<tr><td style="width: 200px;">Phone</td><td>@phone</td></tr>
+						<tr><td style="width: 200px;">Email</td><td>@email</td></tr>
+						<tr><td style="width: 200px;">Subject</td><td>@subject</td></tr>
+						<tr><td style="width: 200px;">Comments</td><td>@msg</td></tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

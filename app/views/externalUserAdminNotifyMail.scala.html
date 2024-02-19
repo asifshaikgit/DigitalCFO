@@ -1,0 +1,26 @@
+@(userName:String,orgName:String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td style="font-size: 16px; font-weight: bold;">External User access has been provided to @{userName} for @{orgName} Organization.</td>
+			<td></td>
+		</tr>
+		<tr id="emailBody" >
+		    <td>
+		      <table>
+		        <tr>
+		          <td style="font-size: 13px; font-weight: bold;">
+		          	If you have not given this access or if this access was given by mistake,<br/><br/>
+		          	 please login to user set up screen of @configParams.getCompanyApp() and click on 'Deactivate External User'.
+		          	
+		          	</td>
+		        </tr>
+		        
+		      </table>
+		    </td>
+	  	</tr>
+		<tr  id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+	</table>

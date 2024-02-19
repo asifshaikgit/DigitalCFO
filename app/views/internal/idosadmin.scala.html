@@ -1,0 +1,36 @@
+@(fullName:String, email:String, role:String, orgn: model.Organization, allowedProcurement:String, configParams:model.ConfigParams)
+@main(fullName, email, null, orgn, allowedProcurement, null, configParams){
+    <style type="text/css">
+            body {
+                background: #F5F5F5;
+            }
+    </style>
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $('#loadingIdos').hide();
+                $('#mainBody').show();
+            });
+    </script>
+    <div class="login-form"  role="login" id="wrapper">
+        <form onsubmit="return false;">
+            <div class="top">
+                <img src="@(configParams.getCompanyLogoPath())" alt="icon">
+                <h4 class="panel-title">Adminstraion page</h4>
+            </div>
+            <div class="form-area">
+                <div class="group">
+                    <b style="font-weight: 600;"><a href="/saledata">Registered companies</a></b>
+                </div>
+                <div class="group">
+                    <b style="font-weight: 600;"><a href="/orgsalesdata1s3d5">Old page for Registered companies</a></b>
+                </div>
+                <div class="group">
+                    <b style="font-weight: 600;"><a href="/chngPasswd">Change password and activate account</a></b>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br/>
+    <br/>
+
+}

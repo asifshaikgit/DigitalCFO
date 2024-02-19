@@ -1,0 +1,38 @@
+@(email:String, token:String,configParams:model.ConfigParams)
+<table style="width: 600px;font-family: sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td>
+				@(configParams.getCompanyApp()) CORP - Accounting Simplified
+			</td>
+		</tr>
+		<tr id="emailBody">
+			<td>
+				<table>
+					<tbody style="font-family: sans-serif;">
+						<tr><td style="font-size: 16px; font-weight: bold;"><br><br></td></tr>
+						<tr><td>A request to reset your password has been made. If you did not make this request, simply ignore this mail.<br><br></td></tr>
+						<tr><td>If you did make this request just click the link below:<br><br></td></tr>
+						<tr>
+						  <td>
+				        		<a href="@(configParams.getCompanyUrl())/reset?email=@{email}&token=@{token}#resetLoginCred">Reset Password</a>
+							<br><br>
+						  </td>
+						</tr>
+						<tr><td>If the above link does not work try copying and pasting the following into your browser<br><br></td></tr>
+						<tr><td>
+
+				        		https://@(configParams.getCompanyUrl())/reset?email=@{email}&token=@{token}#resetLoginCred
+
+						<br><br>
+						</td></tr>
+						<tr><td><br><br>If you continue to have problems please feel free to contact us.<br></td></tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

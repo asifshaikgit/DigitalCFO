@@ -1,0 +1,34 @@
+<configuration>
+
+    <!-- Used to produce command line utilities console output -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+    </appender>
+
+    <!-- Used to produce command line utilities file log -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/idos.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/idos.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy HH:mm:ss.SSS}|%-5level|%logger{0}.%method| %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="play" level="WARN" />
+    <logger name="application" level="WARN" />
+
+    <root level="WARN">
+        <!-- <appender-ref ref="STDOUT" /> -->
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>

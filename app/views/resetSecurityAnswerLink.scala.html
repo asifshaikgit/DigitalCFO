@@ -1,0 +1,31 @@
+@(email:String, token:String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;" class="table">
+	<tbody>
+	<tr id="emailHeader">
+				<td>@(configParams.getCompanyApp()) CORP - Accounting Simplified
+				</td>
+			</tr>
+		<tr id="emailBody">
+			<td>
+				<table>
+					<tbody>
+						<tr><td style="font-size: 16px; font-weight: bold;">Forgot your Security Answer?<br><br></td></tr>
+						<tr><td style="font-size: 14px; font-weight: bold;">It's cool, just click the link below<br><br></td></tr>
+						<tr><td style="font-size: 14px;">A request to reset your Security Answer has been made. If you did not make this request, simply ignore this mail.<br><br></td></tr>
+						<tr><td style="font-size: 14px;">If you did make this request just click the link below:<br><br></td></tr>
+						<tr><td style="font-size: 14px;"><a href="https://www.myidos.com/reset?email=@{email}&token=@{token}#resetSecurityAnswerDiv">Reset Security Answer</a><br><br></td></tr>
+						<tr><td style="font-size: 14px;">If the above link does not work try copying and pasting the following into your browser<br><br></td></tr>
+						<tr><td style="font-size: 14px; color: blue; text-decoration: underline;">https://www.myidos.com/reset?email=@{email}&token=@{token}#resetSecurityAnswerDiv<br><br></td></tr>
+						<tr><td style="font-size: 14px;"><br>
+						<b style="font-size: 14px;"> Please contact us at <a href="#" target="_blank">@(configParams.getCompanySupportEmail())</a> or on phone @(configParams.getCompanyMobile()) for any assistance. </b>
+						<br/>
+						<br/></td></tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,150 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<!--
+<div id="tdsTaxDiv" class="taxsetupcls" style="display: none">
+	<div class="">
+			<div style="margin-left:5px;">
+				<div style="display:inline-block;">
+					<button id="addNewTdsTax" style="display:inline-block; margin-right:5px;" class="btn btn-submit" title="Add TDS Taxes">Add New TDS Taxes</button>
+				</div>
+				<div id="fromToDateDiv" style="display:none">
+					<select style="width: 250px; margin-top:10px; margin-left:10px;" id="tdsTaxSetupType">
+						<option value="">Select TDS Setup Type</option>
+						<option value="BASIC">TDS / Witholding Tax - Basic Setup</option>
+						<option value="ADVANCE">TDS / Witholding Tax - Advanced Setup</option>
+					</select>
+					<label style="margin-left: 10px;">Applicable for Period:</label>
+					<label style="margin-left: 5px;">From Date:</label>
+					<input type="text" name="tdsTaxFromDate" id="tdsTaxFromDate" class="datepicker">
+					<label style="margin-left: 5px;">To Date:</label>
+					<input type="text" name="tdsTaxToDate" id="tdsTaxToDate" class="datepicker">
+				</div>
+				<div style="display:inline-block;float:right;">
+					<button id="configTdsOnTransactions" style="display:inline-block;" class="btn btn-submit" data-toggle="collapse" data-target="#applyTdsForTransDiv" onclick="getTdsApplicableTransactions(this);" title="Config TDS Applicable Transactions">Config TDS Applicable Transactions</button>
+				</div>
+				
+			</div>
+				<div id="applyTdsForTransDiv" class="collapse" style="margin-top:20px;">
+							<div class="row">
+								<div class="col-sm-4 text-right">
+									<select class="" multiple="multiple" name="tdsApplyForTrans"  title="Please select Transactions for Apply TDS" id="tdsApplyForTrans"> 
+									<option value="3">Buy on cash &amp; pay right away</option>
+									<option value="4">Buy on credit &amp; pay later</option>
+									<option value="8">Pay advance to vendor or supplier</option>
+									<option value="11">Buy on Petty Cash Account</option>
+									<option value="32">Credit Note for vendor</option>
+									<option value="33">Debit Note for vendor</option>
+									<option value="20">Make Provision/Journal Entry</option>
+								</select>
+								</div>
+								<div class="col-sm-4">
+									<button id="saveTdsApplyTransactions" onclick="saveTdsApplyTransactions(this);" class="btn btn-submit" title="Add Taxes">Add TDS Applicable Transactions</button>
+								</div>
+								<div class="col-sm-4 text-center">
+									<button id="tdsCancel" class="btn btn-cancel" title="Reset all" onClick="resetApplyTransScreen();">Cancel</button>
+								</div>
+							</div>
+				</div>
+			<div id="tdsBasicSetupDiv" style="margin-top:20px;margin-left:5px; max-height:300px; overflow:auto;display:none;">
+				<div class="text-center"><strong>TDS / Witholding Tax - Basic Setup</strong></div>
+				<div class="panel-body">
+						<div style="vertical-align:top; overflow:auto;" >
+							
+							
+							<table class="table excelFormTable" id="tdsTaxBasicTable">
+							<thead class="tablehead1">
+								<tr>
+									<th><button style="cursor: pointer; margin-right:5px; padding:1 !important; height:25px; display:inline-block;" class="addTdsTaxBasicRow" id="addTdsBasicButton" title="add more items"><i class="fa fa-plus-circle fa-lg"></i></button>COA Ledger / Item</th>
+									<th>Select Vendors</th>
+									<th>TDS / Witholding Tax - Section </th>
+									<th>Mode of Computation</th>
+									<th>TDS /witholding Tax - Rate</th>
+									<th>TDS Transaction Limits</th>
+									<th colspan="2">TDS - Overall Limit</th>
+									<th> Supporting document</th>
+									<th><button style="cursor: pointer; float:right; margin-right:2px; padding:1 !important; height:25px; display:inline-block;" class="removeTdsTaxBasicRow" id="removeTdsBasicButton" title="remove item"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+							</table>
+							<div style="margin-top:80px;">
+									<button id="tdsCancel" class="btn btn-cancel" title="Reset all" onClick="resetVendorTdsScreen();">Cancel</button>
+									<button id="saveInTax" onclick="saveTdsBasicTaxes();" style="float:right; margin-right:5px;" class="btn btn-submit" title="Add Taxes">Add Taxes</button>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div id="tdsAdvanceSetupDiv" style="margin-top:10px;margin-left:5px; max-height:400px; overflow:auto;display:none;">
+				 <div class="text-center"><strong>TDS / Witholding Tax - Advanced Setup</strong></div>
+				<div class="panel-body">
+						<div style="vertical-align:top; overflow:auto;" >
+							
+							
+							<table class="table excelFormTable" id="tdsTaxAdvanceTable">
+							<thead class="tablehead1">
+								<tr>
+									<th><button style="cursor: pointer; margin-right:5px; padding:1 !important; height:25px; display:inline-block;" class="addTdsTaxAdvRow" id="addTdsAdvButton" title="add more items"><i class="fa fa-plus-circle fa-lg"></i></button>COA Ledger / Item</th>
+									<th colspan="7">
+										<table class="table innerHeaderTable" id="innerHeaderTable">
+											<thead>
+												<tr>
+													<th>Vendors</th>
+													<th>Expense amount</th>
+													<th>TDS already effected </th>
+													<th>Upto Date</th>
+													<th></th>
+												</tr>
+											</thead>
+										</table>
+									</th>
+									<th><button style="cursor: pointer; float:right; margin-right:2px; padding:1 !important; height:25px; display:inline-block;" class="removeTdsTaxBasicRow" id="removeTdsAdvButton" title="remove item"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+							</table>
+						</div>
+					</div>
+				<div>
+					<button id="tdsCancel" class="btn btn-cancel" title="Reset all" onClick="resetVendorTdsScreen();">Cancel</button>
+					<button id="saveInTax" onclick="saveTdsAdvanceTaxes();" style="float:right; margin-right:5px;" class="btn btn-submit" title="Add Taxes">Add Taxes</button>
+				</div>
+		</div>
+		
+		<div style="margin-top:10px;margin-left:5px; max-height:400px; overflow:auto;">
+			<table class="table excelFormTable table-striped" id="tdsTaxTableHistory">
+				<thead class="tablehead1">
+					<tr>
+						<th>Expenses name </th>
+						<th>Vendor name </th>
+						<th>TDS / Witholding Tax - Section </th>
+						<th>TDS Rate(in %)</th>
+						<th>Mode of Computation</th>
+						<th>Transaction limit</th>
+						<th>Transaction overall limit</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<table class="table excelFormTable table-striped" style="display:none;" id="tdsTaxTableAdvHistory">
+				<thead class="tablehead1">
+					<tr>
+						<th>Expenses name </th>
+						<th>Vendor Name</th>
+						<th>Expence Amount</th>
+						<th>TDS Already Effected</th>
+						<th>Upto Date</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		
+	</div>
+</div>
+-->

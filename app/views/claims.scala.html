@@ -1,0 +1,275 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<!-- Travel Claim -->
+<div class="content">
+<div id="travelClaim-container" class="claim-container">
+	<fieldset class="overview">
+		<legend class="panel-title">Travel Claim's SetUp</legend>
+		<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend claim-container-close" id="travelCliam-container-close"></i></div>
+		<div id="travelGroup">
+			<div id="travelClaimGroupNameDiv">
+				<div style="float: left; margin-right: 100px;">
+					<label>Travel Group Name </label>
+					<input type="hidden" value="" name="travelGroupEntityHidden" id="travelGroupEntityHidden">
+					<input type="text" id="travelClaimGroupName">
+				</div>
+			</div><br/><br/>
+			<fieldset class="overview" style="overflow:auto;">
+				<legend class="panel-title">Distance (Miles /Kilometers)</legend>
+				<table class="table excelFormTable travelClaim-distance-table" style="width: 100% !important;">
+					<thead class="tablehead1">
+	  					<tr id="travelClaimHeadMilesKms"></tr>
+	     			</thead>
+	     			<tbody id="travelClaimBodyMilesKms">
+	     			</tbody>
+				</table>
+			</fieldset>
+		</div>
+		<br>
+		<div id="travelMaxDailyLimitOtherExpenses">
+			<fieldset class="overview" style="overflow:auto;">
+				<legend class="panel-title">Maximum Daily limit for other expenses (for official purpose)</legend>
+				<table class="table excelFormTable travelClaim-max-daily-table" style="width: 100% !important;">
+				<thead class="tablehead1">
+					<tr><th>Country capital</th><th>State capital</th><th>metro city</th><th>other cities</th><th>town</th><th>country</th><th>municipality</th>
+					<th>Village</th><th>remote location</th><th>20 miles away from city or town</th><th>hill station</th><th>resort</th><th>Place of conflict / war zone</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" id="travelMaxCountryCapital" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+						<div>
+							<label>Boarding &amp; Lodging: </label>
+							<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_0" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_0')"> None Selected  &#8711;</button>
+								<div id="travelBoardingLodgingDropDown-menuid_0" class="travelClaim-menuid">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_0">
+								    </ul>
+				    	</div></div></div></td>
+				    	<td><input type="text" id="travelMaxStateCapital" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+				    	<div>
+							<label>Boarding &amp; Lodging: </label>
+					    	<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_1" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_1')"> None Selected  &#8711;</button>
+						    	<div id="travelBoardingLodgingDropDown-menuid_1" class="travelClaim-menuid">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_1">
+								    </ul>
+				    	</div></div></div></td>
+						<td><input type="text" id="travelMaxMetroCity" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+						<div>
+							<label>Boarding &amp; Lodging: </label>
+							<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_2" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_2')"> None Selected  &#8711;</button>
+								<div id="travelBoardingLodgingDropDown-menuid_2" class="travelClaim-menuid">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_2">
+								    </ul>
+				    	</div></div></div></td>
+				    	<td><input type="text" id="travelMaxOtherCity" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+				    	<div>
+							<label>Boarding &amp; Lodging: </label>
+					    	<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_3" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_3')"> None Selected  &#8711;</button>
+						    	<div id="travelBoardingLodgingDropDown-menuid_3" class="travelClaim-menuid">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_3">
+								    </ul>
+				    	</div></div></div></td>
+				    	<td><input type="text" id="travelMaxTown" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+				    	<div>
+							<label>Boarding &amp; Lodging: </label>
+					    	<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_4" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_4')"> None Selected  &#8711;</button>
+						    	<div id="travelBoardingLodgingDropDown-menuid_4" class="travelClaim-menuid">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_4">
+								    </ul>
+				    	</div></div></div></td>
+						<td><input type="text" id="travelMaxCountry" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+						<div>
+							<label>Boarding &amp; Lodging: </label>
+							<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_5" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_5')"> None Selected  &#8711;</button>
+								<div id="travelBoardingLodgingDropDown-menuid_5" class="travelClaim-menuid">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_5">
+								    </ul>
+				    	</div></div></div></td>
+				    	<td><input type="text" id="travelMaxMunicipality" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+				    	<div>
+							<label>Boarding &amp; Lodging: </label>
+					    	<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_6" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_6')"> None Selected  &#8711;</button>
+						    	<div id="travelBoardingLodgingDropDown-menuid_6" class="travelClaim-menuid">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_6">
+								    </ul>
+				    	</div></div></div></td>
+						<td><input type="text" id="travelMaxVillage" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+						<div>
+							<label>Boarding &amp; Lodging: </label>
+							<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_7" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_7')"> None Selected  &#8711;</button>
+								<div id="travelBoardingLodgingDropDown-menuid_7" class="travelClaim-menuid" style="left: -52px;">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_7">
+								    </ul>
+				    	</div></div></div></td>
+				    	<td><input type="text" id="travelMaxRemoteLoc" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+				    	<div>
+							<label>Boarding &amp; Lodging: </label>
+					    	<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_8" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_8')"> None Selected  &#8711;</button>
+						    	<div id="travelBoardingLodgingDropDown-menuid_8" class="travelClaim-menuid" style="left: -152px;">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_8">
+								    </ul>
+				    	</div></div></div></td>
+						<td><input type="text" id="travelMaxAwayCityTown" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+						<div>
+							<label>Boarding &amp; Lodging: </label>
+							<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_9" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_9')"> None Selected  &#8711;</button>
+								<div id="travelBoardingLodgingDropDown-menuid_9" class="travelClaim-menuid" style="left: -252px;">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_9">
+								    </ul>
+				    	</div></div></div></td>
+				    	<td><input type="text" id="travelMaxHillStation" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+				    	<div>
+							<label>Boarding &amp; Lodging: </label>
+					    	<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_10" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_10')"> None Selected  &#8711;</button>
+						    	<div id="travelBoardingLodgingDropDown-menuid_10" class="travelClaim-menuid" style="left: -352px;">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_10">
+								    </ul>
+				    	</div></div></div></td>
+						<td><input type="text" id="travelMaxresort" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+						<div>
+							<label>Boarding &amp; Lodging: </label>
+							<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_11" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_11')"> None Selected  &#8711;</button>
+								<div id="travelBoardingLodgingDropDown-menuid_11" class="travelClaim-menuid" style="left: -452px;">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_11">
+								    </ul>
+				    	</div></div></div></td>
+				    	<td><input type="text" id="travelMaxWarZone" value="0.0" onkeypress="return onlyDotsAndNumbers(event)">
+				    	<div>
+							<label>Boarding &amp; Lodging: </label>
+					    	<div class="btn-group claim-btn-group">
+								<button id="travelBoardingLodgingDropDown_12" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('travelBoardingLodgingDropDown-menuid_12')"> None Selected  &#8711;</button>
+						    	<div id="travelBoardingLodgingDropDown-menuid_12" class="travelClaim-menuid" style="left: -552px;">
+								    <div class="travelBoardingLodgingSearchDiv"><input type="text" style="width: 600px !important; margin: 5px;" class="search-image" name="travelBoardingLodgingSearchInput" id="travelBoardingLodgingSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+								    <ul class="claim-list" id="travelBoardingLodgingList_12">
+								    </ul>
+				    	</div></div></div></td>
+					</tr>
+				</tbody>
+			</table>
+			</fieldset>
+		</div>
+		<br>
+		<div id="travelFixedDailyDian">
+			<fieldset class="overview" style="overflow:auto;">
+				<legend class="panel-title">Fixed Daily per diam</legend>
+				<table class="table table-striped excelFormTable travelClaim-fixed-daily-table" style="width: 100% !important;">
+					<thead class="tablehead1">
+						<tr><th>Country capital</th><th>State capital</th><th>metro city</th><th>other cites</th><th>town</th><th>country</th>
+						<th>municipality</th><th>Village</th><th>remote location</th><th>20 miles away from city or town</th><th>hill station</th><th>resort</th><th>Place of conflict / war zone</th></tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" id="fixedCountryCapital" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td><td><input type="text" id="fixedStateCapital" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td>
+							<td><input type="text" id="fixedMetroCity" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td><td><input type="text" id="fixedOtherCity" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td><td><input type="text" id="fixedTown" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td>
+							<td><input type="text" id="fixedCountry" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td><td><input type="text" id="fixedMunicipality" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td>
+							<td><input type="text" id="fixedVillage" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td><td><input type="text" id="fixedRemoteLoc" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td>
+							<td><input type="text" id="fixedAwayCityTown" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td><td><input type="text" id="fixedHillStation" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td>
+							<td><input type="text" id="fixedresort" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td><td><input type="text" id="fixedWarZone" value="0.0" onkeypress="return onlyDotsAndNumbers(event)"></td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset>
+		</div>
+		<div id="travelKnowledgeLibrary">
+			<fieldset class="overview" style="overflow:auto;">
+				<legend class="panel-title">Knowledge Library</legend>
+				<table class="table  table-striped excelFormTable travelClaimKnowledgeLibrary" style="width: 100% !important;">
+					<thead class="tablehead1">
+						<tr><td>Remarks</td><td>Mandatory</td><td>Remarks</td><td>Mandatory</td><td>Remarks</td><td>Mandatory</td><td>Remarks</td><td>Mandatory</td><td>Remarks</td><td>Mandatory</td><td>Remarks</td><td>Mandatory</td></tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><textarea rows="2" id="travelKlRemarks1" name="travelKlremarks"></textarea></td><td><select id="travelKlMandatory1" name="travelKlMandatory"><option value="Please Select">Please Select</option><option value="1">Yes</option><option value="0">No</option></select></td>
+							<td><textarea rows="2" id="travelKlRemarks2" name="travelKlremarks"></textarea></td><td><select id="travelKlMandatory2" name="travelKlMandatory"><option value="Please Select">Please Select</option><option value="1">Yes</option><option value="0">No</option></select></td>
+							<td><textarea rows="2" id="travelKlRemarks3" name="travelKlremarks"></textarea></td><td><select id="travelKlMandatory3" name="travelKlMandatory"><option value="Please Select">Please Select</option><option value="1">Yes</option><option value="0">No</option></select></td>
+							<td><textarea rows="2" id="travelKlRemarks4" name="travelKlremarks"></textarea></td><td><select id="travelKlMandatory4" name="travelKlMandatory"><option value="Please Select">Please Select</option><option value="1">Yes</option><option value="0">No</option></select></td>
+							<td><textarea rows="2" id="travelKlRemarks5" name="travelKlremarks"></textarea></td><td><select id="travelKlMandatory5" name="travelKlMandatory"><option value="Please Select">Please Select</option><option value="1">Yes</option><option value="0">No</option></select></td>
+							<td><textarea rows="2" id="travelKlRemarks6" name="travelKlremarks"></textarea></td><td><select id="travelKlMandatory6" name="travelKlMandatory"><option value="Please Select">Please Select</option><option value="1">Yes</option><option value="0">No</option></select></td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset>
+		</div>
+		<div>
+			<button title="Close Travel Group" id="cancelTravelGroup" name="cancelTravelGroup" type="button" class="btn btn-cancel btn-idos" value="1">Cancel</button>
+			<button title="Add/Update Travel Group" id="addUpdateTravelGroup" name="addUpdateTravelGroup" type="button" class="btn btn-submit btn-idos" value="1">Add/Update Travel Group</button>
+		</div>
+	</fieldset>
+</div>
+<!-- Expense Claim -->
+<div id="expenseClaim-container" class="claim-container">
+	<fieldset class="overview">
+		<legend class="panel-title">Expense Claim's SetUp</legend>
+		<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend claim-container-close" id="expenseClaim-container-close"></i></div>
+		<div style="margin-bottom: 10px;">
+			<label style="margin-right: 123px;">Expense Claim's Group Name </label>
+			<input type="hidden" value="" name="expenseGroupEntityHidden" id="expenseGroupEntityHidden">
+			<input type="text" id="expenseClaimGroupName" style="width: 215px;">
+		</div>
+		<div style="margin-bottom: 10px;">
+			<label class="capitalize;" style="width: 300px;">Expense claim items Max. Permitted Advance <br>&amp; Monthly Monetary Limit for reimbursement </label>
+			<button id="expenseClaimDropDown" class="multiselect dropdown-toggle btn" style="width: 220px; margin-top: -20px; border: 1px solid #72808b !important;" onclick="customClaimsDropDownToggle('expenseClaimDropDown-menuid')"> None Selected  &#8711;</button>
+			<div id="expenseClaimDropDown-menuid" class="expenseClaim-menuid">
+				<div class="expenseClaimSearchDiv"><input type="text" style="width: 715px; margin: 5px;" class="search-image" name="expenseClaimSearchInput" id="expenseClaimSearchInput" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+				<ul class="claim-list" id="expenseClaimList">
+				</ul>
+			</div>
+		</div>
+		<div>
+			<button title="Close Travel Group" id="cancelExpenseGroup" name="cancelExpenseGroup" type="button" class="btn btn-cancel btn-idos" value="1">Cancel</button>
+			<button title="Add/Update Expense Group" id="addUpdateExpenseGroup" name="addUpdateExpenseGroup" type="button" class="btn btn-submit btn-idos" value="1">Add/Update Expense Group</button>
+		</div>
+	</fieldset>
+</div>
+<!-- Display Available Groups -->
+<div id="claimGroup-container" class="claim-container">
+	<fieldset class="navbar-transaction">
+		<legend class="panel-title">Claim Groups</legend>
+		<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend claim-container-close" id="claimGroup-container-close"></i></div>
+		<div style="width: 48%; float: left; margin-right: 10px; overflow:auto;" >
+			<h5 class="alert success capitalize"><b>Travel groups</b></h5>
+			 <div class="datascrolltable" STYLE=" height: 250px; overflow: auto;">
+			<table class="table table-hover table-striped table-bordered excelFormTable travelclaim-group-container transaction-create">
+				<thead class="tablehead1">
+					<tr><th>Group name</th><th></th></tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			</div>
+		</div>
+		<div style="width: 48%; float: right; overflow:auto;">
+			<h5 class="alert success capitalize"><b>Expense groups</b></h5>
+			 <div class="datascrolltable" STYLE=" height: 250px; overflow: auto;">
+			<table class="table table-hover table-striped table-bordered excelFormTable expenseclaim-group-container transaction-create">
+				<thead class="tablehead1">
+					<tr><th>Group name</th><th></th></tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			</div>
+		</div>
+	</fieldset>
+</div>
+</div>

@@ -1,0 +1,35 @@
+@(org:String,pName: String,email:String,url:String,phone:String,note:String,key:String,message:String,activate:Boolean,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+	<tbody>
+	 	<tr  id="emailHeader">
+			<td>
+
+
+			</td>
+		</tr>
+		<tr id="emailBody" >
+		    <td>
+		      <table>
+		      	<tr><td><font size="4">@{message}</font></td></tr>
+		        <tr><td><span style="width: 60px;">Organization</span> : @{org}</td></tr>
+		        <tr><td><span style="width: 60px;">Product Name</span> : @{pName}</td></tr>
+		        <tr><td><span style="width: 60px;">Email</span> : @{email}</td></tr>
+		        <tr><td><span style="width: 60px;">Company URL</span> : @{url}</td></tr>
+		        <tr><td><span style="width: 60px;">Contact Number</span> : @{phone}</td></tr>
+		        <tr><td><span style="width: 60px;">Note</span> : @{note}</td></tr>
+		        <tr><td><span style="width: 60px;">Key Generated</span> : @{key}</td></tr>
+		        @if(activate) {
+		        <tr><td>Activate the API Access for the Organization</td></tr>
+		        <tr><td><a href="https://www.myidos.com/activate/apiAccess/@{email}/@{key}">Activate</a></td></tr>
+		        <tr><td>If the above link is not working, copy and paste the below URL in your web browser.</td></tr>
+		        <tr><td>https://www.myidos.com/activate/apiAccess/@{email}/@{key}</td></tr>
+		        }
+		      </table>
+		    </td>
+	  	</tr>
+	  	<tr  id="emailFooter">
+			<td style="text-align: left;">  <br>
+					  <br>&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+  	</tbody>
+</table>

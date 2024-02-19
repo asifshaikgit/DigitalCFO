@@ -1,0 +1,43 @@
+@(OTPCode:String,password:String,corporateEmail:String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td style="font-size: 16px; font-weight: bold;">@(configParams.getCompanyApp()) DELIGHTED TO WELCOME YOU ON-BOARD � OUR ENDEAVOUR IS TO SIMPLIFY YOUR WORK</td>
+		</tr>
+		<tr id="emailBody" >
+		    <td>
+		      <table>
+		        <tr>
+		          <td style="font-size: 19px; font-weight: bold;">Welcome to @(configParams.getCompanyApp()).<br/><br/>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td style="font-size: 16px; font-weight: bold;">Please find your Login details below:<br/>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td>Email: @{corporateEmail}</td>
+		        </tr>
+		        <tr>
+		          <td>Password: @{password}</td>
+		        </tr>
+		        <tr>
+		          <td>Please take a note of your User identification Code: <b>@{OTPCode}</b> </td>
+		        </tr>
+		        <tr>
+		          <td style="font-size: 16px; font-weight: bold;"><br>Please Activate Account Using Below Link!</td>
+		        </tr>
+		        <tr>
+		        	<td>
+		        		<a href="@(configParams.getCompanyUrl())/activate?corporateEmail=@{corporateEmail}"><font size="3">Activate Account</font></a>
+					<br/>
+		        	</td>
+		        </tr>
+		      </table>
+		    </td>
+	  	</tr>
+		<tr  id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

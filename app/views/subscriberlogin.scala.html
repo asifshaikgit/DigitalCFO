@@ -1,0 +1,37 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)
+@main(fullName,email,role,orgn,allowedProcurement, null,null){
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#loadingIdos').hide();
+});
+</script>
+<body id="regmainbody" class="regmainbody">  
+   <div class="signin" style="background-color: #333">
+	<div class="container">
+		<div id="loginHere">
+			<div id="subslogindiv" class="mainDiv" style="width:800px;">
+				<table style="width:790px;">
+					<tr valign="top">
+						<td>
+							<div class="subsloginpagelogo" id="subsloginLogo" style="margin-top: -15px;">
+						       <img id="loginLogo" alt="logo" style="float:left;width:79px;" src="/assets/images/IDOS-logo.jpg"></img>
+						       <span style="margin-left:10px;height:64px;line-height: 64px;"><font size="8" style="color: white;"><b>SUBSCRIBER LOGIN PAGE</b></font></span>
+					        </div>
+					    </td>
+				        <td>
+						   <span class="span2 alert success" id="subsloginsuccessregdiv" style="display:none;margin-left:34px;margin-top: -15px;height:64px;">
+						   <font size="2" style="color: black;"><b id="subsloginsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+						</td>
+					</tr>
+			    </table><br/>
+				<div style="margin-left: 180px;">
+					<input type="text" id="subsloginuser" name="subsloginuser" style="width: 360px; margin-top: 20px;" placeholder="REGISTERED EMAIL"/><br/>			
+					<input type="password" id="subspass" name="subspass" style="width: 360px;" placeholder="PASSWORD"/><br/>
+					<button id="subsloginButton" class="subsloginButton btn btn-primary" title="Sign In" style="width: 373px;"><i class="icon-user icon-white"></i>Log In And Subscribe For Branches</button>
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
+</body>
+}

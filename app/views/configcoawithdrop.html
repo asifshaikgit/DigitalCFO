@@ -1,0 +1,333 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="itemSetUp" class="tab-pane mainDiv content" style="display: none">
+	<div class="panel panel-showtrans">  
+		<div class="panel-body">
+			<h5 class="alert success"><i class="ml12"></i><b class="panel-title">Chart Of Accounts</b>
+			<i style="top: 3px; float: none;" class="fa fa-info-circle pl-5 app-image-adjust userpopoverinfo" longdesc="@(configParams.getCompanyApp()) provides you with capability to create and maintain an effective chart of account. Chart of account is the most important component of your accounting system and it enables you to create categories and sub-categories of incomes, expenses, assets and liabilities. Such categorization is very important for you to keep track of and also to control where your money is coming from and where it is being spent. It also provides you the capability to correctly classify and allocate your incomes and expenses.For example, let us say stationery & raw materials are two important components of your expenses. Let us assume that your stationery expenses include purchase of paper, pens, stapler and printer cartridge. Your chart of account must have Stationery under expenses and under stationery you should create sub-category for paper, pens, stapler and printer cartridge. By creating sub-categories, you can record expenses under these sub-categories and you will be able to check and control how much is being spent on each item of stationery."></i></h5>
+		</div>
+	</div>
+	<div class="panel panel-showtrans"  id="chartofaccountinputdiv"  style="display: none;" >  
+		<div class="panel-body">
+		<input id="clickedNodeID" class="clickedNodeID" type="hidden" value="">
+		<b>Identification for Data Validation</b>
+		<select id="datavalidationall" name="datavalidationall" style="width: auto;" onchange="avoidAddingChild();">
+			<option value="">--Please Select--</option>
+			<option value="1">Is this customer account / debtors</option>
+			<option value="2">Is this vendor account / creditors</option>
+			<option value="3">Is this the account where you classify cash balances</option>
+			<option value="4">Is this the account where you classify bank balances</option>
+			<option value="5">Is this the account where you classify bank balances in Negative</option>
+			<option value="6">Is this the account where you classify advance received from customers / debtors</option>
+			<option value="7">Is this the account where you classify advance paid to vendors / creditors</option>
+			<option value="8">Is this the account where you classify withholding tax (TDS) on payments received from customers and others</option>
+			<option value="9">Is this the account where you classify withholding tax (TDS) on payments made to vendors / creditors and others</option>
+			<option value="10">Is this the account where you classify purchase returns</option>
+			<option value="11">Is this the account where you classify sales returns</option>
+			<option value="12">Is this the account where you classify travel advances paid</option>
+			<option value="13">Is this the account where you classify advance paid to staff for expences</option>
+			<option value="14">Is this the account where you classify expense reimbursements to staff</option>
+			<option value="15">Is this the account where you classify input tax receivable</option>
+			<option value="16">Is this the account where you classify input tax payable</option>
+			<option value="17">Is this the account where you classify your raw material used in manufacturing</option>
+			<option value="18">Is this the account where you classify your work in progress in manufacturing</option>
+			<option value="19">Is this the account where you classify your finished goods in manufacturing</option>
+			<option value="20">Is this the account where you classify your stock in trade</option>
+			<option value="21">Is this the account where you classify other inventory consumables </option>
+			<option value="22">Is this the account where you classify fixed assets</option>
+			<option value="23">Is this the account where you classify depreciation / amortization</option>
+		</select>
+		</div>
+	</div>
+	
+	<div id="item-form-container" class="newItemform-container" style="display: none;">
+		<div class="panel panel-showtrans"  style="overflow: auto" >  
+			<div class="panel-body">
+				<div class="panel-title" style="text-align: center;">Sub-Account Setup</div>
+				<div id="search-launch-top"><a href="#itemSetUp" id="newItemform-container-close"><i class="fa fa-times fa-1x close-legend" id="newItemform-container-close"></i></a></div>
+				<div class="panel">
+					<div class="panel-title">Sub-Account Details</div>
+					<table class="table excelFormTable" id="chartOfAccountTable" style="margin-top: 0px; height: auto;">               
+						<thead class="tablehead1">
+							<tr><th>Parent</th><th>Sub-Account Name</th><th id="forIncomesTh"></th>
+								<th>Branch<span id="incomeHead"></span><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) enables you to link categories and sub-categories to branches. By linking to branches, you can control which branch can access an account category and also control certain branches by restricting their access to certain categories in the chart of account.For example, if your organisation has 2 branches, branch 1 being a sales depot and branch 2 being the manufacturing center.You can restrict branch 1 from viewing / processing transactions relating to Raw Material which are associated with production.While setting up any category or sub-category you can link each of the category and sub-category to one or more branches. This linking enables the users to know which transactions they can orcannot process."></i></th>
+								<th id="partBasedTransactionth"><b id="dynamicHeading1"></b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Ease of use is one of the most important features of @(configParams.getCompanyApp()). @(configParams.getCompanyApp()) will enable users to follow the process and internal controls even without knowing that they are following them. This is accomplished through few simple configuration settings, one of which is Buy / Pay classification.Buy / Pay linking will link / attach, each category / sub-category in the chart of account, to a distinct question as provided in the drop down menu.For example all expenses can be linked / attached to buy on cash and pay right away and / or buy on credit and pay later. All vendors can be linked to pay vendor / supplier and / or buy on credit and pay later.Similarly, all sales can be linked to sell on cash and collect payment now and or sell on credit and collect payment later. Cash withdrawn from bank can be linked to Withdraw cash from bank and so on.This is a one time set up for every category or sub-category and once its done, you are enabling user to process transaction by using a language they understand Simple English."></i></th>
+								<th id="partBasedDynmDatath"><b id="dynamicHeading2"></b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" id="dynamicHeading2ImgId1" longdesc="If this item is sold by your organisation, please select whether this item is sold in the domestic market or international market of in both markets. This information will help in defining the applicable taxes, identifying items / customers for domestic and international sales and other useful dashboard reports."></i><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" id="dynamicHeading2ImgId2" src="/assets/images/eye.png" longdesc="Specify (by selecting) if this sub-category is capital expense or revenue expense. This selection is important for generating dashboards and reports on capital expenses of a particular branch and also for assisting in depreciation / amortization computation."></i></th>
+								<th><b class="textBold"></b>&nbsp;&nbsp;<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" id="dynamicHeading3ImgId1" longdesc="@(configParams.getCompanyApp()) provides you with the ability to set up withholding tax for any item of expense. Select Yes if withholding tax is applicable for payment to vendors of this item and in the next two columns set up the rate of whithholding tax & monetary limit (on payments) above which such tax must be applied. @(configParams.getCompanyApp()) will automatically apply withholding tax at the given rate for all vendor payments of this item if such payment exceeds the monetary limit.""></i></th>
+								<th></th><th id="forOthersTh"></th><th class="forAssetLiability"></th><th class="forAssetLiability"></th>
+							  </tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><select id="itemCategory" name="itemCategory"></select></td>
+								<td>
+									<input id="topLevelParentActCode" class="topLevelParentActCode" type="hidden" value="">
+									<input id="itemEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+									<input type="text" id="items" name="items" onblur="javascript:checkDuplicacy(this.id,'Specifics','name');">&nbsp;</td>     
+								<td id="forIncomesTd"></td>
+								<td>
+									<select id="itemBranch" class="multiBranch" name="itemBranch" multiple="multiple" style="vertical-align: top;"></select>
+									<div class="btn-group" style="display: none;" id="itemBranch2">
+									<button id="itemBranch2Btn" class="multiselect dropdown-toggle btn" onclick="customClaimsDropDownToggle('itemBranch2Btn-menuid')">None Selected<b class="caret" style="margin:5px auto;"></b></button>
+									<div id="itemBranch2Btn-menuid" class="statutoryidnumberdropdown-menu">
+									<ul id="itemBranch2BtnList" style="width: 310px;list-style-type: none; margin: 0px; padding: 0px; max-height: 90px; overflow: auto;">
+									</ul></div>
+									</div>
+								</td>
+								<td id="partBasedTransactiontd"><select id="partBasedTransaction" name="partBasedTransaction" multiple="multiple"></select></td> 
+								<td id="partBasedDynmDatatd"><select id="partBasedDynmData" name="partBasedDynmData"></select></td> 
+								<td></td><td></td><td id="forOthersTd"></td><td class="forAssetLiability"></td><td class="forAssetLiability"></td>  
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<br/>
+					<table class="table table-bordered excelFormTable" id="coaTablevalidation">               
+						<thead class="tablehead1">
+							<tr>
+								<th>Identification for Data Validation</th>
+								<th id="datavalidationplth">Identification for P&L</th>
+								<th id="datavalidationbsth">Identification for BS</th>
+								<th>Open Balance</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><!-- 
+									<select id="datavalidationall" name="datavalidationall" style="width: 400px;" onchange="avoidAddingChild();">
+										<option value="">--Please Select--</option>
+										<option value="1">Is this customer account / debtors</option>
+										<option value="2">Is this vendor account / creditors</option>
+										<option value="3">Is this the account where you classify cash balances</option>
+										<option value="4">Is this the account where you classify bank balances</option>
+										<option value="5">Is this the account where you classify bank balances in Negative</option>
+										<option value="6">Is this the account where you classify advance received from customers / debtors</option>
+										<option value="7">Is this the account where you classify advance paid to vendors / creditors</option>
+										<option value="8">Is this the account where you classify withholding tax (TDS) on payments received from customers and others</option>
+										<option value="9">Is this the account where you classify withholding tax (TDS) on payments made to vendors / creditors and others</option>
+										<option value="10">Is this the account where you classify purchase returns</option>
+										<option value="11">Is this the account where you classify sales returns</option>
+										<option value="12">Is this the account where you classify travel advances paid</option>
+										<option value="13">Is this the account where you classify advance paid to staff for expences</option>
+										<option value="14">Is this the account where you classify expense reimbursements to staff</option>
+										<option value="15">Is this the account where you classify input tax receivable</option>
+										<option value="16">Is this the account where you classify input tax payable</option>
+										<option value="17">Is this the account where you classify your raw material used in manufacturing</option>
+										<option value="18">Is this the account where you classify your work in progress in manufacturing</option>
+										<option value="19">Is this the account where you classify your finished goods in manufacturing</option>
+										<option value="20">Is this the account where you classify your stock in trade</option>
+										<option value="21">Is this the account where you classify other inventory consumables </option>
+										<option value="22">Is this the account where you classify fixed assets</option>
+										<option value="23">Is this the account where you classify depreciation / amortization</option>
+									</select>
+									-->
+								</td>
+								<td id="datavalidationpltd">
+									<select id="datavalidationpl" name="datavalidationpl" style="width: 200px;">
+										<option value="">--Please Select--</option>
+										<option value="1">Is this Revenue from Operations</option>
+										<option value="2">Is this Other Income</option>
+										<option value="3">Is this Purchase of Stock in trade </option>
+										<option value="4">Employee Benefit Expenses</option>
+										<option value="5">Finance Costs</option>
+										<option value="6">Depreciation and Amortisation Expenses</option>
+										<option value="7">Other Expenses</option>
+										<option value="8">Current Tax</option>
+										<option value="9">Deferred Tax</option>
+									</select>
+								</td> 
+								<td id="datavalidationbstd">
+									<select id="datavalidationbs" name="datavalidationbs" style="width: 200px;">
+										<option value="">--Please Select--</option>
+										<option value="10">Share Capital</option>
+										<option value="11">Reserves and Surplus</option>
+										<option value="12">Long-term borrowings</option>
+										<option value="13">Deferred Tax Liabilities(Net)</option>
+										<option value="14">Other Long Term Liabilities</option>
+										<option value="15">Long-term provisions</option>
+										<option value="16">Short- term borrowings</option>
+										<option value="17">Trade Payables</option>
+										<option value="18">Other Current Liabilities</option>
+										<option value="19">Short-term provisions</option>
+										<option value="20">Tangible Assets</option>
+										<option value="21">Intangible Assets</option>
+										<option value="22">Capital Work-in-progress</option>
+										<option value="23">Intangible Assets Under Development</option>
+										<option value="24">Non-Current Investments</option>
+										<option value="25">Deferred tax assets (net)</option>
+										<option value="26">Long Term Loans and Advances</option>
+										<option value="27">Other Non-Current Assets</option>
+										<option value="28">Current Investments</option>
+										<option value="29">Investments</option>
+										<option value="30">Trade Receivables</option>
+										<option value="31">Cash and Cash Equivalents</option>
+										<option value="32">Short term Loans and Advances</option>
+										<option value="33">Other current assets</option>
+									</option>
+								</td>
+								<td><input type="text" name="openingBalance" id="openingBalance" placeholder="Enter opening balance"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+		
+			<!-- not required 
+			<fieldset class="panel-body" id="customerVendor"  style="overflow: scroll;">
+				<legend class="panel-title"><b id="partBasedDynmHeader"></b></legend>
+				<span class="add-help-branch btn-align-right">
+					<span class="addnew" id="newVendorChartOfAccountId"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right"></span>
+					<span id="dynamicCustVend2ImgId1" class="help-info userpopoverinfoleft" longdesc="You can create a customer for every item of sales and enter all the customer details and upload contract / purchase order (if any & validity of such contract or purchase order) for that customer. You can link the customer to a specific branch or branches and by doing this; you will to obtain branch-wise / customer-wise income patterns and other useful dashboard reports.By providing customer address and location details, you will be able to generate reports of all your customers in a particular area and plan on logistics and sales efforts in a specific location and obtain useful business intelligence reports.If you provide credit period to your customer(sell on credit and receive payment later), then you can enter the days of credit that you provide to your customer and @(configParams.getCompanyApp()) will use this information to alert you when payment from this customer becomes due.This information, will help you manage your cash flow and working capital in real-time. Additionally it will help you to management of your accounts receivables.You can setup discount rate for that customer as a % of gross invoice price and when the sale transaction is processed, @(configParams.getCompanyApp()) will automatically apply this discount % for that customer."></img><img id="dynamicCustVend2ImgId2" src="/assets/images/eye.png" class="userpopoverinfo" width="16px;" longdesc="You can create a vendor for every item of expense / purchase and enter all the vendor details and upload contract / purchase order (if any& validity of such contract or purchase order) for that vendor. You can link the vendor to a specific branch or branches and by doing this; you will enable (or compel) your staff at branches to buy only from these specified vendors.By providing vendor address and location details, you will be able to generate reports of all your vendors in a particular area and plan on logistics and re-order levels and obtain useful business intelligence reports.If the vendor provides you credit terms (pay later), then you can enter the days of credit provided by that vendor and @(configParams.getCompanyApp()) will use this information to alert you when payment to this vendor becomes due. This information, which will be in the form of dashboards, will help you manage your cash flow and working capital in real-time."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+				</span>
+				<h5 class="alert success m-top-10"></h5>
+				<div> 
+					<table class="table table-bordered excelFormTable" id="chartOfAccountVendorCustomerTable" style="margin-top: 0px;">               
+						<thead class="tablehead1">
+							<tr><th>Name &amp; E-mail</th><th>Address</th><th>Phone Number</th>
+							    <th>Group/Branches<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc='You can group your vendors under different identities. Go to Vendor setup screen, click on "Create New Vendor Group" and give aname to that group and add your vendors to that group. You can create multiple groups of vendors and also use grouping for customers as well. For example you can create vendor group based on type of purchase, location, etc.'></i></th>
+							    <th>Cash/Credit<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Select the terms under which this vendor will supply. If this vendor provides credit period, select credit and below a box will appear where you need to specify the number of days credit offered by this vendor. When users buy from this vendor, @(configParams.getCompanyApp()) will compute and provide information to CFO and managers regarding Accounts payable so that they can plan on working capital and cashflow."></i></th>
+							    <th id="contractpopricelistth"></th><th id="contractpopricelistvalidityfromdiscountpercentageth"></th><th id="contractpopricelistvaliditytoth"></th>
+							  </tr>
+						</thead>
+						<tbody>
+							<tr id="copyContentCustomerVendor">
+								<td><input type="hidden" name="vendorCustomerHiddenId" id="vendorCustomerHiddenId">
+									<input type="text" name="vendCustName" id="vendCustName" placeholder="Name" class="m-bottom-10">
+									<input type="text" name="vendorCustorEmail"  id="vendorCustorEmail" onblur="return emailFieldValidation(this)" placeholder="E-mail">
+								</td>    
+								<td><textarea name="vendCustAddress" id="vendCustAddress" placeholder="Address" class="text-area-2x m-bottom-10"></textarea><br/>
+									<select class="countryDropDown m-bottom-10" name="vendCustAddressCountry" id="vendCustAddressCountry"><option value="">--Please Select--</option></select><br/>
+									<input name="vendCustLocation" id="vendCustLocations" placeholder="Location"></input>
+								</td>
+								<td><select class="countryPhnCode m-bottom-10" name="vendCustPhoneCountryCode" id="vendCustPhoneCountryCode"><option value="">--Please Select--</option></select><br/>
+									<input type="text" id="vendCustPhoneNumber1" name="vendCustPhoneNumber1" style="width: 24px" maxlength="3" onkeypress="return isNumber(event)" onKeyup="autotab1(this)">-
+									<input type="text" id="vendCustPhoneNumber2" name="vendCustPhoneNumber2" style="width: 24px" maxlength="3" onkeypress="return isNumber(event)" onKeyup="autotab1(this)">-
+									<input type="text" id="vendCustPhoneNumber3" name="vendCustPhoneNumber3" style="width: 28px" maxlength="4" onkeypress="return isNumber(event)">
+								</td>
+								<td><select id="vrndCustGroup" name="vrndCustGroup" class="m-bottom-10"><option value="">--Please Select--</option></select><br/>
+									<select id="vendCustBranch" class="multiBranch" name="vendCustBranch" multiple="multiple" style="vertical-align: top;"></select>
+								</td> 
+								<td id="cashcreditdynm"><select name="cashcredit" id="cashcredit" onchange="changeCashCredit(this);"><option value="1">Cash</option><option value="2">Credit</option><option value="3">Both</option></select><br/>
+									<br/><input style="display: none" type="text" name="noOfDaysForCredit" id="noOfDaysForCredit" onkeypress="return isNumber(event)" placeholder="Days For Credit" class="m-top-10">
+								</td> 
+								<td><input type="text" id="docuploadurl" name="conractpopricelistfield" readonly="readonly"><br/>
+							 		<span id="conractpopricelistfield" class="btn-idos-flat-white btn-upload m-top-10" onclick="uploadTableRowFile(this.id,this)"><i class="fa fa-upload pr-5"></i>Upload</span>
+							 	</td>
+								<td id="contractpopricelistvalidityfromdiscountpercentagetd"></td><td id="contractpopricelistvaliditytotd"></td>  
+							</tr>
+					    </tbody>
+					</table>
+				</div>
+			</fieldset>
+			seen only for income and expense -->
+			<div class="panel" style="width: 55%;">
+				<span class="add-help-branch btn-align-right" style="margin-top: 0px;">
+					<span class="addnew" id="newKnowledgeLibraryChartOfAccountId"><i class="fa fa-plus-circle fa-lg"></i>Add</span>
+					<span class="b-right"></span>
+					<span class="help-info userpopoverinfoleft" longdesc="Knowledge library is a unique feature, which permits you to set up rules which specific to your organisation for each category or sub-category in the chart of account. These rules are decided by you and can be changed, removed, altered anytime by you.These rules become visible and act as guide and / or instructions to staff processing transactions using @(configParams.getCompanyApp())."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+				</span>
+				<div class="panel-title">Knowledge Library</div>
+				<h5 class="alert success" style="width:93%;"></h5>
+				<div id="knowledgeLibrary" style="margin-top: -50px;"><!-- seen for all income and expense and assets and liabilities-->
+					<table class="table excelFormTable" id="chartOfAccountKnowledgeLibraryTable" >               
+						<thead class="tablehead1"><tr><th>Instructions/Guidance</th><th>Mandatory</th><th>Applicable In Branches</th><th></th><th></th></tr></thead>
+						<tbody>
+							<tr id="copyContentKnowledgeLibrary">
+								<td>
+									<input type="hidden" name="specfHidPrimKey" id="specfHidPrimKey" value="">
+									<textarea name="knowledgeLibRaryContent" id="knowledgeLibRaryContent" style="width:141px;" class="text-area-2x"></textarea>
+								</td>    
+								<td>
+									<select name="mandatory" id="mandatory"><option value="1">Yes</option><option value="0">No</option></select></td>
+								<td>
+									<select id="knowledgeLibraryInBranches" class="multiBranch" name="knowledgeLibraryInBranches" multiple="multiple" style="vertical-align: top;"></select>
+								</td><td></td><td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="expItemDocUploadRule" class="panel" style="display:none; float: right; margin-top:-185px; width: 44%; position: relative;">
+		
+				<div class="panel-title">Expense Transaction Documents Upload Rule <i class="fa fa-info-circle userpopoverinfo" longdesc=""></i></div>
+				<table class="table table-bordered excelFormTable" id="expItemDocUploadRuleTable" >               
+					<thead class="tablehead1"><tr><th>Monetory Limit & Applicable In Branches</th></tr></thead>
+					<tbody>
+						<tr>
+							<td>
+								<input type="hidden" name="expspecfDocHidPrimKey" id="expspecfDocHidPrimKey" value="">  
+								<div class="btn-group">
+									<button id="docuploadrulecustomdropdown" class="multiselect dropdown-toggle btn" style="width: 460px;"> None Selected  &#8711;</button>
+									<div id="docuploadrulecustomdropdown-menuid" class="docuploadrulecustomdropdown-menu">
+										<div class="docuploadrulecustomdropdowncontentsearchdiv">
+											<input type="text" style="width: 415px;" name="docuploadrulecustomdropdowncontentsearchinput" id="docuploadrulecustomdropdowncontentsearchinput" class="search-image" placeholder="Search Branch" onkeyup="prependMatchingBranchFirstInCustomDocUploadRuleContainer(this);">
+										</div>
+										<ul class="docuploadrulecustomdropdownBranchList" id="docuploadrulecustomdropdownBranchList">
+											<li id=docuploadrulecustomdropdownBranchlist>&nbsp;&nbsp;<input type="checkbox" name="customdoccheckBranch" id="customdoccheckBranch" value="" onClick="customdoccheckUncheck(this)"/>&nbsp;&nbsp;Select All</li>
+										</ul>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<button title="Add Item" name="addConfigSpecfBtn" id="addSpecfBtn" type="button" class="addSpecfBtn btn btn-submit btn-idos" value="1">Add/Update Chart of accounts</button>
+				<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>
+			</div>
+		</div>
+		</div>
+		
+	</div>
+	
+	
+	
+	<div id="category-form-container" class="newCategoryform-container" style="display: none;">
+		<fieldset>
+			<legend>Account SetUp</legend>
+			<div id="search-launch-top"><a href="#categorySetUp" id="newCategoryform-container-close"><i class="fa fa-times fa-1x close-legend" id="newCategoryform-container-close"></i></a></div><br/>
+			<div class="control-group" align="left">
+				<input id="categoryEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+				<label class="control-label"><b id="accountName">Account Name: </b><span class="errorMessage">*</span></label>
+				<div class="controls">
+					<input type="text" id="category" name="category" class="input-middle">&nbsp;
+				</div>
+			</div>
+			<div class="control-group" align="left">
+				<label class="control-label"><b>Account Description: </b></label>
+				<div class="controls">
+					<input type="text" id="catdescription" name="catdescription" class="input-middle">
+				</div>
+			</div>
+		</fieldset>
+		<div><button title="Add Category" name="addConfigCatBtn" id="addCatBtn" type="button" class="addCatBtn btn btn-primary btn-idos" value="1">Add/Update</button></div>     
+	</div>  
+	<div style="margin-top:10px; margin-left:0px;" id="chartOfAccountTree" class="panel panel-showtrans"><ul id="mainChartOfAccount" class="treeview-black mainChartOfAccount"></ul></div>
+	<div class="panel" style="overflow: auto;">
+		<h5 class="alert success"><b><a href="#itemSetUp" onclick="downloadOrganizationCOA();"><i class="fa fa-download"></i> Click To Download Your Organisation Existing Chart Of Accounts</a></b>
+			<i class="fa fa-info-circle help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) permits you to upload your existing chart of account through Microsoft Excel. You can have multiple levels of sub-categories and also assign categories and sub-categories to specific branches. Further you can search existing items in your chart of account, using this search feature."></i>
+			<span style="float: right; position: relative;">
+				<input type="text" class="search-image" placeholder="Search Chart Of Accounts By Name" name="existingCOA" id="existingCOA" style="width:300px; padding-right: 5px;">
+				<button id="coaFreeTextSearchButton" style="margin-top: -2px;" class="coaFreeTextSearchButton btn btn-submit btn-idos" title="Search Chart Of Accounts" >Search Chart Of Accounts</button>
+			</span>
+		</h5>
+		<form id="myForm" class="pl-5" action="/config/uploadcoact" method="post" enctype="multipart/form-data"> 
+			<p id="uploadchtofact"><b>Upload Chart of accounts: &nbsp;<span class="errorMessage">*</span></b>&nbsp;<input type="File" id="uploadchartofact" name="chartofaccountfile" style="margin-left: 180px; position: relative; top: -25px; height: 30px;"></input></p> 
+			<button type="button" style="margin-left: 360px; position: relative; top: -70px;" id="uploadChartOfAccount" class="uploadChartOfAccount btn btn-submit btn-idos" title="Upload Chart Of Account"><i class="fa fa-upload"></i>Upload Chart Of Account</button>
+		</form>
+		<div id="searched-coadata-container" class="searched-coadata-container" style="display: none;">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<legend class="panel-title">Existing Chart Of Accounts</legend>
+					<div id="search-launch-top"><a href="#itemSetUp" id="searched-coadata-container-close"><i class="fa fa-times fa-1x close-legend" id="searched-coadata-container-close"></i></a></div><br/>
+					<div class="searchedContent"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+getTransactionType();
+});
+</script>

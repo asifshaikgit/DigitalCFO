@@ -1,0 +1,121 @@
+@(fullName: String, email: String, role: String, orgn: model.Organization, allowedProcurement: String)(content: Html)
+@if(role.contains("CREATOR")){
+<div class="transactionDetailsTable" id="transactionDetailsTIFBTBTable" style="overflow: auto; display: none;">
+    <table class="table excelFormTable transaction-create" id="transInventoryTranferTable">
+        <thead class="tableheadtransferinventorytxn">
+            <tr id="tifbtbHeadTr">
+                <th>Outward / Inward</th><th>From Branch</th><th>Type of Supply</th>
+                <th>Transaction List</th><th>Total Net</th><th>Transaction notes</th><th>Supporting Docs</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="tifbtbtrid">
+                <td>
+                    <select class="inwardOutwardSelect" id="tifbtbInwardOutward" onChange="onInventoryTransferChange(this);"><option value="">
+                        Please Select</option><option value="1">Transfer Outward</option><option value="2">Transfer Inward</option></select> </td>
+				<td>
+                    <select class="txnBranches" id="tifbtbFromBranch" onChange="validateFromToBranch(this);"><option value="">--Please Select--</option></select>
+                    <p class="para-tm5-bm0">To Branch</p>
+                    <select class="txnBranchesTo" id="tifbtbToBranch" onChange="getCoaItemsList(this);"><option value="">
+                        --Please Select--</option></select>
+                </td>
+				<td>
+					<select class="txnTypeOfSupply" id="tifbtbTypeOfSupply" onChange="resetBasedOnTypeOfSupply(this); clearMainTransTableFields(this);"></select>
+				</td>
+				<td>
+				<select class="salesExpenseTxns" id="tifbtbInvoices" onchange="getInvoiceValue(this);"><option value="">--Please Select--</option></select>
+				</td>
+                <td>
+                    <input type="text" class="netAmountValTotal" name="tifbtbNetTotal" id="tifbtbNetTotal" readonly="readonly" placeholder="Net Result"/>
+					<br><button  style="margin-top:28px;" class="btn btn-submit" onclick="popupBuyTxnAddDetailModal(this);" id="popupBuyTxnAddDetailBtn">Additional Details</button>
+                </td>
+				<td><textarea class="voiceRemarksClass" placeholder="Input Remarks" name="tifbtbRemarks" id="tifbtbRemarks" rows="3"></textarea></td>
+                <td>
+                    <select id="tifbtbuploadSuppDocs" name="tifbtbuploadSuppDocs" class="txnUploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select><br>
+                    <button id="tifbtbuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+                    <button id="tifbtbuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="tifbtbuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+                    <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<div id="staticmultipleitemInvTransfBranch" class="staticInventorymultipleitems" style="overflow: auto; max-height: 350px;">
+		<table class="multipleItemsTable" id="multipleItemsTabletifbtb">
+			 <thead><tr><th><button class="addnewItemForTransaction" id="addnewItemForTransaction"><i class="fa fa-plus-circle fa-lg"></i></button>Item</th><th>Price</th><th>Units</th><th>Dis%</th><th>Discount</th><th>Taxable Value</th><th>Tax Rate &amp; Amount <div id="taxNameList"></div></th><th style="display:none"></th><th>Net Amount</th><th>Description</th><th><button class="removeItemInInventoryTransfer" id="removeItemInInventoryTransfer"><i class="fa fa-minus-circle fa-lg"></i></button></th></tr></thead>
+			<tbody>
+				<tr id="tifbtb0">
+					<td><select class="txnItems" name="tifbtbItem" id="tifbtbItem" onChange="populateSellTranData(this);"><option value="">Please Select</option></select></td>
+					 <td><input type="text" class="txnPerUnitPrice" name="tifbtbPerUnitPrice" id="tifbtbPerUnitPrice" placeholder="Price Per Unit" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);"></td>
+					<td><input class="txnNoOfUnit" type="text" name="tifbtbTrasferUnit" id="tifbtbTrasferUnit" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);" onblur="checkStockAvailableForSellTran(this);" placeholder="Transfer Unit"/></td>
+					<td><input type="text" class="txnDiscountPercent" name="tifbtbDiscountPercent" id="tifbtbDiscountPercent" placeholder="Discount %" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);" />
+					<input type="hidden" class="txnDiscountPercentHid" id="tifbtbdiscounttocust"/></td>
+					<td><input type="text" class="txnDiscountAmount" name="tifbtbDiscountAmt" id="tifbtbDiscountAmt" readonly="readonly" placeholder="Discount Amt"/></td>
+					<td><input class="txnGross" placeholder="Gross Amount" type="text" name="tifbtbGross" id="tifbtbGross" readonly="readonly"></td>
+					<td><div id="taxCell"><div id="taxCell0"></div><div id="taxCell1"></div><div id="taxCell2"></div><div id="taxCell3"></div><div id="taxCell4"></div></div>
+						<input type="hidden" class="txnTaxTypes" name="tifbtbTaxtypes" id="tifbtbTaxtypes"/><input type="hidden" class="itemTaxAmount"/></td>
+					<td style="display:none"><input type="text" class="invoiceValue" placeholder="Invoice Value" name="tifbtbInvoiceValue" id="tifbtbInvoiceValue" readonly="readonly"/></td>
+					<td><input type="text" class="netAmountVal" placeholder="Total Value" name="tifbtbNetValue" id="tifbtbNetValue" readonly="readonly"/></td>
+					<td><div class="netAmountDescriptionDisplay"></div></td>
+					<td><input class="removeTxnCheckBox" type="checkbox"/></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<button id="accountingcancelButton" class="compcancelButton btn btn-cancel" title="Cancel" onClick="cancel(); deleteUncomittedFiles();">Cancel Transaction</button>
+	<button  id="tifbtbsubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Approval</button>
+</div>
+
+<!--<div id="staticInventryTransferModal" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 1001;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 670px !important;
+            height: 400px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="panel-title">Additional Details</h4>
+                <h5 id="wrongActCred" align="center"></h5>
+            </div>
+            <div class="modal-body">
+                <div id="messageModal"></div>
+                <table class="table excelFormTable" id="inventoryTransferTbl" style="margin-top: 0px;
+                    width: 95%">
+                    <thead class="tablehead1">
+                        <tr><th>Date of Supply</th><th>Transportation Mode</th><th>Vehicle Details</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="width: 180px !important;">
+                                    <div class="input-group date" id="dateofsupply">
+                                        <input type="text" class="form-control" id="dateofsupplyTxt" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" id="inventoryTransferMode" maxlength="50" style="width: 190px !important;" />
+                            </td>
+                            <td>
+                                <input type="text" id="inventoryTransferVehicleDetail" maxlength="750" style="width: 220px !important;" />
+                            </td>
+                        </tr>
+
+                <thead class="tablehead1"><tr><th colspan="3">Terms & Conditions</th></tr></thead>
+                    <tr><td colspan="3"><textarea id="inventoryTransferTerms" maxlength="310" rows="6" style="width: 100% !important;"></textarea></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="float: left;" class="btn btn-white" data-dismiss="modal" id="closeInventoryTransferBtn">
+                    Close</button>
+                <button type="button" style="float: right;" class="btn btn-submit" id="savePopInventoryDetailsBtn">
+                    Save/Update</button>
+            </div>
+
+        </div>
+    </div>
+</div> -->
+}

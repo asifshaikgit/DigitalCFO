@@ -1,0 +1,274 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="karvyGSTR3BJSONData" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:1001;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">GSTR 3B</h4>
+				<h5 id="wrongActCred" align="center"></h5>
+			</div>
+			<div class="modal-body">
+			<div class="row">
+				<div class="col-sm-6 text-left">GSTIN:<input style="margin-left: 186px;" id="orgGstin" readonly="readonly"/></div>
+				<div class="col-sm-6 text-right">Year: <input id="gstrYear" readonly="readonly"/></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 text-left">Legal name of the registered person: <input id="gstrOrgName" readonly="readonly"/></div>
+				<div class="col-sm-6 text-right">Month: <input id="gstrMonth" readonly="readonly"/></div>
+			</div><br>
+			<b>3.1 Details of Outward Supplies and inward supplies liable to reverse charge</b>
+			<table class="table excelFormTable" id="karvyGSTR3BTbl" style="margin-top: 0px;">
+				<thead class="tablehead1">
+					<tr><th>Nature of Supplies</th><th>Total Taxable value</th><th>Integrated Tax</th><th>Central Tax</th><th>State/UT Tax</th><th>Cess</th></tr>
+				</thead>
+				<tbody>
+				<tr id="OTS">
+					<td>(a) Outward Taxable  supplies  (other than zero rated, nil rated and exempted)</td>
+					<td><input type="text" id="totalTaxableA"  class="totalTaxableCls" oninput="calculateGstr3b(this, 'totalTaxable');"/></td>
+					<td><input type="text" id="integratedTaxA"  class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTax');"/></td>
+					<td><input type="text" id="centralTaxA"  class="centralTaxCls" oninput="calculateGstr3b(this, 'centralTax');"/></td>
+					<td><input type="text" id="stateTaxA"  class="stateTaxCls" oninput="calculateGstr3b(this, 'stateTax');"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTax');"/></td>
+				</tr>
+				<tr id="OTSZR">
+					<td>(b) Outward Taxable  supplies  (zero rated)</td>
+					<td><input type="text" id="totalTaxableA"  class="totalTaxableCls" oninput="calculateGstr3b(this, 'totalTaxable');"/></td>
+					<td><input type="text" id="integratedTaxA"  class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTax');"/></td>
+					<td><input type="text" id="centralTaxA"  class="centralTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="stateTaxA"  class="stateTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTax');"/></td>
+				</tr>
+				<tr id="OOTS">
+					<td>(c) Other Outward Taxable  supplies (Nil rated, exempted)</td>
+					<td><input type="text" id="totalTaxableA"  class="totalTaxableCls" oninput="calculateGstr3b(this, 'totalTaxable');"/></td>
+					<td><input type="text" id="integratedTaxA"  class="integratedTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="centralTaxA"  class="centralTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="stateTaxA"  class="stateTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" value="0" style="display:none;"/></td>
+				</tr>
+				<tr id="ISLRC">
+					<td>(d) Inward supplies (liable to reverse charge) </td>
+					<td><input type="text" id="totalTaxableA"  class="totalTaxableCls" oninput="calculateGstr3b(this, 'totalTaxable');"/></td>
+					<td><input type="text" id="integratedTaxA"  class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTax');"/></td>
+					<td><input type="text" id="centralTaxA"  class="centralTaxCls" oninput="calculateGstr3b(this, 'centralTax');"/></td>
+					<td><input type="text" id="stateTaxA"  class="stateTaxCls" oninput="calculateGstr3b(this, 'stateTax');"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTax');" /></td>
+				</tr>
+				<tr id="NGOS">
+					<td>(e) Non-GST Outward supplies</td>
+					<td><input type="text" id="totalTaxableA"  class="totalTaxableCls" oninput="calculateGstr3b(this, 'totalTaxable');"/></td>
+					<td><input type="text" id="integratedTaxA" class="integratedTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="centralTaxA"  class="centralTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="stateTaxA"  class="stateTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" value="0" style="display:none;"/></td>
+				</tr>
+				<tr id="TOIR">
+					<td><label>Total</label></td>
+					<td><input type="text" id="totalTaxable" readonly="readonly"/></td>
+					<td><input type="text" id="integratedTax" readonly="readonly"/></td>
+					<td><input type="text" id="centralTax" readonly="readonly"/></td>
+					<td><input type="text" id="stateTax" readonly="readonly"/></td>
+					<td><input type="text" id="cessTax" readonly="readonly"/></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<b>4. Eligible ITC</b>
+		<table class="table excelFormTable" id="karvyGSTR3BTblItc" style="margin-top: 0px;">
+			<thead class="tablehead1">
+				<tr><th>Details</th><th>Integrated Tax</th><th>Central Tax</th><th>State/UT Tax</th><th>Cess</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><label>(A) ITC Available (Whether in full or part)</label></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr id="IMPG">
+					<td> (1) Import of goods </td>
+					<td><input type="text" id="integratedTax" name="integratedTax" class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTaxTotalA');" /></td>
+					<td><input type="text" id="centralTax" name="centralTax" class="centralTaxCls" value="0" style="display:none;" /></td>
+					<td><input type="text" id="stateTax" name="stateTax" class="stateTaxCls" value="0" style="display:none;" /></td>
+					<td><input type="text" id="cessTax" name="cessTax" class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTaxTotalA');"/></td>
+				</tr>
+				<tr id="IMPS">
+					<td> (2) Import of services</td>
+					<td><input type="text" id="integratedTax" name="integratedTax" class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTaxTotalA');"/></td>
+					<td><input type="text" id="centralTax" name="centralTax" class="centralTaxCls" value="0" style="display:none;" /></td>
+					<td><input type="text" id="stateTax" name="stateTax" class="stateTaxCls" value="0" style="display:none;" /></td>
+					<td><input type="text" id="cessTax" name="cessTax" class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTaxTotalA');"/></td>
+				</tr>
+				<tr id="ISRC">
+					<td> (3) Inward supplies liable to reverse charge (other than 1 &2 above)</td>
+					<td><input type="text" id="integratedTax" name="integratedTax" class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTaxTotalA');"/></td>
+					<td><input type="text" id="centralTax" name="centralTax" class="centralTaxCls" oninput="calculateGstr3b(this, 'centralTaxTotalA');" /></td>
+					<td><input type="text" id="stateTax" name="stateTax" class="stateTaxCls" oninput="calculateGstr3b(this, 'stateTaxTotalA');" /></td>
+					<td><input type="text" id="cessTax" name="cessTax" class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTaxTotalA');"/></td>
+				</tr>
+				<tr id="ISD">
+					<td> (4) Inward supplies from ISD</td>
+					<td><input type="text" id="integratedTax" name="integratedTax" class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTaxTotalA');" /></td>
+					<td><input type="text" id="centralTax" name="centralTax" class="centralTaxCls" oninput="calculateGstr3b(this, 'centralTaxTotalA');" /></td>
+					<td><input type="text" id="stateTax" name="stateTax" class="stateTaxCls" oninput="calculateGstr3b(this, 'stateTaxTotalA');" /></td>
+					<td><input type="text" id="cessTax" name="cessTax" class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTaxTotalA');"/></td>
+				</tr>
+				<tr id="OTH1">
+					<td> (5) All other ITC</td>
+					<td><input type="text" id="integratedTax" name="integratedTax" class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTaxTotalA');"/></td>
+					<td><input type="text" id="centralTax" name="centralTax" class="centralTaxCls" oninput="calculateGstr3b(this, 'centralTaxTotalA');" /></td>
+					<td><input type="text" id="stateTax" name="stateTax" class="stateTaxCls" oninput="calculateGstr3b(this, 'stateTaxTotalA');" /></td>
+					<td><input type="text" id="cessTax" name="cessTax" class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTaxTotalA');"/></td>
+				</tr>
+				<tr>
+					<td><label>(B) ITC Reversed</label></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr id="RUL1">
+					<td> (1) As per Rule 42 & 43 of SGST/CGST rules</td>
+					<td><input type="text" id="integratedTax" name="integratedTax" class="integratedTaxBCls" oninput="calculateGstr3b(this, 'integratedTaxTotalB');"/></td>
+					<td><input type="text" id="centralTax" name="centralTax" class="centralTaxBCls" oninput="calculateGstr3b(this, 'centralTaxTotalB');" /></td>
+					<td><input type="text" id="stateTax" name="stateTax" class="stateTaxBCls" oninput="calculateGstr3b(this, 'stateTaxTotalB');" /></td>
+					<td><input type="text" id="cessTax" name="cessTax" class="cessTaxBCls" oninput="calculateGstr3b(this, 'cessTaxTotalB');"/></td>
+				</tr>
+				<tr id="OTH2">
+					<td> (2) Others</td>
+					<td><input type="text" id="integratedTax" name="integratedTax" class="integratedTaxBCls" oninput="calculateGstr3b(this, 'integratedTaxTotalB');"/></td>
+					<td><input type="text" id="centralTax" name="centralTax" class="centralTaxBCls" oninput="calculateGstr3b(this, 'centralTaxTotalB');" /></td>
+					<td><input type="text" id="stateTax" name="stateTax" class="stateTaxBCls" oninput="calculateGstr3b(this, 'stateTaxTotalB');" /></td>
+					<td><input type="text" id="cessTax" name="cessTax" class="cessTaxBCls" oninput="calculateGstr3b(this, 'cessTaxTotalB');"/></td>
+				</tr>
+				<tr id="NETAB" style="display:none;">
+					<td>dis</td>
+					<td><input type="text" id="integratedTaxTotalA" /><input type="text" id="integratedTaxTotalB" /></td>
+					<td><input type="text" id="centralTaxTotalA" /><input type="text" id="centralTaxTotalB" /></td>
+					<td><input type="text" id="stateTaxTotalA" /><input type="text" id="stateTaxTotalB" /></td>
+					<td><input type="text" id="cessTaxTotalA"/><input type="text" id="cessTaxTotalB"/></td>
+				</tr>
+				<tr id="NETITC">
+					<td><label>(C) Net ITC Available (A)-(B)</label></td>
+					<td><input type="text" id="integratedTaxC" name="integratedTax" readonly="readonly"/></td>
+					<td><input type="text" id="centralTaxC" name="centralTax" readonly="readonly"/></td>
+					<td><input type="text" id="stateTaxC" name="stateTax" readonly="readonly"/></td>
+					<td><input type="text" id="cessTaxC" name="cessTax" readonly="readonly"/></td>
+				</tr>
+				<tr>
+					<td><label>(D) Ineligible ITC</label></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr id="RUL2">
+					<td> (1) As per section 17(5) of CGST//SGST Act</td>
+					<td><input type="text" id="integratedTaxD" name="integratedTax" class="integratedTaxClsD" /></td>
+					<td><input type="text" id="centralTaxD" name="centralTax" class="centralTaxClsD" /></td>
+					<td><input type="text" id="stateTaxD" name="stateTax" class="stateTaxClsD" /></td>
+					<td><input type="text" id="cessTaxD" name="cessTax" class="cessTaxClsD"/></td>
+				</tr>
+				<tr id="OTH3">
+					<td> (2) Others</td>
+					<td><input type="text" id="integratedTaxD" name="integratedTax" class="integratedTaxClsD" /></td>
+					<td><input type="text" id="centralTaxD" name="centralTax" class="centralTaxClsD" /></td>
+					<td><input type="text" id="stateTaxD" name="stateTax" class="stateTaxClsD" /></td>
+					<td><input type="text" id="cessTaxD" name="cessTax" class="cessTaxClsD"/></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<b>5. Values of exempt, Nil-rated and non-GST inward supplies</b>
+		<table class="table excelFormTable" id="karvyGSTR3BTbl5" style="margin-top: 0px;">
+			<thead class="tablehead1">
+				<tr><th>Nature of supplies</th><th>Inter-State supplies</th><th>Intra-state supplies</th></tr>
+			</thead>
+			<tbody>
+				<tr id="GST">
+					<td>From a supplier under composition scheme, Exempt  and Nil rated supply</td>
+					<td><input type="text" id="integratedTaxA"  class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTaxTotal');"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTaxTotal');"/></td>
+				</tr>
+				<tr id="NONGST">
+					<td>Non GST supply</td>
+					<td><input type="text" id="integratedTaxA"  class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTaxTotal');"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTaxTotal');"/></td>
+				</tr>
+				<tr id="TEX">
+					<td><label>Total</label></td>
+					<td><input type="text" id="integratedTaxTotal" /></td>
+					<td><input type="text" id="cessTaxTotal" /></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<b>5.1 Interest & late fee payable</b>
+		<table class="table excelFormTable" id="karvyGSTR3BTbl51" style="margin-top: 0px;">
+			<thead class="tablehead1">
+				<tr><th>Description</th><th>Integrated Tax</th><th>Central Tax</th><th>State/UT Tax</th><th>Cess</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Interest</td>
+					<td><input type="text" id="integratedTaxA"  class="integratedTaxCls" oninput="calculateGstr3b(this, 'integratedTax');"/></td>
+					<td><input type="text" id="centralTaxA"  class="centralTaxCls" oninput="calculateGstr3b(this, 'centralTax');"/></td>
+					<td><input type="text" id="stateTaxA"  class="stateTaxCls" oninput="calculateGstr3b(this, 'stateTax');"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" oninput="calculateGstr3b(this, 'cessTax');"/></td>
+				</tr>
+				<tr>
+					<td>Late fee</td>
+					<td><input type="text" id="integratedTaxA"  class="integratedTaxCls" value="0" style="display:none;"/></td>
+					<td><input type="text" id="centralTaxA"  class="centralTaxCls" oninput="calculateGstr3b(this, 'centralTax');"/></td>
+					<td><input type="text" id="stateTaxA"  class="stateTaxCls" oninput="calculateGstr3b(this, 'stateTax');"/></td>
+					<td><input type="text" id="cessTaxA"  class="cessTaxCls" value="0" style="display:none;"/></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br>
+		<b>3.2  Of the supplies shown in 3.1 (a), details of inter-state supplies made to unregistered persons, composition taxable person and UIN holders</b>
+		<div><button style="cursor: pointer; float: left;" class="btn btn-submit" id="addNewKarvyGstr" onclick="addNewKarvyGstr();"><i class="fa fa-plus-circle fa-lg"></i> Add more items</button>
+		<button style="cursor: pointer; float:right; margin-right:1px;" class="btn btn-submit" id="removeNewKarvyGstr" onclick="removeNewKarvyGstr();"><i class="fa fa-minus-circle fa-lg"></i> Remove last item</button></div>
+		<table class="table excelFormTable" id="karvyGSTR3BTbl52" style="margin-top: 0px;">
+			<thead class="tablehead1">
+				<tr>
+					<th rowspan="2">Place of Supply(State/UT)</th><th colspan="2">Supplies made to Unregistered Persons</th><th colspan="2">Supplies made to Composition Taxable Persons</th><th colspan="2">Supplies made to UIN holders</th>
+				</tr>
+				<tr>
+					<th>Total Taxable value</th><th>Amount of Integrated Tax</th><th>Total Taxable value</th><th>Amount of Integrated Tax</th><th>Total Taxable value</th><th>Amount of Integrated Tax</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="gstr3b0">
+					<td>
+						<select id="karvyState" name="field0" class="input-medium bfh-states" data-country="IN" onChange="calculateGSTR3BTableValues(this);"></select></td>
+					<td><input type="text" id="field1" class="field1" oninput="calculateGstr3b(this, 'field1Total');"/></td>
+					<td><input type="text" id="field2" class="field2" oninput="calculateGstr3b(this, 'field2Total');"/></td>
+					<td><input type="text" id="field3" class="field3" oninput="calculateGstr3b(this, 'field3Total');"/></td>
+					<td><input type="text" id="field4" class="field4" oninput="calculateGstr3b(this, 'field4Total');"/></td>
+					<td><input type="text" id="field5" class="field5" oninput="calculateGstr3b(this, 'field5Total');"/></td>
+					<td><input type="text" id="field6" class="field6" oninput="calculateGstr3b(this, 'field6Total');"/></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td><label>Total</label></td>
+					<td><input type="text" id="field1Total"  readonly="readonly"/></td>
+					<td><input type="text" id="field2Total"  readonly="readonly"/></td>
+					<td><input type="text" id="field3Total"  readonly="readonly"/></td>
+					<td><input type="text" id="field4Total"  readonly="readonly"/></td>
+					<td><input type="text" id="field5Total"  readonly="readonly"/></td>
+					<td><input type="text" id="field6Total"  readonly="readonly"/></td>
+				</tr>
+			</tfoot>
+		</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" style="float: left;" class="btn btn-white" data-dismiss="modal" id="closeGstrBtn">Close</button>
+				<button type="button" style="float: right;" onclick="generateGstr3BJson();" class="btn btn-submit" id="generateJsonBtn">GENERATE JSON</button>
+			</div>
+		</div>
+	</div>
+</div>

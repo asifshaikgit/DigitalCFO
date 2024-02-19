@@ -1,0 +1,98 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<!-- Start SIDEPANEL -->
+<div role="tabpanel" class="sidepanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#chat" aria-controls="chat" role="tab" data-toggle="tab">CHAT</a></li>
+        <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">NOTES</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- Start Chat -->
+        <div role="tabpanel" class="tab-pane active" id="chat">
+            <div class="gn-title">ONLINE MEMBERS (4)</div>
+            <ul class="group">
+                <li class="member"><a href="#"><b>Hari Rodriguez</b>CHILE</a><span class="status online"></span></li>
+                <li class="member"><a href="#"><b>Cheruku Srikanth </b>INDIA</a><span class="status busy"></span></li>
+                <li class="member"><a href="#"><b>Manali Mungikar</b>INDIA</a><span class="status away"></span></li>
+                <li class="member"><a href="#"><b>Sudhir Gadgil </b>INDIA</a><span class="status online"></span></li>
+            </ul>
+            <div class="gn-title">OFFLINE MEMBERS (1)</div>
+            <ul class="group">
+                <li class="member"><a href="#"><b>Paulina Castro</b>CHILE</a><span class="status offline"></span></li>
+            </ul>
+            <form class="search">
+                <input type="text" class="form-control" placeholder="Search a contacts...">
+            </form>
+        </div>
+        <!-- End Chat -->
+
+        <!-- Start Today -->
+        <div role="tabpanel" class="tab-pane" id="today">
+
+            <div class="sidepanel-m-title">
+                Today
+                <span class="left-icon"><a href="#"><i class="fa fa-refresh"></i></a></span>
+                <span class="right-icon"><a href="#"><i class="fa fa-file-o"></i></a></span>
+            </div>
+
+            <div class="gn-title">NEW</div>
+            <ul class="list-w-title">
+                <li>
+                    <a href="#">
+                        <span class="label label-danger">ORDER</span>
+                        <span class="date">9 hours ago</span>
+                        <h4>New Jacket 2.0</h4>
+                        Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="label label-success">COMMENT</span>
+                        <span class="date">14 hours ago</span>
+                        <h4>Bill Jackson</h4>
+                        Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="label label-info">MEETING</span>
+                        <span class="date">at 2:30 PM</span>
+                        <h4>Developer Team</h4>
+                        Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="label label-warning">EVENT</span>
+                        <span class="date">3 days left</span>
+                        <h4>Birthday Party</h4>
+                        Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- End Today -->
+
+        <!-- Start Tasks -->
+        <div role="tabpanel" class="tab-pane" id="notes">
+            <div class="gn-title">Text</div>
+            <div>
+                <br><br>
+                <textarea name="" id="" cols="34" rows="5"></textarea>
+                <input type="button" value="Send" class="btn pull-right">
+            </div>
+            <br><br><br>
+            <div class="gn-title">Audio</div>
+            <ul class="todo-list">
+                <input onclick="grabar()" type="button" value="Recording" style="margin-top: 13px;	position: static;">
+                <input onclick="parar()" type="button" value="stop and play"/>
+                <p></p>
+            </ul>
+            <div class="gn-title">Audio Notes</div>
+            <audio controls="" autoplay="" style="margin-top: 14px;"></audio>
+        </div>
+        <!-- End Tasks -->
+    </div> <!-- End tab-content -->
+</div>
+<!-- END SIDEPANEL -->

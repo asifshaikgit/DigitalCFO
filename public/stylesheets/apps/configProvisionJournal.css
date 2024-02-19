@@ -1,0 +1,50 @@
+#mtefpetrid ul > li {margin-top: 5px; margin-left:10px; !important;}
+#mtefpetrid ul > li  input[type="checkbox"] {width: 20px; }
+#mtefpetrid ul > li > input[type="text"] {float: right; height: 20px; width: 100px; margin-top:1px;}
+#mtefpetrid ul > li > b {overflow-x: auto;}
+
+.accountheadlistheadIncomes {font-size:14px;  text-align: center; color:#000;  background: #9cd9eb; !important;}
+.accountheadlistheadExpenses  {font-size:14px; text-align: center; color:#000; background: #9cd9eb; !important;}
+.accountheadlistheadAssets {font-size:14px; text-align: center; color:#000; background: #9cd9eb; !important;}
+.accountheadlistheadLiabilities {font-size:14px; text-align: center;color:#000;  background: #9cd9eb; !important;}
+
+.accountlistIncomes { margin-left:0px; color:#00004c; background: #F5F5F5; !important;}
+.accountlistExpenses  { margin-left:0px; color:#b30000; background: #c9ffff; !important;}
+.accountlistAssets { margin-left:0px; color:#6B8E23; background: #F5F5F5; !important;}
+.accountlistLiabilities { margin-left:0px; color:#0000FF; background: #c9ffff; !important;}
+
+#creditAccountHeadsdropdown {width: 400px; border: 1px solid rgb(150, 150,151); background-color: #ffffff; border-radius: 3px; !important;}
+#debitAccountHeadsdropdown   {width: 400px; border: 1px solid rgb(150, 150,151); background-color: #ffffff; border-radius: 3px; !important;}
+
+#debitBranch, #creditBranch {
+	margin-top: 5px !important; 
+	width:100px !important;
+}
+
+#debitBranch > thead > tr > th,
+#creditBranch > thead > tr > th {
+	padding : 5px !important;
+}
+
+#provisionJournallDebitDetails, #provisionJournallCreditDetails {
+	 width:600px !important;
+}
+
+#provisionJournallCreditDetails {
+	margin-left: 10px !important;
+	margin-top: 22px !important;
+}
+
+#provisionJournallDebitDetails > thead > tr > th, 
+#provisionJournallCreditDetails > thead > tr > th {
+	 padding:10px !important;
+	 border: 1px solid white !important;
+}
+
+.pjeTableItemDetailsParticularHeads {
+	width: 180px !important;
+}
+
+.pjeTableItemDetailsProjectHeads {
+	width: 120px !important;
+}

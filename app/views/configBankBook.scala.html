@@ -1,0 +1,128 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="bankBookDiv" class="tab-pane mainDiv" style="display: none;">
+    <div class="content">
+		<div class="panel panel-showtrans">
+			<div class="navbar-transaction">
+			<div class="dropdown" style="display:inline;">
+   									 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports
+    								<span class="caret"></span></button>
+    								<ul class="dropdown-menu" style="margin-top:10px;">
+										<li id="cashAndBankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="1">Cash Book</a></li>
+										<li id="trialBalanceallBranches" onclick="changeReportPanel(this);"><a data-id="3">Trial Balance</a></li>
+										<li id="reportAllInventoryItems" onclick="changeReportPanel(this);"><a data-id="4">Inventory Report</a></li>
+										<li id="plbscoamapping" onclick="changeReportPanel(this);"><a data-id="5">Mapping-COA</a></li>
+							</ul>
+ 						 </div>
+			</div>
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="panel panel-showtrans" style="overflow: auto;">
+			<div class="panel-body">
+				<div class="panel-title">Bank Book</div>
+				<!--
+				<div id="search-launch-top" >
+					<a href="#pendingExpense" id="newCashBankBookform" onclick="$('#pendingExpense').show();$('#trialBalance').hide();$('#cashAndBank').hide();$('#periodicInventory').hide();$('#reportInventory').hide();$('#reportAllInventory').hide();"><i class="fa fa-times fa-1x close-legend" id="newCashBankBookform-container-close"></i></a>
+				</div> -->
+				<table class="table excelFormTable" id="cashAndBankCriteriaTable" style="margin-top: 0px;">
+					<thead class="tablehead1">
+							<tr><th>Select Branch</th><th>Select Bank</th><th>From Date</th><th>To Date</th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+					</thead>
+					<tbody>
+							<tr>
+								<td style="width: 8%;">
+									<select class="bnchCashnBankTrialBalance" name="selectBranchCashBook" id="selectBranchCashBankBookId" onchange="showAllBanksAccountsForTheBranch(this); resetBankReconciliation(this);"><option value="">--Please Select--</option></select>
+								</td>
+								<td style="width: 8%;">
+									<select class="bankCashnBankTrialBalance" name="selectBankCashBankBook" id="selectBankCashBankBookId" onchange="resetBankReconciliation(this);"><option value="">--Please Select--</option></select>
+								</td>
+								<td style="width: 5%;">
+									<input style="width: 90px;"  class="datepicker" type="text" name="bankBookFromDate" id="bankBookFromDate"/>
+								</td>
+								<td style="width: 5%;">
+									<input style="width: 90px;" class="datepicker" type="text" name="bankBookToDate" id="bankBookToDate"/>
+								</td>
+								<td style="width: 6%;"><button id="searchBankBooks" style="margin-left:2px;" class="searchBankBooks btn btn-submit btn-idos" title="Search Bank transactions"><i class="fa fa-search pr-5"></i>Search</button></td>
+								<td style="width: 6%;">
+									<button id="exportBankBooksXlsx" style="margin-left:2px;" class="exportBankBooksXlsx btn btn-submit btn-idos" title="Export Cash Book(xlsx)" onclick="exportBook('2', 'xlsx');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Save as xlsx</button></td>
+								<td style="width: 6%;">
+									<button id="exportBankBooksPdf" style="margin-left:2px;" class="exportBankBooksPdf btn btn-submit btn-idos" title="Export Cash Book (pdf)" onclick="exportBook('2', 'pdf');"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>Save as pdf</button>
+								</td>
+								<td style="width:10%;">
+									<button id="bankReconciliation" style="margin-left:2px; float: right; display: none;" class="bankReconciliation btn btn-submit btn-idos" title="Bank Reconciliation">Bank Reconciliation</button></td>
+								<td>
+									<input style="float: right;margin-left:1px; width: 100px; display: none;" id="bankStatBalance" type="text" placeholder="Bank Statement Balance"/></td>
+								<td>
+									<button id="genBankReconciliation" style="margin-left:2px; float: right; display: none;" class="genBankReconciliation btn btn-submit btn-idos" title="Generate Bank Reconciliation">Generate Reconciliation</button>
+								</td>
+							</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div id="bankBookTransTableDiv">
+					<table class="table table-hover table-striped excelFormTable cashBankTb" id="bankBookTransTable">
+						<thead class="tablehead1">
+							<tr>
+								<th>Date</th>
+								<th>Transaction Type</th>
+								<th>Customer/Vendor/Ledgers</th>
+								<th>Description Of The Transaction</th>
+								<th>Debit</th>
+								<th>Credit</th>
+								<th>Balance</th>
+								<th>Instrument Number</th>
+								<th>Instrument Date</th>
+								<th style="display:none;">Bank Date</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<hr style="margin-top:0px;">
+				</div>
+			</div>
+			<div class="panel-body" id="brsResult"></div>
+		</div>
+	</div>
+
+
+	<div id="bankBookCreditModal" class="modal fade" data-backdrop="static" data-keyboard="true" style="width: 60%; left:20%;" align="center" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Credit Transaction Details</h4>
+					<h5 id="wrongActCred" align="center"></h5>
+				</div>
+				<div class="modal-body">
+					<table id="bankBookCreditTable" class="table table-hover table-striped excelFormTable">
+						<thead><tr><th>Transaction</th><th>Amount</th></tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="bankBookDebitModal" class="modal fade" data-backdrop="static" data-keyboard="true" style="width: 60%; left: 10%;" align="center" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Debit Transaction Details</h4>
+					<h5 id="wrongActCred" align="center"></h5>
+				</div>
+				<div class="modal-body">
+					<table id="bankBookDebitTable" class="table table-hover table-striped excelFormTable">
+						<thead><tr><th>Transaction</th><th>Amount</th></tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

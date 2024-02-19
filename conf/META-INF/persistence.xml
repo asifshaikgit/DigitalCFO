@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/persistence" >
+
+    <persistence-unit name="IDOS_db" transaction-type="RESOURCE_LOCAL"> 
+     <!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+     <non-jta-data-source>MyDatasource</non-jta-data-source>
+     <properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+			<property name="showSql" value="true" />
+			<property name="generateDdl" value="false" />
+	</properties>
+    </persistence-unit>
+    
+</persistence>

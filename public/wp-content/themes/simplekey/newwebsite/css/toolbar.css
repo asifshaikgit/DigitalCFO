@@ -1,0 +1,191 @@
+.clear{ clear: both; }
+.display_none{ display: none;}
+body.admin-bar {
+    /*  margin-top: 70px !important; */
+    
+}
+body{ position: relative; }
+
+.st-toolbar{
+    display: block;
+    position: fixed;
+    top:  -88px;
+    left: 0px;
+    width: 100%;
+    z-index: 9999;
+    font:bold 12px "Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+    color:#333333;
+}
+.st-toolbar-main{ position: relative; height: 100%; width: 100%; display: block;}
+
+.admin-bar .st-toolbar{ /* top: 28px; */ top:  -62px; }
+
+.st-toolbar .tb-wrap{
+    height: 84px;
+    position: relative;
+    background: url('../images/toolbar_bg.png') repeat-x top left;
+}
+
+.st-toolbar .tb-logo h2{
+        font-size: 20px;
+        line-height: 30px;
+        margin-top:19px;
+		
+}
+.st-toolbar .tb-logo h2 a{
+    border: none;
+    color: #333333;
+}
+.st-toolbar .tb-logo h2 a:hover{
+    color: #80B500;
+}
+
+.st-toolbar .tb-settings-btn{
+    height: 37px;
+    width: 116px;
+    display: block;
+    background: url(../images/setting.png) center center no-repeat;
+    cursor: pointer;
+    position: absolute;
+    right: -4px;
+    bottom: -29px;
+}
+.admin-bar .st-toolbar .tb-settings-btn{
+    bottom: -29px;
+}
+
+.st-toolbar  .tb-cart-w{
+    float: right;
+    text-align: right;
+    margin-top: 24px;
+}
+
+.st-toolbar  .tb-cart-btn{
+    font-size: 14px;
+    text-transform: uppercase;
+    display: block;
+    -webkit-border-radius: 3px; 
+    -moz-border-radius: 3px;border-radius: 3px;
+    font-family:arial, helvetica, sans-serif; 
+    padding:9px 23px;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; text-align: center; 
+     color: #FFFFFF; 
+     background-color: #D02138;
+}
+
+.st-toolbar  .tb-cart-btn:hover{
+     background-color: #0783c1;
+}
+
+.st-toolbar  .tb-logo{ float: left; margin-left: 50px;margin-right: 30px;}
+.st-toolbar  .tb-right{ float: right; margin-right: 50px; padding: 0px 0px 0px; }
+.st-toolbar span.change_label{margin:0px 0px 6px; font-size: 10.5px;color:#fff;display: inline-block;}
+
+.tb-styles, .tb-themes { float: left; }
+
+
+.tb-styles { margin-left: 20px;}
+
+.st-toolbar  .tb-styles{
+    width: 220px;
+}
+.st-toolbar .tb-styles .tb-current-item{
+    width: 192px;
+}
+.st-toolbar .tb-styles  .tb-dropdow-items{
+    width: 210px;
+}
+
+.st-toolbar  .tb-current-item .tb-t-t{ margin-right:  23px; }
+
+.st-toolbar  .tb-t-n{ font-weight: normal; float: left;}
+.st-toolbar  .tb-t-t{ float: right;}
+
+.st-toolbar .tb-dropdow  .tb-dropdow-items{
+    border: 1px solid #cccccc;
+    background: #F0F0F0;
+    border-top:0px;
+    max-height: 300px;
+    overflow: auto;
+    display: none;
+}
+.st-toolbar .tb-dropdow .tb-t-item{
+     font-size: 14px;
+     padding: 7px 10px 2px;
+     margin: 5px 0px;
+     cursor: pointer;
+     line-height: 14px;
+     border-top: 1px solid #cccccc;
+}
+.st-toolbar .tb-dropdow .tb-t-item .tb-t-n{
+    line-height: 22px;
+}
+
+.st-toolbar .tb-style .tb-dropdow-items {
+     width: 219px;
+}
+
+.st-toolbar  .tb-t-item.item-1{
+    margin-top:0px;
+}
+.st-toolbar .tb-dropdow a{ display: block;}
+.st-toolbar .tb-dropdow a, .st-toolbar .tb-dropdow .tb-t-item{ color:  #333333; font-size: 12.5px;font-weight: normal;}
+.st-toolbar .tb-dropdow a:hover, .st-toolbar .tb-dropdow .tb-t-item:hover{ color: #16a1e7}
+.st-toolbar .tb-dropdow .tb-t-t{
+    color: #AAAAAA;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 11px;
+    padding-top: 3px;
+}
+
+/* tooltip */
+.ui-tooltip {
+   
+}
+.ui-tooltip{
+    position: absolute;
+    width: auto;
+    z-index: 999999999;
+    
+}
+.tb-tooltip-inner{
+    padding: 10px;
+    color: #fff;
+    border-radius: 0px;
+    box-shadow: 0 0 7px #333333;
+     background: #1C1C1C;
+    border: 2px solid #333333;
+    
+}
+
+.ui-tooltip h2, .ui-tooltip div, .ui-tooltip p{ color: #fff;}
+.tb-tooltip-title{ 
+    font-size: 16px; margin: 0px; padding: 0px 0px 5px; text-transform: none;
+    font: bold 14px "Helvetica Neue", Sans-Serif;
+}
+.tb-tooltip-title .ver{ font-size: 12px; margin-left: 10px}
+.tb-bottom{height: 8px;display: block;
+    background: url("../images/toolbar_bottom.png") no-repeat scroll right top transparent;
+    clear: both;
+    position: absolute;
+    top: 83px;
+    width: 100%;
+    z-index: -1;}
+.tb-dropdow{margin-top:15px;}
+
+/*Responsive*/
+
+@media only screen and (max-width: 959px) {
+    .st-toolbar .tb-logo{ display: none;}
+}
+
+@media only screen and (max-width: 767px){ 
+	   .st-toolbar .tb-logo{ display: none;}
+}
+
+@media only screen and (max-width: 730px){
+      .st-toolbar { display: none;}
+}
+
+

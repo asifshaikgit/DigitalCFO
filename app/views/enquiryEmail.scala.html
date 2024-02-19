@@ -1,0 +1,33 @@
+@(cName:String, enqEmail:String, enqComments:String, enqPhone: String, company: String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;" class="table">
+	<tbody>
+		<tr id="emailHeader">
+				<td>
+				</td>
+			</tr>
+		<tr id="emailBody">
+			<td>
+				<table>
+					<tbody style="font-size: 14px;">
+						<tr><td style="width: 200px;">Name </td><td>@cName</td></tr>
+						<tr><td style="width: 200px;">Email </td><td>@enqEmail</td></tr>
+						<tr><td style="width: 200px;">Contact </td><td>@enqPhone</td></tr>
+						<tr><td style="width: 200px;">Company </td><td>@company</td></tr>
+						<tr><td style="width: 200px;">Comments </td><td>@enqComments</td></tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr>
+		<td>
+			</br>
+		</td>
+		</tr>
+		<tr id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>
+</br>
+<b style="font-size: 14px;">Regards,</b>
+<b style="font-size: 14px;">@(configParams.getCompanyApp()) ALERT</b>

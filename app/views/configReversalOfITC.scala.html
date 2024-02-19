@@ -1,0 +1,56 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+@if(role.contains("CREATOR")){
+<div class="transactionDetailsTable" id="transactionDetailsRevOfITCTable" style="overflow: auto; display: none;">
+	<table class="table excelFormTable transaction-create" id="txnRevOfITCTable">
+		<thead class="tablehead1">
+			<tr id="revofItcHeadTr">
+				<th><button title="add more items" style="float: left;" onclick="addRevOfITCRow();"><i class="fa fa-plus-circle fa-lg"></i></button>Branch</th>
+				<!-- <th>Product</th> -->
+				<th>Input to be Reversed</th>
+				<th>Amount to be Reversed</th>
+				<th>Reason for Reversal </th>
+				<th><button class="removeItemForTransaction" id="removeItemForTransaction" title="remove items"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+			</tr>
+		</thead>
+		<tbody>
+		 <tr id="revOfITCid">
+		 	<td>
+				<select class="txnBranches" name="reversalBranches" id="reversalBranches" onChange="setItemwiseGSTLedger(this);"><option value="">Please Select</option></select>
+			</td>
+			<!-- 
+				<td>
+					<select class="txnBranches" name="reversalBranches" id="reversalBranches" onChange="setBranchWiseExpenceItem(this);"><option value="">Please Select</option></select>
+				</td>
+				<td>
+					<select class="txnItem" name="reversalProduct" id="reversalProduct" onChange="setItemwiseGSTLedger(this);"><option value="">Please Select</option></select>
+				</td> 
+			-->
+			<td>
+				<select class="reversalLedger" name="reversalLedger" style="width:300px;" id="reversalLedger" onChange=""><option value="">Please Select</option></select>
+			</td>
+			<td>
+				<input class="txnPerUnitPrice" placeholder="" type="text" name="amountToBeReversal" id="amountToBeReversal" onkeypress="return onlyDotsAndNumbers(event);" onkeyup=""/>
+			</td>
+			<td>
+				<select class="reasonForReversal" name="reasonForReversal" id="reasonForReversal" onChange="">
+					<option value="">Please Select</option>
+					<option value="1">Amount in terms of Rule 37(2)</option>
+					<option value="2">Amount in terms of Rule 42(1)(m)</option>
+					<option value="3">Amount in terms of Rule 42(2)(a)</option>
+					<option value="4">Amount in terms of Rule 42(2)(b)</option>
+					<option value="5">Amount in terms of rule 43(1)(h)</option>
+					<option value="6">On account of amount paid subsequent to Reversal of ITC</option>
+					<option value="7">Any other Reversal(+)/Reclaim(-)</option>
+				</select>
+			</td>
+			<td>
+			</td>
+		 </tr>
+		</tbody>
+	</table></br>
+	<button id="accountingcancelButton" class="compcancelButton btn btn-cancel cancel" title="Cancel" onClick="cancel()" >Cancel Transaction</button>
+	<button  id="revOfITCSubmitForAccounting" class="submitForAccounting btn btn-submit btn-custom" title="Submit for Accounting">Submit for Accounting</button>
+</div>
+
+}
+

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>IDOS Branchwise sales/purchases</title>
+
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>
+    <script>
+        if (typeof jQuery == 'undefined') {
+            document.write(unescape("%3Cscript src='/js/jquery-2.1.4.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.js"></script>     
+    <link href="../../Content/Office.css" rel="stylesheet" type="text/css" />
+    <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js" type="text/javascript"></script>
+    <!-- To enable offline debugging using a local reference to Office.js, use:                        -->
+    <!-- <script src="../../Scripts/Office/MicrosoftAjax.js" type="text/javascript"></script>  -->
+    <!-- <script src="../../Scripts/Office/1.1/office.js" type="text/javascript"></script>  -->
+
+    <link href="../App.css" rel="stylesheet" type="text/css" />
+    <script src="../App.js" type="text/javascript"></script>
+
+    <link href="Home.css" rel="stylesheet" type="text/css" />
+    <script src="Home.js" type="text/javascript"></script>    
+
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.0/fabric.min.css">
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.0/fabric.components.min.css">   
+    
+</head>
+<body class="ms-font-m" >   
+    <div id="content-header">
+        <div class="padding">
+            <div class="logo"></div>
+        </div>
+    </div>
+    
+    <div id="content-main">
+        <div class="padding">                                         
+           
+                <section class="loginmenu">                   
+                        <div class="outer" id="logindiv">                            
+                            <center>
+                                <h1>IDOS DASHBOARD</h1>
+                                <p>Welcome to IDOS Analytics.</p>
+                                <p>View your business decision making reports instantly by using this add-in.</p>
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <input id="loginuser" type="email" name="loginuser" placeholder="Registered e-mail with IDOS" required class="form-control" />
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <input id="pass" type="password" name="password" placeholder="Password" required class="form-control" />
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </div>                                
+                                </div>
+                                <p>                            
+                                <button class="ms-Button" id="login-Button">Log in</button>                                
+                                </p><p>
+                                <a href="https://www.myidos.com:9443/signIn#" target="_blank">Forgot your password?</a>
+                                </p>
+                                <a href="https://www.myidos.com:9443/signUp#signUpDiv" target="_blank"><strong>New to IDOS?</strong> Register now.</a>                                
+                            </center>
+                        </div>                        
+                </section>
+            
+            <div class="addinmenu">                  
+                    <h2>IDOS DASHBOARD:</h2>
+                    <input type="radio" title="First Add new worksheet." name="graph" id="graph" class="radio" value="branchwisesales">Sales Analytics<br><br />
+                    <input type="radio" title="First Add new worksheet." name="graph" id="graph" class="radio" value="branchwiseexpenses">Purchase Analytics<br><br />
+                    <input type="radio" title="First Add new worksheet." name="graph" id="graph" class="radio" value="branchwisecustomeradvances">Customer Advance Analytics<br><br />
+                    <input type="radio" title="First Add new worksheet." name="graph" id="graph" class="radio" value="branchwisevendoradvances">Vendor Advance Analytics<br><br />
+                    <button class="ms-Button" id="idosgrpahs" title="Avoid report overwriting, add worksheet." >Display Analysis</button>                
+            </div>  
+         <!--div id="footer">             -->
+		 <footer>
+               <small>© Copyright 2015 - IDOS CORP - All rights reserved. <a href="https://www.myidos.com:9443/privacy#informationCollected" target="_blank">PRIVACY POLICY of IDOS</a></small>        </footer>
+         <!--</div> -->
+       </div>
+   </div>
+</body>
+</html> 

@@ -1,0 +1,18 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<div id="chatIcon" title="Online Users - 0"></div>
+<div id="onlineUsers" style="display: none;" class="ol-chat">
+	<span class="ol-head"><span>Online Users - <span id="onlineCount">0</span></span><i class="fa fa-refresh ol-chat-list"></i></span>
+	<div id="showOnline" style="width: 180px;"><ul id="availableUsers"></ul></div>
+</div>
+<div id="chatNotify"></div>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/chat.js")'></script>
+<script type="text/javascript">
+setTimeout(function(){
+	ajaxCall('/chat/online', '', '', '', 'GET', '', 'chatAvailableSuccess', '', false);	
+},20000);
+function playSound(){   
+	document.getElementById("chatNotify").innerHTML='<audio id="chatAudio" autoplay><source src=\'@routes.Assets.at("sounds/job-done.mp3")\' type="audio/mpeg" /><source src=\'@routes.Assets.at("sounds/job-done.mp3")\' type="audio/ogg" /><embed hidden="true" loop="false" src=\'@routes.Assets.at("sounds/job-done.mp3")\' /></audio>';
+}
+</script>  
+@chatMessages(fullName,email,role,orgn){
+}

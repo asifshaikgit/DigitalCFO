@@ -1,0 +1,145 @@
+@import url('landing_page.css');
+
+
+.help-info {
+    color: #e96e61 !important;
+}
+
+.popover-content{
+	color : #58666e !important;
+}
+.tasettlementcount{
+	padding-top:0px;
+}
+
+#excelTranUpload{
+	display:none;
+}
+
+.btn-idos-flat-white fs-16{
+	font-size:12px !important;
+	font-family: "Arial", Sans-serif !important;
+}
+
+.aasaanGST-logo{
+	background-image: url("aasaanGST-logo.png");
+  background-repeat: no-repeat;
+  margin-top: 5px;
+  width: 60px;
+  height: 60px;
+  margin-left: 30px;
+}
+
+.goog-te-gadget-simple .goog-te-menu-value {
+	color: #400040 !important;
+}
+
+.aasaanGST-top-header{
+  color:grey;
+  font-size:20px;
+  font-family: "Georgia", serif !important;
+  line-height: 1.8em;
+  float: left;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-top: 12px;
+  font-weight: 600;
+}
+
+.addnewItemForTransaction, .removeItemForTransaction, #cdtdbtTxnType, .addnewItemForMultiInvTransaction {
+	background-color: #EB8C00 !important;
+}
+
+#budgetTable thead tr td{
+	color: white !important;
+}
+
+.button{
+	border: 1px solid #D93954 !important;
+	background-color: #D93954 !important;
+}
+
+.button.small:link, .button.small{
+	font-size:12px !important;
+	font-family: "Arial", Sans-serif !important;
+}
+
+.fa-lg{
+	font-size:12px !important;
+}
+
+.hide_div{
+	display:none;
+}
+#add-new-admin{
+	margin-top:7px !important;
+}
+#newadmintable{
+	margin-top:7px !important;
+}
+#plusminus{
+	margin-top:7px !important;
+}
+b{
+	font-family: "Georgia", serif !important;
+}
+
+body{
+	font-family: "Arial", Sans-serif !important;
+}
+legend{
+	font-family: "Georgia", serif !important;
+}
+
+th{
+	font-family: "Georgia", serif !important;
+	font-weight:normal !important;
+}
+
+#vendorAccountDetailsTable thead tr td{
+  color: #00272b !important;
+}
+
+#billOfMaterialId {
+  display: inline;
+}
+
+#google_translate_element {
+	display: none;
+}
+
+#myPayrollSetupId {
+	display: none;
+}
+
+#billOfMaterialId {
+	display: none;
+}
+
+#newuserPayrollEarningsExcelFormTableDiv {
+	display: none;
+}
+
+#popUPPS{
+  display: none !important;
+}
+
+#setupPayrollForOrg-container {
+	display: none;
+}
+
+#editTxnOnceAllowed {
+	 display: none;
+}
+
+.paymentDetails, .paymentDetailsLabel, .bocprawPaymentDetails{
+  display: table-cell !important;
+}
+
+#thememenuid{
+	display: none !important;
+}
+
+#google_translate_element {
+	display: none;
+}

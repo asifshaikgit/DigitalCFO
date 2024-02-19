@@ -1,0 +1,8 @@
+@(pwcApiHost:String, pwcClientId:String, pwcClientSecret: String, pwcRedirectUrl: String, pwcScope: String, previousNounce: String)
+ 
+<h3>Redirecting to the authorization page @pwcApiHost</h3>
+<script type="text/javascript">
+    console.log("test");
+    window.location.href = "@pwcApiHost/authorize?response_type=code&state=@previousNounce&&client_id=@pwcClientId&redirect_uri=@pwcRedirectUrl&scope=@pwcScope";
+    
+</script>

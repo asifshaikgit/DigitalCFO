@@ -1,0 +1,67 @@
+
+#bomIncomeItemDiv .select2-container{
+    margin-top: 5px;
+}
+#bomIncomeItemDiv .col-sm-3{
+    padding-left: 5px;
+    padding-right: 0px;
+}
+
+#billOfMatSetup .klBranchSpecfTd {
+    border: 1px solid #A4A4A4;
+    margin: 0px;
+    border-radius: 3px;
+    overflow: auto;
+    height: 50px;
+}
+button[name=cancelBomSetupBtn]{
+    margin-top: 1%;
+    margin-left: 30%;
+}
+#saveUpdateBomSetupBtn{
+    margin-top: 1%;
+    margin-left: 25%;
+}
+
+#purchaseRequisitionTxnDivId .txnInStockUnit, #purchaseRequisitionTxnDivId .txnCommitedUnit,
+#purchaseRequisitionTxnDivId .txnOrderedUnit, #purchaseRequisitionTxnDivId .txnNetUnit{
+    width: 70px !important;
+}
+#purchaseRequisitionTxnDivId .txnNoOfUnit{
+    width: 90px !important;
+}
+
+#createPurchaseOrderTxnDiv .txnInStockUnit, #createPurchaseOrderTxnDiv .txnCommitedUnit,
+#createPurchaseOrderTxnDiv .txnOrderedUnit, #createPurchaseOrderTxnDiv .txnNetUnit{
+    width: 70px !important;
+}
+#createPurchaseOrderTxnDiv .txnNoOfUnit{
+    width: 90px !important;
+}
+
+#purchaseRequisitionAgainstSalesOrderTxnDiv .txnInStockUnit, #purchaseRequisitionAgainstSalesOrderTxnDiv .txnCommitedUnit,
+#purchaseRequisitionAgainstSalesOrderTxnDiv .txnOrderedUnit, #purchaseRequisitionAgainstSalesOrderTxnDiv .txnNetUnit{
+    width: 70px !important;
+}
+#purchaseRequisitionAgainstSalesOrderTxnDiv .txnNoOfUnit{
+    width: 90px !important;
+}
+
+#poAgainstRequisitionTxnDiv .txnInStockUnit, #poAgainstRequisitionTxnDiv .txnCommitedUnit,
+#poAgainstRequisitionTxnDiv .txnOrderedUnit, #poAgainstRequisitionTxnDiv .txnNetUnit{
+    width: 70px !important;
+}
+#poAgainstRequisitionTxnDiv .txnNoOfUnit{
+    width: 90px !important;
+}
+
+.txnBomTdCls{
+    display: none;
+}
+
+.txnConfimPoCheckBox{
+    margin-left: 7px !important;
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+}

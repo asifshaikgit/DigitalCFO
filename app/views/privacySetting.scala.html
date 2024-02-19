@@ -1,0 +1,181 @@
+@(fullName: String, email: String, role: String, orgn: model.Organization, allowedProcurement: String, configParams: model.ConfigParams)(content: Html)
+<div class="content" id="privaySettingDiv" style="display: none;">
+    <div class="panel">
+        <div class="panel-body">
+                <!-- <div class="page-header"> -->
+            <input type="hidden" id="settingUserId" value="" />
+            <input type="hidden" id="settingUserEmail" value="" />
+            <div id="privacyLeftPanel">
+                <div class="leftpanel-subdiv">
+                    <div class="inner-left" style="border-top: 0px solid #d8dce0">
+                        <span class="common-image-leftpanel general-leftpanel" id="generalSetting">General</span>
+                    </div>
+                    <div class="inner-left">
+                        <span class="profile-leftpanel common-image-leftpanel" id="profileSetting">Profile</span>
+                    </div>
+                    <div class="inner-left">
+                        <span class="password-leftpanel common-image-leftpanel" id="passwordSetting">Password</span>
+                    </div>
+                    <div class="inner-left">
+                        <span class="common-image-leftpanel security-leftpanel" id="securitySetting">Security</span>
+                    </div>
+                </div>
+            </div>
+            <div class="right-line"></div>
+
+            <div id="privacyRightPanel">
+                <div id="settingMessage"></div>
+                <div id="generalSetting_content" class="common-rightpanel">
+                    <div class="setting-header-rightpanel">
+                        <span class="setting-header">General Account Details</span><!-- <span class="setting-edit">Edit</span> -->
+                    </div>
+                    <div style="padding: 30px 20px;">
+                        <div class="table-rightpanel">
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">
+                                    Name</div><div class="columnvalue-rightpanel">@fullName</div>
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">Email</div><div class="columnvalue-rightpanel">@email</div>
+                            </div>
+                            @if(!role.contains("EXTERNAL USER")) {
+                                <div class="row-rightpanel">
+                                    <div class="column-rightpanel">
+                                        Organisation</div><div class="columnvalue-rightpanel">@orgn.getName()</div>
+                                </div>
+                            }
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">Role(s)</div><div class="columnvalue-rightpanel">@role</div>
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">
+                                    Last Login</div><div class="columnvalue-rightpanel" id="settingLastLogin"></div>
+                            </div>
+                            <div class="row-rightpanel" style="border-bottom: 0;">
+                                <div class="column-rightpanel">
+                                    Last Password Change</div><div class="columnvalue-rightpanel" id="settingPwdChange"></div>
+                            </div>
+                        </div>
+                        @if(role.contains("CONTROLLER") || role.contains("ACCOUNTANT") || role.contains("MASTER ADMIN")) {
+                            <div class="setting-archive">
+                                Archive your organisation data present in @(configParams.getCompanyApp()) database.</div>
+                        }
+                    </div>
+                </div>
+                <div id="profileSetting_content" style="display: none;" class="common-rightpanel">
+                    <div class="setting-header-rightpanel">
+                        <span class="setting-header">Profile Settings</span>
+                    </div>
+                    <div style="padding: 30px 20px;">
+                        <div class="table-rightpanel">
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">
+                                    Date Of Birth</div><input type="text" id="settingDob" class="datepicker columnvalue-rightpanel" style="width: 272px;"/>
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">Phone Number</div>
+                                <select class="countryPhnCode" id="settingPhoneCode">
+                                    <option value="">--Please Select--</option>
+                                </select>
+                                <input type="text" id="settingPhone1" maxlength="3" style="width: 25px;
+                                    vertical-align: top;" onkeypress="return isNumber(event)" onkeyup="autotab(this)" name="settingPhone1">
+                                -
+                                <input type="text" id="settingPhone2" maxlength="3" style="width: 25px;
+                                    vertical-align: top;" onkeypress="return isNumber(event)" onkeyup="autotab(this)" name="settingPhone2">
+                                -
+                                <input type="text" id="settingPhone3" maxlength="4" style="width: 32px;
+                                    vertical-align: top;" onkeypress="return isNumber(event)" name="settingPhone3">
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">
+                                    Address</div><textarea id="settingAddress" style="width: 267px;"></textarea>
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">
+                                    Blood Group</div><input type="text" id="settingBloodGroup" class="columnvalue-rightpanel" style="width: 272px;" />
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel">ID Proof</div>
+                                <select id="settingIdProof" name="settingIdProofUpload" class="columnvalue-rightpanel" readonly="readonly" style="width: 272px;"><option value="">
+                                --Please Select--</option></select>
+                                <button id="settingIdProofUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+                                <button id="settingIdProofUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                                <button id="settingIdProofUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left: 14px;" onclick="deleteUploadedFile(this);"></button>
+                            </div>
+                            <div class="row-rightpanel" id="profileSettingSecurity">
+                                <span id="profileSecuritySpan">
+                                    Answer a security question in Security tab to add more security to your profile.</span>
+                            </div>
+                            <div class="row-rightpanel" style="border-bottom: 0;">
+                                <div class="columnvalue-rightpanel">
+                                    <button id="settingSaveProfile" class="btn btn-submit btn-idos" title="Update Profile">
+                                        Update Profile</button>
+                                        <!-- <button id="settingCancelProfile" class="btn btn-primary settingClear" title="Clear Fields">Cancel</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="passwordSetting_content"  class="common-rightpanel">
+                    <div class="setting-header-rightpanel">
+                        <span class="setting-header">Change Password</span>
+                    </div>
+                    <div style="padding: 30px 20px;">
+                        <div class="table-rightpanel">
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel" style="width: 200px;">
+                                    Email</div><div id="settingPwdEmail" class="columnvalue-rightpanel">@email</div>
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel" style="width: 200px;">
+                                    Current Password</div><input type="password" id="settingCurPwd" class="columnvalue-rightpanel" />
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel" style="width: 200px;">
+                                    New Password</div><input type="password" id="settingNewPwd" class="columnvalue-rightpanel" />
+                            </div>
+                            <div class="row-rightpanel">
+                                <div class="column-rightpanel" style="width: 200px;">
+                                    Confirm New Password</div><input type="password" id="settingConfirmPwd" class="columnvalue-rightpanel"/>
+                            </div>
+                            <div class="row-rightpanel" id="passwordSettingSecurity">
+                                <span id="passwordSecuritySpan">
+                                    Answer a security question in Security tab to add more security to your profile.</span>
+                            </div>
+                            <div class="row-rightpanel" style="border-bottom: 0;">
+                                <div class="columnvalue-rightpanel" >
+                                    <button id="settingResetPwd" class="btn btn-submit btn-idos" title="Reset Password" style="width: 183px;">
+                                        Reset Password</button>
+                                    <button id="settingCancelPwd" class="btn btn-cancel settingClear btn-idos" title="Clear Fields">
+                                        Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pswd_info">
+                        <h4>Password must meet the following requirements:</h4>
+                        <ul class="pwdinfoli">
+                            <li id="letterPwd" class="invalid letterPwd">At least <strong>one letter</strong></li>
+                            <li id="capitalPwd" class="invalid capitalPwd">At least <strong>
+                                one capital letter</strong></li>
+                            <li id="capitalPwd" class="invalid smallPwd">At least <strong>one small letter</strong></li>
+                            <li id="numberPwd" class="invalid numberPwd">At least <strong>one number</strong></li>
+                            <li id="specialcharPwd" class="invalid specialcharPwd">At least <strong>
+                                one special character</strong></li>
+                            <li id="lengthPwd" class="invalid lengthPwd">Be at least <strong>8 characters</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="securitySetting_content" style="display: none;" class="common-rightpanel">
+                    <div class="setting-header-rightpanel">
+                        <span class="setting-header">Security Questions</span>
+                    </div>
+                    <div style="padding: 30px 20px;" >
+                        <div class="table-rightpanel" id="securitySetting_table">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

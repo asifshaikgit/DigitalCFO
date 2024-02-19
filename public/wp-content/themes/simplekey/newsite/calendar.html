@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>IdosApps - Calendar</title>
+
+  <!-- ========== Css Files ========== -->
+  <link href="css/root.css" rel="stylesheet">
+
+
+  </head>
+  <body>
+  <!-- Start Page Loading -->
+  <div class="loading"><b>Please wait while IDOS populates your data...</b></div>
+  <!-- End Page Loading -->
+  
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+  <!-- START TOP -->
+  <div id="top" class="clearfix">
+
+    <!-- Start App Logo -->
+    <div class="applogo">
+    <div class="logo" href="index.html"></div>
+    </div>
+    <!-- End App Logo -->
+
+	
+
+	
+    <!-- Start Sidebar Show Hide Button -->
+    <a href="#" class="sidebar-open-button" style="color: #D01938"><i class="fa fa-bars"></i></a>
+    <a href="#" class="sidebar-open-button-mobile style="color: #D01938"><i class="fa fa-bars"></i></a>
+    <!-- End Sidebar Show Hide Button -->
+	
+    <ul class="topmenu">
+      <li><a href="#Transactions">Transactions</a></li>
+      <li><a href="#">Claims</a></li>
+      <li><a href="#">Labour</a></li>
+
+    </ul>
+	
+    
+
+    <!-- Start Sidepanel Show-Hide Button -->
+	<a href="#sidepanel" class="sidepanel-open-button" style="color: #ddd;"><i class="fa fa-outdent"></i></a>
+    <!-- End Sidepanel Show-Hide Button -->
+
+    <!-- Start Top Right -->
+    <ul class="top-right">
+
+      <li class="dropdown link">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox"><b>Admin</b><img src="http://icons.iconarchive.com/icons/icons-land/vista-people/256/Office-Customer-Male-Light-icon.png" alt="img"><span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+          <li role="presentation" class="dropdown-header">Profile</li>
+          <li><a href="mail.html"><i class="fa falist fa-inbox"></i>Messages<span class="badge label-danger">0</span></a></li>
+          <li><a href="#"><i class="fa falist fa-wrench"></i>Settings</a></li>
+          <li class="divider"></li>
+          <li><a href="#"><i class="fa falist fa-lock"></i> Lockscreen</a></li>
+          <li><a href="index.html"><i class="fa falist fa-power-off"></i> Logout</a></li>
+
+        </ul>
+      </li>
+
+    </ul>
+    <!-- End Top Right -->
+
+  </div>
+  <!-- END TOP -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START SIDEBAR -->
+<div class="sidebar clearfix">
+
+  <ul class="sidebar-panel nav">
+
+    <li class="sidetitle">Main</li>
+
+    <li><a href="user-1.html"><span class="icon color5"><i class="fa fa-home"></i></span>Home</a></li>
+
+    <li><a href="#"><span class="icon color7"><i class="fa fa-bullseye"></i></span>Option<span class="caret"></span></a>
+      <ul>
+        <li><a href="claimSetup.html">Claims</a></li>
+        <li><a href="#">Labour</a></li>
+      </ul>
+    </li>
+
+    <li><a href="calendar.html"><span class="icon color5"><i class="fa fa-calendar"></i></span>Calendar</a></li>
+
+    <li><a href="#"><span class="icon color6"><i class="fa  fa-life-ring"></i></span>Support</a></li>
+
+  </ul>
+
+
+
+</div>
+<!-- END SIDEBAR -->
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTENT -->
+<div class="content">
+
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTAINER -->
+<div class="calendar-layout clearfix">
+
+  <div class="col-md-2">
+
+    <div id='external-events'>
+      <h6 class="font-title"><i class="fa fa-arrows"></i> DRAGGABLE EVENTS</h6>
+      <p>Drag into calendar</p>
+      <div class='fc-event'>Meeting with Developer Team</div>
+      <div class='fc-event'>Office Party</div>
+      <div class='fc-event'>March Invoices</div>
+      <div class='fc-event'>Call John</div>
+      <div class='fc-event'>Dinner with Team</div>
+      <div class='fc-event'>Design an iOS App</div>
+      <div class='fc-event'>Make a Sandwich</div>
+      <div class='fc-event'>Meeting with Customers</div>
+
+
+    </div>
+
+  </div>
+
+  <div class="col-md-10">
+    <div id='calendar'></div>
+  </div>
+
+    
+
+
+
+
+</div>
+<!-- END CONTAINER -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+<!-- Start Footer -->
+<div class="row footer">
+  <div class="col-md-6 text-left">
+  Copyright © 2015 <a href="" target="_blank">IDOS CORP</a> All rights reserved.
+  </div>
+  <div class="col-md-6 text-right">
+    For feedback & support, please email to <a href="#" target="_blank">support@myidos.com</a>
+  </div> 
+</div>
+<!-- End Footer -->
+
+
+</div>
+<!-- End Content -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START SIDEPANEL -->
+<div role="tabpanel" class="sidepanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#chat" aria-controls="chat" role="tab" data-toggle="tab">CHAT</a></li>
+    <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">NOTES</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+      <!-- Start Chat -->
+    <div role="tabpanel" class="tab-pane active" id="chat">
+
+      
+      <div class="gn-title">ONLINE MEMBERS (4)</div>
+      <ul class="group">
+        <li class="member"><a href="#"><b>Hari Rodriguez</b>CHILE</a><span class="status online"></span></li>
+        <li class="member"><a href="#"><b>Cheruku Srikanth  </b>INDIA</a><span class="status busy"></span></li>
+        <li class="member"><a href="#"><b>Manali Mungikar</b>INDIA</a><span class="status away"></span></li>
+        <li class="member"><a href="#"><b>Sudhir Gadgil </b>INDIA</a><span class="status online"></span></li>
+      </ul>
+
+      <div class="gn-title">OFFLINE MEMBERS (1)</div>
+     <ul class="group">
+        <li class="member"><a href="#"><b>Paulina Castro</b>CHILE</a><span class="status offline"></span></li>
+      </ul>
+
+      <form class="search">
+        <input type="text" class="form-control" placeholder="Search a contacts...">
+      </form>
+    </div>
+    <!-- End Chat -->
+
+  
+    <!-- Start Today -->
+    <div role="tabpanel" class="tab-pane" id="today">
+
+      <div class="sidepanel-m-title">
+        Today
+        <span class="left-icon"><a href="#"><i class="fa fa-refresh"></i></a></span>
+        <span class="right-icon"><a href="#"><i class="fa fa-file-o"></i></a></span>
+      </div>
+
+      <div class="gn-title">NEW</div>
+
+      <ul class="list-w-title">
+        <li>
+          <a href="#">
+            <span class="label label-danger">ORDER</span>
+            <span class="date">9 hours ago</span>
+            <h4>New Jacket 2.0</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-success">COMMENT</span>
+            <span class="date">14 hours ago</span>
+            <h4>Bill Jackson</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-info">MEETING</span>
+            <span class="date">at 2:30 PM</span>
+            <h4>Developer Team</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-warning">EVENT</span>
+            <span class="date">3 days left</span>
+            <h4>Birthday Party</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+      </ul>
+
+    </div>
+    <!-- End Today -->
+
+    <!-- Start Tasks -->
+    <div role="tabpanel" class="tab-pane" id="notes">
+
+      <div class="sidepanel-m-title">
+        To-do List
+        <span class="left-icon"><a href="#"><i class="fa fa-pencil"></i></a></span>
+        <span class="right-icon"><a href="#"><i class="fa fa-trash"></i></a></span>
+      </div>
+
+      <div class="gn-title">TODAY</div>
+
+      <ul class="todo-list">
+        <li class="checkbox checkbox-primary">
+          <input id="checkboxside1" type="checkbox"><label for="checkboxside1">Add new products</label>
+        </li>
+        
+        <li class="checkbox checkbox-primary">
+          <input id="checkboxside2" type="checkbox"><label for="checkboxside2"><b>May 12, 6:30 pm</b> Meeting with Team</label>
+        </li>
+        
+        <li class="checkbox checkbox-warning">
+          <input id="checkboxside3" type="checkbox"><label for="checkboxside3">Design Facebook page</label>
+        </li>
+        
+        <li class="checkbox checkbox-info">
+          <input id="checkboxside4" type="checkbox"><label for="checkboxside4">Send Invoice to customers</label>
+        </li>
+        
+        <li class="checkbox checkbox-danger">
+          <input id="checkboxside5" type="checkbox"><label for="checkboxside5">Meeting with developer team</label>
+        </li>
+      </ul>
+
+      <div class="gn-title">TOMORROW</div>
+      <ul class="todo-list">
+        <li class="checkbox checkbox-warning">
+          <input id="checkboxside6" type="checkbox"><label for="checkboxside6">Redesign our company blog</label>
+        </li>
+        
+        <li class="checkbox checkbox-success">
+          <input id="checkboxside7" type="checkbox"><label for="checkboxside7">Finish client work</label>
+        </li>
+        
+        <li class="checkbox checkbox-info">
+          <input id="checkboxside8" type="checkbox"><label for="checkboxside8">Call Johnny from Developer Team</label>
+        </li>
+
+      </ul>
+    </div>    
+    <!-- End Tasks -->
+
+
+  </div>
+
+</div>
+
+<!-- END SIDEPANEL -->
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+
+<!-- ================================================
+jQuery Library
+================================================ -->
+<script type="text/javascript" src="js/jquery.1.11.1.min.js"></script>
+
+<!-- ================================================
+Bootstrap Core JavaScript File
+================================================ -->
+<script src="js/bootstrap/bootstrap.3.3.2.min.js"></script>
+
+<!-- ================================================
+Plugin.js - Some Specific JS codes for Plugin Settings
+================================================ -->
+<script type="text/javascript" src="js/plugins.js"></script>
+
+<!-- ================================================
+jQuery UI
+================================================ -->
+<script type="text/javascript" src="js/jquery-ui/jquery-ui.1.11.4.min.js"></script>
+
+<!-- ================================================
+Moment.js
+================================================ -->
+<script type="text/javascript" src="js/moment/moment.min.js"></script>
+
+<!-- ================================================
+Full Calendar
+================================================ -->
+<script type="text/javascript" src="js/full-calendar/fullcalendar.js"></script>
+
+
+<script>
+
+  $(document).ready(function() {
+    
+
+    /* initialize the external events
+    -----------------------------------------------------------------*/
+    $('#external-events .fc-event').each(function() {
+
+      // store data so the calendar knows to render an event upon drop
+      $(this).data('event', {
+        title: $.trim($(this).text()), // use the element's text as the event title
+        stick: true // maintain when user navigates (see docs on the renderEvent method)
+      });
+
+      // make the event draggable using jQuery UI
+      $(this).draggable({
+        zIndex: 999,
+        revert: true,      // will cause the event to go back to its
+        revertDuration: 0  //  original position after the drag
+      });
+
+    });
+
+
+    /* initialize the calendar
+    -----------------------------------------------------------------*/
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,basicDay'
+      },
+      defaultDate: '2015-11-03',
+      editable: true,
+      droppable: true, // this allows things to be dropped onto the calendar
+      eventLimit: true, // allow "more" link when too many events
+      events: [
+        {
+          title: 'All Day Event',
+          start: '2015-11-03',
+          color: '#9A80B9'
+        },
+        {
+          title: 'Long Event',
+          start: '2015-11-07',
+          end: '2015-11-10',
+          color: '#EF4836'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2015-11-09T16:00:00'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2015-11-16T16:00:00'
+        },
+        {
+          title: 'Conference',
+          start: '2015-11-3',
+          end: '2015-11-5',
+          color: '#E99844'
+        },
+        {
+          title: 'Meeting',
+          start: '2015-11-12T10:30:00',
+          end: '2015-11-12T12:30:00'
+        },
+        {
+          title: 'Lunch',
+          start: '2015-11-12T12:00:00'
+        },
+        {
+          title: 'Meeting',
+          start: '2015-11-12T14:30:00'
+        },
+        {
+          title: 'Happy Hour',
+          start: '2015-11-12T17:30:00'
+        },
+        {
+          title: 'Dinner',
+          start: '2015-11-12T20:00:00'
+        },
+        {
+          title: 'Birthday Party',
+          start: '2015-11-13T07:00:00',
+          color: '#26A65B'
+        },
+        
+      ]
+    });
+    
+  });
+
+
+</script>
+
+
+
+</body>
+</html>

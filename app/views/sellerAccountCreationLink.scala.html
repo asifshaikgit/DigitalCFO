@@ -1,0 +1,65 @@
+@(password:String,corporateEmail:String,subject: String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;" class="table">
+	<tbody>
+		<tr id="emailHeader">
+				<td>
+				</td>
+			</tr>
+		<tr id="emailBody">
+		<td>
+	      <table>
+	      @if(null == password || "".equals(password.trim())) {
+	      <tr>
+	          <td style="width: 550px" align="left">
+	            <div>
+	              <b style="font-size: 16px;">Seller Details.</b><br/><br/>
+	            </div>
+	          </td>
+	        </tr>
+	      }
+	      @if(null != password && !"".equals(password.trim())) {
+	        <tr>
+	          <td style="width: 550px" align="left">
+	            <div style="font-size: 14px;">
+	              <b>Welcome To Idos.</b><br/><br/>
+	            </div>
+	          </td>
+	        </tr>
+	        }
+	        <tr>
+	          <td style="width: 550px" align="left">
+	            <div style="font-size: 14px;">
+	               <b>@{subject}</b><br/>
+	               <b> Email: @{corporateEmail}</b><br/>
+	               @if(null != password && !"".equals(password.trim())) {
+	               <b>  Password: @{password}</b>
+	               }
+	            </div>
+				 <br/>
+	          </td>
+	        </tr>
+	        @if(null != password && !"".equals(password.trim())) {
+	        <tr>
+	          <td style="width: 300px;" align="center">
+	            <div style="font-size: 14px;">
+	               <span><b>Please Activate Account Using Below Link!</b><br/></span>
+	               <span >
+	                		<a href="@(configParams.getCompanyUrl())/activateSellerAccount?corporateEmail=@{corporateEmail}#sellerAccountLoginDiv">Activate Account</a>
+
+	               </span>
+	            </div>
+	          </td>
+	        </tr>
+	        }
+	      </table>
+		  <br/>
+			<b style="font-size: 14px;"> Please contact us at <a href="#" target="_blank">@(configParams.getCompanySupportEmail())</a> or on phone @(configParams.getCompanyMobile()) for any assistance. </b>
+			<br/>
+			<br/>
+			</td>
+		</tr>
+		<tr id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

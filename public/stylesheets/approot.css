@@ -1,0 +1,19 @@
+.singleDocUploadCls{
+	display: none;
+}
+
+.multiDocUploadCls{
+	display: inline-block !important;
+}
+
+/* Google Translate Starts */
+
+.goog-te-gadget-simple .goog-te-menu-value {color: #FFFFFF !important;}
+
+/* Google Translate Ends */
+
+.applogo {
+	position: relative;
+	float: left;
+	text-align: center;
+}

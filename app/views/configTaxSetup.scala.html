@@ -1,0 +1,40 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="taxSetup" class="tab-pane mainDiv" style="display: none">
+	<div class="content">
+		<div class="panel panel-showtrans">  
+			<div class="panel-body">
+				<h5 class="alert success" style="margin-top: -10px; margin-left: -4px;"><b class="panel-title">Tax Rule Setup</b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" style="font-size: 17px;" longdesc="System provides you the capability to set up taxes on items that you sell (products or services). Setting up taxes requires you to follow FIVE steps. FIRST STEP - setup income items in the chart of accounts and assign each of them with their selling price (price per unit). If you have many items that you sell, please create each item seperately as sub-category under Income. SECOND STEP - Go to Branch under configuration and define the different taxes applicable for sales at that branch and also the corresponding tax rates. THIRD STEP - Click on Income items below and then click on Add tax rule that appears on the right side of the screen. FOURTH STEP - Select the tax type applicable on this income item (System will automatically apply the rate which is input for this tax item in Branch setup). Then select if this tax item must be added to or deducted from. The first tax item will be applied on gross sale value of the item which is pre-defined as <b>A</b>. Thereafter you can select if the next tax item must be applied on gross sale value <b>A</b> or on the resultant number <b>B</b> which is derived after the first tax item is applied on <b>A</b>"></i></h5>
+			<!--
+				<div id="taxRule-form-container" class="newTaxRuleform-container" style="display: none;">
+					<div class="panel">
+						<div class="panel-title"><i class=""></i><b id="itemDisplay"></b></div>
+						<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend" id="taxSetupClose" onClick="formCancel()"></i></div>
+						<input type="hidden" name="bnchHidden" id="bnchHidden" value="">
+						<input type="hidden" name="specfHidden" id="specfHidden" value="">
+						<input type="hidden" name="multiItemsListHidden" id="multiItemsListHidden" value="">
+						<div id="search-launch-top" style="display: none;">
+						<a href="#taxSetup" id="newTaxRuleform-container-close"><i class="fa fa-times fa-1x close-legend" id="newTaxRuleform-container-close"></i></a></div>
+						<div class="taxRuleDetails" style="width: 100%; overflow: auto;">
+							<table class="table  excelFormTable" id="taxRuleDetailsTable" style="margin-top: 0px; width: 100%;">               
+								<!--  <thead class="tablehead1"><tr><th>Select</th><th>Tax Type</th><th>Rate</th><th>Add/Deduct</th><th>Apply To</th><th>Formula</th></tr></thead>-->
+								<thead class="tablehead1"><tr><th>Select</th><th>Tax Type</th><th>Rate</th><th>Add/Deduct</th><th>Apply To</th><th>Tax Amount</th><th>Invoice Value(IV)</th></tr></thead>
+								<tbody></tbody>
+							</table>
+							<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>							
+							<button id="testFormula" class="applyBtn btn btn-submit btn-idos" style="margin-left:5px;" title="Apply TaxRules To MutiItems" onClick="applyTaxRulesToMultipleItems();">Apply To Multiple Items</button>
+							<button id="testFormula" class="confirmBtn btn btn-submit btn-idos" style="margin-left:5px;" title="Reset Tax Formula">Reset All Tax Formulas</button>
+							<button id="testFormula" class="testFormula btn btn-submit btn-idos" style="margin-left:5px;"  title="Test Formula" onClick="validateTaxFormula();">Test Tax Formula</button><font color="red">* Consider gross Amount as 100 and test your tax formula outcome.</font>
+							<button title="Apply Tax Rule" name="applyTax" id="applyTax" type="button" class="applyTax btn btn-submit btn-idos" value="1" style="vertical-align: top; margin-right:5px; float: right;">Add/Update Tax Rule</button>
+							
+						</div>
+					</div>
+				</div>
+				-->
+				<div style="margin-top:0px; margin-left:0px;" id="chartOfAccountTree">
+					<ul id="mainBranchIncomeChartOfAccount" class="treeview-black mainBranchIncomeChartOfAccount"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

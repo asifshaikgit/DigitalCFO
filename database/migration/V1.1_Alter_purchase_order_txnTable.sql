@@ -1,0 +1,2 @@
+ALTER TABLE purchase_order_txn ADD PARENT_PURCHASE_ORDER LONG;
+ALTER TABLE purchase_order_txn ADD IS_PARENT int;

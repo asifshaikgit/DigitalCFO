@@ -1,0 +1,881 @@
+@(configParams:model.ConfigParams)
+<html>
+<head>
+@if(configParams.getCompanyOwner().equals("KARVY")){
+<link rel="stylesheet" type="text/css" href='@routes.Assets.at("karvy/css/main_karvy.css")'/>
+<link rel="stylesheet" type="text/css" href='@routes.Assets.at("karvy/css/style.css")'/>}
+@if(!configParams.getCompanyOwner().equals("PWC") && !configParams.getCompanyOwner().equals("KARVY")) {
+  		<link rel="stylesheet" type="text/css" href='@routes.Assets.at("wp-content/themes/simplekey/newsite/css/style.css")'/>
+		<link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/main.css?version=1.1")'/>}
+<script type="text/javascript" src='@routes.Assets.at("wp-content/themes/simplekey/newsite/js/jquery.1.11.1.min.js")'></script>
+
+  <link rel="stylesheet" href='@routes.Assets.at("stylesheets/jquery.jscrollpane.css")'/>
+  <script src='@routes.Assets.at("javascripts/jquery.jscrollpane.min.js")' type="text/javascript"></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/jquery-ui-1.12.1.custom/jquery-ui.min.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/moment/2.18.1/min/moment.min.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")'></script>
+
+<style>
+	.answer{
+	color:#58666e;
+	}
+	.question{
+	cursor:pointer;
+	}
+
+</style>
+
+<script>
+$(document).ready(function(){
+	$('#setupFAQId').click(function(){
+		$(".mainDiv").hide();
+
+	});
+	var flag=0;
+	$(".faqList").click(function(){
+	    $(".faqMainDiv").hide();
+	    var clickedId = $(this).data("id");
+	    if(clickedId == "generalFAQ"){
+			window.location.href="/generalFAQ";
+	    }
+	    $("#"+clickedId).show();
+	});
+
+	$('#genFAQId').click(function(){
+		$(".mainDiv").hide();
+		$('#genFAQ').show();
+
+	});
+
+	var clickedPrevId="";
+	$('.subHeadQA').click(function(){
+		
+		var clickedSubHead = $(this).data("id");
+		if(clickedPrevId==clickedSubHead){
+			$("#"+clickedSubHead).hide();
+			$("#"+clickedSubHead).find(".question").hide();
+			clickedPrevId="";
+		}
+		else{		
+			$(".question").hide();
+			$(".answer").hide();
+			$("#"+clickedSubHead).show();
+			$("#"+clickedSubHead).find(".question").show();
+			clickedPrevId = $(this).data("id");
+		}
+			
+	});
+	var clickedPrevId="";
+	$(".question").on("click",function(){
+		var clickedQues = $(this).attr("id");
+		if( clickedPrevId == clickedQues){
+			$(".answer").hide();
+			clickedPrevId="";
+		}
+		else{
+			$(".answer").hide();
+			$(this).closest("div").next().show();
+			clickedPrevId = $(this).attr("id");
+		}
+		
+		});
+
+	});
+
+
+</script>
+
+<body onscroll="recordScroll('body');">
+<div id="top" class="clearfix">
+		<!-- Start App Logo -->
+		<div class="applogo">
+            <a href="/">
+                <div class="logo"></div>
+            </a>
+        </div>
+        </div>
+<div style=" width: 166px; float:left;"  class="sidebar-nav-fixed"> 
+			<ul class="sidebar-panel nav">			 
+                 <li style="position: relative;list-style-type:none;" class="faqList" data-id="generalFAQ">
+                     <a href="#" style="padding:8px; margin:0px;"><b>General FAQ</b></a>
+                </li>
+                <li style="position: relative;" class="faqList" data-id="setupFAQ">
+                     <a href="#" style="padding:8px; margin:0px;"><b>Setup FAQ</b></a>
+                </li>
+        </ul> 
+    </div>
+
+<div id="setupFAQ" class="content faqMainDiv" style="margin-top:60px;">
+			
+			<div class="panel panel-showtrans">
+				<div class="panel-body">                    
+                    <legend class="panel-title">Setup FAQ</legend>
+                </div>
+    </div>
+    <div class="panel panel-showtrans">
+			<div class="panel-body">
+                <div class="subHeadQA" data-id="setupFaqQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">Setup</a></b></span>
+                </div>
+            <div id="setupFaqQAId"  style="display: none;">
+            <div>
+                <div id="sQ1" data-id ="sA1" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to register in @(configParams.getCompanyApp())?</b></span>  
+                </div>
+                <div id="sA1" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+        <ol>
+        @if(configParams.getCompanyOwner().equals("KARVY")){
+            <li>Go to URL <a>https://accounting.karvygst.com/signIn#logindiv</a> and click on 
+&apos;Register Now&apos;</li>}
+		@if(!configParams.getCompanyOwner().equals("PWC") && !configParams.getCompanyOwner().equals("KARVY")){
+            <li>Go to URL <a>https://www.myidos.com/signIn#logindiv</a> and click on 
+&apos;Register Now&apos;</li>}
+            <li>Enter your Name, email ID, phone no., Company name, create your password and click on &apos;Register Now&apos; </li>
+            <li>	You will be receiving an activation mail from @(configParams.getCompanyApp()). Just click on the activation link and your user ID will be activated</li>
+        </ol>
+    </div>
+    </div>
+                
+                <div id="sQ2"class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to Set up Organization & Logo?</b></span> 
+                </div>
+                <div id="sA2" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+            <ol>
+            <li>Under &apos;Options&apos; click on &apos;Organization&apos;</li>
+            <li>Under heading &apos;Identity Details&apos; enter Address, email ID and phone no. In column 5, for &apos;India GST legislation applicable&apos; select yes / no option from the drop down menu</li>
+            <li>Tick Check box if &apos;GST composition scheme applicable&apos; in column 6</li>
+                <li>Scan and upload your Company&apos;s logo in the last column</li>
+                <li>Under heading &apos;Financial Details&apos; enter / upload Financial information of your Co. like Audited accounts, Tax returns, Organization chart, Accounting Manual and Templates like Payroll template and TDS calculation template for use by other Branches</li>
+        </ol>
+    </div>
+                <div id="sQ3" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add new Product / item of sale?</b></span>
+                </div>
+                <div id="sA3" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                      <ol>
+            <li>Under 'Options' click on &apos;Chart of Accounts'</li>
+            <li>Now under &apos;Income&apos; click on &apos;Add Sub Account&apos; button on the right corner of the screen</li>
+                <li>Enter Sub Account name, input Price per unit (Selling price). In the 4th column, select GST details and under the heading &apos;branch/max%&apos;, branch wise you can enter opening balance and discount you wish to allow for this product.</li>
+                <li>Select transaction type in column 6 and click on &apos;Add / update Chart of Accounts&apos;</li>
+                <li>Now give new product access to those customers whom you wish to sell this product. Click on &apos;Customers&apos;, choose a customer and click on &apos;edit&apos; option. Select product under the heading 'item of sale/discount% (6th column). Click on &apos;Add / Update Customer&apos;</li>
+                <li>Then click on&apos;Users&apos;, choose a user and click on &apos;edit&apos;. Under heading &apos;Transaction Creator Rules&apos; and &apos;Transaction Approver Rules&apos; give access to Creator/ Approver for this new income item from dropdown. Click on Add / Update User</li>
+                <li>	Lastly, under &apos;Tax&apos; menu, click on &apos;Output Tax&apos; and &apos;Add / update GST tax rule&apos; for the new product</li>
+        </ol>
+                </div>
+                
+                
+                <div id="sQ4" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add new Inventory Product / Income Item?</b></span>
+                </div>
+                <div id="sA4" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                          <ol>
+            <li>Under 'Options' click on &apos;Chart of Accounts-Expenses'. Here click on &apos;Add sub account&apos;. 
+Enter sub account name, GST details, Branch (enter Op. balance, no. of units & rate) and Transaction type. In column 6, under heading 'Inventory unit/rate' mention Unit of measurement like Carton, Pcs or box. Then total no. of units, rate and inventory openingbalance will be auto populated as it is already entered under column &apos;Branch&apos;. And then &apos;Add/update chart of accounts&apos;. 
+</li>
+<li>Now go to &apos;Chart of Accounts-Income&apos;. Click on &apos;Add Sub account&apos; and create income item with the similar name. Enter price (selling price), GST details, branch and select transaction type. Next in column 7, map income to expense by selecting expense item from the dropdown. In the next row specify UOM of the product at the time of buying and selling. For e.g.: if you are buying 100 nos. in carton and selling in units, then write 100 (nos.) & carton (expense unit)= 1 (nos.) & Pieces (Income unit). Select method of valuation as FIFA or Weighted Average. Now lick on Add/update Chart of Accounts</li>
+<li>Click on &apos;Vendors&apos;, choose a Vendor and click on &apos;edit&apos; option. Select product under the heading 'Purchase Item / Price (5th column). Click on &apos;Add / Update Vendor&apos;</li>
+<li>Click on &apos;Customers&apos;, choose a customer and click on &apos;edit&apos; option. Select product under the heading 'item of sale/discount% (6th column). Click on &apos;Add / Update Customer&apos;</li>
+<li>Then click on&apos;Users&apos;, choose a user and click on &apos;edit&apos;. Under heading &apos;Transaction Creator Rules&apos; and &apos;Transaction Approver Rules&apos; give access to Creator/ Approver for this new expense item from dropdown. Click on &apos;Add / Update User&apos;</li>
+                <li>Lastly, under &apos;Tax&apos; menu, click on &apos;Output Tax&apos; and &apos;Add / update GST tax rule&apos; for the new product</li>
+        </ol>
+                </div>
+                <div id="sQ5" data-id ="sA5" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add new Expense Account?</b></span>
+                </div>
+                <div id="sA5" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                                 <ol>
+            <li>Under 'Options' click on &apos;Chart of Accounts'</li>
+<li>Now under &apos;Expense&apos; click on &apos;Add Sub Account&apos; button on the right corner of the screen</li>
+<li>Enter Sub Account name, GST input, Branch and Transaction type. In column 6, under 'inventory unit/ rate' fill details only if it is inventory product otherwise please ignore.</li>
+<li>If TDS is applicable for this particular expense, then select the TDS section and rate from the dropdown. Click on &apos;Add/update chart of accounts&apos;</li>
+<li>Now go to &apos;Vendors&apos; and give access to those Vendors from whom you are purchasing this new product. Click on &apos;Vendors&apos;, choose a Vendor and click on &apos;edit&apos; option. Select product under the heading 'Purchase Item / Price (5th column). Click on &apos;Add / Update Vendor&apos;</li>
+<li>Then click on&apos;Users&apos;, choose a user and click on &apos;edit&apos;. Under heading &apos;Transaction Creator Rules&apos; and &apos;Transaction Approver Rules&apos; give access to Creator/ Approver for this new expense item from dropdown. Click on Add / Update User</li>
+<li>Lastly, check if GST rate applicable to this expense item is added under &apos;Input Tax&apos;. If not, select branch and select Input GST tax rate and then click on &apos;Add Taxes&apos; </li>
+        </ol>
+                </div>
+                <div id="sQ6" data-id ="sA6" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to configure TDS for Expense Account?</b></span>
+                </div>
+                <div id="sA6" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                                  <ol>
+            <li>	Under 'Options' click on &apos;Chart of Accounts'</li>
+<li>Now under &apos;Expense&apos;, click on the expense account where you want to set up TDS</li>
+<li>In column 7, select yes if TDS is applicable and then select the relevant TDS section from the dropdown. Enter tax rate and then click on &apos;Add / update chart of Accounts&apos;</li>
+
+        </ol>
+                </div>
+                <div id="sQ7" data-id ="sA7" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add new Account under Assets / Liabilities?</b></span>
+                </div>
+                <div id="sA7" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+ <ol>
+<li>	Under 'Options' click on &apos;Chart of Accounts'</li>
+<li>	Now under &apos;Assets / Liabilities&apos; click on &apos;Add Sub Account&apos; button on the right corner of the screen</li>
+<li>Enter sub account name, select branch and transaction type. Select under which category you wish to map this new account from the dropdown under 'identification for data validation'. Mapping is necessary as these are balance sheet accounts without which you will not be able to see them in Balance sheet. </li>
+     <li>Then click on Add/update chart of Accounts.</li>
+
+        </ol>
+                </div>
+                
+                <div id="sQ8" data-id ="gA8" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">What is Knowledge Library?</b></span>
+                </div>
+                <div id="sA8" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>Knowledge Library is a field where you give specific instructions / guidance to the person creating 
+Transactions with respect to Sales / Purchase / Assets / Liabilities. Here even you can set 
+instructions Branch wise. One can see these guidelines while creating transactions if they select this particular Account head. This helps in better internal Control.
+</p>
+                </div>
+<div id="sQ9" data-id ="gA8" class="question"  style="margin-left: 20px; background-color: white;">
+<span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to avoid approval for petty cash items?</b></span>
+</div>
+<div id="sA9" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>	Under 'Options' click on &apos;Branch'</li>
+<li>	Scroll down to &apos;Branch Cash Account&apos;. In column 6, select &apos;No&apos; from the dropdown if you 
+don&apos;t want to approve purchase of petty cash items every time. Then these transactions are directly accounted and Journal entries are passed automatically
+</li>
+     <li>Click on &apos;Save Branch details&apos;</li>
+</ol>
+                </div>
+                
+<div id="sQ10" data-id ="gA10" class="question"  style="margin-left: 20px; background-color: white;">
+<span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to set up Branches & GST set up at each location?</b></span>
+</div>
+<div id="sA10" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>	Under 'Options' click on &apos;Branch'</li>
+<li>		Now click on tab &apos;Create Branch&apos;. Under heading &apos;Branch Set Up&apos;. Enter Branch name, address, contact no. GSTIN of the Branch and Type of Premise.
+</li>
+     <li>Update Branch Statutory details, Officers contact details, Operational reminders, Cash & Bank account details</li>
+    <li>Click on &apos;Save Branch details&apos;</li>
+</ol>
+                </div> 
+   <div id="sQ11" data-id ="gA11" class="question"  style="margin-left: 20px; background-color: white;">
+<span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add new Vendor?</b></span>
+</div>
+<div id="sA11" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>	Under 'Options' click on &apos;Vendor'</li>
+<li>Then click on &apos;Create Vendor&apos; and input details of Branch, Vendor Name, GSTIN, Address and Contact number
+</li>
+     <li>Add multiple GSTIN for the Vendor if he operates from more than one branch in column 4</li>
+    <li>Under heading &apos;Purchase Item / Price&apos; give access to all products which you wish to purchase from this Vendor. In the next field &apos;Statutory Details&apos; enter PAN / TAN no.</li>
+    <li>Select &apos;Cash / Credit&apos; purchase information and &apos;upload&apos; scan copy of PO/Contract if any</li>
+    <li>Click on &apos;Add / update Vendor&apos;</li>
+    <p><i>Excel upload option is available when you want to add more than one Vendor at once.</i></p>
+</ol>
+                </div> 
+<div id="sQ12" data-id ="sA12" class="question"  style="margin-left: 20px; background-color: white;">
+<span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add new Customer?</b></span>
+</div>
+<div id="sA12" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>Under 'Options' click on &apos;Customer'</li>
+<li>Then click on &apos;Create Customer&apos; and input details of Branch, Vendor Name, GSTIN, Address and Contact number. If shipping address is different than billing address enter details in column 4
+</li>
+     <li>Add multiple GSTIN of the Customer if he operates from more than one branch</li>
+    <li>Under heading &apos;Item of Sale / Discount %&apos; give access to all products which you wish to sell this customer and mention discount %. Here update the maximum discount given to customer and you can override the discount while creating Sale transaction. In the next field &apos;Statutory Details&apos; enter PAN / TAN no. of the customer</li>
+    <li>Select &apos;Cash / Credit&apos; information and &apos;upload&apos; scan copy of Customer Contract if any</li>
+    <li>Click on &apos;Add / update Customer&apos;</li>
+    <p><i>Excel upload option is available when you want to add more than one Customer at once.</i></p>
+</ol>
+                </div> 
+   
+<div id="sQ13" data-id ="sA13" class="question"  style="margin-left: 20px; background-color: white;">
+<span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add new Bank?</b></span>
+</div>
+<div id="sA13" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>Under 'Options' click on &apos;Branch'</li>
+<li>Scroll down to &apos;Bank Account Details&apos; </li>
+     <li>	&apos;Add&apos; a new Bank and input mandatory information and click on &apos;Save Branch details&apos;</li>
+</ol>
+                </div>
+<div id="sQ14" data-id ="sA14" class="question"  style="margin-left: 20px; background-color: white;">
+<span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Can I edit Cash / Bank Opening balance?</b></span>
+</div>
+<div id="sA14" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<p>Yes, editing opening balance of Cash or Bank is possible before creating any transaction in @(configParams.getCompanyApp()). Once you pass transactions, opening balances cannot be edited.
+</p>
+                </div>
+<div id="sQ15" data-id ="sA15" class="question"  style="margin-left: 20px; background-color: white;">
+<span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add new User?</b></span>
+</div>
+<div id="sA15" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>Under 'Options' click on &apos;User'</li>
+<li>Then click on &apos;Create User&apos; and enter User name, email, contact no. and address of the User. In column 5, select the &apos;Role of the User&apos; on the basis of job role and select the type of Transactions User can have access to, this defines the User role as per the job requirement. </li>
+     <li>Update &apos;Transaction Creator Rules&apos; or &apos;Transaction Approver Rules&apos; by selecting from the dropdown.</li>
+<li>Scroll down to &apos;Module Access Configuration&apos; and give access to the User and click on &apos;Add / update User&apos;</li>
+    
+</ol>
+                </div>
+     <div id="sQ15" data-id ="sA15" class="question"  style="margin-left: 20px; background-color: white;">
+<span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to map Identification for Data Validation?</b></span>
+</div>
+<div id="sA15" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>Under 'Options' click on 'Chart of Accounts' (this is a unique feature in @(configParams.getCompanyApp()) for automation and classification of group of accounts)</li>
+<li>Click on 'Sub Account' on the right corner of the screen. </li>
+     <li>Under the heading 'Identification of Data Validation' select any category of account under which you wish to group the new / existing Account. This option is available for any new account created under Income / Expense / Assets or Liabilities.This allows you to link the a new account to a particular group of accounts and enables classification of accounts in Trial Balance, P&amp;L &amp; Balance sheet
+For Example: If new account 'advance received from customer' is created and map this account by selecting 'is this the account where you classify advance received from customer?' under data validation, then whenever any advance is received from customer the system automatically accounts it under this group.
+</li>
+</ol>
+                </div>
+
+   
+        </div>
+<div class="subHeadQA" data-id="setupFAQUserQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">User</a></b></span>
+                </div>
+        <div id="setupFAQUserQAId" style="display: none;">
+                <div id="sQ18" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How Can I login?</b></span>
+                </div>
+            <div id="sA18" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p>Please use login credentials sent through e-mail after the account set up.</p>
+            </div>
+                <div id="sQ19" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How do I enter Opening cash / bank balance in @(configParams.getCompanyApp())?</b></span>
+                </div>
+            <div id="sA19" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p><u>Opening Balance-CASH</u></p>
+                <ol>
+                <li>	Under 'Options' click on 'Branch'</li>
+                    <li>In the Branch listing Screen, click on &apos;Edit&apos; in column 6</li>
+                    <li>Scroll down to 'Branch Cash Account' - update opening balance of Cash and / or Petty Cash</li>
+                    <li>Click on 'Save Branch Details'</li>
+                </ol>
+                <p><u>Opening balance - BANK</u></p>
+                <ol>
+                <li>Under 'Options' click on 'Branch'</li>
+                    <li>the Branch listing Screen, click on &apos;Edit&apos; in column 6</li>
+                    <li>Scroll down to 'Bank Account Details' - update opening balance of Bank in column 2 under heading&apos;Account no. & opening balance&apos;</li>
+                    <li>Click on 'Save Branch Details'</li>
+                </ol>
+                <p><i>Ensure correct balances are entered in these fields as it can't be edited after passing transactions</i></p>
+            </div>
+                <div id="sQ20" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add / check Document Serial No.?</b></span>
+                </div>
+                <div id="sA20" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+        <ol>
+                <li>	Under 'Options' click on 'Chart of Accounts'</li>
+                    <li>Just below heading Liabilities you can see heading &apos;Documents Serial Number&apos; here choose among options &apos;Organization wise&apos; or &apos;GSTN wise&apos;</li>
+                    <li>Here you can reset serial no. for all documents generated from @(configParams.getCompanyApp()) like Invoice, Proforma Invoice, Quotation, Debit note, Credit note etc.</li>
+                    <li>For example, if you want to set Invoice serial no., in the tab below select invoice reset interval as &apos;yearly&apos; or &apos;monthly&apos;</li>
+            <li>the next tab &apos;Invoice starting serial no.&apos; check the last document number before starting to use @(configParams.getCompanyApp()) and start with the next number</li>
+            <li>Click on Add / update</li>
+            <p><i>This is a one-time activity and system will automatically continue the series. But when there is 
+any requirement to change the series, it is possible in @(configParams.getCompanyApp())</i></p>
+                </ol>
+            </div>
+                <div id="sQ21" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add opening balances of Inventory?</b></span>
+                </div>
+            <div id="sA21" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <ol>
+                    <li>Under 'Options' click on 'Chart of Accounts'</li>
+                    <li>Under heading &apos;Expenses&apos;, select a purchase item where you wish to add opening balance</li>
+                    <li>Input opening balance if any with respect to this expense (it shall be visible in B/S)</li>
+                    <li>In the 2nd column enter no. of units and in 3rd column enter rate of product, inventory value will be automatically calculated (these details are captured in Inventory report)</li>
+                    <li>Lastly click on &apos;Add / update Chart of Accounts&apos;</li>
+                </ol>
+            </div>
+                <div id="sQ22" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to process Cash Sale Transaction?</b></span>
+                </div>
+            <div id="sA22" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>	Under 'Options' click on 'Transactions'</li>
+<li>Click on tab &apos;Create Transaction&apos; and select &apos;Sell on cash and payment now&apos; option from Dropdown</li>
+    <li>SelectBranch, Project (if you want to allocate), Type of supply, Customer, Place of Supply and PO reference if any and Product from dropdown.</li>
+    <li>Price will be auto populated (based on Income setup) and then enter the no. of units. GST will be computed automatically. Check Net amount, Receipt details and add remarks if any.</li>
+    <li>	Scan and &apos;Upload supporting document if any</li>
+    <li>Click on &apos;Submit for Accounting&apos; and Journal entries are posted automatically</li>
+                </ol>
+                <p><i>After Accounting you can choose to print invoice in xls. or PDF format</i></p>
+            </div>
+                <div id="sQ23" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to process Cash Sale transaction for a walk-in customer?</b></span>
+                </div>
+            <div id="sA23" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>	Under 'Options' click on 'Transactions'</li>
+<li>Click on tab &apos;Create Transaction&apos; and select &apos;Sell on cash and payment now&apos; option from Dropdown</li>
+    <li>Select Branch, Project and Type of supply</li>
+    <span><li>	Please tick the checkbox <input type="checkbox"/> is a walk-in customer?</li> </span>
+    <li>	Enter Walk-in customer name, type and place of Supply & PO reference if any</li>
+    <li>Select &apos;Product&apos;, &apos;Price&apos; is auto populated and enter &apos;Units&apos;. GST is automatically computed and now check Invoice Value. </li>
+    <li>Update &apos;Receipt Details&apos;, &apos;Remarks&apos;, scan and upload &apos;Supporting documents&apos; if any</li>
+    <li>Click on &apos;Submit for Accounting&apos; and Journal entries are posted automatically</li>
+</ol>
+<p><i>After Accounting you can choose to print invoice in xls. or PDF format</i></p>
+                </div>
+       <div id="sQ23" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to process Credit Sale transaction?</b></span>
+                </div>
+            <div id="sA23" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+<ol>
+<li>	Under 'Options' click on 'Transactions'</li>
+<li>Click on tab &apos;Create Transaction&apos; and select &apos;Sell on and collect payment later&apos;  option from Dropdown</li>
+    <li>Select Branch, Project and Type of Supply and PO reference if any and Product from dropdown</li>
+    <li>	Price will be auto populated and then enter the no. of units. GST will be computed automatically. Check Net amount, Receipt details and add remarks if any.</li>
+    <li>	Scan and &apos;Upload supporting document if any</li>
+    <li>Click on &apos;Submit for Accounting&apos; and Journal entries are posted automatically</li>
+</ol>
+<p><i>After Accounting you can choose to print invoice in xls. or PDF format</i></p>
+                </div>
+            
+    <div id="sQ24" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to add Discount for a Product / Customer?</b></span>
+                </div>
+            <div id="sA24" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p>@(configParams.getCompanyApp()) allows you set up discount with reference to either item or customer.
+
+</p>
+                <p><u>Discount allowed for a Product:</u></p>
+<ol>
+<li>Under 'Options' - click on 'Chart of Accounts'</li>
+<li>Click on heading &apos;Income&apos; and again click on + sign. Select the product for which you want to allow discount</li>
+    <li>Select the product from the dropdown which is under the heading &apos;Branch / Max Discount (%) for walk-in Customer&apos;</li>
+    <li>	Click on Add / update of Chart of Accounts</li>
+</ol>
+<p><i>When you allow discount for a Product, you can even allow discounts for Walk-in Customers.</i></p>
+                
+         <p><u>Discount allowed for Customer:</u></p>
+<ol>
+<li>Under 'Options' click on 'Customer'</li>
+<li>Select a Customer and now click on &apos;Edit&apos;</li>
+    <li>Under the heading &apos;Item of Sale / Discount%&apos; (6th column), click on the dropdown and enter the discount percentage</li>
+    <li>Click on &apos;Add / update Customer&apos;</li>
+</ol>
+<p><i>This is the maximum discount allowed for the product. You can override the discount while 
+creating transactions.
+</i></p>
+                </div>
+<div id="sQ25" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to enter Advance received from Customer?</b></span>
+                </div>
+            <div id="sA25" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+<li>Under 'Options' click on &apos;Transactions'</li>
+<li>Click on tab &apos;Create Transaction&apos; and select &apos;Receive Advance from Customer&apos; option from dropdown</li>
+    <li>Branch, Customer from whom you are receiving advance from the dropdown</li>
+    <li>Select Product, Advance received and resultant advance is automatically updated</li>
+    <li>Update &apos;Receipt Details&apos; and then click on &apos;Submit for Accounting&apos;</li>
+
+</ol>
+<p><i>Note: GST has made it necessary for accepting advance against specific income items and also it is mandatory to show them in GST returns</i></p>
+                </div>
+     <div id="sQ26" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record payment received from Customer?</b></span>
+                </div>
+            <div id="sA26" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Receive Payment from Customer&apos; option from dropdown</li>
+    <li>Select Branch, Customer and the Invoice against which you are receiving payment and amount received details</li>
+    <li>Now click on &apos;Submit for Accounting&apos;</li>
+
+</ol>
+                </div>
+<div id="sQ27" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record Cash Purchases from Regular Supplier / Vendor?</b></span>
+                </div>
+            <div id="sA27" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Buy on Cash & pay right away&apos; option from dropdown</li>
+    <li>Choose Branch, Project, Type of Supply, Vendor, Place of Supply & PO reference if any</li>
+    <li>Supplier Invoice No. and Date to be entered in the tab &apos;Additional Details&apos;</li>
+    <li>Select Product, enter Price, Quantity as per purchase invoice sent by the Supplier and select the GST rate from dropdown and then &apos;Submit for Approval&apos;. </li>
+
+<p><i>You have the option to Approve, Reject, seek clarification or Additional approval for this 
+transaction.  Select and then &apos;Complete Accounting&apos;.  Journal entries and tax ledgers are updated automatically.</i></p>
+</ol>
+                </div>
+<div id="sQ28" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record Cash Purchases from Walk-in Vendor?</b></span>
+                </div>
+            <div id="sA28" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Buy on Cash & pay right away&apos; option from dropdown</li>
+    <li>Choose Branch, Project and Type of Supply</li>
+    <li>Please tick the checkbox     is a walk-in Vendor?</li>
+    <li>Enter Vendor name, type and place of Supply & PO reference if any</li>
+    <li>Supplier Invoice No. and Date to be entered in the tab &apos;Additional Details&apos; (also there is option to add GST no. of Walk-in Vendor)</li>
+    <li>Select Product,enter Price, Quantity, GST rate as per Purchase Invoice sent by Supplier and click on &apos;Submit for Approval&apos;. </li>
+    <li>&apos;Approve&apos; the transaction from dropdown and then click on &apos;Complete accounting&apos;.</li>
+                </ol>
+	
+<p><i>Journal entries and tax ledgers are updated automatically</i></p>
+                </div>
+<div id="sQ29" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record Credit Purchases?</b></span>
+                </div>
+            <div id="sA29" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Buy on Credit & pay later&apos; option from dropdown</li>
+    <li>Choose Branch, Project, Type of Supply, Vendor, Place of Supply and PO reference if any</li>
+    <li>Supplier Invoice No. and Date to be entered in the tab &apos;Additional Details&apos;</li>
+    <li>Select Product, enter Price, Quantity as per purchase invoice sent by the Supplier and select the GST rate from dropdown and then &apos;Submit for Approval&apos;. </li>
+                </ol>
+
+<p><i>You have the option to Approve, Reject, seek clarification or Additional approval for this 
+transaction.  Select and then &apos;Complete Accounting&apos;.  Journal entries and tax ledgers are updated 
+automatically.</i></p>
+                </div>
+            
+<div id="sQ30" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record payment to Vendor / Supplier?</b></span>
+                </div>
+            <div id="sA30" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Pay Vendor / Supplier&apos; option from dropdown</li>
+    <li>Select Branch, Vendor to whom you wish to pay and then select the Invoice for which you to pay</li>
+    <li>Enter Amount and then click on &apos;Submit for Approval&apos;</li>
+                </ol>
+
+<p><i>You have the option to Approve, Reject, seek clarification or Additional approval for this 
+transaction.  Select and then &apos;Complete Accounting&apos;.  Journal entries and tax ledgers are updated 
+automatically.</i></p>
+                </div>
+<div id="sQ31" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record advance paid to Vendor?</b></span>
+                </div>
+            <div id="sA31" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Pay advance to Vendor / Supplier&apos; option from dropdown</li>
+    <li>Select product and enter advance amount to be paid</li>
+    <li>Click on &apos;Submit for Approval&apos;
+</li>
+                </ol>
+
+<p><i>You have the option to Approve, Reject, seek clarification or Additional approval for this 
+transaction.  Select and then &apos;Complete Accounting&apos;.  Journal entries and tax ledgers are updated 
+automatically.</i></p>
+                </div>
+<div id="sQ32" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record Deposit Cash in Bank?</b></span>
+                </div>
+            <div id="sA32" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Deposit Cash in Bank&apos; option from dropdown</li>
+    <li>Select Branch, Bank where you want to deposit, input Instrument details (in case of Cheque / DD) and enter deposit amount</li>
+    <li>Upload scan copy of supporting documents if any</li>
+    <li>Click on &apos;Submit for Accounting&apos;</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+                </ol>
+<p><i>Journal entries and tax ledgers are updated automatically.</i></p>
+                </div>
+<div id="sQ33" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record Withdrawal of cash from Bank?</b></span>
+                </div>
+            <div id="sA33" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Withdraw cash from Bank&apos; option from dropdown</li>
+    <li>Select Branch, Bank from where you want to withdraw and enter withdrawal amount</li>
+    <li>Upload scan copy of supporting documents if any</li>
+    <li>Click on &apos;Submit for Accounting&apos;</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+                </ol>
+<p><i>Journal entries and tax ledgers are updated automatically.</i></p>
+                </div>
+<div id="sQ34" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to transfer funds from one bank to another or one branch to another?</b></span>
+                </div>
+            <div id="sA34" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Transfer funds from one bank to another&apos; option from dropdown</li>
+    <li>Select transfer from Branch, Bank - transfer to Branch, Bank and enter amount</li>
+    <li>Upload scan copy of supporting documents if any</li>
+    <li>Click on &apos;Submit for Accounting&apos;</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+</ol>
+<p><i>Journal entries and tax ledgers are updated automatically.</i></p>
+                </div>
+<div id="sQ35" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record petty cash purchases?</b></span>
+                </div>
+            <div id="sA35" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Buy on Petty Cash Account&apos; option from dropdown</li>
+    <li>Choose Branch, Project, Type of Supply, Vendor, Place of Supply & PO reference if any</li>
+    <li>Supplier Invoice No. and Date to be entered in the tab &apos;Additional Details&apos;</li>
+    <li>Select Product, enter Price, Quantity as per purchase invoice sent by the Supplier and select the GST rate from dropdown and then &apos;Submit for Approval&apos;. </li>
+</ol>
+<p><i>You have the option to Approve, Reject, seek clarification or Additional approval for this 
+transaction.  Select and then &apos;Complete Accounting&apos;.  Journal entries and tax ledgers are updated automatically.
+</i></p>
+                </div>
+<div id="sQ36" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record cash transfer to petty cash?</b></span>
+                </div>
+            <div id="sA36" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Transfer Main Cash to Petty Cash&apos; option from dropdown</li>
+    <li>Select Branch, cash available in the branch will be auto populated, enter the amount you wish to transfer to petty cash</li>
+    <li>Input &apos;Purpose of transfer&apos; and &apos;Upload&apos; scan copy of documents if any</li>
+    <li>Click on &apos;Submit for Accounting&apos;</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+
+</ol>
+<p><i>Journal entries and tax ledgers are updated automatically.
+</i></p>
+                </div>
+   <div id="sQ37" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to issue Quotation?</b></span>
+                </div>
+    <div id="sA37" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Prepare Quotation&apos; option from dropdown</li>
+    <li>Select Branch, Project, Customer, Product and Price will be auto populated (updated in Income set up)</li>
+    <li>Input &apos;Remarks&apos; and &apos;Upload&apos; scan copy of reference documents if any</li>
+    <li>Click on submit for Approval	</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+</ol>
+            </div>
+  <div id="sQ38" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to transfer Inventory from one branch to another?</b></span>
+                </div>
+            <div id="sA38" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Transfer Inventory item from one Branch to another&apos; option from dropdown</li>
+    <li>Select &apos;Transfer Outward&apos; from the dropdown</li>
+    <li>Select Branch, Product, Price and Taxable value will be automatically calculated</li>
+    <li>Click on submit for Approval	</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+                </ol>
+<p><i>Journal entries and tax ledgers are updated automatically.<br/> <br/>
+Similarly &apos;Transfer Inward&apos; can be recorded when Inventory is transferred from one branch to another.
+
+</i></p>
+                </div>
+<div id="sQ39" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record Debit note or Credit note issued to Customer?</b></span>
+                </div>
+            <div id="sA39" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p><u>Credit Note:</u></p>
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Credit Note for Customer&apos; option from dropdown</li>
+    <li>Select &apos;Decrease in Price&apos; or &apos;Decrease in Quantity&apos; from the dropdown</li>
+    <li>Select Branch and Project and enter dates. Select Customer and Sales Invoice, details of invoice will be auto populated.</li>	
+    <li>Enter &apos;Revised Price&apos; or &apos;Quantity&apos; and @(configParams.getCompanyApp()) will automatically compute the GST difference. Check Net Value and &apos;Submit for Approval&apos;</li>
+    <li>'Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+                </ol>
+         <p><u>Debit Note:</u></p>
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Debit Note for Customer&apos; option from dropdown</li>
+    <li>Select &apos;Increase in Price&apos; or &apos;Increase in Quantity&apos; from the dropdown</li>
+    <li>Select Branch and Project and enter dates. Select Customer and Sales Invoice, details of invoice will be auto populated.</li>	
+    <li>Enter &apos;Revised Price&apos; or &apos;Quantity&apos; and @(configParams.getCompanyApp()) will automatically compute the GST difference. Check Net Value and &apos;Submit for Approval&apos;</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+</ol>
+<p><i>Journal entries and tax ledgers are updated automatically.</i></p>
+</div>
+            
+<div id="sQ40" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to record debit or credit received from Vendor?</b></span>
+                </div>
+            <div id="sA40" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p><u>Credit received from Vendor:</u></p>
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Credit Note for Vendor&apos; option from dropdown</li>
+    <li>Select &apos;Increase in Price&apos; or &apos;Increase in Quantity&apos; from the dropdown</li>
+    <li>Select Branch and Project and enter dates. Select Vendor and Purchase Invoice, details of invoice will be auto populated.	</li>
+    <li>Enter &apos;Revised Price&apos; or &apos;Quantity&apos; and @(configParams.getCompanyApp()) will automatically compute the GST difference. Check Net Value and &apos;Submit for Approval&apos;</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+                </ol>
+
+<p><u>Debit received from Vendor:</u></p>
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Debit Note for Vendor&apos; option from dropdown</li>
+    <li>	Select &apos;Decrease in Price&apos; or &apos;Decrease in Quantity&apos; from the dropdown</li>
+    <li>Select Branch and Project and enter dates. Select Customer and Sales Invoice, details of invoice will be auto populated.	</li>	
+    <li>Enter &apos;Revised Price&apos; or &apos;Quantity&apos; and @(configParams.getCompanyApp()) will automatically compute the GST difference. Check Net Value and &apos;Submit for Approval&apos;</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+</ol>
+<p><i>Journal entries and tax ledgers are updated automatically.</i></p>
+</div>
+
+<div id="sQ41" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to create Adjustment Entries?</b></span>
+                </div>
+            <div id="sA41" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                   
+<ol>
+    <li>Under 'Options' click on &apos;Transactions'</li>
+    <li>Click on tab &apos;Create Transaction&apos; and select &apos;Make Provision / Journal Entry&apos; option from dropdown</li>
+    <li>Select Branch, Debit / Credit Ledger as per the requirement </li>
+    <li>Click on submit for Approval	</li>
+    <li>&apos;Approve&apos; the transaction and click on &apos;Complete Accounting&apos;</li>
+                </ol>
+            </div>
+    </div>
+                <div class="subHeadQA" data-id="setupFAQReportQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">Reports</a></b></span>
+                </div>
+                 <div id="setupFAQReportQAId" style="display: none;">
+                <div id="sQ42" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Where to view Inventory Report?</b></span>
+                </div>
+                     <div id="sA43" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+ <ol>
+     <li>Under 'Options' click on &apos;Transactions'</li>
+     <li>Now click on tab &apos;Find Reports&apos;</li>
+<li>Click on &apos;Inventory Report&apos;</li>
+                         
+                         </ol>
+                     </div>
+                <div id="sQ43" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Where to view P&amp;L and Balance Sheet?</b></span>
+                </div>
+                      <div id="sA44" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+ <ol>
+     <li>Under 'Options' click on &apos;Transactions'</li>
+     <li>Now click on tab &apos;Find Reports&apos;</li>
+<li>Click on &apos;P&amp;L and Balance Sheet&apos;</li>
+                         
+                         </ol>
+                     </div>
+<div id="sQ45" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Where to view Trial Balance?</b></span>
+                </div>
+                      <div id="sA45" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+ <ol>
+     <li>Under 'Options' click on &apos;Transactions'</li>
+     <li>Now click on tab &apos;Find Reports&apos;</li>
+<li>Click on &apos;Trial Balance&apos;</li>
+                         
+                         </ol>
+                     </div>
+<div id="sQ46" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Where to view Bank book or Cash book?</b></span>
+                </div>
+                      <div id="sA46" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+ <ol>
+     <li>Under 'Options' click on &apos;Transactions'</li>
+     <li>Now click on tab &apos;Find Reports&apos;</li>
+<li>Click on &apos;Cash Book&apos; or &apos;Bank Book&apos;</li>
+                         
+                         </ol>
+                     </div>
+                     
+<div id="sQ47" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Tell me more about Dashboard.</b></span>
+                </div>
+                      <div id="sA47" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+ <p>Dashboard displays reports like Account Receivables, Account Payables, Expenses and Income 
+reports which can be downloaded in excel for taking key business decisions. This exclusive 
+feature helps you to drill down and analyze to the transaction level.
+
+</p>
+                     </div>
+                </div>
+                
+                <div class="subHeadQA" data-id="setupFAQgstQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">GST</a></b></span>
+                </div>
+<div id="setupFAQgstQAId" style="display: none;">
+    <div id="sQ47" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How to download GST JSON files?</b></span>
+                </div>
+    <div id="sA47" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+    <ol>
+        <li>Under &apos;Options' click on &apos;Transactions'</li>
+        <li>Now click on tab &apos;Find Reports&apos; and select &apos;GST JSON&apos; from the dropdown</li>
+        <li>	Select the GST no., click on &apos;GSTR1&apos;, &apos;GSTR 3B&apos; or &apos;GSTR 4&apos; and download JSON files</li>  
+        <li>Download JSON files can be directly uploaded in GSTN</li>     
+      </ol>
+    </div>
+
+
+                </div>
+                </div>
+                </div>
+                </div>
+                
+            
+              

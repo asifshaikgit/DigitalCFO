@@ -1,0 +1,35 @@
+@(businessName: String, contactName: String, corporateEmail:String, phoneNo: String, website: String, registrationSource: String)
+<style>
+    .leftblock{font-size: 14px; display: inline-block; width: 120px; font-weight: bold; padding: 5px 0px 5px 5px; }
+    .rightblock {font-size: 14px; display: inline-block; margin-left: 30px; padding: 5px 0px 5px 0px; }
+</style>
+<table style="width: 60%;font-family: 'Montserrat', sans-serif;" class="table">
+    <thead>
+        <tr id="emailHeader">
+        <th colspan="2" style="font-weight: bold; padding-bottom: 15px;">A new Organisation has been registered.
+        </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="emailBody"  style="background-color: #f2eeed;">
+            <td class="leftblock">Business Name</td><td class="rightblock">@{businessName}</td>
+        </tr>
+        <tr  style="background-color: #f2eeed;">
+            <td class="leftblock">Contact Name</td><td class="rightblock">@{contactName}</td>
+        </tr>
+        <tr  style="background-color: #f2eeed;">
+            <td class="leftblock">Email</td><td class="rightblock">@{corporateEmail}</td>
+        </tr>
+        <tr  style="background-color: #f2eeed;">
+            <td class="leftblock">Phone Number</td><td class="rightblock">@{phoneNo}</td>
+        </tr>
+        <tr  style="background-color: #f2eeed;">
+            <td class="leftblock">Website/URL</td><td class="rightblock">@{website}</td>
+        </tr>
+        <tr style="background-color: #f2eeed;">
+            <td class="leftblock">Source/Channel</td><td class="rightblock">@{registrationSource}</td>
+        </tr>
+        <tr id="emailFooter">
+        </tr>
+    </tbody>
+</table>

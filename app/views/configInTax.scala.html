@@ -1,0 +1,43 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="inputTaxDiv" class="taxsetupcls" style="display: none">
+	<select style="width: 300px; margin-top:10px; margin-left:10px;" id="inputTaxBranch" onchange="showNewInputTaxDiv(this);"><option value="">Select a Branch to define/view input taxes</option></select>
+	<div style="margin-top:10px; margin-left:0px; display:none; border: 1px solid #cccccc; min-height:420px;" id="newinputtaxdiv">
+		<div style="margin-left:5px; margin-top: 1px; width:50%; display: inline-block; vertical-align:top;">
+			<div style="vertical-align:top; overflow-y:auto; height:375px;" >
+				<table class="table excelFormTable" id="inputTaxTable">
+				<thead class="tablehead1"><tr><th><button style="cursor: pointer; float:left; margin-left:2px;" id="removeInputTaxes"><i class="fa fa-minus-circle fa-lg"></i> </button></th><th>Branch</th><th>Select/Input Tax Rate %</th><th>Cess Rate %</th><th><button style="cursor: pointer; float:right; margin-right:2px;" id="addMoreInputTaxes" title="add more taxes"><i class="fa fa-plus-circle fa-lg"></i></button></th></tr></thead>
+				<tbody>
+					<tr id="inputtaxtr">
+						<td></td>
+						<td>
+							<select class="multiBranch" multiple="multiple" name="inputTaxBranchMulti" id="inputTaxBranchMulti"></select>
+						</td>
+						<td style="min-width:100px;">
+							<div class="ui-widget">
+								<select id="inputGstTaxRate" class="combobox">
+									<option value="">Select/Input</option>
+									<option value="0">0</option>
+									<option value="5">5</option>
+									<option value="12">12</option>
+									<option value="18">18</option>
+									<option value="28">28</option>
+								</select>
+							</div>
+						</td>
+						<td colspan="2"><input type="text" id="inputCessTaxRate" onkeypress="return onlyDotsAndNumbersWithMultipleIDs(event, this)"></td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+				<button id="formCancel" class="btn btn-cancel" title="Reset all" onClick="resetInputTaxScreen();">Cancel</button>
+				<button id="saveInTax" onclick="saveInputTaxes();" style="float:right; margin-right:5px;" class="btn btn-submit" title="Add Taxes">Add Taxes</button>
+		</div>
+		<div style="margin-right:5px; float:right; margin-top: 1px; width:35%; display: inline-block; vertical-align:top; overflow:auto; max-height:400px;">
+			<table class="table table-hover table-striped" id="InputTaxHistory">
+			<thead class="tablehead1"><tr><th>Tax Name</th><th>Tax Rate %</th><th></th></tr></thead>
+			<tbody>
+			</tbody>
+			</table>
+		</div>
+	</div>
+</div>

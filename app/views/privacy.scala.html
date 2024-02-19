@@ -1,0 +1,106 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String, userobj:model.Users, configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams){
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#loadingIdos').hide();
+});
+</script>
+<div class="panel panel-showtrans">
+	<div class="panel-body">
+		<div class="main-header">&nbsp;
+			<div class="header-other-pages">
+			<a href="/"><img id="companyLogo" alt="logo" src="@(configParams.getCompanyLogoPath())" align="top" style="margin-top: -2px; margin-left: 4px;margin-bottom: 4px; margin-right: 4px;"></img></a>
+				<a style="float: right;margin-top: 15px;" href="/signIn#logindiv"> Sign In </a><b style="float: right;margin-top: 15px;">&nbsp;&nbsp; | &nbsp;&nbsp;</b><a style="float: right;margin-top: 15px;" href="/signUp#signUpDiv"> Register/SignUp </a>
+			</div>
+		</div>
+	<div class="sub-header">&nbsp;</div>
+	<div id="twocolumns">
+		<aside class="browse_category">
+			<div class="sidebox" style="float:left;width:280px;">
+				<div class="heading blue" style="margin:0px 0px 0px; background:#B4283C !important;">
+					<h3 align="center" style="color: #fff;">PRIVACY</h3>
+				</div>
+				<div class="category_list">
+				<ul class="company-nav">
+					<li class="menu-information-collected"><a href="#informationCollected">Information collected</a></li>
+					<li class="menu-information-usage"><a href="#informationUsage">Information usage</a></li>		
+				</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</aside>
+		<div id="content">
+			<div id="informationCollected" class="sidebox mainContent" style="float:left;width:680px;display: block;margin-left: 35px;">
+				<h2 style="border-bottom: 2px solid #ccc;">Business details:</h2><br/>
+				<div class="category_list">
+					<ul>			
+						<li>&bull; Business name</li>
+						<li>&bull; Address</li>
+						<li>&bull; Branches and branch address</li>
+						<li>&bull; Email of users you enable, setup or grant access</li>
+						<li>&bull; Phone numbers of users you enable, setup or grant access</li>
+						<li>&bull; Registered user details (name, email, phone number, address, location)</li>
+						<li>&bull; History of your transaction with @(configParams.getCompanyApp())</li>
+						<li>&bull; Billing details (credit / debit card details & billing address)</li>	
+					</ul>	
+				</div>	
+				<h2 style="border-bottom: 2px solid #ccc;">System details:</h2><br/>
+				<div class="category_list">
+					<ul>			
+						<li>&bull; IP address</li>
+						<li>&bull; Browser type</li>
+						<li>&bull; Operating system</li>
+						<li>&bull; Hardware used for accessing @(configParams.getCompanyApp())</li>
+						<li>&bull; @(configParams.getCompanyApp()) usage pattern</li>
+					</ul>	
+				</div>	
+			</div>
+			<div id="informationUsage" class="sidebox mainContent" style="float:left;width:680px;display: none;margin-left: 35px;">
+				<h2 style="border-bottom: 2px solid #ccc;">Information usage:</h2><br/>
+				<div class="category_list">
+					Information we obtain from you on the Site will be used to provide you the facilities
+					offered by @(configParams.getCompanyApp()); resolve service and billing issues; troubleshoot problems; bill any
+					amounts due from you; measure consumer interest in our products and services, inform
+					you about online and offline offers, products, services, events and updates; deliver
+					information to you that, in some cases, is relevant to your interests, such as product
+					news; customize your experience; provide you with solutions which could help you
+					optimize your incomes and expenses; detect and protect us against error, fraud and other
+					criminal activity; provide you with system or administrative messages, and as otherwise
+					described to you at the time of collection. We use email address or other contact
+					information to contact our Users to ask them for their input on our services, to forward to
+					them media opportunities, and even to invite them to events organized by @(configParams.getCompanyApp()) or events 
+					where @(configParams.getCompanyApp()) is a participant.
+					<br/><br/>
+					We may also use personal information about you to improve our marketing and 
+					promotional efforts, to analyze Site usage, to improve our content and product offerings,
+					and to customize the Site's content, layout, and services. These uses improve the Site and
+					better tailor it to meet your needs, so as to provide you with a smooth, efficient, safe and
+					customized experience while using @(configParams.getCompanyApp()). We will be required to share your information, if
+					the same is required to comply with the due process of applicable law.	
+				</div>	
+				<h2 style="border-bottom: 2px solid #ccc;">Security:</h2><br/>
+				<div class="category_list">
+					Security of transactions is of utmost importance in @(configParams.getCompanyApp()). @(configParams.getCompanyApp()) uses the Secure Sockets
+					Layer (SSL) protocol, which encrypts any information that you transmit to us
+					electronically. The encryption process protects your information, by scrambling it before it
+					is sent to us from your computer. Once @(configParams.getCompanyApp()) receives your transmission, we make
+					reasonable efforts to ensure its security on our system. The Internet is not in itself a
+					secure environment. Users should only enter data to the database within a secure
+					environment. This requires your browser to support the encryption security.While we strive
+					to protect your personal information, we cannot warrant the security of any information
+					you transmit to us.
+					<br/><br/>
+					<b>@(configParams.getCompanyApp()) does not store your credit card or debit card information</b><br/>
+					If you choose to pay for @(configParams.getCompanyApp()) by credit card or debit card, your card details are not stored
+					by @(configParams.getCompanyApp()) and cannot be accessed by @(configParams.getCompanyApp()) staff.
+					<br/><br/>
+					If   you   have   any   suggestions   or   questions,   please   send   us   an   email   to 
+					feedback&#64;myidos.com	
+				</div>
+			</div>
+		</div>
+	</div>
+</div></div>
+
+}

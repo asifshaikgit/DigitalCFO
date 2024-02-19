@@ -1,0 +1,30 @@
+@(user: String,particulars:String,specifics:String,noOfItems:String,totalCost:String,status:String,configParams:model.ConfigParams)
+<b><font size="5">Hi! @{user}</font></b><br/>
+<b><font size="5">Greetings For The Day</font></b><br/><br/>
+
+<p><font size="5">Expense raised by you as detailed below present status is @{status}.</font></p>
+
+<table class="table table-striped table-bordered" id="mailTable">
+	<thead>
+		<tr>
+			<th>Particular</th>
+			<th>Specific</th>
+			<th>Item Qty.</th>
+			<th>Expense Amount</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>@{particulars}</td>
+			<td>@{specifics}</td>
+			<td>@{noOfItems}</td>
+			<td>@{totalCost}</td>
+			<td>@{status}</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<b><font size="5">Regards</font></b>
+<b><font size="5">@(configParams.getCompanyApp()) ALERT</font></b>

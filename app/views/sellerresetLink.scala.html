@@ -1,0 +1,40 @@
+@(email:String,configParams:model.ConfigParams)
+<table style="width: 600px; font-family: sans-serif;">
+	<tbody>
+				<tr id="emailHeader">
+				<td>
+				</td>
+			</tr>
+		<tr id="emailBody"><td>
+	      <table>
+	        <tr>
+	          <td style="width: 550px" align="left">
+	            <div style="style="font-size: 14px;>
+	              <b>Welcome To @(configParams.getCompanyApp()).</b><br/><br/>
+	            </div>
+	          </td>
+	        </tr>
+	        <tr>
+	          <td style="width: 300px;">
+	            <div>
+	               <span style="style="font-size: 14px;"><b>Reset Your Account Using Below Link!</b><br/></span>
+	               <span style="style="font-size: 14px;>
+
+				        		<a href="@(configParams.getCompanyUrl())/reset?email=@{email}#sellerresetLoginCred">@(configParams.getCompanyUrl())/reset?email=@{email}#sellerresetLoginCred</a>
+
+	               		</span>
+	            </div>
+				<br/>
+				<br/>
+				<b style="font-size: 14px;"> Please contact us at <a href="#" target="_blank">@(configParams.getCompanySupportEmail())</a> or on phone  @(configParams.getCompanyMobile()) for any assistance. </b>
+				<br/>
+				<br/>
+	          </td>
+	        </tr>
+	      </table>
+    	</td></tr>
+			<tr  id="emailFooter">
+				<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+			</tr>
+	</tbody>
+</table>

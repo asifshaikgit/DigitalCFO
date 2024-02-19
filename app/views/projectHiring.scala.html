@@ -1,0 +1,22 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<div id="projectHiringTable" class="content" style="display: none; overflow: scroll;">
+	<div class="panel panel-showtrans">
+		<div class="panel-body">
+			<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend" id="projectHiringTableClose"></i></div>
+			<div class="panel-title">Project Hirings</div>
+			<div id="projectHiringTableDiv" class="datascrolltable" style="max-height: 100%; overflow: auto;">
+				<table class="table table-hover table-striped table-bordered excelFormTable transaction-create" id="projectHiringExcelFormTable" style="margin-top: 0px;">              
+					<thead class="tablehead1">
+						<tr><th>Project Name</th><th>Project Number</th>
+							<th>Project Start Date</th><th>Project End Date</th>
+							<th>Position</th>
+							<th>Location</th>
+							<th>Status</th>
+					</thead>
+					<tbody id="projectHiringTableBody">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

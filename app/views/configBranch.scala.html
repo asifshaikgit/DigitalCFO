@@ -1,0 +1,564 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="branchSetup" class="tab-pane mainDiv" style="display: none" >
+
+
+	@if(role.contains("MASTER ADMIN")){
+		<div class="content snglUsrDply">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<div class="navbar-transaction">
+						<button id="newbranchform-container" class="newEntityCreateButton btn btn-primary btn-idos" title="Create new branch"><i class="fa fa-plus pr-5"></i>Create Branch</button>
+                      </div>
+                     
+                       <div id="branchBulkUpload">
+							<form id="myBranchForm" action="/config/uploadbranches" method="post" enctype="multipart/form-data">
+								<p id="uploadchtofact" style="float: left; margin-top: 15px;">Upload Branch List:&nbsp;<span class="errorMessage">*</span>&nbsp;</p>
+								<input type="File" id="uploadbranch" name="uploadbranch" style="float: left; margin-top: 15px;"></input>
+								<button style="float: left; margin-top: 10px;" type="button" id="uploadBranch" class="uploadBranch btn btn-primary btn-idos" title="Upload Branch" ><i class="fa fa-upload pr-5"></i>Upload Branch</button>
+							</form>
+						</div>
+						
+                        <div id ="downloadOrganizationBranch">
+							<a href="#branchSetup" onclick="downloadOrganizationBranchTemplate();" class="btn btn-submit btn-idos" style="float:right"><i class="fa fa-download"></i> Download Branch Template</a>
+			   			</div>
+			   			<div id ="bnchButton">
+						<div class="bnchButtonDiv btn-div-top btn-align-right" id ="bnchButtonDiv">
+							<button id="addBranch" name="addBranch" class="addBranch btn btn-submit btn-idos" title="Add/Update Branch">Save Branch Details</button>
+						</div>
+						</div>
+                     
+					
+				</div>
+			</div>
+		</div>
+	
+}
+	<div id="branch-form-container" class="newbranchform-container create-form" style="display: none;">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+
+			<div class="panel-title" style="text-align: center;">Branch</div>
+			<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend" id="createBranchCancel" onClick="formCancel()"></i></div>
+			<div id="search-launch-top" style="margin-top: 8px; display: none;"><a href="#branchSetup" class="button small search-close" id="newbranchform-container-close"><span>Cancel Search</span></a></div><br/>
+			<div id="branchBasicDetailsDiv" class="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+					<legend class="panel-title"><i class="branch-set-up"></i>Branch Setup</legend>
+					<!-- Branch Basic Table -->
+					<table class="table table-bordered excelFormTable" id="branchBasicDetailsTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr>
+								<th>Organisation Name</th><th><p>Branch Name &</p><p>Branch Opened Date</p></th><th><p></p>Enter GSTIN &</p> <p>Re-Enter GSTIN</p></th><th>Branch Address</th>
+								<th><p>Country<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Country where this branch is located."></i> & </p><p>Currency<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Currency used in this branch."></i></p></th>
+								<th><p>State Name & </p> <p>City Name<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="City/town where this branch is located."></i></p></th>
+								<th>Contact Number</th>
+								<th>Type Of Premise<i class="fa fa-info-circle pl-5 help-info userpopoverinfoleft" longdesc="If the branch office is rented or leased, select rented or leased and provide rental/lease details below."></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="branchCurrentRow">
+								<td><input id="branchEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+									<ul id="orgLabel" class="label-list"></ul>
+								</td>
+								<td>
+									<input type="text" id="bnchName" name="bnchName" onblur="javascript:checkDuplicacy(this.id,'Branch','name');">
+									<input type="text" id="bnchOpenDate" name="bnchOpenDate" class="txnBackDate"/>
+									<script>
+										$(function () {
+											$("#bnchOpenDate").datepicker('destroy');
+											$("#bnchOpenDate").datepicker({
+												changeMonth: true,
+												changeYear: true,
+												dateFormat: 'MM d,yy',
+												onSelect: function (x, y) {
+													$(this).focus();
+												}
+											});
+											var newdate = new Date();
+											$("#bnchOpenDate").datepicker("option", "maxDate", new Date());
+										});
+									</script>
+
+								</td>
+								<td>
+									<div style="width:155px !important;">
+										<input class="gstinInputCls" style="width: 30px; " id="gstinput" type="text" maxlength="2" onkeypress="return allowOnlyNumbers(event);" onblur="validateGstinState(this);"/>
+										<input class="gstinInputCls"  style="width: 120px; " id="gstinput2" type="text" maxlength="13" onkeypress="return allowAlphaNumeric(event);"  onkeyup="return validateFullGSTIN(this,'gstinput');"/> 
+									</div>
+									 
+								
+									<div  style="width:155px !important;" id="confirmgstin">
+										<input class="gstinInputCls" style="width: 30px; " id="gstinputconfirm" type="text" maxlength="2" onkeypress="return allowOnlyNumbers(event);" onblur="validateGstinState(this);"/>
+										<input class="gstinInputCls"  style="width: 120px; " id="gstinput2Confirm" type="text" maxlength="13" onkeypress="return allowAlphaNumeric(event);" onkeyup="return validateFullGSTIN(this,'gstinputconfirm');"/>
+										<input type="hidden" id="isnewbranchHidden" />
+										<p style="color: red;">* GSTIN once entered cannot be changed, Please check that the correct GSTIN has been entered</p>
+									</div>
+									
+									
+								<!--<td style="width:387px !important;"><div style="width:387px !important;">
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" />
+									<input class="gstinInputCls" id="gstinput" type="text" maxlength="1" /></div> -->
+								</td>
+								<td>
+									<textarea name="branchAddress" id="branchAddress" placeholder="Branch Address" rows="4"></textarea>
+								</td>
+								<td>
+									<select class="countryDropDown"  name="branchCountry" id="branchCountry" onchange="changeCountry(this)"><option value="">--Please Select--</option></select>
+									<select class="currencyDropDown" id="bnchcurrency" name="bnchcurrency" disabled><option value="">--Please Select--</option></select>
+									<!-- <script>
+										$(document).ready(function () {
+											$("#bnchcurrency").prop("disabled", true);
+										});
+									</script> -->
+								</td>
+								<td>
+									<select id="branchstate" class="input-medium bfh-states" data-country="IN"></select>
+									<input type="text" id="bnchLocation" name="bnchLocation">
+								</td>
+
+								<td><select class="countryPhnCode m-bottom-10" name="bnchregPhnNocountryCode" id="bnchregPhnNocountryCode"><option value="">--Please Select--</option></select><br/>
+									<input type="text" id="bnchPhoneNumber1" name="bnchPhoneNumber1" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+									<input type="text" id="bnchPhoneNumber2" name="bnchPhoneNumber2" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+									<input type="text" id="bnchPhoneNumber3" name="bnchPhoneNumber3" maxlength="4" style="width: 35px;" onkeypress="return isNumber(event)">
+								</td>
+								<td><select id="bnchFacility" name="bnchFacility"><option value="" selected>--Select--</option><option value="1">Leased</option><option value="2">Rented</option><option value="3">Owned</option></select></td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+
+			<div id="branchOfficersDiv" class="overflow: auto;">
+				<div class="panel panel-showtrans">
+						<div class="panel-body table-responsive">
+					<legend class="panel-title"><i class="branch-officers"></i>Branch Officers &amp; Contact Details</legend>
+					<span class="add-help-branch btn-align-right">
+						<span class="addnew" id="newKeyOffId"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right pl-5"></span>
+						<span class="help-info userpopoverinfoleft" longdesc="Enter the details of the key officers at the branch including their designation, email and phone number. You will be able to send alerts, remindersand exception reports to these officers by correctly setting up their contact information below."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+					</span>
+					<span class="btn-align-right" style="top: -5px; right: 10px;">Assign Branch Admin : <select id="assignBranchAdmin"><option value="" id="">--Please Select--</option></select></span>
+					<h5 class="alert success m-top-10"></h5>
+					<!-- Branch Officer Table -->
+					<table class="table table-bordered excelFormTable" id="branchOfficersTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr><th>Officer Name<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="Click on the + symbol to add as many branch officers as you wish. Unless you add a person as branch officer, you cannot send him alerts for various recurring tasks."></i></th>
+							<th>Designation</th><th id ="keyOffCountryTh">Country</th><th id ="keyOffCityTh">City</th><th>Email</th><th>Official Phone Number</th><th>Personal Phone Number</th><th>Upload Official ID</th><th>Upload KYC Documents</th></tr>
+						</thead>
+						<tbody>
+							<tr id="copyContentBranchOfficer">
+								<td>
+									<input type="hidden" id="bnchkeyOffhiddenId" name="bnchkeyOffhiddenId" class="input-medium" value="">
+									<input type="text" id="keyoffName" name="keyoffName" onblur="populateAlersDropDown();">
+								</td>
+								<td><input type="text" id="keyoffDesignation" name="keyoffDesignation"></td>
+								
+								<td id="keyOffCountry"><select class="countryDropDown" name="keyOffCountry" ><option value="">--Please Select--</option></select></td>
+								<td id="keyOffCity"><input type="text" name="keyOffCity" ></td>
+								
+								<td><input type="text" id="keyoffEmailId" name="keyoffEmailId" class="alertUserEmail" onblur="return emailFieldValidation(this), populateAlersDropDown(), checkemail(this);" onfocus="getExistedEmail(this);"></td>
+								<td>
+									<select class="countryPhnCode m-bottom-10" name="bnchKeyOffcountryPhnCode" id="bnchKeyOffcountryPhnCode" class="input-small m-bottom-10"><option value="">--Please Select--</option></select><br/>
+									<input type="text" id="keyoffPhoneNumber1" name="keyoffPhoneNumber1" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this, keyoffPhoneNumber2)">-
+									<input type="text" id="keyoffPhoneNumber2" name="keyoffPhoneNumber2" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this, keyoffPhoneNumber3)">-
+									<input type="text" id="keyoffPhoneNumber3" name="keyoffPhoneNumber3" maxlength="4" style="width: 35px;" onkeypress="return isNumber(event)">
+								</td>
+								<td><select class="countryPhnCode m-bottom-10" name="bnchKeyOffperscountryPhnCode" id="bnchKeyOffperscountryPhnCode" class="input-small m-bottom-10"><option value="">--Please Select--</option></select><br/>
+									<input type="text" id="keyoffpersPhoneNumber1" name="keyoffpersPhoneNumber1" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this, keyoffPhoneNumber2)">-
+									<input type="text" id="keyoffpersPhoneNumber2" name="keyoffpersPhoneNumber2" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this, keyoffPhoneNumber3)">-
+									<input type="text" id="keyoffpersPhoneNumber3" name="keyoffpersPhoneNumber3" maxlength="4" style="width: 35px;" onkeypress="return isNumber(event)">
+								</td>
+								<td><input type="text" id="docuploadurl" class="keyOffIdProof" name="keyOffIdProof" readonly="readonly"><br/>
+									<br><button id="keyOffIdProofBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button><button id="keyOffIdProofDownloadBtn" style="display: none;" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button><button id="keyOffIdProofDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:60px;" onclick="deleteUploadedFile(this);"></button>
+								</td>
+								<td><input type="text" id="docuploadurl" class="keyKYCDoc" name="keyKYCDoc" readonly="readonly"><br/>
+									<br><button id="keyKYCDocBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button><button id="keyKYCDocDownloadBtn" style="display: none;" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button><button id="keyKYCDocDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:60px;" onclick="deleteUploadedFile(this);"></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+			<div id="branchPremiseDiv" style="display: none; overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+					<legend class="panel-title"><i class="branch-set-up"></i>Branch Premise Details</legend>
+					<span class="add-help-branch btn-align-right">
+						<span class="help-info userpopoverinfoleft" longdesc="Please fill in the details about your office premises, so that @(configParams.getCompanyApp()) can keep track and alert you when the agreement becomes due for renewal. You can use remarks column to record when any increase in rent comes into effect."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+					</span>
+					<h5 class="alert success m-top-10"></h5>
+					<!-- Branch Premise Table -->
+					<table class="table table-bordered excelFormTable" id="branchPremiseTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr><th>Upload Documents</th><th>Validity Starting/Ending</th><th>Periodicity Of Payment &amp; <br/>Rent Payable</th><th>Landlord Name &amp; <br/>Address</th><th>Bank Details Of Landlord</th><th>Landlord's Bank Address</th><th>Rent Revision Due On<br/>Alert For Action<br/>Alert For Information</th><th>Remarks</th></tr>
+						</thead>
+						<tbody>
+							<tr id="branchPremiseType">
+								<td><select style="width:156px;" id="docuploadurl" name="bnchAggreement" readonly="readonly"><option value="">--Please Select--</option></select>
+									<p><button id="bnchAggreementBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="bnchAggreementDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="bnchAggreementDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button></p>
+								</td>
+								<td><input type="text" id="bnchPremiseValidityFrom" name="bnchPremiseValidityFrom" class="datepicker m-bottom-10 calendar" placeholder="Valid Starting"><br/><input type="text" id="bnchPremiseValidityTo" name="bnchPremiseValidityTo" class="datepicker calendar" placeholder="Valid Ending"></td>
+								<td><select name="periodicityOfPayment" id="periodicityOfPayment" class="m-bottom-10"></select><br/><input type="text" name="rentPayable" id="rentPayable" onkeypress="return onlyDotsAndNumbers(event)" placeholder="Rent Payable"></td>
+								<td><input type="text" name="landlordName" id="landlordName" placeholder="Landlord Name" class="m-bottom-10"><br/><textarea name="landlordAddress" id="landlordAddress" placeholder="Address" class="text-area-2x"></textarea></td>
+								<td><input type="text" name="bankAccountName" id="bankAccountName" placeholder="Bank Name" class="m-bottom-10"><br/><input type="text" name="bankAccountNumber" id="bankAccountNumber" onkeypress="return isNumber(event)" placeholder="Account Number"></td>
+								<td><input type="text" name="bankAccountBranch" id="bankAccountBranch"></td>
+								<td><input type="text" id="rentRevisedDueOn" name="rentRevisedDueOn" class="datepicker calendar m-bottom-10"></td>
+								<td><textarea name="rentDueOnRemarks" id="rentDueOnRemarks" class="text-area-2x"></textarea></td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+			<!-- Branch statutory details -->
+			<div id="branchStaturoryDiv" style="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+					<legend class="panel-title"><i class="branch-stat-details"></i>Branch Statutory Details</legend>
+					<span class="add-help-branch btn-align-right">
+						<span class="addnew" id="newBnchStatutoryId"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right pl-5"></span>
+						<span class="help-info userpopoverinfoleft" longdesc="@(configParams.getCompanyApp()) will assist you to manage your statutory registrations and their renewals. You can enter details of the statutory detail, upload the registration / other documents related to this detail and also setup validity dates. @(configParams.getCompanyApp()) will enable you to setup and send alerts to concerned officers of the company when a particular statutory compliance is due for renewal. For example you could have a tax registration, which is required to be renewed every year. You can input the details of this tax and setup validity dates and @(configParams.getCompanyApp()) will send alerts and remind you that this compliance is due for renewal. You can even create Remarks for this compliance and guide the user on how / where to get the renewal and an alert email will be sent before the due date."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+					</span>
+					<h5 class="alert success m-top-10"></h5>
+					<table class="table table-bordered excelFormTable" id="branchStatutoryTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr><th>Statutory Details</th><th>Registration Number</th><th>Upload Supporting Documents</th><th>Validity From/To</th>
+								<th>Alert For Action<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) has created unique & practical alert mechanism which enables you to focus on your daily routines and not worry about future actionable aspects, by alerting you well in advance about upcoming event which requires your attention.Use Alert for Action to fix responsibility on a particular member of your staff to take action on a given event. For example, if a trade license is due for renewal every six months and James is responsible to get the renewal done, you can set up Alert for Action by selecting James email and @(configParams.getCompanyApp()) will send an advance reminder email to James informing him that the Trade License is due for renewal on a particular date and that he is responsible to get the renewal done. Further you can enter renewal instructions, guidance notes and other comments in the remarks column and these remarks will be sent to James along with the advance reminder."></i></th>
+								<th>Alert For Information<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) has created unique & practical alert mechanism which enables you to focus on your daily routines and not worry about future actionable aspects, by alerting you well in advance about upcoming event which requires your attention.Use Alert for Information to send reminder alerts to members of Senior Management about upcoming actionable items. This alert will keep the identified senior management informed about the upcoming event, when it is due, who is responsible and also alert them if action is not taken before due date, so that the identified senior managers can take necessary action and get the compliance done, before there is any default."></i></th>
+								<th>Name &amp; Address Of Consultant</th><th>Remarks/Information</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="copyContentBranchStatutory">
+								<td><input type="hidden" id="bnchstatutoryhiddenId" name="bnchstatutoryhiddenId" value="">
+									<textarea name="statutoryDetails" id="statutoryDetails" class="text-area-2x"></textarea>
+								</td>
+								<td><input type="text" id="bnchStatutoryegistrationNumber" name="bnchStatutoryegistrationNumber" class="m-bottom-10"><br/>
+									<input type="checkbox" name="bnchStatInvoiceDisplayable" id="bnchStatInvoiceDisplayable" style="margin-top: -3px;">&nbsp;<b>Display in invoice?</b>
+									<i class="fa fa-info-circle help-info userpopoverinfo fs-14" longdesc="Click here to insert this registration detail in your sales invoices. You can list maximum 4 registration details on sales invoices that you raise through."></i>
+								</td>
+								<td><select class="bnchStatutorySupportingDoc" name="bnchStatutorySupportingDoc" id="docuploadurl"><option value="">Select a file</option></select>
+									<br><button id="bnchStatutorySupportingDocBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button><button id="bnchStatutorySupportingDocDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button><button id="bnchStatutorySupportingDocDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+								</td>
+								<td><input type="text" id="bnchStatutoryvalidFrom" name="bnchStatutoryvalidFrom" class="datepicker m-bottom-10 calendar" placeholder="Valid From"><br/><input type="text" id="bnchStatutoryvalidTo" name="bnchStatutoryvalidTo" class="datepicker calendar" placeholder="Valid To"></td>
+								<td><select class="alertDropDown" name="alertForAction" id="alertForAction"><option value="">--Please Select--</option></select></td>
+								<td><select class="alertDropDown" name="alertForInformation" id="alertForInformation"><option value="">--Please Select--</option></select></td>
+								<td><textarea name="nameAddressOfConsultant" id="nameAddressOfConsultant" class="text-area-2x"></textarea></td>
+								<td><textarea name="statutoryRemarks" id="statutoryRemarks" class="text-area-2x"></textarea></td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+				<!--<div style="display:none"><div class="control-group" style="margin-top: 0px; margin-bottom: 10px;"><button id="updateBranchStatutoryValidty" class="updateBranchStatutoryValidty btn btn-submit btn-idos" title="Update Branch Statutory Validity">Update Branch Statutory Validity</button></div></div>-->
+			</div>
+			<!-- Operational reminders details -->
+			<div id="opeartionalRemaindersDiv" style="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+					<legend class="panel-title"><i class="opera-reminder"></i>Operational Reminders</legend>
+					<span class="add-help-branch btn-align-right">
+						<span class="addnew" id="newOperRemId"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right pl-5"></span>
+						<span class="help-info userpopoverinfoleft" longdesc="As your personal accounting assistant, @(configParams.getCompanyApp()) will enable you to setup alerts and reminders to ensure that your operational reporting happens on time, every time. You can enter the different requirements that require compliance in your company, such as monthly MIS report, Expense report, budget report, tax filing, petty cash statement, bank reconciliation and so on.
+							For each of the requirement, you can setup periodicity for compliance, allocate responsibility for compliance and also allocate responsibility for supervision & management of that compliance. @(configParams.getCompanyApp()) will alert you if any branch / user has not complied to the timelines and completed this activity, so that rectification action can be taken before the due date. When you have multiple branches / departments and users, you do not need to keep track of who has completed the job and who has not. @(configParams.getCompanyApp()) will help you manage compliances through operational reminders. You can even create Remarks for this compliance and guide the user on how / where to get the renewal and an alert email will be sent before the due date."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+					</span>
+					<h5 class="alert success m-top-10"></h5>
+					<table class="table table-bordered excelFormTable" id="branchOperationalRemainderTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr><th>Requirements</th><th>Validity Starting/Ending</th><th>Recurrence</th>
+								<th>Alert For Action<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) has created unique & practical alert mechanism which enables you to focus on your daily routines and not worry about future actionable aspects, by alerting you well in advance about upcoming event which requires your attention.Use Alert for Action to fix responsibility on a particular member of your staff to take action on a given event. For example, if a trade license is due for renewal every six months and James is responsible to get the renewal done, you can set up Alert for Action by selecting James email and @(configParams.getCompanyApp()) will send an advance reminder email to James informing him that the Trade License is due for renewal on a particular date and that he is responsible to get the renewal done. Further you can enter renewal instructions, guidance notes and other comments in the remarks column and these remarks will be sent to James along with the advance reminder."></i></th>
+								<th>Alert For Information<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) has created unique & practical alert mechanism which enables you to focus on your daily routines and not worry about future actionable aspects, by alerting you well in advance about upcoming event which requires your attention.Use Alert for Information to send reminder alerts to members of Senior Management about upcoming actionable items. This alert will keep the identified senior management informed about the upcoming event, when it is due, who is responsible and also alert them if action is not taken before due date, so that the identified senior managers can take necessary action and get the compliance done, before there is any default."></i></th>
+						      <th>Remarks/Information</th><th></th><th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="copyContentBranchOpRem">
+								<td><input type="hidden" name="bnchOperationalRemHidId" id="bnchOperationalRemHidId">
+									<textarea name="operationalRemRequirements" id="operationalRemRequirements" class="text-area-2x"></textarea>
+								</td>
+								<td><input type="text" id="dueOn" name="dueOn" class="datepicker m-bottom-10 calendar" placeholder="Valid Starting"><br/><input type="text" id="validTo" name="validTo" class="datepicker calendar" placeholder="Valid Ending"></td>
+								<td><select name="recurrences" id="recurrences"></select></td>
+								<td><select class="alertDropDown" name="bnchOperRemalertForAction" id="bnchOperRemalertForAction"><option value="">--Please Select--</option></select></td>
+								<td><select class="alertDropDown" name="bnchOperRemalertForInformation" id="bnchOperRemalertForInformation"><option value="">--Please Select--</option></select></td>
+								<td><textarea name="operationalRemRemarks" id="operationalRemRemarks" class="text-area-2x"></textarea></td><td></td><td></td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+			<!-- Branch Safe Deposit Box details -->
+			<div id="brachSafeDepositBoxDiv" style="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+					<legend class="panel-title"><i class="branch-safe"></i>Branch cash account</legend>
+					<!--<span class="add-help-branch btn-align-right">
+						<span class="addnew" id="newSafeDepositBoxId"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right pl-5"></span>
+						<span class="help-info userpopoverinfoleft" longdesc="Please fill in the details to have control on the custodians of cash and financial instruments belonging to the company. Further if your branch maintains cash balance, you can set up details of cashier and instruct the cashier to login into @(configParams.getCompanyApp()) and provide details of cash balance on a periodic basis (periodicity can be defined by you in the Knowledge Library). When the cashier logs into @(configParams.getCompanyApp()), he will be required to fill up a form providing details of cash balance (denomination & numbers) and also upload cash balance statement to authenticate physical cash balance at the branch."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+					</span> -->
+					<h5 class="alert success m-top-5"></h5>
+					<table class="table table-bordered excelFormTable" id="branchSafeDepositBoxTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr><th id="CustSafeDepositOpenBalTh">Custodian For Safe Deposit & Opening Balance</th><th id="CustPhoneNoTh">Custodian Phone Number</th><th id="CustEmailTh">Custodian Email</th>
+								<th>Cashier Name & Cash Opeing Balance<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc='@(configParams.getCompanyApp()) allows you to have control on physical cash balance at the branch office. For this, you need to input the details of the person responsible for cash at that branch including his email. In "Cashier Knowledge Library" column input the instruction
+									regarding safekeep of cash and periodicity of physical cash verification. @(configParams.getCompanyApp()) will send an email to the person registered here as cashier with his login information and once that person logs-in he will get a screen where he needs to input the cash denomination details as well as bank balance details as on that date and also upload the bank statement to authenticate the bank balance. Once these details are entered, @(configParams.getCompanyApp()) will automatically track cash and bank balance after adjusting expenses and incomes and provide you with the cash and bank balance at any given moment.'></i></th>
+								<th>Cashier Phone Number</th><th>Cashier Email</th><th>Cashier Knowledge Library</th>
+								<th>Petty Cash Transaction's Approval Required<i class="fa fa-info-circle pl-5 help-info userpopoverinfoleft" longdesc="If this branch is permitted to incur petty cash expenses, then select if prior approval is required for petty cash transactions. If prior approval is needed for petty cash transactions, then select 'Yes' in the dropdown. If 'Yes' is selected, you will be prompted to input amount above which prior approval is need.
+									For example, if you insert 100, then any transaction exceeding $100 will be sent for approval and below $100, the transaction will be considered as approved and sent for accounting."></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="copyContentBranchKeyDep">
+								<td id="CustSafeDepositOpenBalTd" ><input type="hidden" id="bnchkeyDephiddenId" name="bnchkeyDephiddenId" class="input-medium" value="">
+									<input type="text" id="keyDepositName" name="keyDepositName" class="m-bottom-10" >
+									<input type="text" id="keyDepositOpeningBalance" name="keyDepositOpeningBalance" placeholder="Opening Balance" onKeyup="changeHiddenOpeningBalance(this, cashOpeningBalanceHid);" onkeypress="return onlyDotsAndNumbersandMinus(event, this)" onfocus="checkOpeningBalance(this, cashOpeningBalanceHid);">
+									<input type="hidden" name="cashOpeningBalanceHid" id="cashOpeningBalanceHid"/>
+								</td>
+								<td id ="CustPhoneNoTd">
+									<select class="countryPhnCode m-bottom-10" name="bnchKeyDepositcountryPhnCode" id="bnchKeyDepositcountryPhnCode" class="input-small m-bottom-10"><option value="">--Please Select--</option></select><br/>
+									<input type="text" id="keyDepositPhoneNumber1" name="keyDepositPhoneNumber1" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this)">-
+									<input type="text" id="keyDepositPhoneNumber2" name="keyDepositPhoneNumber2" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this)">-
+									<input type="text" id="keyDepositPhoneNumber3" name="keyDepositPhoneNumber3" maxlength="4" style="width: 35px;" onkeypress="return isNumber(event)">
+								</td>
+								<td id ="CustEmailTd"><input type="text" id="keyDepositEmailId" name="keyDepositEmailId" onblur="return emailFieldValidation(this)"></td>
+								<td class="cashierData"><input type="text" id="cashierName" name="cashierName">
+									<input type="text" id="cashierNameDepoOpenBal" name="cashierNameDepoOpenBal" placeholder="Opening Balance" onKeyup="changeHiddenOpeningBalance(this, cashOpeningBalanceHid);" onkeypress="return onlyDotsAndNumbersandMinus(event, this)" onfocus="checkOpeningBalance(this, cashOpeningBalanceHid);">
+								    
+								</td>
+								<td class="cashierData"><select class="countryPhnCode m-bottom-10" name="cashiercountryPhnCode" id="cashiercountryPhnCode" class="input-small m-bottom-10"><option value="">--Please Select--</option></select><br/>
+									<input type="text" id="cashierPhoneNumber1" name="cashierPhoneNumber1" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+									<input type="text" id="cashierPhoneNumber2" name="cashierPhoneNumber2" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+									<input type="text" id="cashierPhoneNumber3" name="cashierPhoneNumber3" maxlength="4" style="width: 35px;" onkeypress="return isNumber(event)">
+								</td>
+								<td class="cashierData"><input type="text" id="cashierEmailId" name="cashierEmailId" onblur="return emailFieldValidation(this),checkemail(this);" onfocus="getExistedEmail(this);"></td>
+								<td class="cashierData"><textarea name="cashierKl" id="cashierKl" class="text-area-2x"></textarea></td>
+								<td class="cashierData">
+									<select name="txnApprovalReq" id="txnApprovalReq" onchange="branchPettyTxnApprovalRule(this);"><option value="0">No</option><option value="1">Yes</option></select>
+									<b class="approvalAboveLimit fs-11"></b><br/><input type="text" style="display:none;" name="approvalAboveLimit" id="approvalAboveLimit" onkeypress="return onlyDotsAndNumbers(event)"><br/>
+									<input type="text" placeholder="Petty cash opening balance" name="pettyCashOpeningBalance" id="pettyCashOpeningBalance" onKeyup="changeHiddenOpeningBalance(this, pettyCashOpeningBalanceHid);" onfocus=" checkOpeningBalance(this, pettyCashOpeningBalanceHid);" onkeypress="return onlyDotsAndNumbersandMinus(event, this)"/>
+									<input type="hidden" name="pettyCashOpeningBalanceHid" id="pettyCashOpeningBalanceHid"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+			<!-- Branch Insurance details -->
+			<div id="brachInsurenceDiv" style="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+					<legend class="panel-title"><i class="branch-insurance"></i>Branch Insurance</legend>
+					<span class="add-help-branch btn-align-right">
+						<span class="addnew" id="newBranchInsurance"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right pl-5"></span>
+						<span class="help-info userpopoverinfoleft" longdesc="Please fill in details of your insurance policies to enable @(configParams.getCompanyApp()) to remind you when any insurance policy is due for renewal. Going forward @(configParams.getCompanyApp()) will enable you to link each insurance policy to specific assets / expenses, so that you can take benefit of insurance or warranties before deciding to spend money on repairs and maintenance."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+					</span>
+					<h5 class="alert success m-top-10"></h5>
+					<table class="table table-bordered excelFormTable" id="branchInsurenceTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr><th>Policy Type</th><th>Policy Number &amp; Insurance Company</th><th>Insurance Document Upload</th><th>Validity Starting/Ending</th><th>Annual Premium</th>
+								<th>Alert For Action<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) has created unique & practical alert mechanism which enables you to focus on your daily routines and not worry about future actionable aspects, by alerting you well in advance about upcoming event which requires your attention.Use Alert for Action to fix responsibility on a particular member of your staff to take action on a given event. For example, if a trade license is due for renewal every six months and James is responsible to get the renewal done, you can set up Alert for Action by selecting James email and @(configParams.getCompanyApp()) will send an advance reminder email to James informing him that the Trade License is due for renewal on a particular date and that he is responsible to get the renewal done. Further you can enter renewal instructions, guidance notes and other comments in the remarks column and these remarks will be sent to James along with the advance reminder."></i></th>
+								<th>Alert For Information<i class="fa fa-info-circle pl-5 help-info userpopoverinfoleft" longdesc="@(configParams.getCompanyApp()) has created unique & practical alert mechanism which enables you to focus on your daily routines and not worry about future actionable aspects, by alerting you well in advance about upcoming event which requires your attention.Use Alert for Information to send reminder alerts to members of Senior Management about upcoming actionable items. This alert will keep the identified senior management informed about the upcoming event, when it is due, who is responsible and also alert them if action is not taken before due date, so that the identified senior managers can take necessary action and get the compliance done, before there is any default."></i></th>
+								<th>Remarks</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="copyBranchInsurence">
+								<td><input type="hidden" id="bnchInshiddenId" name="bnchInshiddenId" value="">
+									<input type="text" id="typeOfPolicy" name="typeOfPolicy">
+								</td>
+								<td><input type="text" id="policyNumber" name="policyNumber" placeholder="Policy Number" class="m-bottom-10"><br/><input type="text" id="insurenceCompany" name="insurenceCompany" placeholder="Insurance Company"></td>
+								<td><select class="insurancePolicy" name="insurancePolicy" id="insurancePolicy"><option value="">Select a file</option></select>
+									<br><button id="insurancePolicyBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button><button id="insurancePolicyDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button><button id="insurancePolicyDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+								</td>
+								<td><input type="text" id="insuranceValidityFrom" name="insuranceValidityFrom" class="datepicker m-bottom-10 calendar" placeholder="Valid Starting"><br/><input type="text" id="insuranceValidityTo" name="insuranceValidityTo" class="datepicker calendar" placeholder="Valid Ending"></td>
+								<td><input type="text" name="premiumAmount" id="premiumAmount" onkeypress="return onlyDotsAndNumbers(event)"></td>
+								<td><select class="alertDropDown" name="bnchInsalertForAction" id="bnchInsalertForAction"><option value="">--Please Select--</option></select></td>
+								<td><select class="alertDropDown" name="bnchInsalertForInformation" id="bnchInsalertForInformation"><option value="">--Please Select--</option></select></td>
+								<td><textarea name="remarks" id="remarks" class="text-area-2x"></textarea></td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+			<!-- Bank Account Details -->
+			<div id="branchBankSetUp" style="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+					<legend class="panel-title"><i class="branch-account"></i>Bank Account Details</legend>
+					<span class="add-help-branch btn-align-right">
+						<span class="addnew" id="newBankAccountId"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right pl-5"></span>
+						<span class="help-info userpopoverinfoleft" longdesc="Please fill in the details of your bank accounts at the branch and provide information about type of account, account number, signatories, bank SWIFT code, Routing Number, so that these details can be accessed easily by Head Office and also to classify and link these accounts to Assets & Liabilities and enable you to link the bank account for expenses so that your branch staff use only this bank for payments and also define which bank must be used for deposits and receipts from customers and so on.
+							Going forward @(configParams.getCompanyApp()) will help you link with your bank so that the bank statements and bank balance can be automatically uploaded into @(configParams.getCompanyApp()) and you will have real-time information on your bank balance, which checks have been presented and which checks are un-cleared.You can even use this information for managing your working capital and prioritizing payments."><i class="fa fa-info-circle fa-lg"></i>Help</span>
+					</span>
+					<h5 class="alert success m-top-10"></h5>
+					<table class="table table-bordered excelFormTable" id="branchBankAccountTable" style="margin-top: 0px;">
+						<thead class="tablehead1">
+							<tr><th>Bank Name</th><th>Account Number & Opening Balance</th><th>Account Type</th><th>Routing Number &amp; Swift code</th><th>Bank Phone Number</th><th>Bank Address</th>
+							<th id ="CustodianNameEmail">Bank Instrument<i class="fa fa-info-circle pl-5 help-info userpopoverinfoleft" longdesc="Enter the details of the person responsible for custody of bank instruments. Additionally, if the signatory of bank instruments is different from custodian, then insert the signatory details as well."></i><br/>Custodian Name &amp; Email</th>
+							
+								<th>Authorized Signatory Name &amp; Email</th> 
+								
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="copyBranchBankAccount">
+								<td><input type="hidden" id="bnchBnkActhiddenId" name="bnchBnkActhiddenId"/>
+									<input type="text" id="bnkActName" name="bnkActName">
+								</td>
+								<td>
+									<input type="text" id="bnkActNumber" name="bnkActNumber" class="m-bottom-10">
+									<input type="text" id="bnkActOpeningBalance" name="bnkActOpeningBalance" placeholder="Opening Balance" onKeyup="changeHiddenOpeningBalance(this, bankOpeningBalanceHid);" onfocus=" checkOpeningBalance(this, bankOpeningBalanceHid);" onkeypress="return onlyDotsAndNumbersandMinus(event, this)" title="Loan and credit account's opening balance shuold be negative">
+									<input type="hidden" name="bankOpeningBalanceHid" id="bankOpeningBalanceHid"/>
+								</td>
+								<td><select id="bnkActType" name="bnkActType" class="input-medium"></select></td>
+								<td><input type="text" id="routingNumber" name="routingNumber" placeholder="Routing Number" class="m-bottom-10"><br/><input type="text" id="bnkSwiftCode" name="bnkSwiftCode" placeholder="Swift Code"></td>
+								<td><select class="countryPhnCode m-bottom-10" name="bnchbnkactPhnNocountryCode" id="bnchbnkactPhnNocountryCode"><option value="">--Please Select--</option></select><br/>
+									<input type="text" id="bankPhnNumber1" name="bankPhnNumber1" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this, bankPhnNumber2)">-
+									<input type="text" id="bankPhnNumber2" name="bankPhnNumber2" maxlength="3" style="width: 28px;" onkeypress="return isNumber(event)" onKeyup="autotab1(this, bankPhnNumber3)">-
+									<input type="text" id="bankPhnNumber3" name="bankPhnNumber3" maxlength="4" style="width: 35px;" onkeypress="return isNumber(event)">
+								</td>
+								<td><textarea id="bnkAddress" name="bnkAddress" class="text-area-2x"></textarea></td>
+						        <td id ="CustodianNameEmailTd"><input type="text"  name="checkBookCustody" placeholder="Name" class="m-bottom-10"><br/><input type="text" id="checkBookCustodyEmail" name="checkBookCustodyEmail" onblur="return emailFieldValidation(this)" placeholder="Email"></td>
+								<td><input type="text" id="authSignName" name="authSignName" placeholder="Name" class="m-bottom-10"><br/><input type="text" id="authSignEmail" name="authSignEmail" onblur="return emailFieldValidation(this)" placeholder="Email"></td>
+							</tr>
+						</tbody>
+					</table>
+
+       
+			<div id="digiSignSetup" style="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive" style="height:220px; !important">
+					<legend class="panel-title"><i class="digital-signature"></i><b>Digital Signature</b></legend>
+					<table class="table table-bordered excelFormTable" id="digiSignTable">
+						<thead>
+							<th>Name of Authorized Person</th>
+							<th>Designation</th>
+							<th>Phone No.</th>
+							<th>Email ID</th>
+							<th>DS Ref. No.</th>
+							<th>Validity</th>
+							<th>List of Documents</th>
+							<th>KYC Details of GST</th>
+						</thead>
+						<tbody>
+
+							<td><input type="text" id="dsPersonName" name="dsPersonName"></td>
+							<td><input type="text" id="dsPersonDesignation" name="dsPersonDesignation"></td>
+							<td><input type="text" id="dsPersonPhoneNo" name="dsPersonPhoneNo" onkeypress="return isNumber(event)" onKeyup="autotab(this)"></td>
+							<td><input type="text" id="dsPersonEmailId" name="dsPersonEmailId"></td>
+							<td><input type="text" id="dsRefNo" name="dsRefNo"></td>
+							<td><input type="text" id="dsValidityFrom" name="dsValidityFrom" class="datepicker calendar"/ placeholder="From"><br><input type="text" id="dsValidityTo" name="dsValidityTo" class="datepicker calendar"/ placeholder="To"></td>
+							<td>
+								<select class="multipleDropdownForSearch" multiple="mutiple" name="digiSignDocSelection" id="digiSignDocSelection"></select>
+							</td>
+							<td><textarea rows=3 id ="dsKYC"></textarea>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+					</div>
+				</div>
+			</div>
+		@if(orgn.getGstCountryCode() == 0 || orgn.getGstCountryCode() == "0" || orgn.getGstCountryCode() == null || orgn.getGstCountryCode() == ""){
+			<!-- Define Taxes Applicable On Sales At This Branch details -->
+			<div style="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+						<legend class="panel-title"><i class="tax-applicable"></i>Define Taxes Applicable On Sales At This Branch</legend>
+						<span class="add-help-branch btn-align-right">
+							<span class="addnew" id="newBranchTaxId"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right pl-5"></span>
+							<span class="help-info userpopoverinfoleft" longdesc='Please enter the details of the taxes applicable on sales of your products and services. Under the column"Tax Name" input the description of the tax(for example, GST< VAT< COUNTRY TAX< MUNICIPAL TAX, etc.) and in the corresponding column to the right named "Tax Rate%",
+								insert the rate at which this tax has to be applied for any of your sales. If you multiple terms or types of sales, then insert one by one (by clicking (+) icon), the different tax types and corresponding rates and save teh details. Please note that you are not setting up taxes in this screen, you are just listing all types of taxes applicable on different products and services you sell. Setting up taxes on sales of good and services can be done from "Tax" set up screen.'><i class="fa fa-info-circle fa-lg"></i>Help</span>
+						</span>
+						<h5 class="alert success m-top-10"></h5>
+						<table class="table excelFormTable" id="branchTaxTable" style="margin-top: 0px;">
+						<thead class="tablehead1"><tr><th>Tax Name</th><th>Tax Rate %</th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead>
+						<tbody>
+							<tr id="copyBranchTax">
+								<td><input type="hidden" name="banchTaxHidId" id="banchTaxHidId">
+									<input type="text" name="taxName" id="taxName" onBlur="checkDuplicateTaxName(this);">
+								</td>
+								<td><input type="text" name="taxRate" id="taxRate" onkeypress="return onlyDotsAndNumbersWithMultipleIDs(event, this)"></td>
+								<td><input type="text" id="salesTaxOpeningBalance" name="salesTaxOpeningBalance" placeholder="Opening Balance" onkeypress="return onlyDotsAndNumbersandMinus(event, this)" ></td>
+								<td></td><td></td><td></td><td></td><td></td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+		}
+		@if(Option(orgn.getGstCountryCode() ).getOrElse("").isEmpty){
+			<!-- Define Taxes Applicable On Buy At This Branch details -->
+			<div style="overflow: auto;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body table-responsive">
+						<legend class="panel-title"><i class="tax-applicable"></i>Define Taxes Applicable On Buy At This Branch</legend>
+						<span class="add-help-branch btn-align-right">
+							<span class="addnew" id="newBranchInputTaxId"><i class="fa fa-plus-circle fa-lg"></i>Add</span><span class="b-right pl-5"></span>
+							<span class="help-info userpopoverinfoleft" longdesc='Please enter the details of the taxes applicable on sales of your products and services. Under the column"Tax Name" input the description of the tax(for example, GST< VAT< COUNTRY TAX< MUNICIPAL TAX, etc.) and in the corresponding column to the right named "Tax Rate%",
+								insert the rate at which this tax has to be applied for any of your sales. If you multiple terms or types of sales, then insert one by one (by clicking (+) icon), the different tax types and corresponding rates and save teh details. Please note that you are not setting up taxes in this screen, you are just listing all types of taxes applicable on different products and services you sell. Setting up taxes on sales of good and services can be done from "Tax" set up screen.'><i class="fa fa-info-circle fa-lg"></i>Help</span>
+						</span>
+						<h5 class="alert success m-top-10"></h5>
+						<table class="table excelFormTable" id="branchInputTaxTable" style="margin-top: 0px;">
+						<thead class="tablehead1"><tr><th>Tax Name</th><th>Tax Rate %</th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead>
+						<tbody>
+							<tr id="copyBranchInputTax">
+								<td>
+									<input type="hidden" name="banchInputTaxHidId" id="banchInputTaxHidId">
+									<input type="text" name="inputTaxName" id="inputTaxName" onBlur="checkDuplicateTaxName(this);">
+								</td>
+								<td><input type="text" name="inputTaxRate" id="inputTaxRate" onkeypress="return onlyDotsAndNumbersWithMultipleIDs(event, this)"></td>
+								<td><input type="text" id="buyingTaxOpeningBalance" name="buyingTaxOpeningBalance" placeholder="Opening Balance" onkeypress="return onlyDotsAndNumbersandMinus(event, this)" ></td>
+								<td></td><td></td><td></td><td></td><td></td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+		}
+			<div class="bnchButtonDiv">
+				<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel(); deleteUncomittedFiles();">Cancel</button>
+				<button id="addBranch" name="addBranch" style="float:right; margin-right:5px;" class="addBranch btn btn-submit btn-idos" title="Add Branch">Save Branch Details</button>
+			</div>
+		</div>
+		</div>
+		</div>
+	</div>
+	<!-- table for branch list -->
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<legend class="panel-title">Branches</legend>
+				<div class="datascrolltable" style="height: 100%; overflow: auto;">
+					<table class="table table-hover table-striped excelFormTable" id="branchTable" style="margin-top: 0px;">
+						<thead><tr><th>Name</th><th>GSTIN</th><th>Country</th><th>Location</th><th>Phone</th><th></th><th></th></tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,89 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="billOfMatSetup" class="tab-pane active mainDiv" style="display: none;">
+	<div class="content">
+		<div class="panel panel-showtrans">  
+			<div class="panel-body">
+				<div class="navbar-transaction">
+					<button id="newBomform-container" style="float: left;" onClick="initBomSetup();" class="newEntityCreateButton btn btn-primary btn-idos" title="Setup BOM"><i class="fa fa-plus pr-5"></i>Create New Bill of Material</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="bomSetup-form-container" class="bomSetupform-container">
+		<div class="content">
+			<div class="panel panel-showtrans">  
+				<div class="panel-body">
+					<div class="panel-title">Bill of Material Setup</div>
+					<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend" id="createBomClose" onClick="formCancel()"></i></div>
+					<hr style="padding:0px; margin:0px;">
+						<div id="bomIncomeItemDiv"  class="row" style="width:auto; margin-left:auto; margin-right: auto;">
+							<input type="hidden" id="billOFMaterialId"/>
+							<div class="col-sm-3" style="margin-left:100px;">Branch: <select id="bomBranchId" onChange="resetMultiBomTableLength(); getCoaItemsListForBom(this); getVendorsListForBranch(this);"></select></div>
+							<div class="col-sm-3 snglUsrDply">Project: <select id="bomProjectId" onChange="resetMultiBomTableLength();"></select></div>
+							<div class="col-sm-3">Master item / service: <select style="margin-top:5px;" class="txnItems" id="bomIncomeItemId" onChange="resetMultiBomTableLength();"></select></div>
+						</div>
+						<div style="vertical-align:top; overflow:auto; margin-top:5px;">
+							<table class="table excelFormTable multipleItemsTable" id="billOfMatSetupTbl">
+							<thead class="tablehead1">
+								<tr>
+									<th><button style="margin-right:5px; height:25px; display:inline-block;" class="addBomRowBtn" id="addBomRowBtn" title="add more items"><i class="fa fa-plus-circle fa-lg"></i></button>COA Ledger / Item</th>
+									<th>Unit of measure</th>
+									<th>Number of units</th>
+									<th>Preferred vendor</th>
+									<th>Preferred OEM</th>
+									<th>Type of material</th>
+									<th>Knowledge Library</th>
+									<th><button style="margin-right:1px; height:25px; display:inline-block;" class="removeBomRowBtn" id="removeBomRowBtn" title="remove item"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="bomtr0">
+									<td><select class="txnItems" id="bomExpenseItemId" onChange="getKnowledgeLiabrary(this);"></select></td>
+									<td><select class="bomUnitOfMeasureCls" id="bomUnitOfMeasureId"></select></td>
+									<td><input type="text" class="bomNoOfUnitCls" id="bomNumberOfUnitId" onkeypress="return onlyDotsAndNumbers(event);"/></td>
+									<td><select class="masterList" id="bomVendorId"></select></td>
+									<td><input type="text" class="bomOemCls" id="bomOemId" maxlength="255"/></td>
+									<td><select class="bomTomCls" id="bomTomId">
+										<option value="">Please Select</option>
+										<option value="1">Perishable</option>
+										<option value="2">Non Perishable</option>
+										<option value="3">Combustible</option>
+										<option value="4">Easily Available</option>
+										<option value="5">Rare Commodity</option>
+										<option value="6">Long Delivery Period</option>
+										<option value="7">High Value</option>
+										<option value="8">Low Value</option>
+										<option value="9">Difficult To Transport</option>
+										<option value="10">Imported</option>
+									</select></td>
+									<td><div class="klBranchSpecfTd"></div></td>
+									<td><input class="bomRemoveCheckBox" type="checkbox"/><input type="hidden" class="bomDetailCls"/></td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+						<button id="formCancel" class="formCancel btn btn-cancel" name="cancelBomSetupBtn" title="Cancel" onclick="formCancel();">Cancel</button>
+						<button title="Save/Update Bill of Material" onClick="saveUpdateBillOfMaterial();" id="saveUpdateBomSetupBtn" class="btn btn-submit">Save/Update</button>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="panel-title">Bill of Materials</div>
+				<div class="datascrolltable" style="max-height: 100%; overflow: auto;">
+					<table class="table table-hover table-striped excelFormTable" id="bomSetupTbl" style="margin-top: 0px;">
+						<thead><tr><th>Branch</th><th>Goods/Service</th><th class="snglUsrDply">Project</th><th></th><th></th><th></th><th></th></tr></thead>
+						<tbody></tbody>
+				   </table>
+			   </div>
+			</div>
+		</div>
+		<div id="pagingBomSetupNavPosition"></div>
+	</div>
+</div>
+

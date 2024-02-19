@@ -1,0 +1,173 @@
+@(currentPage: pojo.OrganiationPage, currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@****************************************
+* Helper generating navigation links    *
+****************************************@
+@link(newPage:Int, newSortBy:String) = @{
+    var sortBy = currentSortBy
+    var order = currentOrder
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    // Generate the link
+    // controllers.paging.routes.OrganizationPageController.list(newPage, sortBy, order, currentFilter)
+}
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "desc") "headerSortDown" else "headerSortUp"}">
+        @if(key != "registeredDays" && key != "totalUsers" && key != "accountType" && key != "startDate") {
+            <a href="@link(0, key)">@title</a>
+        }else{
+            <a href="#" style="cursor: none; color:black;">@title<a/>
+        }
+    </th>
+}
+
+@salesOrganization {
+    <div id="actions">
+        <form action="@link(0, "name")" method="GET">
+            <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by company name...">
+            <input type="submit" id="searchsubmit" value="Filter by company name" class="btn primary">
+        </form>
+    </div>
+    
+    @if(currentPage.getTotalRowCount == 0) {
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+    } else {
+        <table class="computers zebra-striped">
+            <thead>
+                <tr>
+                    @header("createdAt", "Created")
+                    @header("modifiedAt", "Last Modified")
+                    @header("name", "Company Name")
+                    @header("corporateMail", "Contact Email")
+                    @header("personName", "Contact Person")
+                    @header("registrationSource", "Source/Channel")
+                    @header("registeredDays", "Days Since Registered")
+                    @header("totalUsers", "Total Users")
+                    @header("accountType", "Account Detail")
+                    @header("startDate", "Demo Start")
+                </tr>
+            </thead>
+            <tbody>
+                @for(idosmodel <- currentPage.getList) {
+                    <tr>
+                        <td>
+                            @if(idosmodel.getCreatedAt == null) {
+                                <em>-</em>
+                            } else {
+                                @idosmodel.getCreatedAt.format("dd MMM yyyy")
+                            }
+                        </td>
+                        <td>
+                            @if(idosmodel.getModifiedAt == null) {
+                                <em>-</em>
+                            } else {
+                                @idosmodel.getModifiedAt.format("dd MMM yyyy")
+                            }
+                        </td>
+                        <td>
+                            @if(idosmodel.getName == null) {
+                                <em>-</em>
+                            }else{
+                                @idosmodel.getName
+                            }
+                        </td>
+                        <td>
+                        @if(idosmodel.getCorporateMail == null) {
+                            <em>-</em>
+                        } else {
+                            @idosmodel.getCorporateMail
+                        }
+                        </td>
+                        <td>
+                        @if(idosmodel.getPersonName == null) {
+                            <em>-</em>
+                        } else {
+                            @idosmodel.getPersonName
+                        }
+                        </td>
+                        <td>
+                        @if(idosmodel.getRegistrationSource == null) {
+                            <em>-</em>
+                        } else {
+                            @idosmodel.getRegistrationSource
+                        }
+                        </td>
+                        <td>
+                        @if(idosmodel.getDaysSinceRegiserter == null) {
+                            <em>-</em>
+                        } else {
+                            @idosmodel.getDaysSinceRegiserter
+                        }
+                        </td>
+                        <td>
+                        @if(idosmodel.getRegisertedUsersCount == null) {
+                            <em>-</em>
+                        } else {
+                            @idosmodel.getRegisertedUsersCount
+                        }
+                        </td>
+                        <td>
+                        @if(idosmodel.getAccoutTypeDetail == null) {
+                            <em>-</em>
+                        } else {
+                            @idosmodel.getAccoutTypeDetail
+                        }
+                        </td>
+                        <td>
+                        @if(idosmodel.getStartDate == null) {
+                            <em>-</em>
+                        } else {
+                            @idosmodel.getStartDate
+                        }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+        <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @currentPage.getDisplayXtoYofZ</a>
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}
+
+            

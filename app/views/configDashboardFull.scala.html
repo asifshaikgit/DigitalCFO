@@ -1,0 +1,160 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="dashBoard" class="tab-pane mainDiv content" style="display:none;"><!-- Dashboard -->
+	<div class="action-bar">
+		
+		<div class="actions button-set">  
+			@if(role.contains("CONTROLLER")){	                                        
+				<button id="newFinancialsButton" class="newFinancialsButton btn btn-primary btn-idos" title="Financials">Financials</button>
+				<input data-attr="auto-complete" type="text" placeholder="Input item for which you wish to analyze demand" name="aggregateDataCompareInput" id="aggregateDataCompareInput" style="margin-top:0px;width:460px;" onkeyup="autoSuggestDashboardAvailableItems(this);">
+				<select name="aggregateDataPeriod" id="aggregateDataPeriod" style="margin-top:0px;width:95px;"><option value="1">1 month</option><option value="3">3 month</option><option value="6">6 month</option><option value="12">12 month</option></select>
+				<input data-attr="auto-complete" style="width: 115px;" placeholder="Location" name="aggregateDataCompareFirstLocation" id="aggregateDataCompareFirstLocation" onkeyup="getDashboardAllFirstLocations(this)">  
+				<input data-attr="auto-complete" style="width: 115px;" placeholder="Location" name="aggregateDataCompareSecondLocation" id="aggregateDataCompareSecondLocation" onkeyup="getDashboardAllSecondLocations(this)">  
+				<button id="compareAggregateData" class="compareAggregateData btn btn-primary btn-idos">View Analysis</button>
+				<i class="fa fa-info-circle pl-5 fs-16 userpopoverinfoleft" longdesc="@(configParams.getCompanyApp()) enables you to analyze demand for your products and services in other locations. Input the item of sales that you wish to analyze, select whether you want analysis for last 3 months, 6 months or 12 months and then input the name of the Locations where you wish to analyze this data. You must input any two locations for this analysis and then click <b>View Analysis</b> and @(configParams.getCompanyApp()) will display from its database, what is the total sales value of this item at these locations based on aggregate data from all @(configParams.getCompanyApp()) users in those locations.Since analysis is based on aggregate data, you will get a feel about the potential demand for such product or service in those locations."></i>
+				<button id="newOperationalButton" style="float: right;" class="newOperationalButton btn btn-primary btn-idos" title="Operational">Operational</button>
+				<div style="margin-left: 109px;" class="dashboardAutoSuggest" id="dashboardAutoSuggestId" data-attr="aggregateDataCompareInput" data-auto="auto-complete"></div>
+				<div style="margin-left: 675px;" class="dashboardLocationFirstAutoSuggest" id="dashboardLocationFirstAutoSuggest" data-attr="aggregateDataCompareFirstLocation" data-auto="auto-complete"></div>  
+				<div style="margin-left: 815px;" class="dashboardLocationSecondAutoSuggest" id="dashboardLocationSecondAutoSuggest" data-attr="aggregateDataCompareSecondLocation" data-auto="auto-complete"></div>                                       
+			}    
+		</div>
+		<div id="financialDataDashboard" class="tab-pane mainDiv">
+			<fieldset class="overview" style="margin-top: 4px;">
+				<legend class="legend-data-table-title">Financial Overview</legend>  
+				<div id="search-launch-top"><i class="fa fa-times-circle fa-2x close-legend" id="financialDataDashboard" onClick="closeFinancial()"></i></div> 
+				<div style="height:100%; overflow: auto; width: 100%; position: relative; top: -30px;"">
+					<table class="table table-hover table-striped table-bordered excelFormTable dashboard-table transaction-create" id="auditorFinancialTable" style="margin-top: 0px;">              
+						<thead class="tablehead2"><tr><th class="fs-18">Financial</th><th></th><th></th><th></th><th></th></tr></thead>
+						<thead class="tablehead2"><tr>
+			 				<th></th><th class="fs-18">This Month (To Date)</th><th class="fs-18">Previous Month</th><th class="fs-18">Variance</th><th class="fs-18">Last 30 Days</th>
+						</tr></thead>
+						<tbody>
+							<tr class="auditorCashExpense">
+								<td><div STYLE=" width: 100px;" class="fsb-16">Cash Expenses</div></td><td></td><td></td><td></td>
+								<td>New customers:<div id="addedCustomers" class="last14Days"></div>
+									Branches with new customers:<div id="addedCustomersBranches" class="last14Days"></div>
+									Customers / items:<div id="addedCustomersItems" class="last14Days"></div>
+								</td>
+							</tr>
+							<tr class="auditorCreditExpense">
+								<td><div STYLE=" width: 100px;" class="fsb-16">Credit Expenses</div></td><td></td><td></td><td></td>
+								<td>New & updated vendors:<div id="addedVendors" class="last14Days"></div>
+									Branches linked with these vendors:<div id="addedVendorsBranches" class="last14Days"></div>
+									Items linked to these vendors:<div id="addedVendorsItems" class="last14Days"></div>
+								</td>
+							</tr>
+							<tr class="auditorCashIncome">
+								<td><div STYLE=" width: 100px;" class="fsb-16">Cash Income</div></td><td></td><td></td><td></td>
+								<td>New & updated users:<div id="addedUsers" class="last14Days"></div>
+									Branches linked to these users:<div id="addedUsersBranches" class="last14Days"></div>
+									Roles assigned to these users:<div id="addedUsersRoles" class="last14Days"></div>
+									Items that can be processed by these users:<div id="addedUsersItems" class="last14Days"></div>
+								</td>
+							</tr>
+							<tr class="auditorCreditIncome">
+								<td><div STYLE=" width: 100px;" class="fsb-16">Credit Income</div></td><td></td><td></td><td></td>
+								<td>Transactions Pending Approval:<br/><div id="addedTxnPendingApproval" class="last14Days"></div></td>
+							</tr>
+							<tr class="auditorExpenseBudgetAvailable">
+								<td><div STYLE=" width: 100px;" class="fsb-16">Performa Invoice Income</div></td><td></td><td></td><td></td>
+								<td><div style="float: left;">Branch having highest expenditure:</div> <div class="expense-last-3 income-expense-last-3" onclick="showModal('expenseLast3');" style="margin-bottom: -10px;"></div><br/>
+									<div id="bnchWithHighestExpense" class="last14Days" style="float: left;"></div>
+								</td>
+							</tr>
+							<tr class="auditorTotalReceivables">
+								<td><div STYLE=" width: 100px;" class="fsb-16">Total Receivables</div></td><td></td><td></td><td></td>
+								<td><div style="float: left;">Branch generating highest income:</div> <div class="income-last-3 income-expense-last-3" onclick="showModal('incomeLast3');"></div><br/>
+									<div id="bnchWithHighestIncome" class="last14Days" style="float: left;"></div><div style="float: left;"><b>Customer's Advance Not Adjusted:</b></div><br/><div class="customer-advance-pending income-expense-last-3" onclick="showAdvanceModal('customerAdvancePending');"></div>
+								</td>
+							</tr>
+							<tr class="auditorTotalPayables">
+								<td><div STYLE=" width: 100px;" class="fsb-16">Total Payables</div></td><td></td><td></td><td></td>
+								<td>Transaction Exceeding Budget & Rules Not Followed:<br/><div id="bnchWiseTxnExceedingKlNotFollowed" class="last14Days"></div>
+									<br/><div style="float: left;"><b>Vendor's Advance Not Adjusted:</b></div><div class="vendor-advance-pending income-expense-last-3" onclick="showAdvanceModal('vendorAdvancePending');"></div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					@configDashboard(fullName,email,role,orgn){
+					}
+				</div>
+			</fieldset>
+		</div>
+	
+		<div id="operationalDataDashboard" class="tab-pane mainDiv" style="display: none;">
+			<div class="content">
+				<div class="panel panel-showtrans">
+					<legend class="legend-data-table-title">Operational Reminder Overview</legend>  
+					<div id="search-launch-top"><i class="fa fa-times-circle fa-2x close-legend" id="operationalDataDashboard" onClick="closeOperational()"></i></div>
+					<div class="actions button-set"><span class="fsb-18">Operational Reminder Logs</span><i class="fa fa-info-circle pl-5 fs-18 userpopoverinfo" longdesc=""></i>
+						<button id="newOperationalSearchControlButton" style="float: right;" class="newOperationalSearchControlButton btn btn-primary btn-idos" title="Search Operational Data"><i class="fa fa-search pr-5"></i>Search Operational Data</button>
+					</div>
+					<div class="operationalCalendar"></div>
+					<div class="datascrolltable" style="max-height: 100%; overflow: auto;">
+						<table class="table table-hover table-striped table-bordered excelFormTable transaction-create" id="auditorOperationalTable">              
+							<thead class="tablehead1"><tr><th>Action</th><th>Responsible Officer</th><th>Supervisor</th><th>Due Date</th><th>Status</th></tr></thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div> 
+			</div>
+		</div>
+		<!-- end -->	
+		
+		
+		<div id="operationalSearchDataDashboard" class="tab-pane mainDiv" style="display: none;"> 
+			<div class="content">
+				<legend class="panel-title">Operational Data</legend>
+				<div id="search-launch-top"><i class="fa fa-times-circle fa-2x close-legend" id="operationalSearchDataDashboard" onClick="closeOperationalSearch()"></i></div>  
+				<div class="actions button-set">
+					<span class="fsb-18">Search Operational Details</span><i class="fa fa-info-circle pl-5 fs-18 userpopoverinfo" longdesc="This search feature lets you view details of your branches, officers, operational & statutory requirements, projects, vendors, customers, bank account details and so on."></i>
+					<button id="newOperationalButton" style="float: right;" class="newOperationalButton btn btn-primary btn-idos" title="Operational Task Manager"><span class="statictext">Operational Task Manager</span></button>
+				</div>
+				<table class="table table-hover table-striped table-bordered excelFormTable transaction-create" id="auditorOperationalSearchTable" style="margin-top: 0px;width:1325px;">    
+					<thead class="tablehead1">
+						<tr><th>Search Operational Data For?</th><th>Branches</th><th>Selected Branch Opeartional Data Type</th><th>Charts Of Accounts</th><th>Projects</th><th>Vendors</th><th>Customers</th><th>Users</th><th>Travel Groups</th><th>Expense Groups</th><th></th></tr>
+					</thead>
+					<tbody>
+						<tr class="operationalSearchData">
+							<td>
+								<select name="operationDataFor" id="operationDataFor" class="operationDataFor" style="width:141px;"><option value="1">Organisation</option><option value="2">Branch</option><option value="3">Chart Of Accounts</option><option value="4">Projects</option><option value="5">Vendors</option><option value="6">Customers</option><option value="7">Users</option><option value="8">Travel Group</option><option value="9">Expense Group</option></select>
+							</td>
+							<td>
+								<select name="operavailableBranches" id="operavailableBranches" class="operavailableBranches" style="width:130px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<select name="operavailableBranchesDataTypes" id="operavailableBranchesDataTypes" class="operavailableBranchesDataTypes" style="width:149px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<select name="operavailableChartsOfAcconts" id="operavailableChartsOfAcconts" class="operavailableChartsOfAcconts" style="width:130px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<select name="operavailableProjects" id="operavailableProjects" class="operavailableProjects" style="width:125px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<select name="operavailableVendors" id="operavailableVendors" class="operavailableVendors" style="width:125px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<select name="operavailableCustomers" id="operavailableCustomers" class="operavailableCustomers" style="width:125px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<select name="operavailableUsers" id="operavailableUsers" class="operavailableUsers" style="width:125px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<select name="operavailableTravelGroup" id="operavailableTravelGroup" class="operavailableTravelGroup" style="width:125px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<select name="operavailableExpenseGroup" id="operavailableExpenseGroup" class="operavailableExpenseGroup" style="width:125px;"><option value="">---Please Select---</option></select>
+							</td>
+							<td>
+								<div style="width: 25px; margin-left: 2px;">
+									<img id="searchControllerOperData" class="searchControllerOperData" alt="logo" src='@routes.Assets.at("images/searchdata.png")' style="margin-top: 2px;"></img>
+								</div>
+							</td>
+						</tr>
+					</tbody>          
+				</table>
+			</div>
+			<div id="operationalDataResult"></div>
+		</div>
+	</div>
+</div>

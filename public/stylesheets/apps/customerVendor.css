@@ -1,0 +1,91 @@
+#customerBranchList > li > b > input[type="text"] {height: 20px; width: 100px; margin:1px;}
+#vendorBranchList > li > b > input[type="text"] {height: 20px; width: 100px; margin:1px;}
+#vendorItemList > li > b > input[type="text"] {height: 20px; width: 100px !important; margin:1px;}
+#vendTdsItemList > li > { padding-bottom: 5px;padding-top: 5px;}
+#customerBranchDropdownBtn, #vendorBranchDropdownBtn, #vendordropdown, #vendTdsdropdown {width: 140px; border: 1px solid rgb(150, 150,151); background-color: #ffffff; border-radius: 3px; !important;}
+
+.customerVendorBranchCls { margin-left:0px; color:#00004c !important;}
+
+#vendoritemlist { margin-left:0px; color:#00004c !important;}
+
+.customerBranchDropdown-menu, .vendoritemdropdown-menu, .vendTdsdropdown-menu{
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 180px;
+  padding: 2px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+.customerBranchDropdown-menu:hover, .openvendoritemdropdown-menu:hover, .openvendTdsdropdown-menu:hover{
+	border-color: #000 !important;
+	background-color: #eeeeee !important;
+}
+
+.openCustomerBranchDropdown-menu, .openvendoritemdropdown-menu, .openvendTdsdropdown-menu {
+  top: 100%;
+  left: 0;
+  z-index: 99;
+  display: block;
+  float: left;
+  min-width: 220px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;	
+  position: relative;
+}
+
+#customerBranchList, #vendorBranchList, #vendorItemList, #vendTdsItemList{
+  list-style-type: none; 
+  margin: 0px; 
+  padding: 0px; 
+  max-height: 220px; 
+  overflow-y: auto; 
+  overflow-x: auto;
+  display:block;
+}
+
+#vendoritemlist .itemLabelClass {
+	width: 130px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+#customeritemlist .itemLabelClass {
+	width: 230px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow-x: auto;
+    margin-top: 5px;
+}
+
+
+

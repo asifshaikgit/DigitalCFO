@@ -1,0 +1,59 @@
+﻿/* Page-specific styling */
+
+
+
+.loginmenu {
+	max-width: 400px;
+	margin: 50px auto;
+}
+
+.logo  {
+        background: url("https://www.myidos.com:9443/assets/OfficeAddIn/IDOSTransactionGraphWeb/Images/logo.png") no-repeat left top;		
+		display: block;
+		height: 50px;
+		width: 700px;
+		margin-left: 40%;
+		margin-right: auto;
+		
+	}
+a {
+font-family: 'Exo 2', sans-serif;
+}
+
+copy {
+color: #ffffff;
+font-family: 'Exo 2', sans-serif;
+}
+
+h1 {
+font-family: 'Exo 2', sans-serif;
+font-size: 30px;
+color: #000000;
+text-align: center;
+}
+
+h2 {
+font-family: 'Exo 2', sans-serif;
+font-size: 30px;
+color: #000000;
+}
+
+.checkbox, .radio {
+  width: 15px;
+  height: 15px;
+  padding: 5px 5px 5px 5px;
+  background: #ffffff;
+  vertical-align:middle;    
+  color: #000000;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 20px; 
+}
+	
+#footer {
+	background:#000000;
+	width:100%;
+	height:50px;
+	position:absolute;
+	bottom:0;
+	left:0;
+}

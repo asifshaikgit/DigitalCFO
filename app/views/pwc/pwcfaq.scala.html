@@ -1,0 +1,977 @@
+@(configParams: model.ConfigParams)
+<html>
+ <head>
+	<title>FAQ</title>
+	<link rel="stylesheet" type="text/css" href='@routes.Assets.at("pwc/css/bootstrap.min.css?version=1.1")'/>
+	<link rel="stylesheet" type="text/css" href='@routes.Assets.at("pwc/css/faqstyle.css?version=1.1")'/>
+    <script type="text/javascript" src='@routes.Assets.at("wp-content/themes/simplekey/newsite/js/jquery.1.11.1.min.js")'></script>
+	<script src='@routes.Assets.at("wp-content/themes/simplekey/newsite/js/bootstrap/bootstrap.3.3.2.min.js")'></script>
+    <script src='@routes.Assets.at("pwc/js/faqjs.js")'></script>   
+	
+	<style>
+		p{
+			margin-top:15px;
+		}
+	</style>
+ </head>
+ 
+ <body>
+	<div id="top" class="clearfix">
+		<!-- Start App Logo -->
+		<div class="applogo" >
+            <a href="/">
+                <div class="logo" ></div>
+            </a>
+        </div>
+		<!-- <a class="sidebar-open-button" style="color: #D01938; cursor: pointer;"><i class="fa fa-bars"></i></a> -->
+	</div>
+
+	<div id="faq" class="sidebar-nav-fixed" style="overflow:auto; height:90%">
+		<ul class="sidebar-panel nav">
+			<li onclick="faqList1();"><a href="#"><span class="icon color7"><i class="fa fa-question-circle"></i></span>&nbsp;&nbsp;FAQ<span class="caret" onclick="faqList();"></span></a></li>
+			<div id="Faq" style="display:none;">
+				<!-- 1. General FAQ -->
+				<ul>
+					<li><a href="#" onclick="genFaq()"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;General FAQ</a></li>
+					<div id="generalFaq" style="display:none">
+					
+						<!-- 1.1 GeneralQueries -->
+						<ul>
+							<li><a href="#" onclick="genQueries();" style="margin-left:10px"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;General Queries</a></li>
+							<div id="General_Queries" style="display:none;">	
+								<ul>
+									<li><a href="#" onclick="oneQues();">+ What is PwC Tabulate?</a></li>
+									<li><a href="#" onclick="twoQues();">+ What are the systems Requirements for PwC Tabulate?</a></li>
+									<li><a href="#" onclick="threeQues();">+ What kinds of subscription plans are available?</a></li>
+									<li><a href="#" onclick="fourQues();">+ Will PwC Tabulate work on my MacBook?</a></li>
+									<li><a href="#" onclick="fiveQues();">+ Can I access PwC Tabulate on my mobile phone or tablet?</a></li>
+									<li><a href="#" onclick="sixQues();">+ Can I access PwC Tabulate offline?</a></li>
+									<li><a href="#" onclick="sevenQues();">+ In case if I want to upgrade to a latest version, how do I upgrade?</a></li>
+									<li><a href="#" onclick="eightQues();">+ Do I need to pay for software updates?</a></li>
+								</ul>
+							</div>
+						</ul>
+						<!-- End of General Queries -->
+						
+						<!-- 1.2 Getting_Started-->
+						<ul>
+							<li><a href="#" onclick="gettingStart();" style="margin-left:10px"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;Getting Started</a></li>
+							<div id="Getting_Started" style="display:none;">
+								<ul>
+									<li><a href="#" onclick="nineQues();">+ What information do I need to sign up?</a></li>
+									<li><a href="#" onclick="tenQues();">+ Do you provide in person / on-site support</a></li>
+									<li><a href="#" onclick="elevenQues();">+ Can I create multiple users in PwC Tabulate?</a></li>
+									<li><a href="#" onclick="tweleveQues();">+ Can I define user access in PwC Tabulate?</a></li>
+									<li><a href="#" onclick="thirteenQues();">+ Can I download, import and export data into PwC Tabulate?</a></li>
+									<li><a href="#" onclick="fourteenQues();">+ What options are available for customer support?</a></li>
+								</ul>
+							</div>
+						</ul>
+						<!--End of Getting_Started -->
+						
+						<!-- 1.3  Data_Security-->
+						<ul>
+							<li><a href="#" onclick="dataSecurity()" style="margin-left:10px"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;Data Security</a></li>
+							<div id="Data_Security" style="display:none;">	
+								<ul>
+									<li><a href="#" onclick="fifteenQues();">+ How do you ensure safety and security of my information/data?</a></li>
+									<li><a href="#" onclick="sixteenQues();">+ What happens to my data if I unsubscribe or stop using the software?</a></li>
+									
+								</ul>
+							</div>
+						</ul>
+						<!--End of Data_Security -->
+						
+						<!-- 1.4 PwC_Tabulate_Features -->
+						<ul>
+							<li><a href="#" onclick="PwCFeatures()" style="margin-left:10px"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;PwC Tabulate Features</a></li>
+							<div id="PwC_Tabulate_Features" style="display:none;">
+								<ul>
+									<li><a href="#" onclick="seventeenQues();">+ How shall I assign user access to different employee in my company?</a></li>
+									<li><a href="#" onclick="eightteenQues();">+ What are some of the reports available in PwC Tabulate?</a></li>
+									<li><a href="#" onclick="nineteenQues();">+ Can I download a copy of my data?</a></li>
+									<li><a href="#" onclick="twentyQues();">+ How do I add multiple branches?</a></li>
+									<li><a href="#" onclick="twentyoneQues();">+ How can I add a new user?</a></li>
+									<li><a href="#" onclick="twentytwoQues();">+ How can I file GST return from PwC Tabulate accounting software?</a></li>
+								</ul>
+							</div>
+						</ul>
+						<!-- End of PwC_Tabulate_Features -->
+						
+						<!--1.5 Account_Settings -->
+						<ul>
+							<li><a href="#" onclick="AcuntSetings()" style="margin-left:10px"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;Account Settings</a></li>
+							<div id="Account_Settings" style="display:none;">
+								<ul>
+									<li><a href="#" onclick="twentythreeQues();">+ How do I reset my password /recover my user ID?</a></li>
+									<li><a href="#" onclick="twentyfourQues();">+ How can I deactivate an existing user?</a></li>
+									<li><a href="#" onclick="twentyfiveQues();">+ How can I change my password?</a></li>
+								</ul>
+							</div>
+						</ul>
+						<!-- End of Account_Settings -->
+					</div>
+				</ul>
+				<!-- End of General FAQ -->
+				
+				<!-- 2.Configuration/Setup of Company -->
+				<ul>
+					<li><a href="#" onclick="config()"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;Configuration/Setup of Company</a></li>
+					<div id="Configuration" style="display:none;">
+						<ul>
+							<li><a href="#" onclick="configOneQues();">+ How to register in PwC Tabulate?</a></li>
+							<li><a href="#" onclick="configTwoQues();">+ How to Set up Organization & Logo?</a></li>
+							<li><a href="#" onclick="configThreeQues();">+ How to create Branches?</a></li>
+							<li><a href="#" onclick="configFourQues();">+ How do I Enter Opening Cash Balance And Bank Balance?</a></li>
+							<li><a href="#" onclick="configFiveQues();">+ How to avoid approval for petty cash items?</a></li>
+							<li><a href="#" onclick="configSixQues();">+ How to add new Product / item of sale?</a></li>
+							<li><a href="#" onclick="configSevenQues();">+ How to add new Inventory Product / Income Item?</a></li>
+							<li><a href="#" onclick="configEightQues();">+ How to add new Expense Account?</a></li>
+							<li><a href="#" onclick="configNineQues();">+ How to add opening balances of Inventory?</a></li>
+							<li><a href="#" onclick="configTenQues();">+ How do I feed barcode for a particular item?</a></li>
+							<li><a href="#" onclick="configElevenQues();">+ How to configure TDS for Expense Account?</a></li>
+							<li><a href="#" onclick="configTwelveQues();">+ How to add new Account under Assets / Liabilities?</a></li>
+							<li><a href="#" onclick="configThirteenQues();">+ What is Knowledge Library?</a></li>
+							<li><a href="#" onclick="configFourteenQues();">+ How to add new Vendor?</a></li>
+							<li><a href="#" onclick="configFifteenQues();">+ How do I grant access to Vendors to their ledgers?</a></li>
+							<li><a href="#" onclick="configSixteenQues();">+ How to add new Customer?</a></li>
+							<li><a href="#" onclick="configSeventeenQues();">+ How to add new User?</a></li>
+							<li><a href="#" onclick="configEighteenQues();">+ How to map Identification for Data Validation?</a></li>
+							<li><a href="#" onclick="configNinteenQues();">+ How do I set up travel claims?</a></li>
+							<li><a href="#" onclick="configTwentyQues();">+ How do I Create Expense Claims?</a></li>
+							<li><a href="#" onclick="configTwentyOneQues();">+ How do I Set up Payroll?</a></li>
+							<li><a href="#" onclick="configTwentyTwoQues();">+ How to add / check Document Serial No.?</a></li>
+						</ul>
+					</div>
+				</ul>
+				<!-- End of Configuration/Setup of Company -->
+				
+				<!-- 3.Usage -->
+				<ul>
+					<li><a href="#" onclick="Usage()"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;Usage</a></li>
+					<div id="usage1" style="display:none;">
+						<ul>
+							<li><a href="#" onclick="usageone();">+ How Can I login?</a></li>
+							<li><a href="#" onclick="usagetwo();">+ How to process Cash Sale Transaction?</a></li>
+							<li><a href="#" onclick="usagethree();">+ How to process Cash Sale transaction for a walk-in customer?</a></li>
+							<li><a href="#" onclick="usagefour();">+ How to process Credit Sale transaction?</a></li>
+							<li><a href="#" onclick="usagefive();">+ How to add Discount for a Product / Customer?</a></li>
+								<li><a href="#" onclick="usagefive1();" style="margin-left:10px;display:none" id="five1">++ Discount allowed for a Product</a></li>
+								<li><a href="#" onclick="usagefive2();" style="margin-left:10px;display:none" id="five2">++ Discount allowed for Customer</a></li>
+							<li><a href="#" onclick="usagesix();">+ How to enter Advance received from Customer?</a></li>
+							<li><a href="#" onclick="usageseven();">+ How to record payment received from Customer?</a></li>
+							<li><a href="#" onclick="usageeight();">+ How to record Cash Purchases from Regular Supplier / Vendor?</a></li>
+							<li><a href="#" onclick="usagenine();">+ How to record Cash Purchases from Walk-in Vendor?</a></li>
+							<li><a href="#" onclick="usageten();">+ How to record Credit Purchases?</a></li>
+							<li><a href="#" onclick="usageeleven();">+ How to record payment to Vendor / Supplier?</a></li>
+							<li><a href="#" onclick="usagetweleve();">+ How to record advance paid to Vendor?</a></li>
+							<li><a href="#" onclick="usagethirteen();">+ How to record Deposit Cash in Bank? </a></li>
+							<li><a href="#" onclick="usagefourteen();">+ How to record Withdrawal of cash from Bank? </a></li>
+							<li><a href="#" onclick="usagefifteen();">+ How to transfer funds from one bank to another or one branch to another?</a></li>
+							<li><a href="#" onclick="usagesixteen();">+ How to record petty cash purchases?</a></li>
+							<li><a href="#" onclick="usageseventeen();">+ How to record cash transfer to petty cash?</a></li>
+							<li><a href="#" onclick="usageeighteen();">+ How to transfer Inventory from one branch to another?</a></li>
+							<li><a href="#" onclick="usageninteen();">+ How to record Debit note or Credit note issued to Customer?</a></li>
+								<li><a href="#" onclick="usageninteen1();" style="margin-left:10px;display:none" id="ninteen1">++ Credit Note</a></li>
+								<li><a href="#" onclick="usageninteen2();" style="margin-left:10px;display:none" id="ninteen2">++ Debit Note</a></li>
+							<li><a href="#" onclick="usagetwenty();">+ How to record debit or credit received from Vendor?</a></li>
+								<li><a  href="#" onclick="usagetwenty1();"style="margin-left:10px;display:none" id="twenty1">++ Credit Note</a></li>
+								<li><a  href="#" onclick="usagetwenty2();"style="margin-left:10px;display:none" id="twenty2">++ Debit Note</a></li>
+							<li><a href="#" onclick="usage21();">+ How to create Adjustment Entries?</a></li>
+							<li><a href="#" onclick="usage22();">+ How to process Payroll?</a></li>
+						</ul>
+					</div>
+				</ul>	
+				<!--End of Usage -->
+				
+				<!-- 4. Reports/Dashboard -->
+				<ul>
+					<li><a href="#"  onclick="dashBoard()"><span class="icon color7"><i class="fa fa-plus"></i></span>&nbsp;&nbsp;Reports/Dashboard</a></li>
+						<div id="Dashboard1" style="display:none;">
+							<ul>
+								<li><a href="#" onclick="reportone();">+ Where to view Inventory Report? </a></li>
+								<li><a href="#" onclick="reporttwo();">+ Where to view Trial Balance? </a></li>
+								<li><a href="#" onclick="reportthree();">+ Where to view P&L and Balance Sheet? </a></li>
+								<li><a href="#" onclick="reportfour();">+ Where to view Bank book or Cash book? </a></li>
+								<li><a href="#" onclick="reportfive();">+  Dashboard</a></li>
+							</ul>
+						</div>
+				</ul>
+				<!--End of  Reports/Dashboard -->
+		
+			</div>
+		</ul>
+	</div>
+	<!-- End of side Pannel-->
+	
+	<!-- General FAQ Answers-->
+		<!--1.1 General Queries Answers-->
+	<div class="content">
+			<div class="panel panel-showtrans" style="display:none;">  
+				<div class="panel-body">
+					<h3>General FAQ</h3>
+				</div>
+			</div>
+			
+			<div class="panel panel-showtrans "  id="General_Queries1" style="display:none;"> 
+				
+				<div class="panel-body">
+				<span class="close" onclick="closemodalQ();" style="margin-top:-0px !important">&times;</span>
+					<div class="panel-title">General Queries</div>
+				
+					<div class="panel panel-showtrans" style="display:none;" id="paneltry1">  
+						<div class="panel-body">	
+						
+							<!-- 1.	What is PwC Tabulate? -->
+							<div style="margin-top:10px; display:none;" id="one_Ans">
+								<p>
+									PwC Tabulate is cloud based accounting & compliance software. It helps you take informed business decisions
+									and access important accounting & financial reports in real time. It's highly automated and fully compliant with GST.
+									<ul style="margin-left:40px">
+										<li>Creating routine transactions</li>
+										<li>Fully GST compliant invoicing </li>
+										<li>Automatic compliance management</li>
+										<li>GST returns & filings</li>
+										<li>Branch wise and project wise reporting & dashboard</li>
+										<li>Real time tracking of income, expense, accounts receivables and payables</li>
+										<li>No hardware of physical installation required, completely cloud based, can be made up and running from anywhere</li>
+									</ul>
+								</p>
+							</div>
+							
+							<!--2.	What are the systems Requirements for PwC Tabulate? -->
+							<div  style="margin-top:10px; display:none;" id="two_Ans">
+								<ul  style="margin-left:40px">
+									<li>PCs, Laptops & Tablet</li>
+									<li>Compatible with windows and iOS. </li>
+									<li>Internet Browser (Google Chrome, Firefox, Mozilla, Windows Explorer)</li>
+								</ul>
+							</div>
+							
+							<!--3.	What kinds of subscription plans are available? -->
+							<div  style="margin-top:10px; display:none;" id="three_Ans">
+								<p>
+									We have got half yearly and annual subscription plans.</p><p> You can choose as per your preference. Though we recommend you to go for annual plan as, you dont have to worry about frequent renewals and payment in the annual plan.
+								</p>
+							</div>
+							
+							<!--4.	Will PwC Tabulate work on my Macbook? -->
+							<div  style="margin-top:10px; display:none;" id="four_Ans">
+								<p>
+									Yes, our software can be used on any machine using any internet browser including safari on Macbook.
+								</p>
+							</div>
+							
+							<!--5.	Can I access PwC Tabulate on my mobile phone or tablet? -->
+							<div  style="margin-top:10px; display:none;" id="five_Ans">
+								<p>
+									Even though you can access SimplyFile from your mobile phone, it's not made for usage on mobile and it's primarily to be used on laptops and desktops.
+								</p>
+							</div>
+							
+							<!--6.	Can I access PwC Tabulate offline? -->
+							<div style="margin-top:10px; display:none;" id="six_Ans">
+								<p>
+									As you are aware, GSTN has made it mandatory to file your returns online and also as India is moving towards digital adoption, we have provided our application on the cloud.
+								</p>
+							</div>
+							
+							<!--7.	In case if I want to upgrade to a latest version, how do I upgrade? -->
+							<div style="margin-top:10px; display:none;" id="seven_Ans">
+								<p>Since it's a cloud based application, updates happen automatically and wont affect your existing information and data.</p><p> You will be getting notifications and reminders to upgrade to the latest version/ features.<p> However if you require a
+								customized version of PwC Tabulate, you can get in touch with us.</p>
+							</div>
+							
+							<!--8.	Do I need to pay for software updates? -->
+							<div style="margin-top:10px; display:none;" id="eight_Ans">
+								<p>
+									No, being a cloud based application, the software gets upgraded automatically and free of cost.
+								</p>
+							</div>
+							
+							
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		<!--End of General Queries Answers-->
+		
+		<!-- 1.2 Start of Getting start Answers-->
+			<div class="panel panel-showtrans "  id="GettingStard" style="display:none;">  
+				<div class="panel-body">
+				<span class="close" onclick="closemodalS();" style="margin-top:-0px !important">&times;</span>
+					<div class="panel-title">Getting Start</div>
+				
+					<div class="panel panel-showtrans" style="display:none;" id="paneltry2" >  
+						<div class="panel-body">
+						
+							<!--9. What information do I need to sign up?-->
+							<div style="margin-top:10px; display:none;" id="nine_Ans">
+								<p>
+									To sign up, you just have to enter basic information like your name, email address, company name, email ID.</p><p> Once you sign up, you will be getting an activation link. Activate your account from there and then set up 
+								</p>
+							</div>
+							
+							<!--10.	Do you provide in person / on-site support? -->
+							<div style="margin-top:10px; display:none;" id="ten_Ans">
+								<p>
+									Sir, Our solution is cloud based and can be accessed from anywhere, therefore we provide online support. Any support query can be handled and resolved online itself.
+								</p>
+							</div>
+							
+							<!--11.	Can I create multiple users in PwC Tabulate? -->
+							<div style="margin-top:10px; display:none;" id="eleven_Ans">
+								<p>
+									Yes, you can create multiple users in PwC Tabulate
+								</p>
+							</div>
+							
+							<!--12.	Can I define user access in PwC Tabulate -->
+							<div style="margin-top:10px; display:none;" id="tweleve_Ans">
+								<p>
+									Yes, you can define user access in PwC Tabulate depending on the roles and responsibilities of the user.
+								</p>
+							</div>
+							
+							<!--13.	Can I download, import and export data into PwC Tabulate? -->
+							<div style="margin-top:10px; display:none;" id="thirteen_Ans">
+								<p>
+									You can export the reports in Excel and PDF formats. Also, you can import and export the following lists to and from MS Excel.
+									<ol style="margin-left:40px">
+										<li>Chart of accounts(Income, Expense, Assets, Liabilities)</li>
+										<li>List of Customers</li>
+										<li>List of Vendors</li>
+									</ol>
+								</p>
+							</div>
+							
+							<!--14.	What options are available for customer support? -->
+							<div style="margin-top:10px; display:none;" id="fourteen_Ans">
+								<p>
+									PwC Tabulate has got multiple support options:
+									<ul style="margin-left:40px">
+										<li>In-software help Guides & Instructions</li>
+										<li>Extensive Questionnaires and FAQs</li>
+										<li>E-mail</li>
+										<li>LiveChat</li>
+									</ul>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- 1.2 End of Getting start Answers-->
+		
+		<!-- 1.3 start of Data Security  Answers-->
+			<div class="panel panel-showtrans "  id="datasequrity" style="display:none;">  
+				<div class="panel-body">
+				<span class="close" onclick="closemodalD();" style="margin-top:-0px !important">&times;</span>
+					<div class="panel-title">Data Security</div>
+				
+					<div class="panel panel-showtrans" style="display:none;" id="paneltry3" >  
+						<div class="panel-body">
+						
+							<!--15.	How do you ensure safety and security of my information/data? -->
+							<div style="margin-top:10px; display:none;" id="fifteen_Ans">
+								<p>PwC Tabulate is hosted on one of the world's most secured cloud environment of Microsoft. Some of the top banks, insurance companies and other reputed organizations use this infrastructure.</p>
+								<p style="margin-top:20px">	There are multiple ways by which PwC Tabulate takes care of its customer's security.
+										<ul style="margin-left:40px">
+											<li>First and foremost, we make sure that each Login password is being encrypted so that it cannot be misused by an unauthorized user.<br> The username and password which is entered by the user cannot be read IN back end.</li>
+											<li>While logging in, the user has to pass an image capcha test. This is done in order to prevent hacking.</li>
+											<li>The port which is used for data transfer between server and the browser is isolated and hence protected</li>
+										</ul>
+								</p>
+							</div>
+							
+							<!--16.	What happens to my data if I unsubscribe or stop using the software? -->
+							<div style="margin-top:10px; display:none;" id="sixteen_Ans">
+								<p>If you are a user of PwC Tabulate and decide to cancel your subscription, you are required to download your data from PwC Tabulate through Microsoft Excel within 7 days of cancellation of your subscription.</p>
+							
+								<p style="margin-top:20px">	After 7 days, your data will be completely and permanently deleted from the application database.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- 1.3 End of Data Security  Answers-->
+		
+		<!-- 1.4 Start of PwC Tabulate Features   Answers-->
+			<div class="panel panel-showtrans "  id="PwcTabFeatures" style="display:none;" >  
+				<div class="panel-body">
+				<span class="close" onclick="closemodalP();" style="margin-top:-0px !important">&times;</span>
+					<div class="panel-title">PwC Tabulate Features</div>
+				
+					<div class="panel panel-showtrans" style="display:none;" id="paneltry4" >  
+						<div class="panel-body">
+						
+							<!--17.	How shall I assign user access to different employee in my company?-->
+							<div style="margin-top:10px; display:none;" id="seventeen_Ans">
+								<p>
+									In PwC Tabulate you can specify user access to different people in the organization. Go to users under option menu and create a new user and provide him the access during creating the user.
+								</p>
+							</div>
+							
+							<!--18.	What are some of the reports available in PwC Tabulate? -->
+							<div style="margin-top:10px; display:none;" id="eighteen_Ans">
+								<p>Here are a few commonly used reports: Income and Expense Reports, Accounts Receivables & Payables, Profit & Loss, Balance Sheet, General Ledger, Trial Balance, Statement of Cash Flows and Bank Books,</p>
+								<p style="margin-top:20px"> Transactions List -Multiple parameters wise.</p>
+								
+							</div>
+							
+							<!--19.	Can I download a copy of my data?-->
+							<div style="margin-top:10px; display:none;" id="nineteen_Ans">
+								<p>
+									PwC Tabulate allows you to export and download all the transactions, reports in excel.
+								</p>
+							</div>
+							
+							<!--20.	How do I add multiple branches?-->
+							<div style="margin-top:10px; display:none;" id="twenty_Ans">
+								<p>
+									You can add multiple branches in PwC Tabulate. Simply go to master admin screen, Navigate to options, select branch and click on add a branch. Enter all the mandatory information and click on save.
+								</p>
+							</div>
+							
+							<!--21.	How can I add a new user?-->
+							<div style="margin-top:10px; display:none;" id="twentyone_Ans">
+								<p>
+									To add a new user, you need to go to users under option menu. Now click on create a new user. And input all the details and click on add/update user.
+								</p>
+							</div>
+							
+							<!--22.	How can I file GST return from PwC Tabulate accounting software?-->
+							<div style="margin-top:10px; display:none;" id="twentytwo_Ans">
+								<p>PwC Tabulate accounting software is seamlessly integrated with the GSP software.  Wherein in just one click, automatically the whole data required for GST filing can be populated in the GSP software and returns</p>
+								<p style="margin-top:20px">can be done automatically.	</p>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- 1.4 End   of PwC Tabulate Features   Answer's-->
+		
+		<!-- 1.5 Start of Account Settings Answer's-->
+			<div class="panel panel-showtrans "  id="Account_Settings_Ans" style="display:none;">  
+				<div class="panel-body">
+				<span class="close" onclick="closemodalA();" style="margin-top:-0px !important">&times;</span>
+					<div class="panel-title">Account Settings</div>
+				
+					<div class="panel panel-showtrans" style="display:none;" id="paneltry5">  
+						<div class="panel-body">
+						
+							<!--23.	How do I reset my password or recover my user ID?-->
+							<div style="margin-top:10px; display:none;" id="twentythree_Ans">
+								<p>
+									Go to http://40.81.253.254:8443/signIn#logindiv
+									<ol style="margin-left:40px">
+										<li>Click on "Forgot Password"</li>
+										<li>Enter your registered email ID and click on "Reset Password"</li>
+									</ol>
+								</p>
+							</div>
+							
+							<!--24.	How can I deactivate an existing user? -->
+							<div style="margin-top:10px; display:none;" id="twentyfour_Ans">
+								<p>
+									To deactivate an existing user, you need to go to user settings under option menu. Now select the user which you would like to deactivate and click on "deactivate"
+								</p>
+							</div>
+							
+							<!--25.	How can I change my password?-->
+							<div style="margin-top:10px; display:none;" id="twentyfive_Ans">
+								<p>
+									To change your password, Please follow the below steps:
+									<ol style="margin-left:40px">
+										<li>Login to your account. </li>
+										<li>Go to settings and click on "password' and change your password.</li>
+									</ol>
+								</p>
+							</div>
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		<!-- 1.5 End   of Account Settings Answers-->
+		<!-- End of General FAQ Answers -->
+		
+		<!-- Start of Configuration / Setup Answers -->
+		<div class="panel panel-showtrans "  id="config" style="display:none;" > 
+			<span class="close" onclick="closemodalC();" style="margin-top:-0px !important">&times;</span>
+			<div class="panel-body">
+				<div class="panel-title">Configuration / Setup</div>
+				
+				<div class="panel panel-showtrans" style="display:none;" id="Configpaneltry">  
+					<div class="panel-body">
+				
+						<!--1.How to register in PwC Tabulate? -->
+						<div style="margin-top:; display:none;" id="config1_Ans">
+							<p>Step 1:	Enter your Name, email ID, phone no., Company name, create your password and click on Register Now</p><br>
+							<p style="margin-top:15px;">Step 2:	You will be receiving an activation mail from PwC Tabulate. Just click on the activation link and your user ID will be activated</p><br>
+							<img src="" alt="" style="height: 5%; width:10% ;">
+						</div>
+						<!--End -->
+						
+						<!--2. How to Set up Organization & Logo? -->
+						<div style="margin-top:; display:none;" id="config2_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Organization'</p><br>
+								<p style="margin-top:15px">Step 2:	Under the heading 'Identity Details' enter Address, email ID and phone</p>
+									<p style="margin-left:45px"> no. In column 6, for 'India GST legislation applicable' select yes / no option 
+									from the drop down menu
+								</p><br>
+								<p style="margin-top:15px">Step 3:	Tick Check box if 'GST composition scheme applicable' in column 7</p><br>
+								<p style="margin-top:15px">Step 4:	Scan and upload your Company's logo in the last column</p><br>
+								<p style="margin-top:15px">Step 5:	Under heading 'Financial Details' enter / upload financial information of your Co.</p>
+								<p style="margin-left:45px;"> like Audited accounts, Tax returns, Organization chart, Accounting Manual and </P><P style="margin-left:45px">List of Signatories and Templates for the Company like Payroll template and TDS calculation template for use by other Branches.</p>
+							</div>
+							
+						
+							<div style="border:2px solid; width:15%;height:30%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;float: ;margin-top:-10%;margin-left:65%">
+								<h5 style="color:#fff"> Why do I need to upload Logo?</h5>
+								<p style="margin-left:15px">* So that when you generate ,</p> <p style="margin-left:20px;margin-top:15px">invoices you have your </p><p style="margin-left:20px;margin-top:15px">Company logo printed in them.</p>
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.2.png")" alt="register" style="height:60%; width:60%;margin-top:1%;margin-left:2% ;">
+							</div>
+						</div>
+						<!--End -->
+						
+						<!--3. How to create Branches? -->
+						<div style="margin-top:10px; display:none;" id="config3_Ans">
+							<div>
+								<p>Step 1:	Under Options click on Branches.</p><br>
+								<p>Step 2: Now click on the tab Create Branch on the top left corner of the screen and fill in details pertaining to Branch name, GSTIN, Branch address, type of premises etc.</p><br>
+								<p>Step 3: Update Branch Statutory details, Officers contact details, Operational reminders, Cash & Bank account details</p><br>
+								<p>Step 4: Once the details in the branch is filled click on Save Branch details.</p><br>
+								
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:70%;margin-top:%">
+								<h5 style="color:#fff"> Significance of Operational reminder?</h5>
+								<p style="margin-left:15px"> In day to day work We lose</p> <p style="margin-left:20px;margin-top:15px">track of the operational</p><p style="margin-left:20px;margin-top:15px">requirements for Example :-</p><p style="margin-left:20px;margin-top:15px">pest control, waste-</p><p style="margin-left:20px;margin-top:15px">management certificate-</p><p style="margin-left:20px;margin-top:15px">renewal etc. </p><br>
+								<p style="margin-left:15px"> This Unique feature helps us</p><p style="margin-left:15px">to have reminders for these </p><p style="margin-left:15px">and generates alerts.</p><p style="margin-left:15px"></p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.3.png")" alt="register" style="height:40%; width:65%;margin-top:1%;margin-left:2% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--4.How do I enter Opening cash balance? -->
+						<div style="margin-top:10px; display:none;" id="config4_Ans">
+							<div>
+								<h5><b><u>How do I Enter Opening Cash Balance?</u></b></h5>
+								<p>Step 1:	Under Options click on Branch.</p><br>
+								<p>Step 2:	In the Branch listing Screen, click on Edit </p><br>
+								<p>Step 3:	Scroll down to Branch Cash Account Row 5 - update opening balance of Cash and / or Petty Cash</p><br>
+								<p>Step 4:	Click on Save Branch Details</p><br>
+								<h4 style="border:2px solid black;width:60%;height:10%;margin-top:">Ensure correct balances are entered in these fields as it<b style="color:red"> cannot be edited</b> after passing transactions.</h4>
+							</div>
+							
+							<div>
+								<h5><b><u>How to add new Bank and enter opening bank balance?</u></b></h5>
+								<p>Step 1:	Under Options click on Branch</p><br>
+								<p>Step 2:	Scroll down to Bank Account Details</p><br>
+								<p>Step 3:	Add a new Bank and input mandatory information, update opening bank balance of the bank and click on Save Branch details</p><br>
+								<p>Step 4: Under Options in Chart of Accounts you just have to create a sub account Bank under Assets and validate it as is this the account where </p> <p style="margin-left:45px">you classify bank balances and all the bank details filled in Branch set up will automatically occur under Chart of Accounts.</p><br>
+								<h4 style="border:2px solid black;width:60%;height:10%;margin-top:">Ensure correct balances are entered in these fields as it <b style="color:red"> cannot be edited</b> after passing transactions.</h4>
+								
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:70% ;margin-top:-15%">
+								<h5 style="color:#fff;"></h5>
+								<p style="margin-left:15px"> No need to create Bank </p> <p style="margin-left:20px;margin-top:15px">details once again under </p><p style="margin-left:20px;margin-top:15px">Chart of Accounts.</p><p style="margin-left:20px;margin-top:15px"></p><p style="margin-left:20px;margin-top:15px"></p><p style="margin-left:20px;margin-top:15px"> </p><br>
+								
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.5.png")" alt="register" style="height:60%; width:65%;margin-top:10%;margin-left:2% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--5.How to avoid approval for petty cash items? -->
+						<div style="margin-top:10px; display:none;" id="config5_Ans">
+							<div>
+								<p>Step 1:	Under Options click on Branch</p><br>
+								<p>Step 2:	Scroll down to Branch Cash Account.</p><p style="margin-left:45px"> In column 8, select No from the dropdown if you do not want to approve purchase of petty cash items every time.</p><p style="margin-left:45px"> Then these transactions are directly accounted and Journal entries are passed automatically</p><br>
+								<p>Step 3:	Click on Save Branch details</p><br>
+								<img src="@routes.Assets.at("pwc/images/2.6.png")" alt="register" style="height:50%; width:65%;margin-top:1%;margin-left:2% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--6.How to add new Product / item of sale? -->
+						<div style="margin-top:10px; display:none;" id="config6_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Chart of Accounts'</p><br>
+								<p>Step 2:	Now under 'Income' click on 'Add Sub Account' button on the right corner of the screen</p><br>
+								<p>Step 3:	Enter Sub Account name, input Price per unit (Selling price).</p><p style="margin-left:45px"> In the 4th column, select GST details and under the heading 'branch/max%',</p><p style="margin-left:45px"> branch wise you can enter opening balance and discount you wish to allow for this product. </p><br>
+								<p>Step 4:  The 7th column gives the option to map a certain purchase item to income items.</p><p style="margin-left:45px"> The drop down gives the list of trading items to which you can map the income item </p><p style="margin-left:45px"> by giving the details as to how many units of expense is equal to how many units of income.</p><br>
+								<p>Step 5:	Select transaction type in column 6 and click on 'Add / update Chart of Accounts'</p><br>
+								<p>Step 6:	Now give new product access to those customers whom you wish to sell this product.</p><p style="margin-left:45px"> Click on 'Customers', choose a customer and click on 'edit' option.</p><p style="margin-left:45px"> Select product under the heading 'item of sale/discount% (6th column).</p><p style="margin-left:45px"> Click on 'Add / Update Customer'</p><br>
+								<p>Step 7:	Then click on 'Users', choose a user and click on 'edit'.</p><p style="margin-left:45px"> Under heading 'Transaction Creator Rules' and 'Transaction Approver Rules' give access to </p><p style="margin-left:45px">Creator / Approver for this new income item from dropdown. Click on Add / Update User</p><br>
+								<p>Step 8:	Lastly, under 'Tax' menu, click on 'Output Tax' and 'Add / update GST tax rule' for the new product</p><br>
+							</div>
+							
+							
+							<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;float: ;margin-top:-12%;margin-left:50%">
+								<h5 style="color:#fff">Barcode? What does it do?</h5>
+								<p style="margin-left:15px">* It helps in identifying</p><p style="margin-left:25px">an item uniquely</p> 
+								<img src="@routes.Assets.at("pwc/images/barcode.png")" style="margin-top:2%;margin-left:18%">
+								
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.7.png")" alt="register" style="height:auto; width:65%;margin-top:6%;margin-left:2% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--7.How to add new Inventory Product / Income Item? -->
+						<div style="margin-top:10px; display:none;" id="config7_Ans">
+							<div>
+								<p>
+									Step 1:	Under 'Options' click on 'Chart of Accounts-Expenses'. Here click on 'Add sub account'.</p><p style="margin-left:45px"> Enter sub account name with a suffix '(Purchases)', GST details, Branch (enter Op. balance, no. of units & rate) and Transaction type.</p><p style="margin-left:45px"> In column 6, under heading 'Inventory unit/rate' mention Unit of measurement like Carton, Pcs or box.</p><p style="margin-left:45px"> Then total no. of units, rate and inventory opening balance will be auto populated as it is already entered under column 'Branch'.</p><p style="margin-left:45px"> Barcode can be filled in for the particular item and then 'Add/update chart of accounts'.</p> 
+									
+										<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:70% ;margin-top:%">
+											<h5 style="color:#fff">What is a Trading item?</h5>
+											<p style="margin-left:15px">* You might be dealing with </p><p style="margin-left:25px">certain items which are your</p> <p style="margin-left:25px">purchases as well as your </p><p style="margin-left:25px">sales.</p><br>
+											<p style="margin-left:15px">* By mapping these income </p><p style="margin-left:25px">units to expense items you </p><p style="margin-left:25px">will be able to generate your </p><p style="margin-left:25px">inventory report.</p><p style="margin-left:25px"></p><p style="margin-left:25px"></p>
+										</div>
+										<div>
+											<img src="@routes.Assets.at("pwc/images/2.8.png")" alt="register" style="height:50%; width:60%;margin-top:-12%;margin-left:2% ;"><br>
+										</div>
+								
+								<p style="margin-top:-5%">Step 2:	Now go to 'Chart of Accounts-Income'. Click on 'Add Sub account' and create income item with the similar name </p><p style="margin-left:45px">(without the suffix 'Purchases'). Enter price (selling price), GST details, branch and select transaction type.</p><br><p style="margin-left:45px"> Next in column 7, map income to expense by selecting expense item from the dropdown.</p><p style="margin-left:45px"> In the next row specify UOM of the product at the time of buying and selling. For e.g.: if you are buying 100 nos.</p><p style="margin-left:45px"> in carton and selling in units, then write 100 (nos.) & carton (expense unit) = 1 (nos.) & Pieces (Income unit).</p><p style="margin-left:45px"> Select method of valuation as FIFO or Weighted Average. Now click on Add/update Chart of Accounts.</p><br>
+									<img src="@routes.Assets.at("pwc/images/2.8.1.png")" alt="register" style="height:50%; width:60%;margin-top:3%;margin-left:2% ;">
+									
+								<p style="margin-top:-2%">Step 3:	Click on 'Vendors', choose a Vendor and click on 'edit' option. Select product under the heading 'Purchase Item / Price (5th column).</p><p style="margin-left:45px"> Click on 'Add / Update Vendor'.</p><br>
+								
+								<p>Step 4:	Click on 'Customers', choose a customer and click on 'edit' option. Select product under the heading 'item of sale/discount% (6th column).</p><p style="margin-left:45px"> Click on 'Add / Update Customer'.</p><br>
+								
+								<p>Step 5:	Then click on 'Users', choose a user and click on 'edit'.</p><p style="margin-left:45px"> Under heading 'Transaction Creator Rules' and 'Transaction Approver Rules' give access to Creator / Approver for this new expense </p><p style="margin-left:45px">item from dropdown. Click on 'Add / Update User'.</p><br>
+								
+								<p>Step 6:	Lastly, under 'Tax' menu, click on 'Output Tax' and 'Add / update GST tax rule' for the new product.</p>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!-- 8.How to add new Expense Account? -->
+						<div style="margin-top:10px; display:none;" id="config8_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Chart of Accounts'</p><br>
+								<p>Step 2:	Now under 'Expense' click on 'Add Sub Account' button on the right corner of the screen</p><br>
+								<p>Step 3:	Enter Sub Account name, Barcode, GST input, Branch and Transaction type.</p><p style="margin-left:45px"> In column 6, under 'inventory unit/ rate' fill details only if it is inventory product otherwise please ignore.</p><p style="margin-left:45px"> Click on 'Add/update chart of accounts'.</p><br>
+								<p>Step 4:	Now go to 'Vendors' and give access to those Vendors from whom you are purchasing this new product.</p><p style="margin-left:45px"> Click on 'Vendors', choose a Vendor and click on 'edit' option.</p><p style="margin-left:45px"> Select product under the heading 'Purchase Item / Price (5th column).</p><p style="margin-left:45px"> Click on 'Add / Update Vendor'</p><br>
+								<p>Step 5:	Then click on 'Users', choose a user and click on 'edit'.</p><p style="margin-left:45px"> Under heading 'Transaction Creator Rules' and 'Transaction Approver Rules' give access to Creator / Approver for this new expense item from dropdown.</p><p style="margin-left:45px"> Click on Add / Update User</p><br>
+								<p>Step 6:	Lastly, check if GST rate applicable to this expense item is added under 'Input Tax'.</p><p style="margin-left:45px"> If not, select branch and select Input GST tax rate and then click on 'Add Taxes' </p><br>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!-- 9.How to add opening balances of Inventory?-->
+						<div style="margin-top:10px; display:none;" id="config9_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Chart of Accounts'.</p><br>
+								<p>Step 2:	Under heading 'Expenses', select a purchase item where you wish to add opening balance.</p><br>
+								<p>Step 3:	Input opening balance if any with respect to this expense.</p><br>
+								<p>Step 4:  In the 2nd column enter no. of units and in 3rd column enter rate of product,</p><p style="margin-left:45px"> inventory value will automatically be calculated (these details are captured in Inventory report)</p><br>
+								<p>Step 5:	Lastly click on 'Add / update Chart of Accounts'.</p>
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:70%;margin-top:-5%">
+								<h5 style="color:#fff"></h5>
+								<p style="margin-left:15px">* Inventory Report at Real </p><p style="margin-left:25px">time is made possible in</p> <p style="margin-left:25px"> PwC tabulate.</p><p style="margin-left:25px"></p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.9.png")" alt="register" style="height:60%; width:60%;margin-top:1%;margin-left:2% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--10.How do I feed barcode for a particular item? -->
+						<div style="margin-top:10px; display:none;" id="config10_Ans">
+							<div>
+								<p>Step 1: Firstly connect the barcode scanner to your respective computers.</p><br>
+								<p>Step 2: Under 'Options' click on Income/Expense items, place the cursor on the barcode field and scan.</p><br>
+								<p>Step 3: The barcode appears in the field and gets auto populated when you pass a transaction.</p><br>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!-- 11.How to configure TDS for Expense Account? -->
+						<div style="margin-top:10px; display:none;" id="config11_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Tax'.</p><br>
+								<p>Step 2: Select the 4th column which reads TDS/Withholding Tax and click on 'Add new taxes' tab and adjacent to it select the 'TDS Setup Type-Basic setup'</p><br>
+								<p>Step3:  From the 1st drop down select Ledger/Item,</p><p style="margin-left:45px"> 2nd column select the Vendor,</p><p style="margin-left:45px">  3rd column select the TDS withholding section, mode of computation-automatic/manual.</p><br>
+								<p>Step 4: Feed in the tax rate for that particular ledger/item in the 5th column,</p><p style="margin-left:45px"> the transaction limits and upload supporting documents if any.</p><br>
+								<p>Step 5: Then click on Add Taxes.</p><br>
+							</div>
+							
+							
+							<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:70%;margin-top:-8%">
+								<h5 style="color:#fff"></h5>
+								<p style="margin-left:15px">* By setting up the TDS limits</p><p style="margin-left:25px">and rates PwC Tabulate </p> <p style="margin-left:25px">facilitates TDS compliances </p><p style="margin-left:25px">easily.</p>
+							
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.12.png")" alt="register" style="height:60%; width:60%;margin-top:5%;margin-left:2% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!-- 12.How to add new Account under Assets / Liabilities? -->
+						<div style="margin-top:10px; display:none;" id="config12_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Chart of Accounts'.</p><br>
+								<p>Step 2:	Now under 'Assets / Liabilities' click on 'Add Sub Account' button on the right corner of the screen.</p><br>
+								<p>Step 3:	Enter sub account name, select branch and transaction type. </p><br>
+								<img src="@routes.Assets.at("pwc/images/2.13.png")" alt="register" style="height:60%; width:60%;margin-top:1%;margin-left:2% ;">
+										<br>
+								<p>Step 4: Select under which category you wish to map this new account from the dropdown under 'identification for data validation'.</p><p style="margin-left:45px"> Mapping is necessary as these are balance sheet accounts without which you will not be able to see them in Balance sheet. </p>
+								
+								<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:70%;margin-top:%">
+										<h5 style="color:#fff">! Data Validation - </h5>
+										<p style="margin-left:15px">is a unique feature in PwC </p><p style="margin-left:25px">Tabulate for automation </p> <p style="margin-left:25px">and classification of group  </p><p style="margin-left:25px">of accounts.</p>
+								</div>
+								<div>
+									<img src="@routes.Assets.at("pwc/images/2.13.1.png")" alt="register" style="height:60%; width:60%;margin-top:-6%;margin-left:2% ;">
+								</div>
+								<br>
+								<p>Step 5:	Then click on Add/update chart of Accounts.</p>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--13. What is Knowledge Library? -->
+						<div style="margin-top:10px; display:none;" id="config13_Ans">
+							<div>
+								<p>Knowledge Library is a field where you give specific instructions / guidance to the person creating Transactions with respect to Sales / Purchase / Assets / Liabilities.</p><br><p> Here even you can set instructions Branch wise. One can see these guidelines while creating transactions if they select this particular Account head. This helps in better internal Control.</p>
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;;margin-top:2%;margin-left:65%">
+								<h5 style="color:#fff">Knowledge Library </h5>
+								<p style="margin-left:15px">is a guideline while creating </p><p style="margin-left:25px">transactions thereby </p><p style="margin-left:25px">enhancing </p> <p style="margin-left:25px"><em>internal control</em></p>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--14.How to add new Vendor? -->
+						<div style="margin-top:10px; display:none;" id="config14_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Vendor'.</p><br>
+								<p>Step 2:	Then click on 'Create Vendor' and input details of Branch, Vendor Name, GSTIN, Address and Contact number</p><br>
+								<p>Step 3:	Add multiple GSTIN for the Vendor if he operates from more than one branch in column 4</p><br>
+								<p>Step 4:	Under heading 'Purchase Item / Price' give access to all products which you wish to purchase from this Vendor.</p><p style="margin-left:45px"> In the next field 'Statutory Details' enter PAN / TAN no.</p><br>
+								<p>Step 5:	Select 'Cash / Credit' purchase information and 'upload' scan copy of PO/Contract if any</p><br>
+								<p>Step 6:	Click on 'Add / update Vendor'</p><br>
+							</div>
+							
+							
+							<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:60%;margin-top:-10%">
+								<h5 style="color:#fff">Vendor Management</h5>
+								<p style="margin-left:15px">* A unique feature provided</p><p style="margin-left:25px"> in PwC Tabulate.</p><p style="margin-left:25px"></p> <p style="margin-left:25px"></p><br>
+								<p style="margin-left:15px">* The vendors of </p><p style="margin-left:25px">your company can be</p><p style="margin-left:25px">given access to their </p> <p style="margin-left:25px">ledger in your accounts.</p>
+							</div>
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.15.png")" alt="register" style="height:50%; width:65%;margin-top:2%;margin-left:2% ;">
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:55%">Excel upload option is available when you want to <b style="color:red">add more than one Vendor</b> at once.</h4>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--15 How do I grant access to Vendors to their ledgers? -->
+						<div style="margin-top:10px; display:none;" id="config15_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on 'Vendors'</p><br>
+								<p>Step 2: In the 4th column, adjacent to Phone there is a &#10004; mark which indicates the access right to the vendors to their ledgers in your company accounts.</p><br>
+								<img src="@routes.Assets.at("pwc/images/2.16.png")" alt="register" style="height:60%; width:65%;margin-top:1%;margin-left:2% ;">
+								<p>Step 3: The vendors can login through their id at the url <b> http://40.81.253.254:8443/signIn#logindiv</b> which will be activated by the company.</p><br>
+								<img src="@routes.Assets.at("pwc/images/2.16.2.png")" alt="register" style="height:350px !important; width:20%;margin-top:1%;margin-left:2% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--16+ How to add new Customer? -->
+						<div style="margin-top:10px; display:none;" id="config16_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Customer'.</p><br>
+								<p>Step 2:	Then click on 'Create Customer' and input details of Branch, Vendor Name, GSTIN, Address and Contact number.</p><p style="margin-left:45px"> If shipping address is different than billing address enter details in column 4.</p><br>
+								<p>Step 3:	Add multiple GSTIN of the Customer if he operates from more than one branch.</p><br>
+								<p>Step 4:	Under heading 'Item of Sale / Discount %' give access to all products which you wish to sell this customer and mention discount %.</p><p style="margin-left:45px"> Here update the maximum discount given to customer and you can override the discount while creating Sale transaction.</p><p style="margin-left:45px"> In the next field 'Statutory Details' enter PAN / TAN no. of the customer</p><br>
+								<p>Step 5:	Select 'Cash / Credit' information and 'upload' scan copy of Customer Contract if any.</p><br>
+								<p>Step 6:	Click on 'Add / update Customer'.</p><br>
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:55%">&nbsp;&nbsp; Excel upload option is available when you want to  <b style="color:red">add more than one Customer </b> at once.</h4>
+							</div>
+							
+							
+							
+							<div style="border:2px solid; width:15%;height:20%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:70%;margin-top:-14%">
+								<h5 style="color:#fff">Customer Engagement</h5>
+								<p style="margin-left:15px">* A unique feature </p><p style="margin-left:25px">provided in PwC </p><p style="margin-left:25px">Tabulate.</p> <p style="margin-left:25px"></p><br>
+								<p style="margin-left:15px">* The Customer of </p><p style="margin-left:25px">your company can be</p><p style="margin-left:25px">given access to their </p> <p style="margin-left:25px">ledger in your accounts.</p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.17.png")" alt="register" style="height:10% !important; width:67%;margin-top:3%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--17. How to add new User?-->
+						<div style="margin-top:10px; display:none;" id="config17_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'User'.</p><br>
+								<p>Step 2:	Then click on 'Create User'.</p><p style="margin-left:45px">Enter User Name, Email, Contact No. and Address of the User.</p><p style="margin-left:45px"> In column 5, select the 'Role of the User' on the basis of job role and select the type of </p><p style="margin-left:45px">Transactions User can have access to, this defines the User role as per the job requirement.</p><br>
+								<p>Step 3:	Update 'Transaction Creator Rules' or 'Transaction Approver Rules' by selecting from the dropdowns,</p><p style="margin-left:45px"> wherein you can decide the branches in which the user can have access and set the monetary limits</p><p style="margin-left:45px"> up to which the user can create/approve transactions thereby again emphasizing on internal control.</p><br>
+								<p>Step4: Select the Travel claim rules from the drop down 'Travel Eligibility'.</p><p style="margin-left:45px">Select the travel transaction purpose whether it is for request/settle travel advances.</p><br>
+								<p>Step 5: Similarly can set up expense claims and select the expense eligibility and select the expense transaction</p><p style="margin-left:45px"> purpose whether to request/settle expense advances or for request for expense reimbursement.</p><br>
+								<p>Step 6: Scroll down to 'Module Access Configuration' and give access to the User and click on 'Add /   update User'.</p><br>
+							</div>
+							
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:60%;margin-top:-14%">
+								<h5 style="color:#fff"></h5>
+								<p style="margin-left:15px">* <b>'User set up'</b> </p><p style="margin-left:25px">facilitates </p><p style="margin-left:25px"><b>internal control </b></p> <p style="margin-left:25px">to a large extent. </p><br>
+								<p style="margin-left:15px">* By assigning the </p><p style="margin-left:25px">user transaction roles, </p><p style="margin-left:25px">you can have a great</p> <p style="margin-left:25px">control of who can </p><p style="margin-left:25px">pass certain </p><p style="margin-left:25px">transactions /in which </p><p style="margin-left:25px">branch and who cannot.</p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.18.png")" alt="register" style="height:5% !important; width:70%;margin-top:2%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--18 How to map Identification for Data Validation? -->
+						<div style="margin-top:10px; display:none;" id="config18_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Chart of Accounts'.</p><p style="margin-left:45px"> (this is a unique feature in PwC Tabulate for automation and classification of group of accounts)</p><br>
+								<p>Step 2:	Click on 'Sub Account' on the right corner of the screen. </p><br>
+								<p>Step 3:	Under the heading 'Identification of Data Validation' select any category of account.</p><p style="margin-left:45px"> Under which you wish to group the new / existing Account.</p><p style="margin-left:45px"> This option is available for any new account created under Income / Expense / Assets or Liabilities.</p><p style="margin-left:45px"> This allows you to link the a new account to a particular group of accounts and enables classification of accounts in Trial Balance, P&L and Balance sheet </p><br>
+								<p style="margin-left:45px"><b><u>For Example:-</u></b> If new account 'advance received from customer' is created and</p><p style="margin-left:45px"> maps this account by selecting 'is this the account where you classify advance received from customer?'</p><p style="margin-left:45px"> under data validation, then whenever any advance is received from customer the system automatically accounts it under this group.</p>
+							</div>
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:60%;margin-top:">
+								<h5 style="color:#fff"></h5>
+								<p style="margin-left:25px">Easiest way of grouping</p><p style="margin-left:25px"></p><p style="margin-left:25px"><b>items into balance Sheet </b></p> <p style="margin-left:25px">due to which within no</p>
+								<p style="margin-left:25px"></p><p style="margin-left:25px">time you can generate </p><p style="margin-left:25px">your Financial Statements.</p> <p style="margin-left:25px"></p>
+								<p></p>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--19 How do I set up travel claims? -->
+						<div style="margin-top:10px; display:none;" id="config19_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on User, select the tab 'Travel Claim Configuration'.</p><br>
+								<p>Step 2: Insert a Travel Group name, for example say Sales Group, Accounts & Audit Group.</p><br>
+								<p>Step 3: Below set the limits applicable depending upon the group created.</p><br>
+								<p>Step 4: Later click on Add/Update Travel Group.</p><br>
+								<p>Step 5: Similarly multiple Travel Groups can be created .</p><br>
+								<p>Step 6: Then click on 'Users', choose a user and click on 'Edit'.</p><p style="margin-left:45px"> Select the Travel Group applicable to that particular user from the drop down and</p><p style="margin-left:45px"> the travel transaction purpose whether to request/settle travel advance.</p><br>
+								<p>Step 7: Later click on Add/Update User.</p><br>
+							</div>
+						
+						
+							
+							
+							<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:60% ;margin-top:-10%">
+								<h5 style="color:#fff"></h5>
+								<p style="margin-left:25px">By configuring the </p><p style="margin-left:25px">travel claims.. </p><p style="margin-left:25px"><b>The hassle of </b></p> <p style="margin-left:25px">settling travel </p>
+								<p style="margin-left:25px">claims is no </p><p style="margin-left:25px">more relevant.</p>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.20.png")" alt="register" style="height:10% !important; width:70%;margin-top:5%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--20 How do I Create Expense Claims? -->
+						<div style="margin-top:10px; display:none;" id="config20_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on User, select the tab 'Expense Claim Configuration'.</p><br>
+								<p>Step 2: Insert an Expense Group name,<b> For Example </b>say Sales Group, Accounts & Audit Group.</p><br>
+								<p>Step 3: Below from the drop down set the limits applicable to the concerned expenses.</p><br>
+								<p>Step 4: Later click on Add/Update Travel Group.</p><br>
+								<p>Step 5: Similarly multiple Expense Groups can be created.</p><br>
+								<p>Step 6: Then click on 'Users', choose a user and click on 'Edit'.</p><p style="margin-left:45px"> Select the Expense Group applicable to that particular user from the drop down and </p><p style="margin-left:45px">the expense transaction purpose whether to request/settle expense advance or request for expense reimbursement.</p><br>
+								<p>Step 7: Later click on Add/Update User.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.21.png")" alt="register" style="height:10% !important; width:60%;margin-top:1%;margin-left:1% ;">
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--21 How do I Set up Payroll? -->
+						<div style="margin-top:10px; display:none;" id="config21_Ans">
+							<div>
+								<p>Step 1: Under 'Options' click on 'Users', and select the 'Payroll Setup'.</p><br>
+								<p>Step 2: Under 'Earnings List' tick the earnings head which are fixed earnings as well tick</p><p style="margin-left:45px"> under 'Deductions List' the deductions to be fixed ones and then click on Add/Update Payroll.</p><br>
+								
+								<div style="border:2px solid; width:15%;height:40%; background-color:#b54c4c;color:#fff; box-shadow: 0px 0px 5px 5px  #d18f8f;margin-left:60% ;margin-top:-3%">
+									<h5 style="color:#fff"></h5>
+									<p style="margin-left:25px">Generating Pay slip </p><p style="margin-left:25px">has never been </p><p style="margin-left:25px"><b>easier than this.</b></p> <p style="margin-left:25px"></p>
+									<p style="margin-left:25px"></p><p style="margin-left:25px"></p>
+								</div>
+								<div>
+									<img src="@routes.Assets.at("pwc/images/2.22.png")" alt="register" style="height:10% !important; width:60%;margin-top:1%;margin-left:1% ;">
+								</div>
+								<p>Step 3: Next go back to 'Users' Page and click on 'Edit'.</p><br>
+								<p>Step 4: Under 'User Payroll' click on the drop down from Earnings</p><p style="margin-left:45px"> and feed against each earnings in the 1st column per annum details and per month amount will auto populate and then click on 'Update'.</p><p style="margin-left:45px"> Likewise fill in the details of deductions and click on 'Update'.</p><br>
+								<p>Step 5: Finally click on Add/Update User.</p><br>
+							</div>
+						</div>
+						<!-- End -->
+						
+						<!--22 How to add / check Document Serial No.? -->
+						<div style="margin-top:10px; display:none;" id="config22_Ans">
+							<div>
+								<p>Step 1:	Under 'Options' click on 'Chart of Accounts'.</p><br>
+								<p>Step 2:	Just below heading Liabilities you can see heading 'Documents Serial Number' – here choose among options 'Organization wise' or 'GSTN wise'</p><br>
+								<p>Step 3:	Here you can reset serial no. for all documents generated from PwC Tabulate like Invoice, Quotation, Debit note, Credit note etc.</p><br>
+								<p>Step 4:	For example, if you want to set Invoice serial no., in the tab below select invoice reset interval as 'yearly' or 'monthly'.</p><br>
+								<p>Step 5:	In the next tab 'Invoice starting serial no.' check the last document number before starting to use PwC Tabulate and start with the next number.</p><br>
+								<p>Step 6:	Click on Add / update.</p><br>
+							</div>
+							
+							<div>
+								<img src="@routes.Assets.at("pwc/images/2.23.png")" alt="register" style="height:10% !important; width:60%;margin-top:1%;margin-left:1% ;">
+							</div>
+							
+							<div>
+								<h4 style="border:2px solid black;width:60%;margin-left:1%">&nbsp;&nbsp;This is a one-time activity and system will automatically continue the series.<br>&nbsp;&nbsp; But when there is any requirement to change the series, it is possible in PwC Tabulate.</h4>
+							</div>
+						</div>
+						<!-- End -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of Configuration / Setup Answer's -->
+		@faqpart2(configParams){
+		}
+
+	</div>
+	</body>
+	</html>

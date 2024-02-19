@@ -1,0 +1,69 @@
+.pwc_landingPage a{
+	color: inherit;
+
+}
+.pwc_landingPage header {
+    background-color: #ffffff;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+.pwc_landingPage a:hover{
+	color: inherit;
+}
+.pwc_landingPage a:visited{ color: white; }
+
+.pwc_landingPage .container{
+	
+    margin-left: 65px;
+    margin-top: 200px;
+}
+
+.pwc_landingPage .jumbo{
+    background-color: #A32020;
+    color: white;
+    padding-left: 40px;
+    padding-top: 2px;
+    width: 900px;
+    margin-left: 150px;
+    height: 180px;
+}
+.pwc_landingPage .heading{
+    font-size: 24px;
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
+
+@media (max-width: 1199px) and (min-width: 980px){}
+.pwc_landingPage .para {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    margin-top: -10px;
+}
+}
+
+.pwc_landingPage .jumbo .sub{
+    width: 200px;
+    height: 40px;
+    background-color: #A32020;
+    border: 2px solid;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    
+}
+
+
+.pwc_landingPage .learn{
+	color: white;
+	font-family:  Georgia, serif;
+    font-size: 14px;
+    margin-left: 90px;
+    text-align: left;
+   /* margin-top: 165px;*/
+
+}
+.pwc_landingPage .play_btn{
+	height: 40px;
+	width: 40px;	
+	}

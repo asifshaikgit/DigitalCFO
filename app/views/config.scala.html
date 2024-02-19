@@ -1,0 +1,626 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,
+userobj:model.Users,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, userobj,configParams){
+
+<script type="text/javascript">
+	window.history.forward();
+	(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	ga('create', 'UA-72593005-1', 'myidos.com');
+	ga('send', 'pageview');
+	loginAjaxSetUp();
+	var wshost = '@(configParams.getHttpHost())';
+	var wsshost = '@(configParams.getHttpsHost())';
+
+	@if(userobj.getId() != null) {
+		var locHashTmp = window.location.href;
+		const place1 = locHashTmp.lastIndexOf("?");
+		const place2 = locHashTmp.lastIndexOf("#");
+		var locationId = -1;
+		if (place1 != -1 && place2 != -1) {
+			locationId = locHashTmp.substring(place1 + 1, place2);
+		} else if (place1 != -1 && place2 == -1) {
+			locationId = locHashTmp.substring(place1 + 1, locHashTmp.length);
+		} else if (place1 === -1 && place2 === -1) {
+			console.log("logout1");
+		}
+		if (locationId !== "@userobj.getAuthToken()") {
+			console.log("logout");
+			doLogout();
+		}
+	}
+
+</script>
+@websocket(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,
+userobj:model.Users,configParams:model.ConfigParams)
+<meta name="google-translate-customization" content="adb022d9487bd3f0-a0dc47329ea0a16c-g2cfbf2548bf7ce25-e">
+</meta>
+<div id="top" class="clearfix">
+	<!-- Start App Logo -->
+	<div class="applogo"><a href="/">
+			@if(orgn.getCompanyId() != null){
+			@if(orgn.getCompanyLogoName(orgn.getCompanyId()) != null){
+			<img class="cmplogo" id="companyLogoId" src="" alt="Image"></img>
+			} else {
+			<div class="logo"></div>
+			}
+			} else {
+			<div class="logo"></div>
+			}
+		</a></div>
+	<!-- End App Logo -->
+
+	<!-- Start Sidebar Show Hide Button -->
+	<a class="sidebar-open-button" style="cursor: pointer;"><i class="fa fa-bars"></i></a>
+	<!-- End Sidebar Show Hide Button -->
+
+	<!-- Start Sidepanel Show-Hide Button
+	<a href="#sidepanel" class="sidepanel-open-button" style="color: #ddd;"><i class="fa fa-outdent"></i></a> -->
+	<!-- End Sidepanel Show-Hide Button -->
+	@if(configParams.getCompanyOwner().equals("PWC")) {
+	<div class="aasaanGST-top-header">@(configParams.getCompanyApp())</div>
+	}
+	@if(orgn.getCompanyId() != null){
+	<div class="companyName-top-header">@(orgn.getCompanySuperAdmin(orgn.getCompanyId()))</div>
+	}
+
+	<!-- Start Top Right -->
+	<ul class="top-right">
+		@if(role.contains("APPROVER") || role.contains("ACCOUNTANT")){
+		<li class="link snglUsrDply" style="display:none;">
+			<!--<a class="notifications" data-toggle="modal" data-target="#ExpenseAdvance" type="button" alt="Expense Advance Request Count"> EC </a>-->
+			<a href="#" id="ec" class="notifications" alt="Expense Advance Request Count">EC</a>
+			<div class="easettlementcount">
+				<p style="color: white;"><b id="easettlementcount"></b></p>
+			</div>
+			<div class="eacount">
+				<p style="color: black;"><b id="eacount"></b></p>
+			</div>
+		</li>
+		<li class="link snglUsrDply">&nbsp;</li>
+		<li class="link snglUsrDply" style="display:none;">
+			<a href="#" id="ta" class="notifications" alt="Travel Advance Request Count">TA</a>
+			<div class="tasettlementcount">
+				<p style="color: white;"><b id="tasettlementcount"></b></p>
+			</div>
+			<div class="tacount">
+				<p style="color: black;"><b id="tacount"></b></p>
+			</div>
+		</li>
+		}
+		<div class="modal fade" id="ExpenseAdvance" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">EC</h4>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--
+		<li class="dropdown link">
+			@if(role.contains("CREATOR") && allowedProcurement=="0"){
+
+				<a href="#" data-toggle="dropdown" class="dropdown-toggle notifications"">
+				<div class="procurementcount"><p color="white"><b id="proccount"></b></p></div>P</a>
+				<ul class="dropdown-menu dropdown-menu-list dropdown-menu-right" id="procurementRequestsList" style="font-size:11px; height: 250px; color: black;  overflow: scroll; " >
+
+				</ul>
+
+			}
+		</li>-->
+		<li class="dropdown link">
+			<div id="google_translate_element"
+				style="margin-top: 8px;margin-right: 10px;position: relative;height: 30px;"></div>
+		</li>
+		<li class="dropdown link" id="thememenuid">
+			<a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox">Avatars<span class="caret"></span></a>
+			<ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+				<li><a onclick="changeUserTheme(this);" id="green" value="1"> Default </a></li>
+				<li><a onclick="changeUserTheme(this);" id="magenta" value="2"> Magenta</a></li>
+				<li><a onclick="changeUserTheme(this);" id="silver" value="3"> Silver</a></li>
+				<li><a onclick="changeUserTheme(this);" id="blue" value="4"> Classic</a></li>
+				<li><a onclick="changeUserTheme(this);" id="darkBlue" value="5">DarkBlue</a></li>
+				<li><a onclick="changeUserTheme(this);" id="red" value="6">Red</a></li>
+				<li><a onclick="changeUserTheme(this);" id="silverblue" value="7">SilverBlue</a></li>
+			</ul>
+		</li>
+		<li class="dropdown link">
+			<a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox"><b id="hiddenuseremail"
+					style="display: none;">@email</b><b
+					id="hiddenfullName">@fullName</b><!--img src="https://media.licdn.com/media/AAEAAQAAAAAAAATlAAAAJGMyZjY3NjQ2LWIxZmQtNGNjZi04YzI0LThiNTRiYzBlMWFiNw.jpg" alt="img" --><span
+					class="caret"></span></a>
+			<ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+				<li role="presentation" class="dropdown-header"> Profile</li>
+				<li><a id="chatMessages"><i class="fa falist fa-inbox"></i> Messages<span
+							class="badge label-danger">0</span></a></li>
+				<li><a href="#" onclick="openPrivacySetting();"><i class="fa falist fa-wrench"></i> Settings</a></li>
+				<li class="divider"></li>
+				<li><a href="#" onClick="doLogout();"><i class="fa falist fa-power-off"></i> Logout</a></li>
+
+			</ul>
+		</li>
+	</ul>
+	<!-- End Top Right -->
+</div>
+<!-- END TOP -->
+
+<!-- start side nav -->
+<span><i class="fas fa-arrow-left"></i></span>
+<div class="sidebar clearfix">
+	<script type="text/javascript">
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+		}
+	</script>
+	<script type="text/javascript"
+		src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	<div id="systemconfigadminId1" class="sidebar-nav-fixed">
+		<ul class="sidebar-panel nav">
+			<!-- <li class="sidetitle">Main</li>
+			<li><a href="/"><span class="icon color5"><i class="fa fa-home"></i></span>Home</a></li> -->
+
+			<li><a href="#"><span class="icon color7"><i class="fa fa-bullseye"></i></span>Option<span
+						class="caret"></span></a>
+				<ul>
+					@if(role.contains("SUPER ADMIN")){
+					<li id="companyEntity" class="active close-option"><a id="companyEntity" href="companySetup"
+							data-toggle="tab"><i class="far fa-building iconText" aria-hidden="true"></i>Company
+							Entity</a></li>
+					<li id="uploadCompLogo"><a class="close-option" id="uploadCompLogo" href="uploadCompanyLogo"
+							data-toggle="tab"><i class="fas fa-file-upload iconText" aria-hidden="true"></i>Upload
+							Logo</a></li>
+					}
+					@if(!role.contains("MASTER ADMIN")){
+					@if(role.contains("ACCOUNTANT") && !configParams.isDeploymentSingleUser(userobj)){
+					<li id="budgetSetupId"><a id="budgetSetupId" href="budgetSetup" data-toggle="tab"><i
+								class="fas fa-briefcase iconText" aria-hidden="true"></i>Budget</a></li>
+					}
+					}
+					@if(role.contains("MASTER ADMIN")){
+					<li id="companyDetailsId" class="active close-option"><a id="companyDetailsId" href="companyDetails"
+							data-toggle="tab"><i class="far fa-building iconText"
+								aria-hidden="true"></i>Organisation</a></li>
+					<li id="branchSetupId"><a class="close-option" id="branchSetupId" href="branchSetup"
+							data-toggle="tab"><i class="fas fa-code-branch iconText" aria-hidden="true"></i>Branch</a>
+					</li>
+					<li id="itemSetUpId"><a class="close-option" id="itemSetUpId" href="itemSetUp" data-toggle="tab"><i
+								class="fa fa-tasks iconText" aria-hidden="true"></i>Chart Of Accounts</a></li>
+
+					@if(!configParams.isDeploymentSingleUser(userobj)){
+					<li id="projectSetupId"><a class="close-option" id="projectSetupId" href="projectSetup"
+							data-toggle="tab"><i class="fas fa-project-diagram iconText"
+								aria-hidden="true"></i>Project</a></li>
+					}
+					<li id="vendorSetupId"><a class="close-option" id="vendorSetupId" href="vendorSetup"
+							data-toggle="tab"><i class="fas fa-users iconText" aria-hidden="true"></i>Vendor</a></li>
+					<li id="customerSetupId"><a class="close-option" id="customerSetupId" href="customerSetup"
+							data-toggle="tab"><i class="fas fa-user-friends iconText"
+								aria-hidden="true"></i>Customer</a></li>
+					<li id="usersSetupId"><a class="close-option" id="usersSetupId" href="usersSetup"
+							data-toggle="tab"><i class="fas fa-users-cog iconText" aria-hidden="true"></i>Users</a></li>
+					@if(!configParams.isDeploymentSingleUser(userobj)){
+					<li id="budgetSetupId"><a class="close-option" id="budgetSetupId" href="budgetSetup"
+							data-toggle="tab"><i class="fas fa-briefcase iconText" aria-hidden="true"></i>Budget</a>
+					</li>
+					}
+					<li id="billOfMaterialId"><a id="billOfMaterial" href="billOfMatSetup" data-toggle="tab"><i
+								class="fas fa-money-bill-wave iconText"></i>Bill Of Material</a></li>
+					}
+
+					@if(role.contains("CONTROLLER") && !configParams.isDeploymentSingleUser(userobj)){
+					<li id="dashBoardId" class="active close-option"><a id="dashBoardIdhref" href="dashBoard"
+							data-toggle="tab"><i class="fas fa-chart-line iconText" aria-hidden="true"></i>DashBoard</a>
+					</li>
+					}
+					@if(role.contains("BRANCH ADMIN") && !role.contains("MASTER ADMIN")){
+					<li id="branchSetupId"><a id="branchSetupId" href="branchSetup" data-toggle="tab"><i
+								class="fas fa-code-branch iconText" aria-hidden="true"></i>Branch</a></li>
+					}
+
+					@if(role.contains("CREATOR") || role.contains("APPROVER") || role.contains("ACCOUNTANT") ||
+					role.contains("AUDITOR") || role.contains("MASTER ADMIN") ||
+					configParams.isDeploymentSingleUser(userobj)){
+					<li id="pendingExpenseId" class="active"><a class="close-option" id="pendingExpenseId"
+							href="pendingExpense" data-toggle="tab"><i class="fa fa-book iconText"
+								aria-hidden="true"></i>Transactions</a></li>
+					<li id="myPayrollSetupId"><a id="myPayrollSetupId" href="myPayrollSetup" data-toggle="tab"><i
+								class="fas fa-file-invoice-dollar iconText"></i>My Payroll</a></li>
+					@if(!configParams.isDeploymentSingleUser(userobj)) {
+					<li class="close-option" id="claimSetupId"><a id="claimSetupId" href="claimSetup"
+							data-toggle="tab"><i class="fas fa-hand-holding-usd iconText"
+								aria-hidden="true"></i>Claims</a></li>
+					}
+					@if((role.contains("CREATOR") || role.contains("APPROVER")) && !role.contains("MASTER ADMIN") &&
+					!configParams.isDeploymentSingleUser(userobj)){
+					@if(userobj.canCreateVendor() == true){
+					<li id="vendorSetupId"><a id="vendorSetupId" href="vendorSetup" data-toggle="tab"><i
+								class="fas fa-users iconText" aria-hidden="true"></i>Vendor</a></li>
+					}
+					@if(userobj.canCreateCustomer() == true ){
+					<li id="customerSetupId"><a id="customerSetupId" href="customerSetup" data-toggle="tab"><i
+								class="fas fa-user-friends iconText" aria-hidden="true"></i>Customer</a></li>
+					}
+					}
+
+					@if(!role.contains("MASTER ADMIN") && (userobj.canCreateVendor() || userobj.canCreateCustomer())){
+					<script>
+						$(document).ready(function () {
+							setTimeout(function () {
+								getOrgConfigData();
+								getCountryCurrencyData();
+							}, 100);
+						});
+					</script>
+					}
+					@if(!role.contains("MASTER ADMIN") && (!userobj.canCreateVendor() && !userobj.canCreateCustomer())
+					&& (userobj.canActivateVendor() || userobj.canActivateCustomer())){
+					<script>
+						$(document).ready(function () {
+							setTimeout(function () {
+								$(".customerFreeTextSearchButton").trigger('click');
+								$(".vendorFreeTextSearchButton").trigger('click');
+							}, 100);
+						});
+					</script>
+					}
+					}
+
+				</ul>
+			</li>
+
+			@if(role.contains("CASHIER")){
+			<li id="cashierCountId" class="active"><a id="cashierCountId" href="cashierCount" data-toggle="tab"><i
+						class="fa fa-money" aria-hidden="true"></i>Cash Count</a></li>
+			}
+			@if(role.equalsIgnoreCase("BRANCH ADMIN,OFFICERS") || role.equalsIgnoreCase("OFFICERS,BRANCH ADMIN") ||
+			role.equalsIgnoreCase("OFFICERS")){
+			<li id="branchOfficerViewSetupId"><a id="branchOfficerViewSetupId" href="branchOfficerViewSetup"
+					data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i>Officer</a></li>
+			}
+			@if(configParams.getCompanyOwner().equals("PWC")) {
+			<li id="gstCenterId" onclick="callPWCGBIUrl(this);"><a href="#"><span class="icon color7"><i
+							class="fa fa-check-circle"></i></span>GST Center</a></li>
+			}
+			@if(configParams.getCompanyOwner().equals("KARVY")) {
+			<!-- <li id="gstCenterId" onclick="callKARVYUrl();"><a href="#"><span class="icon color7"><i class="fa fa-check-circle"></i></span>GST Center</a></li>   --->
+			}
+
+			<li class="faqclicks" id="faqList"><a href="#"><span class="icon color7"><i
+							class="fa fa-question-circle"></i></span>FAQ</a></li>
+
+			@if(!configParams.isDeploymentSingleUser(userobj)){
+			<li id="calendarLiId"><a href="#"><span class="icon color5"><i
+							class="fa fa-calendar"></i></span>Calendar</a></li>
+			}
+			<li id="supportCenterId"><a id="supportCenterId" href="supportCenter" data-toggle="tab"><span
+						class="icon color5"><i class="fa fa-life-ring"></i></span>Support</a></li>
+
+		</ul>
+	</div>
+</div>
+<!-- end side nav -->
+</br></br>
+<input type="hidden" id="gstCountryCode" value="@orgn.getGstCountryCode()" />
+<input type="hidden" id="companyOwner" value="@configParams.getCompanyOwner()" />
+<input type="hidden" id="usermoduleshidden" value="@userobj.getModuleRights()" />
+<input type="hidden" id="isCompositionSchemeApply" value="@(orgn.getIsCompositionScheme())" />
+<input type="hidden" id="noOfUploadsAllowed" value="@configParams.getNumberOfDocUploadsAllowed()" />
+<input type="hidden" id="uploadDestinationId" value="@(orgn.getFileUploadDestination())" />
+<input type="hidden" id="readPaymodeOnApproval" value="@configParams.getReadPaymodeOnApproval()" />
+<span class="hidden" id="isDeploymentSingleUser">@(configParams.isDeploymentSingleUser(userobj))</span>
+<span class="hidden"
+	id="duplicateItemsAllowed">@(configParams.getOrganizationConfigParamValue(orgn.getId(),"TRANSACTION.DUPLICATE.ITEMS.ALLOWED"))</span>
+@{if(userobj.getTheme() != null && userobj.getTheme() == 2){
+<script>selectTheme('magenta');	</script>
+}else if(userobj.getTheme() != null && userobj.getTheme() == 3){
+<script>selectTheme('silver');	</script>
+}else if(userobj.getTheme() != null && userobj.getTheme() == 4){
+<script>selectTheme('blue');</script>
+} else if(userobj.getTheme() != null && userobj.getTheme() == 5){
+<script>selectTheme('darkBlue');</script>
+}else if(userobj.getTheme() != null && userobj.getTheme() == 6){
+<script>selectTheme('red');</script>
+}else if(userobj.getTheme() != null && userobj.getTheme() == 7){
+<script>selectTheme('silverblue');</script>
+}else if(!configParams.getCompanyTheme.equals("") && !configParams.getCompanyTheme.equals("all")){
+<script>
+	$('#thememenuid').hide();
+</script>
+}else {
+<script>selectTheme('green');</script>
+}
+}
+
+<!-- start change pwd -->
+<div id="staticchangepassword" class="modal fade" data-backdrop="static" data-keyboard="false"
+	style="width: 50%;margin-left: 10%;" align="center" role="dialog" aria-hidden="true">
+	<div class="lightbox-block lightbox-location">
+		<div class="lightbox-holder">
+			<h2>Change Account Password</h2>
+			<h5 id="wrongActCred" align="center"></h5>
+			<div class="belowheader carousel"></div>
+			<a id="fancybox-close" href="" class="staticchangepasswordclose" style="display: inline;"></a>
+			<div class="modal-body">
+				<div class="form-horizontal">
+					<div class="control-group" align="left">
+						<label class="control-label"><b>Email: </b></label>
+						<div class="controls">
+							<input type="text" id="userCred" name="userCred" class="input-xlarge">
+						</div><br />
+						<label class="control-label"><b>Old Password: </b></label>
+						<div class="controls">
+							<input type="password" id="oldPassword" name="oldPassword" class="input-xlarge">
+						</div><br />
+						<label class="control-label"><b>New Password: </b></label>
+						<div class="controls">
+							<input type="password" id="newPassword" name="newPassword" class="input-xlarge">
+						</div><br />
+						<label class="control-label"><b>Confirm New Password: </b></label>
+						<div class="controls" align="left">
+							<input type="password" id="confirmNewPassword" name="confirmNewPassword"
+								class="input-xlarge">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="text-align: justify;">
+				<div class="controls" align="center">
+					<button id="changePassword" class="changePassword btn btn-primary btn-idos"
+						title="Change Password">Change Password</button>
+					<button id="changePasswordCancel" class="staticchangepasswordclose btn btn-primary btn-idos"
+						title="Cancel">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end change pwd -->
+
+<div id="staticcashbankreceivablepayablebranchwisebreakup" class="modal fade" data-backdrop="static"
+	data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h5 id="wrongActCred" align="center"></h5>
+				@if(role.contains("ACCOUNTANT")){
+				<div id="ageingDiv" style="display:none;">
+					Select Date: <input class="datepicker" type="text"
+						style="margin-top:15px; padding-top:0px; margin-right:5px;" id="ageingDate" /><button
+						style="margin-top:0px; padding-top:0px;" class="btn btn-submit btn-idos"
+						title="Generate ageing report as xlsx" onclick="generateAgeingReport(this, 'xlsx', '0');"><i
+							class="fa fa-file-excel-o" aria-hidden="true"></i> Export Ageing Report as
+						xlsx</button><button style="margin-left:5px; margin-top:0px; padding-top:0px;"
+						class="btn btn-submit btn-idos" title="Generate ageing report as PDF"
+						onclick="generateAgeingReport(this, 'pdf', '0');"><i class="fa fa-file-pdf-o"
+							aria-hidden="true"></i> Export Ageing Report as pdf</button></div><br><br><br>
+				}
+				<h4 class="panel-title">Branch Wise-Breakups</h4>
+				<input id="staticBranchID" type="hidden" />
+			</div>
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>
+
+<div id="staticwapbranchwisebreakup" class="modal fade" data-backdrop="static" data-keyboard="false" align="center"
+	role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h4 class="itemName" style="font-family: Montserrat, sans-serif; font-size: 16px;"></h4>
+				<h5 id="wrongActCred" align="center"></h5>
+			</div>
+			<!--
+			<div class="belowheader carousel"></div>
+				<a id="fancybox-close" href="" class="staticwapbranchwisebreakupclose" style="display: inline;"></a> -->
+			<div class="modal-body">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="staticsupplierwap" class="modal fade" data-backdrop="static" data-keyboard="false" align="center" role="dialog"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h2 class="supplieritemName" style="font-family: Montserrat, sans-serif; font-size: 16px;"></h2>
+				<h5 id="wrongActCred" align="center"></h5>
+				<!-- <div class="belowheader carousel"></div>
+				<a id="fancybox-close" href="" class="staticsupplierwapclose" style="display: inline;"></a> -->
+			</div>
+			<div class="modal-body">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="staticdashboardaggregatedata" class="modal fade" data-backdrop="static" data-keyboard="false" align="center"
+	role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h4 class="aggregateDataSpan"></h4>
+				<h5 id="wrongActCred" align="center"></h5>
+			</div>
+			<div class="belowheader carousel"></div>
+			<!-- <a id="fancybox-close" href="" class="staticdashboardaggregatedataclose" style="display: inline;"></a> -->
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>
+
+<div id="popupUploadDocumentDivId" class="modal fade" align="center" style="z-index:1001;" data-backdrop="static"
+	data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" style="width: 50%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">Select a file to upload</h4>
+				<h5 id="wrongActCred" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<form id="uploadBlobFormId">
+					<div class="input-group" style="margin-left: 30px; margin-bottom:10px;">
+						<span class="input-group-btn">
+							<span class="btn btn-submit btn-file">
+								Select file&hellip; <input type="file" id="uploadBlobId" />
+							</span>
+						</span>
+						<input type="text" class="form-control" readonly style="margin-bottom: -7px;" />
+						<input type="hidden" id="elementId" /><input type="hidden" id="elementParentId" /><input
+							type="hidden" id="txnRefrenceNoId" />
+					</div>
+				</form>
+				<br />
+				<button class="btn btn-cancel" title="Cancel"
+					onClick=" $('#popupUploadDocumentDivId').modal('toggle'); ">Cancel</button>
+				<button onclick="scanAndUpload();" id="uploadDocBtnId" class="btn btn-submit"
+					title="Upload">Upload</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<h5 id="passwordChanged" align="center"></h5>
+@privacySetting(fullName,email,role,orgn,allowedProcurement,configParams){
+}
+@configCustomChange(fullName,email,role,orgn,allowedProcurement,configParams){
+}
+@if(orgn.getCompanyHasChartOfAccounts()!=null){
+<div id="configsetup" onmouseover="changeHeaderclass();">
+	<div class="notify-success" style="display: none; overflow: auto;">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<b id="notificationMessage"></b>
+				</div>
+			</div>
+		</div>
+	</div>
+	@if(role.contains("BRANCH ADMIN")){
+	@configBranch(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	}
+	@if(role.equalsIgnoreCase("BRANCH ADMIN,OFFICERS") || role.equalsIgnoreCase("OFFICERS,BRANCH ADMIN") ||
+	role.equalsIgnoreCase("OFFICERS")){
+	@branchOfficer(fullName,email,role,orgn,allowedProcurement){
+	}
+	}
+	@if(role.contains("SUPER ADMIN")){
+	@configCompanySetup(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@configCompanyLogo(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	}
+	@if(role.contains("MASTER ADMIN")){
+	@configOrganizationSetup(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	}
+	@if(role.contains("MASTER ADMIN")){
+	@configBranch(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@configProject(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@configUser(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@configCOA(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@configVendor(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@configCustomer(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@configBillOfMaterial(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@if(orgn.getGstCountryCode() == "IN"){
+	@configTaxSetupGst(fullName,email,role,orgn,allowedProcurement){
+	}
+	}else{
+	@configTaxSetup(fullName,email,role,orgn,allowedProcurement){
+	}
+	}
+	@configBudget(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	}
+	@if(role.contains("CASHIER")){
+	@configCashier(fullName,email,role,orgn,allowedProcurement){
+	}
+	}
+	@configTransaction(fullName,email,role,orgn,allowedProcurement,configParams,userobj){
+	}
+	@if(role.contains("CREATOR") || role.contains("APPROVER") || role.contains("ACCOUNTANT") ||
+	role.contains("AUDITOR")){
+	@claimSetup(fullName,email,role,orgn){
+	}
+	@myPayroll(fullName,email,role,orgn){
+	}
+	@if((role.contains("CREATOR") || role.contains("APPROVER")) && !role.contains("MASTER ADMIN")){
+	@configVendor(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	@configCustomer(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	}
+	}
+	@if(!role.contains("MASTER ADMIN")){
+	@if(role.contains("CONTROLLER") || role.contains("ACCOUNTANT") || role.contains("AUDITOR")){
+	@configBudget(fullName,email,role,orgn,allowedProcurement,configParams){
+	}
+	}
+	}
+	@configLabour(fullName,email,role,orgn,allowedProcurement){
+	}
+
+	@if(role.contains("CONTROLLER")){
+	@dashboard(fullName,email,role,orgn,allowedProcurement){
+	}
+	}
+
+	@feedback(fullName,email,role,orgn){
+	}
+	@support(fullName,email,role,orgn,configParams){
+	}
+	@notes(fullName,email,role,orgn){
+	}
+
+	<!-- currently chat is disabled
+		chat(fullName,email,role,orgn){
+		} -->
+	<div class="calculator-idos" title="Calculator">
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.calculator-idos').calculator({
+				title: '@(configParams.getCompanyApp()) Calculator'
+			});
+		});
+		showHideModuleTabs('@userobj.getModuleRights()');
+		restPJEDatePicker();
+	</script>
+</div><!-- configSetup -->
+}
+}

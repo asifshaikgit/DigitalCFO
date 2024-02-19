@@ -1,0 +1,37 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="uploadCompanyLogo" class="tab-pane mainDiv" style="display: none;">
+    <div>
+        <input id="hiddenOrgId" type="hidden" value="@(orgn.getId)">
+    </div>
+    <div class="content">
+        <legend class="panel-title" style="text-align: center;">Upload Logo</legend>
+        <div>
+            <table class="table" id="uploadLogoTableID" style="margin-top: 0px;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="input-group" style="margin-bottom:10px; width:100px;">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-submit btn-file">
+                                        Select company logo file&hellip; <input type="file" id="uploadorglogofile" name="uploadorglogofile"/>
+                                    </span>
+                                </span>
+                                <input type="text" id="uploadorglogotxt" class="form-control" readonly  style="margin-bottom: -7px;  width:200px;">
+                            </div>
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="button" style="margin-left: 10px; margin-bottom: 9px;" id="uploadOrgLogo" class="btn btn-submit btn-idos" title="Upload Company Logo" onclick="uploadOrgLogo();">
+                                <i class="fa fa-upload"></i>
+                                Upload company Logo
+                            </button>
+                        </td>
+                        <td colspan="5">
+                            <b style="margin-left: 10px; margin-bottom: -9px; color: red;">*Maximum logo file size allowed is 10 KB.</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

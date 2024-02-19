@@ -1,0 +1,36 @@
+@(email: String,password:String,configParams:model.ConfigParams)
+<table  style="width: 60%; font-family: 'Montserrat', sans-serif;" class="table">
+	<tbody>
+		<tr id="emailHeader">
+			<td>
+
+			</td>
+		</tr>
+		<tr id="emailBody">
+			<td>
+				<table>
+					<tr>
+			          <td style="font-size: 19px; font-weight: bold;">Your Account Password Reset Successfully.
+					  <br>
+					  <br>
+			          </td>
+			        </tr>
+					<tr>
+					     <td style="font-size: 16px; font-weight: bold;">Please find your Login details below:
+					  </td>
+					</tr>
+					<tr>
+					  <td>Email: @{email}</td>
+					</tr>
+					<tr>
+					  <td>Password: @{password}</td>
+					</tr>
+				</table>
+			</td>
+ 		</tr>
+		<tr id="emailFooter">
+				<td style="text-align: left;">  <br>
+					  <br>&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+			</tr>
+	</tbody>
+</table>

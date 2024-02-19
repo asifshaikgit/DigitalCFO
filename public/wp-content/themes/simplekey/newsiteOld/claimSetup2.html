@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>claimSetup  - Dashboard</title>
+
+  <!-- ========== Css Files ========== -->
+  <link href="css/root.css" rel="stylesheet">
+
+
+  </head>
+  <body>
+  <!-- Start Page Loading -->
+  <div class="loading"><b>Please wait while IDOS populates your data...</b></div>
+  <!-- End Page Loading -->
+  
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+  <!-- START TOP -->
+  <div id="top" class="clearfix">
+
+    <!-- Start App Logo -->
+    <div class="applogo">
+    <a href="main.html"><div class="logo"></div></a>
+    </div>
+    <!-- End App Logo -->
+
+	
+
+	
+    <!-- Start Sidebar Show Hide Button -->
+    <a href="#" class="sidebar-open-button" style="color: #D01938"><i class="fa fa-bars"></i></a>
+    <a href="#" class="sidebar-open-button-mobile" style="color: #D01938"><i class="fa fa-bars"></i></a>
+    <!-- End Sidebar Show Hide Button -->
+	
+    
+	
+    
+
+    <!-- Start Sidepanel Show-Hide Button -->
+	<a href="#sidepanel" class="sidepanel-open-button" style="color: #ddd;"><i class="fa fa-outdent"></i></a>
+    <!-- End Sidepanel Show-Hide Button -->
+
+    <!-- Start Top Right -->
+    <ul class="top-right">
+    <li class="dropdown link">
+	<a class="dropdown-toggle hdbutton" data-toggle="collapse" href="#CreateNewTransaction" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-hand-o-right"></i> Create New Transaction</a>
+    </li>
+	
+
+
+    <li class="link">
+      <a href="#" class="notifications">6</a>
+    </li>
+
+    <li class="dropdown link">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox"><b>(Mr) Pablo Jara</b><img src="https://media.licdn.com/media/AAEAAQAAAAAAAATlAAAAJGMyZjY3NjQ2LWIxZmQtNGNjZi04YzI0LThiNTRiYzBlMWFiNw.jpg" alt="img"><span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+          <li role="presentation" class="dropdown-header">Profile</li>
+          <li><a href="#"><i class="fa falist fa-inbox"></i>Messages<span class="badge label-danger">0</span></a></li>
+          <li><a href="#"><i class="fa falist fa-wrench"></i>Settings</a></li>
+          <li class="divider"></li>
+			<li><a href="#"><i class="fa falist fa-lock"></i> Lockscreen</a></li>
+          <li><a href="index.html"><i class="fa falist fa-power-off"></i> Logout</a></li>
+
+        </ul>
+    </li>
+
+    </ul>
+    <!-- End Top Right -->
+
+  </div>
+  <!-- END TOP -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START SIDEBAR -->
+<div class="sidebar clearfix">
+
+<ul class="sidebar-panel nav">
+  <li class="sidetitle">Main</li>
+  <li><a href="main.html"><span class="icon color5"><i class="fa fa-home"></i></span>Home</a></li>
+  <li><a href="#"><span class="icon color7"><i class="fa fa-bullseye"></i></span>Option<span class="caret"></span></a>
+    <ul>
+      <li><a href="user-2.html">Transactions</a></li>
+      <li><a href="#">Labour</a></li>
+    </ul>
+  </li>
+  
+  <li><a href="calendar.html"><span class="icon color5"><i class="fa fa-calendar"></i></span>Calendar</a></li>
+  
+
+  
+  
+  <li><a href=""><span class="icon color6"><i class="fa  fa-life-ring"></i></span>Support</a></li> 
+</ul>
+
+
+
+
+
+</div>
+<!-- END SIDEBAR -->
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+ 
+ 
+ 
+
+
+
+<div class="content ">
+
+  <!-- Start Page Header -->
+<div class="page-header">
+<div class="panel">
+
+        <div class="panel-title">
+          Create New Claim
+        </div>
+
+        <div class="panel-body">
+		<!-- Boton 1-->
+          <a class="btn btn-submit" data-toggle="collapse" href="#CreateNewTransaction" aria-expanded="false" aria-controls="collapseExample">
+            What do you want to do?
+          </a>
+         
+		<button class="btn btn-whatdoyou" type="button" data-toggle="collapse" data-target="#whatdoineedtodo" aria-expanded="false" aria-controls="collapseExample">What do i need to do?</button>
+		
+
+	<div class="margin-t-10 collapse" id="whatdoineedtodo" aria-expanded="true" style="height: 0px;">
+		<div class="well">
+		More info select ...
+		</div>
+	</div>
+		  
+		  
+		  <!--- Inicio What do you -->
+		  <div class="margin-t-10 collapse" id="CreateNewTransaction" aria-expanded="false" style="height: 0px; width: 390px;">
+						<div class="form-group">
+								<select class="form-control" id="createtransaction">
+									<option value="0">---- Please Select ----</option>
+									<option value="1">Request For Travel Advance</option>
+									<option value="2">Settle Travel Advance</option>
+									<option value="17">Request Advance For Expense</option>
+									<option value="18">Settle Advance For Expense</option>
+									<option value="19">Request For Expense Reimbursement</option>
+								</select>					
+						</div>
+
+		  </div>
+	
+	
+	<div id="1" class="margin-t-10 showtable" style="display:none"> 
+            <div class="panel-body">
+			
+            <table  class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <td>Select Branches & Projects</td>
+                <td>From / To Distance	</td>
+                <td>Type Of City/Distance(Kms/Miles)</td>
+                <td>Your Travel Eligibility Details	</td>
+                <td>Advance Eligibility Details	</td>
+                <td>Advance Requested (How Much Advance Do You Require?)	</td>
+				<td>Knowledge Library	</td>
+				<td>Purpose Of Visit	</td>
+				<td>Remarks / Upload Documents</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+				<div class="form-group">
+                   <select class="form-control proyect" id="">
+									<option value="">--Please Select--</option>
+									<option value="1">New York</option>
+									<option value="2">Santiago SCL</option>
+									<option value="3">Mumbai</option>
+				   </select>
+				  </div>
+				   
+				<div class="form-group">
+					<select class="form-control proyect" id="">
+									<option value="">--Please Select--</option>
+									<option value="1">Santiago SCL</option>
+									<option value="2">New York</option>
+									<option value="3">Mumbai</option>
+				   </select>					   
+                  </div>
+				</td>
+                <td>
+				<div class="form-group">
+                   <select class="proyect" name="travelType" id="travelType" onfocus="selectClaimTxnBranch(this)">
+					<optgroup label="Travel Type"></optgroup>
+					<option value="">--Please Select--</option>
+					<option value="1">Domestic</option>
+					<option value="2">International</option>
+					</select>
+				</div>
+				From:
+				<input name="fromToTravelDropdownOther" class="fromToTravelDropdownOther ui-autocomplete-input" placeholder="Location" style="width:128px;" autocomplete="off">
+				<br/>
+				To:
+				<input name="fromToTravelDropdownOther" class="fromToTravelDropdownOther ui-autocomplete-input" placeholder="Location" style="width:128px;" autocomplete="off">
+				</td>
+				<td>
+							<select class="proyect" name="typeOfCity" id="typeOfCity" onfocus="selectFromToClaimPlaces(this);" onchange="checkForAllFromToOption(this);">
+							<optgroup label="Type Of City"></optgroup>
+							<option value="">--Please Select--</option>
+							<option value="1">Country capital</option>
+							<option value="2">State Capital</option>
+							<option value="3">Metro city</option>
+							<option value="5">Town</option>
+							<option value="6">County</option>
+							<option value="7">Municipality</option>
+							<option value="8">Village</option>
+							<option value="9">Remote location</option>
+							<option value="11">Hill station</option>
+							<option value="12">Resort</option>
+							</select>
+							<br>
+							<select class="proyect" name="appropriateDistance" id="appropriateDistance" onfocus="selectTypeOfCity(this);" style="margin-top: 10px;">
+							<optgroup label="Select Appropriate Distance"></optgroup>
+							<option value="">--Please Select--</option>
+							<option value="1">Less than 100</option>
+							<option value="2">100 to 250</option>
+							<option value="3">250 to 500</option>
+							<option value="4">500 to 1000</option>
+							<option value="5">1000 to 1500</option>
+							<option value="6">1500 to 2000</option>
+							<option value="7">2000 to 2500</option>
+							<option value="8">2500 to 3000</option>
+							<option value="9">3000 to 4000</option>
+							<option value="10">4000 to 5000</option>
+							<option value="11">5000 to 6000</option>
+							<option value="12">6000 to 7000</option>
+							<option value="13">Above 7000</option>
+							</select>
+							<br>
+							<input class="proyect" placeholder="Total Days(Excluding Days Of Travel)" style="margin-top: 10px;" type="text" id="totalDays" class="totalDays" name="totalDays" onfocus="checkAppropriateDistanceSelection(this);" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="populateTravelEligibility(this);">
+				</td>
+                <td>
+				<div class="travelDetailedConfDescription" style="height: 224px;overflow: auto; width:135px;word-wrap: break-word; margin-bottom: 10px;"><b>#Travel:</b>
+							<div class="travelEligibilityDetailedConf" style="margin-bottom: 10px;"></div><b>#Boarding &amp; lodging:</b><br>
+							<div class="bnlConfDetails" style="margin-bottom: 10px;"></div>
+							<b>#Other Expenses:</b><div class="otherExpensesDetailedConf" style="margin-bottom: 10px;"></div>
+							<b>#Fixed Per DIAM:</b><div class="fixedPerDiamDetailedConf" style="margin-bottom: 10px;"></div></div>
+				</td>
+				<td>
+				<div style="height: 224px;overflow: auto;width:140px;word-wrap: break-word; margin-bottom: 10px;">
+							<input placeholder="Existing Advance" style="width:117px; margin-bottom: 10px;" type="text" name="existingUserTravelAdvance" id="existingUserTravelAdvance" readonly="readonly">
+							<br>
+							<input placeholder="Adjust Against Existing Advance" style="width:117px; margin-bottom: 10px;" type="text" name="adjustmentFromExistingAdvance" id="adjustmentFromExistingAdvance" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="adjustFromAvailableAdvance(this)" onblur="populateExistingTravelClaimAdvanceAndAlert(this)">
+							<b>Advance Eligibility</b>
+							<br>
+							<div class="maxAdvanceEligibleTravelAdvanceClaim" style="width:130px;word-wrap: break-word; margin-bottom: 10px;">
+							<b>You Are Eligible For The Following Maximum Advance</b>
+							<br>
+							<b>#Travel:</b>
+							<div class="travelAllowedAmountConf"></div>
+							<b>#Boarding &amp; lodging:</b>
+							<div class="bnlAllowedAmountConf" style="margin-bottom: 10px;"></div>
+							<b>#Other Expenses:</b>
+							<div class="otherExpensesAllowedAmountConf" style="margin-bottom: 10px;"></div>
+							<b>#Fixed Per DIAM:</b>
+							<div class="fixedPerDiamAllowedAmountConf" style="margin-bottom: 10px;"></div>
+							<b>#Total Eligibility:</b><div class="totalTravelEligibilityConf" style="margin-bottom: 10px;"></div>
+							</div>
+				</div>
+				</td>
+                <td>
+							<select class="proyect" name="existingAdvanceClaimsTxn" id="existingAdvanceClaimsTxn" style="margin-bottom: 10px;">-Please Select--</select>
+							<br>
+							<input class="proyect" placeholder="Advance Requested Now" type="text" name="advanceRequestedOnThistxn" id="advanceRequestedOnThistxn" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="displayTotalAdvanceTxnAmount(this);">
+							<br>
+							<input class="proyect" placeholder="Total Advance Amount In Account" style="margin-top: 10px;" type="text" name="totalTravelAdvanceTxnAmount" id="totalTravelAdvanceTxnAmount" readonly="readonly">
+				</td>
+				<td style="
+    background-color: #EAEAEA;
+">
+				null
+				</td>
+				<td>
+							<select class="proyect" name="purposeOfVisitTravelAdvance" id="purposeOfVisitTravelAdvance" onchange="return checkOthersContentPurposeOfVisit(this);">
+							<option value="">--Please Select--</option>
+							<option value="1">Accounts</option>
+							<option value="2">Administration</option>
+							<option value="3">Audit</option>
+							<option value="4">Bank related work</option>
+							<option value="5">Business development</option>
+							<option value="6">Conference / seminar</option>
+							<option value="7">Customer meeting</option>
+							<option value="8">Human resources</option>
+							<option value="9">Investor meetings</option>
+							<option value="10">Sales</option>
+							<option value="11">Statutory compliance </option>
+							<option value="12">Trade fair</option>
+							<option value="13">Training </option>
+							<option value="14">Vendor meeting</option>
+							<option value="15">Others</option></select>
+							<br>
+							<input class="proyect" placeholder="Others Please Specify" style="margin-top: 10px;" type="text" name="othersPurposeOfVisit" id="othersPurposeOfVisit">
+				</td>
+				<td>
+				<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+				<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+				<button class="btn btn-default btn-upload" data-toggle="modal" data-target="#myModal" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+					  <div class="modal-dialog">
+						<div class="modal-content">
+						  <div class="modal-header">
+						 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Upload File [.Docx, .Pdf]</h4>
+						  </div>
+						  <div class="modal-body">
+							<label class="control-label">Select File</label>
+							<input id="input-1a" type="file" class="file" data-show-preview="false">
+						  </div>
+						  <div class="modal-footer">
+							<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-default">Upload</button>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				</td>
+              </tr>
+            </tbody>
+          </table>
+		  
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+
+	</div>	
+		</div>
+	
+	<div id="2" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td>Select Branches & Projects</td>
+						<td>What do you</td>
+						<td>Select to which customer</br> you want to sell</td>
+						<td>Knowledge Library</td>
+						<td>Input Number Of Units Being Sold.<br> For Services Input 1</td>
+						<td>Adjustments</td>
+						<td>Net Amount</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">New York</option>
+											<option value="2">Santiago SCL</option>
+											<option value="3">Mumbai</option>
+						   </select>
+						  </div>
+						   
+						<div class="form-group">
+							<select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Sun Screen</option>
+											<option value="2">iPhone 5S</option>
+											<option value="3">Mouse Mickey</option>
+						   </select>
+						</div>
+
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control selectcustomer" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Mattew</option>
+											<option value="2">Joe</option>
+											<option value="3">Hari</option>
+						   </select>
+						</div>
+
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box" id="exampleInputName2" placeholder="1"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Price Per Unit"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Gross Amount">
+						</td>
+						<td>
+						<input type="text" class="form-control box"  id="exampleInputName2" value="Advance Avaible"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Advance to Adjust?">
+						</td>
+						<td>
+						
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Net Result">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  
+						<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+
+	</div>	
+
+	</div>
+		
+	<div id="3" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Branches &amp; <br>Projects &amp; Procurement Request</td>
+						<td>What Do You Want To Buy</td>
+						<td style="
+							width: 12px;
+						">Select Vendor From Whom To Buy</td>						
+						<td>Knowledge Library</td>
+						<td style="
+							width: 12px;
+						">Input Number Of Units Being Sold.<br> For Services Input 1</td>						
+						<td>Adjustments</td>
+						<td>Net Amount</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">New York</option>
+											<option value="2">Santiago SCL</option>
+											<option value="3">Mumbai</option>
+						   </select>
+						  </div>
+						   
+						<div class="form-group">
+							<select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						  <div class="form-group">
+							<select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Sun Screen</option>
+											<option value="2">iPhone 5S</option>
+											<option value="3">Mouse Mickey</option>
+						   </select>
+						</div>
+
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control selectcustomer" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Mattew</option>
+											<option value="2">Joe</option>
+											<option value="3">Hari</option>
+						   </select>
+						</div>
+						<input type="text" class="form-control box" id="exampleInputName2" placeholder="Vendor?"><p></p>
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box" id="exampleInputName2" placeholder="1"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Price Per Unit"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Gross Amount">
+						</td>
+						<td>
+						<input type="text" class="form-control box"  id="exampleInputName2" value="Advance Avaible"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Advance to Adjust?">
+						</td>
+						<td>
+						
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Net Result">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+	</div>	
+
+	</div>
+	
+	<div id="4" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Branches &amp; Projects &amp; Procurement Request</td>
+						<td>What Do You Want To Buy</td>
+						<td>Select Vendor From Whom To Buy</td>
+						<td>Knowledge Library</td>
+						<td>Input Number Of Units Being Sold.<br> For Services Input 1</td>
+						<td>Adjustments</td>
+						<td>Net Amount</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">New York</option>
+											<option value="2">Santiago SCL</option>
+											<option value="3">Mumbai</option>
+						   </select>
+						  </div>
+						   
+						<div class="form-group">
+							<select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						  <div class="form-group">
+							<select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Sun Screen</option>
+											<option value="2">iPhone 5S</option>
+											<option value="3">Mouse Mickey</option>
+						   </select>
+						</div>
+						Item Details :
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control selectcustomer" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Mattew</option>
+											<option value="2">Joe</option>
+											<option value="3">Hari</option>
+						   </select>
+						</div>
+						
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box" id="exampleInputName2" placeholder="1"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Price Per Unit"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Gross Amount">
+						</td>
+						<td>
+						<input type="text" class="form-control box"  id="exampleInputName2" value="Advance Avaible"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Advance to Adjust?">
+						</td>
+						<td>
+						
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Net Result">
+						Detailed Result
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+
+	</div>	
+
+	</div>
+	
+	<div id="5" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Branches & Projects & Procurement Request</td>
+						<td>What Do You Want To Buy</td>
+						<td>Select Vendor From Whom To Buy</td>
+						<td>Knowledge Library</td>
+						<td>Input Number Of Units Being Sold.<br> For Services Input 1</td>
+						<td>Adjustments</td>
+						<td>Net Amount</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">New York</option>
+											<option value="2">Santiago SCL</option>
+											<option value="3">Mumbai</option>
+						   </select>
+						  </div>
+						   
+						<div class="form-group">
+							<select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						  <div class="form-group">
+							<select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Santiago SCL</option>
+											<option value="2">New York</option>
+											<option value="3">Mumbai</option>
+						   </select>					   
+						  </div>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Sun Screen</option>
+											<option value="2">iPhone 5S</option>
+											<option value="3">Mouse Mickey</option>
+						   </select>
+						</div>
+						Item Details :
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control selectcustomer" id="">
+											<option value="">--Please Select--</option>
+											<option value="1">Mattew</option>
+											<option value="2">Joe</option>
+											<option value="3">Hari</option>
+						   </select>
+						</div>
+						
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box" id="exampleInputName2" placeholder="1"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Price Per Unit"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Gross Amount">
+						</td>
+						<td>
+						<input type="text" class="form-control box"  id="exampleInputName2" value="Advance Avaible"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Advance to Adjust?">
+						</td>
+						<td>
+						
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Net Result">
+						Detailed Result
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+				  
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+
+	</div>	
+
+	</div>
+	
+	<div id="6" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Vendor To Whom You Wish To Pay</td>
+						<td>Select Invoice For Which You Wish To Pay This Vendor</td>
+						<td>Knowledge Library	</td>
+						<td>Amount Outstanding Against This Invoice</td>
+						<td>Adjust Advance?	</td>
+						<td>Amount You Wish To Pay</td>
+						<td>Balance Due On This Invoice</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+											<option value="3198">Pricewaterhousecoopers</option>
+											<option value="3199">Grant Thornton</option>
+											<option value="3201">Aleo Environmental Enterprises, Inc.</option>
+											<option value="3202">Alert Services Inc.</option>
+											<option value="3203">All Points Communications</option>
+											<option value="3204">Allied Associates Commercial Floors, Inc.</option>
+											<option value="3205">Alphapointe</option>
+											<option value="3206">Tata Dcomo</option>
+											<option value="3207">BSNL</option>
+											<option value="3208">ECS Learning Systems, Inc.</option>
+											<option value="3209">Imagery Graphic Systems</option>
+											<option value="3210">Software Express</option>
+											<option value="3211">South Texas School Furniture</option>
+											<option value="3212">Troxell Communications</option>
+											<option value="3215">Zaner-Bloser, Inc.</option>
+											<option value="9905">jaysynergy</option>
+											<option value="9918">Shell</option>
+											<option value="9921">ABC</option>
+
+						   </select>
+						  </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						Item Details :
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>null</td>
+						<td>
+						<input type="text" class="form-control box" id="exampleInputName2" placeholder="1"><p></p>
+						<input type="text" class="form-control box" id="exampleInputName2" value="Advance to adjust"><p></p>
+						</td>
+						<td style="
+							text-align: center;
+						">
+						<input type="text" class="form-control box" id="exampleInputName2" value="Advance Avaible">
+						<p></p><p></p>Tax you must deduct: 348537</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Amount">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+				  </table>
+	
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+	</div>	
+
+</div>
+
+<div id="7" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Customer Who Is Making The Return</td>
+						<td>Select The Item For Which You Are Processing This Return</td>
+						<td>Knowledge Library	</td>
+						<td>Select The Invoice Against Which You Are Processing This Return	</td>
+						<td>Invoice Value	</td>
+						<td>Amount For Which This Return Is Being Processed</td>
+						<td>Balance Due On This Invoice</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+						   </select>
+						 </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>null</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						<input type="text" class="form-control box"  id="exampleInputName2" value="Amount">
+						</p></p>Return Details
+						</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Amount">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+		</table>
+				  
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+
+	    </div>	
+
+</div>	
+
+<div id="8" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td style="
+						width: 15em;
+						">Select Vendor To Whom You Are Making The Return	</td>
+						<td>Select The Item For Which You Are Processing This Return	</td>
+						<td>Knowledge Library	</td>
+						<td>Select The Invoice Against Which You Are Processing This Return	</td>
+						<td>Invoice Value	</td>
+						<td>Amount For Which This Return Is Being Processed</td>
+						<td>Balance Due On This Invoice</td>
+						<td>Transaction Notes</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+						   </select>
+						 </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>null</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						<input type="text" class="form-control box"  id="exampleInputName2" value="Amount">
+						</p></p>Return Details
+						</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Amount">
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button"><i class="fa fa-upload"></i>Upload</button><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+		</table>
+				  
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+
+	    </div>	
+
+</div>	
+
+<div id="9" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td>Select Branch	</td>
+						<td>Select Bank	</td>
+						<td>Bank Details	</td>
+						<td>Knowledge Library	</td>
+						<td>Amount Withdrawal	</td>
+						<td>Amount Left	</td>
+						<td>Documents	</td>
+						<td>Remarks</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+						   </select>
+						 </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						<input type="text" class="form-control box"  id="exampleInputName2" value="">
+						</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Supporting Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button" style="margin-left: 0px;"></i>Upload</button>
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+		</table>
+				  
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+
+	    </div>	
+
+</div>	
+
+
+<div id="10" class="margin-t-10 showtable" style="display:none"> 
+        <div class="panel-body">	
+			<table class="table table-bordered table-striped">
+					<thead>
+					  <tr>
+						<td>Select Branch	</td>
+						<td>Select Bank	</td>
+						<td>Bank Details	</td>
+						<td>Knowledge Library	</td>
+						<td>Deposit Amount	</td>
+						<td>Total Amount	</td>
+						<td>Documents	</td>
+						<td>Remarks</td>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td>
+						<div class="form-group">
+						   <select class="form-control proyect" id="">
+											<option value="">--Please Select--</option>
+						   </select>
+						 </div>						
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						
+						
+						</td>
+						<td>
+						</td>
+						<td>
+						<div class="form-group">
+						   <select class="form-control whatdoyou" id="">
+											<option value="">--Please Select--</option>
+											
+						   </select>
+						</div>
+						</td>
+						<td>
+						<input type="text" class="form-control box"  id="exampleInputName2" value="">
+						</td>
+						<td>
+
+						<input type="text" class="form-control boxdiplay" id="exampleInputName2" value="Supporting Documents"><p></p>
+						<button class="btn btn-default btn-upload" type="button" style="margin-left: 0px;"></i>Upload</button>
+						</td>
+						
+						<td>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Imput Remarks"><p></p>
+						<input type="text" class="form-control boxremarks"  id="exampleInputName2" value="Support Documents"><p></p>
+						
+						</td>
+					  </tr>
+					</tbody>
+		</table>
+				  
+			<div class="controls">
+			<button id="cancel"  class="btn btn-cancel btn-controls" type="button"><i class="fa fa-times"></i>Cancel</button>
+			<button id="submit" class="btn btn-submit btn-controls" type="button"><i class="fa fa-check"></i>Submit</button>
+			</div>
+
+	    </div>	
+
+</div>	
+	
+
+</div>
+
+</div>
+  <!-- End Page Header -->
+
+
+
+
+    <!-- Start Panel -->
+    
+<div class="panel panel-showtrans">
+
+	<div class="navbar-transaction">
+			<ul class="menu">
+				  <li><i class="fa fa-download download"></i> Download Company Template</li>
+				  <li><i class="fa fa-archive budget"></i> Exceeding Budget</li>
+				  <li><i class="fa fa-archive rules"></i> Rules Not Followed</li>
+				  <li><i class="fa fa-exclamation-circle warning"></i> Exceeding Budget & Rules Not Followed</li>
+			</ul>
+	</div>
+        <div class="panel-body table-responsive">
+
+            <table id="showtables" class="table display">
+                <thead>
+                    <tr>
+                        <th>BRANCH</th>
+                        <th>ITEM</th>
+                        <th>CUSTOMER/VENDOR	</th>
+                        <th>DATE</th>
+                        <th>PAY MODE</th>
+						<th>UNIT PRICE</th>
+						<th>AMOUNT/DESCRIPTION</th>
+						<th>STATUS</th>
+						<th>DOCUMENTS</th>
+						<th>REMARKS</th>
+                    </tr>
+                </thead>
+             
+                <tfoot>
+                    <tr>
+                        <th>BRANCH</th>
+                        <th>ITEM</th>
+                        <th>CUSTOMER/VENDOR	</th>
+                        <th>DATE</th>
+                        <th>PAY MODE</th>
+						<th>UNIT PRICE</th>
+						<th>AMOUNT/DESCRIPTION</th>
+						<th>STATUS</th>
+						<th>DOCUMENTS</th>
+						<th>REMARKS</th>
+                    </tr>
+                </tfoot>
+             
+                <tbody>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td class="" style="color: white;background-color: #A71812;">Bookkeeping Services</td>
+                        <td>Aleo Environmental Enterprises, Inc</td>
+                        <td>2011/04/25</td>
+                        <td>CASH</td>
+                        <td>null</td>
+						<td>5</td>
+						<td>Require Approval</td>
+						<td>No DATA</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td class="sorting_1" style="background-color: #D90000;color: white;border: 36px;">Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td class="sorting_1" style="background-color: #F58647;color: white;border: 36px;">Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>WASHINGTON DC</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>NEW YORK</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>NEW YORK</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>NEW YORK</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>NEW YORK</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>NEW YORK</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>NEW YORK</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>NEW YORK</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>NEW YORK</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>MUMBAI</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>MUMBAI</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>MUMBAI</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>MUMBAI</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>MUMBAI</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                    <tr>
+						<td>MUMBAI</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>2011/04/25</td>
+                        <td>null</td>
+                        <td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+						<td>null</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+</div>
+    
+    <!-- End Panel -->
+
+
+<!-- END CONTAINER -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+<!-- Start Footer -->
+<div class="row footer">
+  <div class="col-md-6 text-left">
+  Copyright © 2015 <a href="" target="_blank">IDOS CORP</a> All rights reserved.
+  </div>
+  <div class="col-md-6 text-right">
+    For feedback & support, please email to <a href="#" target="_blank">support@myidos.com</a>
+  </div> 
+</div>
+<!-- End Footer -->
+
+
+</div>
+
+<div role="tabpanel" class="sidepanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#chat" aria-controls="chat" role="tab" data-toggle="tab">CHAT</a></li>
+    <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">NOTES</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+      <!-- Start Chat -->
+    <div role="tabpanel" class="tab-pane active" id="chat">
+
+      
+      <div class="gn-title">ONLINE MEMBERS (4)</div>
+      <ul class="group">
+        <li class="member"><a href="#"><b>Hari Rodriguez</b>CHILE</a><span class="status online"></span></li>
+        <li class="member"><a href="#"><b>Cheruku Srikanth  </b>INDIA</a><span class="status busy"></span></li>
+        <li class="member"><a href="#"><b>Manali Mungikar</b>INDIA</a><span class="status away"></span></li>
+        <li class="member"><a href="#"><b>Sudhir Gadgil </b>INDIA</a><span class="status online"></span></li>
+      </ul>
+
+      <div class="gn-title">OFFLINE MEMBERS (1)</div>
+     <ul class="group">
+        <li class="member"><a href="#"><b>Paulina Castro</b>CHILE</a><span class="status offline"></span></li>
+      </ul>
+
+      <form class="search">
+        <input type="text" class="form-control" placeholder="Search a contacts...">
+      </form>
+    </div>
+    <!-- End Chat -->
+
+  
+    <!-- Start Today -->
+    <div role="tabpanel" class="tab-pane" id="today">
+
+      <div class="sidepanel-m-title">
+        Today
+        <span class="left-icon"><a href="#"><i class="fa fa-refresh"></i></a></span>
+        <span class="right-icon"><a href="#"><i class="fa fa-file-o"></i></a></span>
+      </div>
+
+      <div class="gn-title">NEW</div>
+
+      <ul class="list-w-title">
+        <li>
+          <a href="#">
+            <span class="label label-danger">ORDER</span>
+            <span class="date">9 hours ago</span>
+            <h4>New Jacket 2.0</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-success">COMMENT</span>
+            <span class="date">14 hours ago</span>
+            <h4>Bill Jackson</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-info">MEETING</span>
+            <span class="date">at 2:30 PM</span>
+            <h4>Developer Team</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="label label-warning">EVENT</span>
+            <span class="date">3 days left</span>
+            <h4>Birthday Party</h4>
+            Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+          </a>
+        </li>
+      </ul>
+
+    </div>
+    <!-- End Today -->
+
+    <!-- Start Tasks -->
+    <div role="tabpanel" class="tab-pane" id="notes">
+
+     
+
+      <div class="gn-title">Audio </div>
+
+      <ul class="todo-list">
+	 
+		<input onclick="grabar()" type="button" value="Recording" style="
+			margin-top: 13px;
+			position: static;
+		">
+		<input onclick="parar()" type="button" value="stop and play" />
+	   <p></p>
+		
+      </ul>
+
+    <div class="gn-title">Audio Notes</div>
+	
+	<audio controls="" autoplay="" style="
+		margin-top: 14px;
+	"></audio>
+
+    </div>    
+    <!-- End Tasks -->
+
+
+  </div>
+
+</div>
+
+
+<!-- END SIDEPANEL -->
+<!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/plugins.js"></script>
+<script type="text/javascript" src="js/bootstrap-select/bootstrap-select.js"></script>
+<script type="text/javascript" src="js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script src="js/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui/jquery-ui.min.js"></script>
+<script src="js/sweet-alert/sweet-alert.min.js"></script>
+<script src="js/kode-alert/main.js"></script>
+<script>
+// Show Tables
+$(document).ready(function() {
+    $('#showtables').DataTable();
+} );
+
+//Order by Show Tables
+$(document).ready(function() {
+    var table = $('#example').DataTable({
+        "columnDefs": [
+            { "visible": false, "targets": 2 }
+        ],
+        "order": [[ 2, 'asc' ]],
+        "displayLength": 25,
+        "drawCallback": function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+ 
+            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                    );
+ 
+                    last = group;
+                }
+            } );
+        }
+    } );
+ 
+    // Order by the grouping
+    $('#showtables tbody').on( 'click', 'tr.group', function () {
+        var currentOrder = table.order()[0];
+        if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
+            table.order( [ 2, 'desc' ] ).draw();
+        }
+        else {
+            table.order( [ 2, 'asc' ] ).draw();
+        }
+    } );
+} );
+
+//Create Transaction
+   $('#createtransaction').change(function() {
+        $('.showtable').hide();
+        $('#' + $(this).val()).show();
+ });
+
+// Submit 
+document.querySelector('#submit').onclick = function(){
+swal("Good job!", "You clicked submit!", "success")
+ }; 
+
+// cancel 
+document.querySelector('#cancel').onclick = function(){
+swal({
+title: "Are you sure?",
+text: "You will not be able to recover this transaction!",
+type: "warning",
+showCancelButton: true,
+confirmButtonColor: "#DD6B55",
+confirmButtonText: "Yes, cancel it!",
+cancelButtonText: "No, cancel please!",
+closeOnConfirm: false,
+closeOnCancel: false
+},
+function(isConfirm){
+if (isConfirm) {
+swal("Deleted!", "Your transaction has been deleted.", "success");
+} else {
+swal("Cancelled", "Your transaction is safe :)", "error");
+}
+});
+};
+
+			//Función en caso de error
+			var error = function(e) {
+				console.log('¡No pude grabarte!', e);
+			};
+
+			//Función cuando todo tenga exito
+			var exito = function(s) {
+				var context = new webkitAudioContext(); //Conectamos con nuestra entrada de audio
+				var flujo = context.createMediaStreamSource(s); //Obtenemos el flujo de datos desde la fuente
+				recorder = new Recorder(flujo); //Todo el flujo de datos lo pasamos a nuestra libreria para procesarlo en esta instancia
+				recorder.record(); //Ejecutamos la función para procesarlo
+			}
+
+			//Convertirmos el objeto en URL
+			window.URL = window.URL || window.webkitURL;
+			navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+			var recorder; //Es nuestra variable para usar la libreria Recorder.js
+			var audio = document.querySelector('audio'); //Seleccionamos la etiqueta audio para enviarte el audio y escucharla
+
+			//Funcion para iniciar el grabado
+			function grabar() {
+				if (navigator.getUserMedia) { //Preguntamos si nuestro navegador es compatible con esta función que permite usar microfono o camara web
+					navigator.getUserMedia({audio: true}, exito, error); //En caso de que si, habilitamos audio y se ejecutan las funciones, en caso de exito o error.
+					document.querySelector('p').innerHTML = "Estamos grabando...";
+				} else {
+					console.log('¡Tu navegador no es compatible!, ¿No lo vas a acutalizar?'); //Si no es compatible, enviamos este mensaje.
+				}
+			}
+
+			//Funcion para parar la grabación y escucharla
+			function parar() {
+				recorder.stop(); //Paramos la grabación
+				recorder.exportWAV(function(s) { //Exportamos en formato WAV el audio 
+					audio.src = window.URL.createObjectURL(s); //Y convertimos el valor devuelto en URL para pasarlo a nuestro reproductor.
+				});
+				document.querySelector('p').innerHTML = "Paramos la grabación y ahora escuchala...";
+			}
+</script>
+          
+		<script type="text/javascript" src="http://html5facil.com/demos/graba-audio-html5/recorder.js"> </script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+@(branchName:String,actionAlertUser:String,opeRemName:String,operRemGoingDate:String,alertUserEmail:String,orgEntity:String,branchEntity:String,branchOperationalRemainderEntity:String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+	<tbody>
+		<tr  id="emailHeader">
+			<td>
+
+
+			</td>
+		</tr>
+		<tr id="emailBody" >
+		  <td>
+		    <table>
+			    <tr>
+			        <td style="font-size: 16px; font-weight: bold;">Idos Alert For Information.  <br>
+					  <br>
+			        </td>
+			     </tr>
+				<tr>
+				  <td style="font-size: 16px; font-weight: bold;">@{branchName} Branch Operational  @{opeRemName} Remainder Acted By @{actionAlertUser} Due Dated @{operRemGoingDate}
+				  </td>
+				</tr>
+				<tr>
+				  <td>
+				    <div>
+				       <b><font size="4">@{branchName} Branch Operational @{opeRemName} Remainder Due On:@{operRemGoingDate}</font></b><br/>
+				    </div>
+				  </td>
+				</tr>
+		    </table>
+		  </td>
+		</tr>
+		<tr  id="emailFooter">
+			<td style="text-align: left;">  <br>
+					  <br>&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

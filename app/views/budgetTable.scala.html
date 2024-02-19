@@ -1,0 +1,14 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div class="content">
+	<ul class="nav nav-tabs" role="tablist" id="budgetTab" style="margin-bottom: 2px; border: 1px solid #cccccc;"></ul>
+	<div id="budgetTable" class="tab-content" style="padding: 0; margin: 0;"></div>
+</div>
+</br>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#budgetTab a').click(function (e) {
+	  e.preventDefault()
+	  $(this).tab('show')
+	});
+});
+</script>

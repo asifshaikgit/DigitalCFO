@@ -1,0 +1,432 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="usersSetup" class="tab-pane mainDiv" style="display: none">
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="navbar-transaction" id="configUserTop">
+					<button id="newUserform-container" class="newEntityCreateButton btn btn-primary btn-idos pr-5 snglUsrDply" title="Create a New User"><i class="fa fa-plus pr-5"></i>Create User</button>
+					<button style="margin-left: 5px;" id="newTravelClaimConfigurationform-container" class="newEntityCreateButton btn btn-primary btn-idos pr-5 snglUsrDply" title="Configure Travel Claim"><i class="fa fa-plane pr-5"></i>Travel Claim Configuration</button>
+					<button style="margin-left: 5px;" id="newExpenseClaimConfigurationform-container" class="newEntityCreateButton btn btn-primary btn-idos pr-5 snglUsrDply" title="Configure Expense Claim"><i class="fa fa-money pr-5"></i>Expense Claim Configuration</button> 
+					<button style="margin-left: 5px;" id="showTravelExpenseGroupform-container" class="btn btn-primary btn-idos snglUsrDply" title="View Travel/Expense Groups"><i class="fa fa-eye pr-5"></i>View Travel/Expense Claim Groups</button>
+					<button style="margin-left: 5px;" id="setupPayrollForOrg-container" class="btn btn-primary btn-idos" title="Setup Payroll"><i class="fa fa-eye pr-5"></i>Payroll Setup</button>
+					<button style="margin-left: 5px;" id="addExternalUserOTPButton" class="btn btn-primary btn-idos" title="ADD EXTERNAL USER"><i class="fa fa-eye pr-5"></i>Add External User</button>
+					<button style="margin-left: 5px;" id="externalUserAccessButton" class="btn btn-primary btn-idos" title="EXTERNAL USER ACCESS"><i class="fa fa-eye pr-5"></i>External User Access</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="user-form-container" class="newUserform-container" style="display: none;">
+		<div class="content">
+			<div class="panel" style="margin-bottom: -1px !important;">
+				<div class="panel-title" style="text-align: center;">User Setup</div>
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend" id="createUserClose" onClick="formCancel()"></i></div>
+				<div id="userDetails" class="create-form">
+					<div class="panel panel-showtrans" style="margin-bottom: -1px !important;">
+						<div class="panel-body" id="newusertablediv" >
+							<div class="panel-title"><i class=""></i>Basic information</div>
+							<table class="table  excelFormTable" id="newuserExcelFormTable" style="margin-top: 0px;">              
+								<thead class="tablehead1"><tr><th>User Name</th><th>User Email</th><th>Phone Number</th><th>Address</th>
+								<th>Role @if(role.contains("MASTER ADMIN")){<br/>User Transaction Purpose<i class="fa fa-info-circle pl-5 fs-14 help-info userpopoverinfo" longdesc="Select what type of transactions this user can process. When this user logs in he will see only those questions or options for which you have provided permission. For example, if you select only <b>Sell on cash & collect payment now</b> and <b>Buy on cash and pay right away</b>, then when this user logs in, he will be able to process only sell on cash and buy on cash transactions and he cant process any other transaction. This way you can control what the user can do or can not do at any branch and you can even delegate the work between different users at a branch and determine who can handle sales process and who can handle vendor payments, etc."></i>}</th>
+								<th>Branch</th>
+								<!--<th>Date Of Birth  & <br/>Blood Group</th><th>Upload Id Proof</th>--></tr></thead>
+								<tbody>
+									<tr>
+										<td>
+											<input id="userEntityHiddenId" class="hiddenmodelid" type="hidden" value=""/>
+											<input type="text" id="userName" style="width: 180px;" name="userName" placeholder="Username"/>
+											<!--  <select id="userStatus" class="m-top-10" style="width: 174px;"><optgroup label="Marital Status"></optgroup><option value="">--Please Select--</option>
+											<option value="Single">Single</option><option value="Married">Married</option><option value="Divorced">Divorced</option>
+											<option value="Widowed">Widowed</option><option value="Domestic Partnership">Domestic Partnership</option><option value="Unmarried Partners">Unmarried Partners</option>
+											</select>-->
+										</td>
+										<td>
+											<input type="text" name="email" id="email" style="width: 180px;" onblur="emailFieldValidation(this),checkemail(this);" onfocus="getExistedEmail(this);" class="m-bottom-10"/>
+											<!--  <select name="proc"></select>-->
+										</td>
+										<td>
+											<select class="countryPhnCode m-bottom-10" name="userPhnNocountryCode" id="userPhnNocountryCode"><option value="">--Please Select--</option></select><br/>
+											<input type="text" id="usrmobile1" maxlength="3" style="width: 28px;vertical-align: top;" onkeypress="return isNumber(event)" onKeyup="autotab(this)" name="usrmobile1"/>-
+											<input type="text" id="usrmobile2" maxlength="3" style="width: 28px;vertical-align: top;" onkeypress="return isNumber(event)" onKeyup="autotab(this)" name="usrmobile2"/>-
+											<input type="text" id="usrmobile3" maxlength="4" style="width: 32px;vertical-align: top;" onkeypress="return isNumber(event)" name="usrmobile3"/>
+										</td>
+										<td><textarea name="usraddress" rows="5" style="width: 200px;" id="usraddress" class="text-area-2x"></textarea></td>
+										<td><select class="multipleDropdown" multiple="multiple" style="width: 200px;" name="userRole" id="userRole"></select></td>
+										<td><select name="userBranch" id="userBranch" style="width: 200px;"></select>
+										<!--  	<select id="userEthnicity" class="m-top-10"><optgroup label="Ethnicity"></optgroup><option value="">--Please Select--</option>
+											<option value="Asian">Asian</option><option value="African">African</option><option value="American">American</option>
+											<option value="Caucasian">Caucasian</option><option value="Hispanic/Latino">Hispanic/Latino</option><option value="Middle Eastern">Middle Eastern</option>
+											<option value="Pacific Islander">Pacific Islander</option><option value="Other">Other</option>
+											</select>
+										</td>
+										<td><input type="text" id="birthDate" name="birthDate" class="datepicker m-bottom-10" onkeyUp="dateFieldKeyType(event,this)" placeholder="Date Of Birth"/><br/>
+											<input type="text" name="bloodgroup" id="bloodgroup" placeholder="Blood Group"/>
+										</td>
+										<td>
+											<input type="text" id="uploadIdProof" name="uploadIdProof" readonly="readonly"/><br/>
+											<span id="uploadIdProof" class="btn-idos-flat-white btn-upload m-top-10" onclick="uploadFile(this.id,this)"><i class="fa fa-upload pr-5"></i>Upload</span>
+										</td>-->
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="panel panel-showtrans" style="margin-bottom: -1px !important;">
+						<div class="panel-body" style="overflow: auto;">
+							<div class="panel-title"><i class=""></i>User Employment Setup</div>
+							<table class="table  excelFormTable" id="newuserEmploymentFormTable" style="margin-top: 0px;">              
+							    <thead class="tablehead1"><tr>
+									<th style="display:none;">Date Of Hire<br>Date Of Confirmation</th>
+									<th style="display:none;">Notice Start Date<br>Date Of Release</th>
+									<th style="display:none;">Department<br>Designation</th>
+									<th>Supervisor/Account</th>
+									<th style="display:none;">Employment Type<br>Source</th>
+									<th style="display:none;">ID Number<br>Passport Number</th>
+									<th style="display:none;" colspan="2">Contact Name, Email, Phone<br>(In case of emergency)</th>
+								</tr></thead>
+							    <tbody><tr>
+									<td style="display:none;">
+										<input type="text" id="userHireDate" name="userHireDate" placeholder="Date Of Hire" class="datepicker m-bottom-10"/><br>
+										<input type="text" id="userConfirmDate" name="userConfirmDate" placeholder="Date Of Confirmation" class="datepicker"/>
+									</td>
+									<td style="display:none;">
+										<input type="text" id="userNoticeDate" name="userNoticeDate" placeholder="Notice Start Date" class="datepicker m-bottom-10"/><br>
+										<input type="text" id="userReleaseDate" name="userReleaseDate" placeholder="Date Of Release" class="datepicker"/>
+									</td>
+									<td style="display:none;">
+										<input type="text" name="userDepartment" id="userDepartment" placeholder="Department" class="m-bottom-10"/><br>
+										<input type="text" name="userDesignation" id="userDesignation" placeholder="Designation"/>
+									</td>
+									<td>
+										<select class="userAvailable" name="userManager" id="userManager"></select><br>
+										<select style="display:none;" class="userAvailable m-top-10" name="userHRManager" id="userHRManager"><!--option value="">--Please Select--</option--></select></td>
+									<td style="display:none;">
+										<select name="userEmploymentType" id="userEmploymentType">
+										<option value="">--Please Select--</option><option value="Contract">Contract</option><option value="Permanent">Permanent</option>
+										<option value="Probationery">Probationery</option><option value="Temporary">Temporary</option></select><br>
+										<input type="text" class="m-top-10" name="userSource" id="userSource" placeholder="Source"/>
+									</td>
+									<td style="display:none;">
+										<input type="text" id="userPanNumber" name="userPanNumber" placeholder="PAN Number" class="m-bottom-10"/><br>
+										<input type="text" id="userPassportNumber" name="userPassportNumber" placeholder="Passport Number"/>
+									</td>
+									<td style="display:none;">
+										<input type="text" class="m-bottom-10" id="userEmergencyName" name="userEmergencyName" placeholder="Contact Name"/><br>
+										<input type="text" id="userEmergencyEmail" name="userEmergencyEmail" placeholder="Contact Email" onblur="emailFieldValidation(this);"/>
+									</td>
+									<td style="display:none;">
+										<select class="countryPhnCode m-bottom-10" name="userEmergencyPhnNocountryCode" id="userEmergencyPhnNocountryCode"><option value="">--Please Select--</option></select><br/>
+										<input type="text" id="usrEmergencymobile1" maxlength="3" style="width: 28px;vertical-align: top;" onkeypress="return isNumber(event)" onKeyup="autotab(this)" name="usrEmergencymobile1"/>-
+										<input type="text" id="usrEmergencymobile2" maxlength="3" style="width: 28px;vertical-align: top;" onkeypress="return isNumber(event)" onKeyup="autotab(this)" name="usrEmergencymobile2"/>-
+										<input type="text" id="usrEmergencymobile3" maxlength="4" style="width: 32px;vertical-align: top;" onkeypress="return isNumber(event)" name="usrEmergencymobile3"/>
+									</td>
+								</tr></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<div class="panel" style="overflow: auto;">
+			<div class="row panel panel-body">
+				<div class="col-lg-7 div-box">
+					<div class="panel-title">Transaction Creator Rules<i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc="@(configParams.getCompanyApp()) lets you set up rules for the end user. Below please select the branch for which this user can create transactions. If you have 2 branches say, A & B. You can assign either branch A or branch B to this user and when the user logs in to create any transaction, he will see only those items (from Chart of account) which are assigned to this branch. For example if this branch is a Sales only branch then you could setup chart of accounts and link only sales related incomes & expenses to that branch. When the user logs in, he will only see incomes & expenses associated to sales branch. Further @(configParams.getCompanyApp()) allows you to set up monetary limits for the creator of transactions whereby you can control in realtime what transactions and to what monetary limit a creator can process at that branch. You can even restrict the creator from creating certain transactions by deselecting such transactions in column 3 below. @(configParams.getCompanyApp()) permits you to have unlimited number of creators for each branch. If you have not setup projects, you can ignore that column."></i></div>
+					<table class="table" id="newuserTxnCreationExcelFormTable">
+						<thead class="tablehead1"><tr><th>&nbsp;Transaction Creation For Branches</th><th>Transaction Creation For Projects</th><th colspan="2">Transaction Creation for items</th></tr></thead>
+						<tbody>
+							<tr id="userTransactionRow">
+								<td>
+									<select class="multiBranch" multiple="multiple" name="transactionCreationInBranch" id="transactionCreationInBranch"></select> <!--  onchange="getAllChartOfAccountsLRUCache();"-->
+								</td>
+								<td>
+									<select class="multipleDropdown" multiple="multiple" name="transactionCreationForProject" id="transactionCreationForProject"></select></td>	
+								<td id="usrCrtIncome">
+									<button type="button" class="btn btn-submit" onclick="getTxnCoaItems(1,1);">Select Items</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-lg-5 div-box">
+					<div class="panel-title">Travel Claim Rules</div>
+					<table class="table" id="newuserTravelClaimExcelFormTable"> 
+						<thead class="tablehead1"><tr><th>Travel Eligibility</th><th>Travel Transaction Purpose</th></tr></thead>
+						<tbody>
+							<tr class="travelSetUpRuleTr">
+								<td><select name="userTravelEligibility" id="userTravelEligibility"><option value="">---Please Select---</option></select></td>
+								<td><select class="multipleDropdown" multiple="multiple" name="userTravelTransactionPurpose" id="userTravelTransactionPurpose"><option value="15">Request For Travel Advance</option><option value="16">Settle Travel Advance</option></select></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row panel panel-body">
+				<div class="col-lg-7 div-box">
+					<div class="panel-title">&nbsp;Transaction Approver Rules</div>
+					<table class="table" id="newuserTxnApproverExcelFormTable">
+						<thead class="tablehead1"><tr><th>Transaction Approval For Branches</th><th>Transaction Approval For Projects</th><th colspan="2">Transaction Approval For Items</th></tr></thead>
+						<tbody>
+							<tr id="userTransactionRow">
+								<td><select class="multiBranch" multiple="multiple" name="transactionApprovalInBranch" id="transactionApprovalInBranch"></select></td>
+								<td><select class="multipleDropdown" multiple="multiple" name="transactionApprovalForProject" id="transactionApprovalForProject"></select></td>	
+								<td id="usrApptIncome">
+									<button type="button" class="btn btn-submit" onclick="getTxnCoaItems(1,2);">Select Items</button>
+								</td>		
+							</tr>
+						</tbody>
+					</table> 
+				</div>
+				<div class="col-lg-5 div-box">
+					<div class="panel-title">Expense Claim Rules</div>
+					<table class="table" id="newuserExpenseClaimExcelFormTable">
+						<thead class="tablehead1"><tr><th>Expense Eligibility</th><th>Expense Transaction Purpose</th></tr></thead>
+						<tbody>
+							<tr class="expenseSetUpRuleTr">
+								<td><select name="userExpenseEligibility" id="userExpenseEligibility"><option value="">---Please Select---</option></select></td>
+								<td><select class="multipleDropdown" multiple="multiple" name="userExpenseTransactionPurpose" id="userExpenseTransactionPurpose"><option value="17">Request Advance For Expense</option><option value="18">Settle Advance For Expense</option><option value="19">Request For Expense Reimbursement</option></select></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+				
+			<div class="row panel panel-body">
+				<div class="col-lg-7 div-box">
+					<div class="panel-title">&nbsp;Transaction Auditor Rules</div>
+					<table class="table" id="newuserTxnAuditorExcelFormTable" style="margin-top: 0px;">
+						<thead class="tablehead1"><tr><th>Transaction Auditor For Branches</th><th>Transaction Auditor For Items</th></tr></thead>
+						<tbody>
+							<tr id="userTransactionRow">
+								<td><select class="multiBranch" multiple="multiple" name="transactionAuditorInBranch" id="transactionAuditorInBranch"></select></td>
+								<td><button type="button" class="btn btn-submit" onclick="getTxnCoaItems(1,3);">Select Items</button></td>										
+							</tr>
+						</tbody>
+					</table> 
+				</div>
+
+					<div class="col-lg-5 div-box" id = "newuserPayrollEarningsExcelFormTableDiv">
+						<div class="panel-title" style="overflow: auto">User Payroll</div>
+						<table class="table" id="newuserPayrollEarningsExcelFormTable">
+							<thead class="tablehead1"><tr><th colspan="2">Earnings</th><th colspan="2">Deductions</th></tr></thead>
+							<tbody>
+								<tr id="payrollSetUpRuleTr">
+									<td id="usrEarnings">
+										<div class="btn-group">
+											<button name="userEarningdropdown" id="userEarningdropdown" class="multiselect dropdown-toggle btn" onclick="payrollCustomDropDownToggle(this)"> Enter Earnings  &#8711;</button>
+											<div id="userEarningdropdown-menuid" class="userEarningdropdown-menu">														
+												<ul class="transactionCoaList" id="earningULList">
+													<li id="usrEarningslist">
+													<input type="checkbox" name="checkCOA" id="checkCOA0" value="" onClick="transactioncheckUncheck(this)"/>&nbsp;&nbsp;<input type="text" class="input-small" name="earningItemName" id="earningItemName0" value=""  onkeyup="transactiontoggleCheck(this)"/>&nbsp;&nbsp;<input type="text" class="input-small" name="earningAnnual" id="earningAnnual0" value="0.0" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="transactiontoggleCheck(this);calculateMonthlyEarningIncome(this);"/>&nbsp;&nbsp;<input type="text" class="input-small" name="earningMonthly" id="earningMonthly0" value="0.0" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="transactiontoggleCheck(this)"/>Select All</li>
+												</ul>
+											</div>
+										</div>
+									</td>
+									<td><button onClick="saveUserEarningsPayrollRules(this);" class="btn btn-submit txnUserCoaRulesButton btn-idos">Update</button></td>
+									<td id="usrCrtExp">
+										<div class="btn-group">
+											<button id="userDeductionsdropdown" name="userDeductionsdropdown" class="multiselect dropdown-toggle btn"  onclick="payrollCustomDropDownToggle(this)"> Enter Deductions  &#8711;</button>
+											<div id="userDeductionsdropdown-menuid" class="userDeductionsdropdown-menu">														
+												<ul class="transactionCoaList" id="deductionULList">
+													<li id="usrDeductionsList">
+														<input type="checkbox" name="checkCOA" id="checkCOA0" value="" onClick="transactioncheckUncheck(this)"/>&nbsp;&nbsp;<input type="text" class="input-small" name="deductionItemName" id="deductionItemName0" value=""  onkeyup="transactiontoggleCheck(this)"/>&nbsp;&nbsp;<input type="text" class="input-small" name="deductionAnnual" id="deductionAnnual0" value="0.0" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="transactiontoggleCheck(this);calculateMonthlyDeductionIncome(this);"/>&nbsp;&nbsp;<input type="text" class="input-small" name="deductionMonthly" id="deductionMonthly0" value="0.0" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="transactiontoggleCheck(this)"/>
+														Select All
+													</li>
+												</ul>
+											</div>
+										</div>
+								 </td><td><button onClick="saveUserDeductionsPayrollRules(this);" class="btn btn-submit txnUserCoaRulesButton btn-idos">Update</button></td>
+									
+							</tr>
+							</tbody>
+						</table>
+					</div>
+			</div>
+			<table class="table">
+				<tr>
+					<td style="width:30%;">
+							<div class="panel panel-showtrans" style="float: right; width:100%;">
+								<div class="panel-body">
+									<div class="panel-title">Module Access configuration</div>
+									<select class="multipleDropdown" multiple="multiple" id="idosModuleList" style="width:190 px;">
+										<option value="1">Cash</option><option value="2">Bank</option><option value="3">Receiable</option><option value="4">Payable</option>
+										<option value="5">Cash Book</option><option value="6">Bank Book</option><option value="7">Trial Balance</option><option value="8">Inventory Report</option><option value="9">Mapping COA for P&L and Balance sheet</option><option value="10">P&L and Balance Sheet</option>
+										@if(configParams.getCompanyOwner().equals("PWC")) {
+										<option value="11">GST Returns</option>
+										} else {
+										<option value="11">GST JSON</option>
+										}
+										<option value="12">TDS Report</option>
+										@if(!configParams.getCompanyOwner().equals("PWC")) {
+										<option value="13">Generate Payslip</option>
+										}
+										<option value="14"> Employee Claims</option>
+									</select>
+								</div>
+							</div>
+						</td>
+						<td style="width:30%;">
+							<div class="panel panel-showtrans" style="float: right; width:100%;">
+								<div class="panel-body">
+									<div class="panel-title">Customer/Vendor Creator</div>
+									<table class="table" id="userSetupCvApproverTable" style="margin-top: 0px;">
+										<thead class="tablehead1"><tr><th>Can create customers?</th><th>Can create vendors?</th></tr></thead>
+										<tbody>
+											<tr style="height:40px;">
+												<td><input type="checkbox" name="customerCreator" id="customerCreator"> Yes</td>
+												<td><input type="checkbox" name="vendorCreator" id="vendorCreator"> Yes</td>
+											</tr>
+										</tbody>
+									</table> 
+								</div>
+							</div>
+						</td>
+						<td style="width:30%;">
+							<div class="panel panel-showtrans" style="float: right; width:100%;">
+								<div class="panel-body">
+									<div class="panel-title">Customer/Vendor Activator</div>
+									<table class="table" id="userSetupCvApproverTable" style="margin-top: 0px;">
+										<thead class="tablehead1"><tr><th>Can activate customers?</th><th>Can activate vendors?</th></tr></thead>
+										<tbody>
+											<tr style="height:40px;">
+												<td><input type="checkbox" name="customerActivator" id="customerActivator"> Yes</td>
+												<td><input type="checkbox" name="vendorActivator" id="vendorActivator"> Yes</td>
+											</tr>
+										</tbody>
+									</table> 
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="usrButtonDiv" style="margin-bottom: 10px;">    
+								<b id="dupemaillabel" class="duplabel" ></b>
+								<button style="margin-right: 5px; float: right;" title="Add User" id="addUserBtn" name="addUserBtn" type="button" class="addUserBtn btn btn-submit btn-idos" value="1"> Add/Update User</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+		
+	@claims(fullName, email, role, orgn){
+	} 
+	
+	@payrollSetup(fullName, email, role, orgn){
+	} 
+<!-- table for user list -->
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<legend class="panel-title">Users List</legend>
+				<div class="datascrolltable" style="height: 100%; overflow: auto;">
+					<table class="table table-hover table-striped excelFormTable" id="usersTable" style="margin-top: 0px;">
+					<thead><tr><th>Full Name</th><th>E-mail</th><th>Branch</th><th width="500px;">Roles</th><th></th><th></th></tr></thead>
+					<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="transactionRuleDiv" class="modal fade" data-backdrop="static" data-keyboard="false" align="center" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header" style="padding: 5px;">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<div class="panel-title">Transaction Creation Items</div>
+					<ul class="nav nav-tabs" style="border: 1px solid #cccccc;">
+						<li id="incomeTab" class="active"><a href="#usersSetup" data-tab="incomeTab" class="transactionRule">Income</a></li>
+						<li id="expenseTab"><a href="#usersSetup" data-tab="incomeTab"  class="transactionRule">Expense</a></li>
+						<li id="assetTab"><a href="#usersSetup" data-tab="incomeTab"  class="transactionRule">Assets</a></li>
+						<li id="liabilitiesTab"><a href="#usersSetup" data-tab="incomeTab"  class="transactionRule">Liabilities</a></li>
+					</ul>
+					<input type="text" style="width: 450px;" id="contentsearchinput" placeholder="Search item with minimum 3 characters."><button style="margin-top: -3px;" class="btn btn-submit" onclick="userSetupCoaSearch('contentsearchinput');"><i class="fa fa-search pr-5"></i>Search</button>
+					<b style="margin-left:150px;">Show</b>
+					<select id="displayRecordLimit" onchange="changeItemsDisplayLimit(this);" style="width: 50px;"><option value="10" selected>10</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option><option value="60">60</option><option value="70">70</option><option value="80">80</option><option value="90">90</option><option value="100">100</option></select> Items
+					<input type="hidden" id="userParticularType"/>
+					<input type="hidden" id="userTxnRuleType"/>
+					<input type="hidden" id="userSelectedAllItems"/>
+					<input type="hidden" id="userSetupIsSearchClicked" />
+				</div>
+				<div class="modal-body" style="padding: 0px;">
+					<div style="width: 65%;">
+						<table class="table excelFormTable" id="userSetupTxnCoaTbl">
+						<thead class="tablehead1"><tr><th></th><th>From</th><th>To</th><th>Item Name</th></tr></thead>
+						</table>
+					</div>
+					<div id="incomeTabDiv" style="height:380px; overflow:auto; width: 65%;">
+						<table class="table excelFormTable" id="txnInCoaCreatorList">
+							<thead style="background-color: #fff; text-align: left; color:black; font-family: Arial, 'Open Sans', sans-serif;">
+							<tr id="allcoaitems0"><td><input type="checkbox" name="checkCOA" id="checkCOA" value="" onClick="onSelectDeselectAllCoaItems(this, 'txnInCoaCreatorList');" checked="false"/></td><td><input type="text" class="input-small" name="coaAmountLimit" id="limitallfrom" onkeypress="return onlyDotsAndNumbers(event);"  onblur="onlyDotsAndNumbers(event); onSelectDeselectAllCoaItems(this, 'txnInCoaCreatorList');" /></td><td><input type="text" class="input-small" name="coaAmountLimitTo" id="limitallto" onkeypress="return onlyDotsAndNumbers(event);" onblur="onlyDotsAndNumbers(event); onSelectDeselectAllCoaItems(this, 'txnInCoaCreatorList');" /></td><td><b style="color:black;">Select All</b></td></tr></thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer" style="padding: 5px;">
+					<div id="pagingTxnItemsNavPosition"></div><hr style="margin-top: 0px; margin-bottom: 0px; border: 0; border-top: 1px solid #eee;"/>
+					<div class="col-md-3"><button type="button" class="btn btn-white" id="txnUserCoaRulesCloseBtn" data-dismiss="modal" id="closeSellInvoiceBtn">Close</button></div>
+					<div class="col-md-3"><button type="button" class="btn btn-cancel" id="resetAllItems">Reset All</button></div>
+					<div class="col-md-3"><button type="button" class="btn btn-submit" id="txnUserCoaRulesBtn" onClick="saveUserTxnRules();">Save</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- table for External user list -->	
+	<div class="content" id="externalUserListDiv" style="display:none;">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<legend class="panel-title">External Users List</legend>
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend claim-container-close" id="externalUsrListDivClose"></i></div>
+				<div class="datascrolltable" style="height: 100%; overflow: auto;">
+					<table class="table table-hover table-striped table-bordered transaction-create" id="externalUsersTable" style="margin-top: 0px;">
+					<thead><tr><th>Full Name</th><th>E-mail</th><th>Phone Number</th><th>Address</th><th>Status</th><th></th></tr></thead>
+					<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add external user via OTP -->
+	<div id="addExternalUserDiv" style="display: none;" class="content">
+	<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<legend class="panel-title">Add External Users</legend>
+				<!-- table for vendor list -->
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend claim-container-close" id="addExternalUsrDivClose"></i></div>
+		<table class="table excelFormTable transaction-create" id="addCompanyTable">
+			<thead class="tableheadincometxn"><tr>
+				<th>OTP</th>
+				<th>Full Name</th>
+				<th>Email</th>
+				<th>Phone number</th>
+				<th>Address</th>
+				<th>Status</th><th></th>
+				</tr></thead>
+						<tbody>
+					<tr id="orgDetailsRow">
+					<td>
+						<input type="text" style="width:100px" id="OTPCodeInput" onkeyup="fetchExtUserDetails(this);"  placeholder = "Enter OTP">
+						</td>
+						<td><div class="extUserNameDiv"></div></td>
+						<td><div class="extUserEmail"></div></td>
+						<td><div class="extUserPhNoDiv"></div></td>
+						<td><div class="extUserAddress"></div></td>
+						<td><div class="extUserStatusDiv1"></div></td>
+						<td><div class="addExtUserDiv" style="display:none;">
+							<button id="addExtUserBtn" class = "btn btn-primary btn-idos" title="Submit For Access" onclick="addExtUserToOrg();">Add 	</button>
+							<button id="addExtUserCancelBtn" style = "background-color:red;" class = "btn btn-primary btn-idos" title="Cancel" onclick="cancelAddExtUser();">Cancel</button>
+						</div></td>
+					</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+</div>

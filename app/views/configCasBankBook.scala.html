@@ -1,0 +1,120 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="cashBookDiv" class="tab-pane mainDiv" style="display: none;">
+    <div class="content">
+		<div class="panel panel-showtrans">
+			<div class="navbar-transaction">
+			<div class="dropdown" style="display:inline;">
+   									 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports
+    								<span class="caret"></span></button>
+    								<ul class="dropdown-menu" style="margin-top:10px;">
+										<li id="cashAndBankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="1">Cash Book</a></li>
+										<li id="trialBalanceallBranches" onclick="changeReportPanel(this);"><a data-id="3">Trial Balance</a></li>
+										<li id="reportAllInventoryItems" onclick="changeReportPanel(this);"><a data-id="4">Inventory Report</a></li>
+										<li id="plbscoamapping" onclick="changeReportPanel(this);"><a data-id="5">Mapping-COA</a></li>
+							</ul>
+ 						 </div>
+			</div>
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div style="display: inline-block;"><select id="cashPettyBookSelection">
+						<option value="1">Cash Book</option>
+						<option value="3">Petty Cash Book</option>
+					</select>
+				</div>
+				<div id="selectedBookType" name="selectedBookType" class="panel-title" style="display: inline-block;">Cash Book</div>
+				<div id="search-launch-top" >
+					<a href="#pendingExpense" id="newCashBankBookform" onclick="$('#pendingExpense').show();$('#trialBalance').hide();$('#cashBookDiv').hide();$('#BankBookDiv').hide();$('#cashAndBank').hide();$('#periodicInventory').hide();$('#reportInventory').hide();$('#reportAllInventory').hide();"><i class="fa fa-times fa-1x close-legend" id="newCashBankBookform-container-close"></i></a>
+				</div>
+				<table class="table excelFormTable" id="cashAndBankCriteriaTable" style="margin-top: 0px;">
+					<thead class="tablehead1">
+							<tr><th>Select Branch</th><th>From Date</th><th>To Date</th><th></th><th></th><th></th><th></th></tr>
+					</thead>
+					<tbody>
+							<tr>
+								<td style="width: 10%;">
+									<select class="bnchCashnBankTrialBalance" name="selectBranchCashBook" id="selectBranchCashBookId" onchange="showAllBanksAccountsForTheBranch(this); resetCashReconciliation(this);"><option value="">--Please Select--</option></select>
+								</td>
+								<td style="width: 10%;">
+									<input class="datepicker" type="text" name="cashNBankBookFromDate" id="cashNBankBookFromDate"/>
+								</td>
+								<td style="width: 10%;">
+									<input class="datepicker" type="text" name="cashNBankBookToDate" id="cashNBankBookToDate"/>
+								</td>
+								<td style="width: 6%;">
+									<button id="searchCashBooks" style="margin-left:5px;" class="searchCashBooks btn btn-submit btn-idos" title="Search Cash transactions"><i class="fa fa-search pr-5"></i>Search</button></td>
+								<td style="width: 6%;">
+									<button id="exportCashBooksXlsx" style="margin-left:5px;" class="exportCashBooksXlsx btn btn-submit btn-idos" title="Export Cash Book(xlsx)" onclick="exportBook('1', 'xlsx');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Save as xlsx</button></td>
+								<td style="width: 6%;">
+									<button id="exportCashBooksPdf" style="margin-left:5px;" class="exportCashBooksPdf btn btn-submit btn-idos" title="Export Cash Book(pdf)" onclick="exportBook('1', 'pdf');"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>Save as pdf</button></td>
+								<td>&nbsp;</td>
+							</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div id="cashAndBankTableDiv">
+					<table class="table table-hover table-striped  excelFormTable cashBankTb" id="cashAndBankTable">
+						<thead class="tablehead1">
+							<tr>
+								
+								<th>Date</th>
+								<th>Transaction Type</th>
+								<th>Customer/Vendor/Ledgers</th>
+								<th style="width:350px !important;">Description Of The Transaction</th>
+								<th>Debit</th>
+								<th>Credit</th>
+								<th>Balance</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="cashBankTransactionDiv">
+	<div id="cashBankTransactionModal" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 99%; overflow: auto; z-index:1000;" align="center" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="panel-title">Transaction Details: <span id="txnRefNumber"></span></h4>
+					<h5 id="wrongActCred" align="center"></h5>
+				</div>
+				<div class="modal-body">
+					<table class="table table-bordered excelFormTable">
+						<thead><tr><th>Branch &amp; Project</th><th>Item</th><th>Customer/Vendor</th><th>Date</th><th>Pay Mode</th><th>Unit/Per Unit Price</th><th>Amount/Description</th><th>Status</th><th>Documents</th><th>Remarks</th></tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="cashBankClaimTransactionModal" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 98%;left: 1%; overflow: auto;" align="center" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Claim Transaction Details: <span id="claimTxnRefNumber"></span></h4>
+					<h5 id="wrongActCred" align="center"></h5>
+				</div>
+				<div class="modal-body">
+					<table class="table table-bordered excelFormTable">
+						<thead><tr><th>Branch &amp; Project</th><th>Claims Made For &amp; Details/Expense Item</th><th>Eligibility Details/Current Advance Settlement Details</th><th>Transaction Created Date</th><th>Advance Eligibility Details/User Expenditure Details</th><th>Purpose &amp; Pay Mode</th><th>Status</th><th>Documents</th><th>Remarks</th></tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

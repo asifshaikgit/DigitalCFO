@@ -1,0 +1,81 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+@if(role.contains("CREATOR")){
+<div class="transactionDetailsTable" id="cancelInvoiceTxnDiv" style="overflow: auto; display: none;">
+	<table class="table excelFormTable transaction-create" id="txnCancelInvoiceTable">
+		<thead class="tablehead1">
+			<tr id="caninvHeadTr">
+				<th>Branches</th>
+				<th>From and To Date</th>
+				<th>Customer</th><th>Type of Supply</th><th>Place of Supply</th>
+				<th>Total Net Amount</th><th>Transaction notes<th>Supporting Docs</th>
+			</tr>
+		</thead>
+		<tbody>
+		 <tr id="caninvtrid">
+			<td>
+				<select class="txnBranches" name="caninvTxnForBranches" id="caninvTxnForBranches" onChange="populateProjectItemBasedOnTxnPurposeBranchSelection(this); getCustomerListForBranch(this);"><option value="">Please Select</option></select>
+				<p class="para-tm5-bm0 snglUsrDply">Project</p><select class="txnForProjects" id="caninvTxnForProjects"><option value="">Please Select</option></select></td>
+			<td>
+				<input class="datepicker" name="txnFromDate" type="text" id="caninvFromDate"/></br>
+				<input class="datepicker" name="txnToDate" type="text" id="caninvToDate"/></td>
+			<td>
+				<select class="masterList" name="caninvCustomer" id="caninvCustomer" onChange="populatecustvendspecifics(this); getCustomerGstinList(this); getklinvoices(this);"><option value="">--Please Select--</option></select>
+				<p class="para-tm5-bm0">Sales Invoices</p>
+				<select class="salesExpenseTxns" id="caninvInvoices" onchange="getInvoiceValue(this);"><option value="">--Please Select--</option></select></td>
+			<td>
+				<select class="txnTypeOfSupply" id="caninvTypeOfSupply" onChange="resetBasedOnTypeOfSupply(this);" disabled="true"><option value="">--Please Select--</option><option value="1">Regular Supply</option><option value="2">Supply applicable for Reverse Charge</option><option value="3">This is an Export Supply</option><option value="4">This is supply to SEZ Unit or SEZ Developer</option><option value="5">This is deemed Export Supply</option><option value="6">Supply made through E-commerce Operator</option><option value="7">Bill of Supply</option></select><p class="para-tm5-bm0" name="withWithoutTaxPara" style="display: none;">With / Without IGST<select class="txnWithWithoutTaxCls" id="caninvWithWithoutTax" onChange="resetBasedOnWithWithoutTax(this);" disabled="true"><option value="">--Please Select--</option><option value="1">On payment of IGST</option><option value="2">Under Bond / LUT without payment of IGST</option></select></p></td>
+			<td>
+				<select class="placeOfSply txnDestGstinCls" name="txnPlaceOfSply" id="caninvPlaceOfSply" disabled="true"></select></br><button class="btn btn-submit" id="popupAddiDetails" style="margin-top: 28px;" onClick="generatePDFInvoice(this);">Additional Details</button></td>
+			<td>
+				<input type="text" class="netAmountValTotal" id="caninvnetamntTotal" readonly="true" placeholder="Net Result">
+				<p class="para-tm5-bm0">Total Invoice Value</p>
+				<input type="text" class="totalInvoiceValue" id="caninvTotalInvoiceValue" readonly="true" placeholder="Total Invoice Value"></td>
+			<td>
+				<textarea class="voiceRemarksClass" name="caninvRemarks" id="caninvRemarks" rows="4" placeholder="Input Remarks"></textarea>
+			</td>
+			<td>
+				<select id="caninvUploadSuppDocs" name="caninvUploadSuppDocs" class="txnUploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+				<br>
+				<button id="caninvUploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+				<button id="caninvUploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                <button id="caninvUploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+				<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+			 </td>
+		 </tr>
+		</tbody>
+	</table>
+	<span style="height:25px; font-size: 11px;">
+		<div class="itemParentNameDiv" style="max-width:25%; display:inline-block;"></div><span class="snglUsrDply"><div class="actualbudgetDisplay" style="max-width:25%; display:inline-block;"></div><div class="budgetDisplay" style="max-width:25%; display:inline-block;"></div><div class="amountRangeLimitRule" style="max-width:25%; display:inline-block;"></div></span>
+	</span>
+	<div id="staticsellmultipleitemscaninv" class="staticsellmultipleitems" style="max-height: 350px; overflow:auto;">
+		<table class="multipleItemsTable" id="multipleItemsTablecaninv" name="multipleItemsTablecaninv">
+		<thead><tr><th><button style="display:none;" class="addnewItemForTransaction" id="addnewItemForTransaction" title="add more items"><i class="fa fa-plus-circle fa-lg"></i></button>Item</th><th>Price</th><th>Units</th><th>Discount</th><th>Taxable Value</th><th>Tax Rate &amp;Amt <div id="taxNameList"></div></th><th>Invoice Value</th><!--<th>Available<br>Advance</th><th>Adv. Adj</th><th>Adv.Tax Adj<div id="advAdjTaxNameList"></div></th>--><th>Net</th><th>Detailed Result</th><th><button style="display:none;" class="removeItemForTransaction" id="removeItemForTransaction" title="remove items"><i class="fa fa-minus-circle fa-lg"></i></button></th></tr> </thead>
+		 <tbody>
+			 <tr id="caninv0">
+				<td><select class="txnItems" id="caninvItem" readonly="true"><option value="">Please Select</option></select></td>
+				<td><input class="txnPerUnitPrice" placeholder="Price Per Unit" type="text" id="caninvPerUnitPrice"  onkeypress="return onlyDotsAndNumbers(event);" onblur="checkData4CreditDebitNote(this, 'txnPerUnitPriceHid');" onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);"/><input type="hidden" class="txnPerUnitPriceHid"/></td>
+				<td>
+					<input class="txnNoOfUnit" type="text" id="caninvUnits" placeholder="Units(if any)" onkeypress="return onlyDotsAndNumbers(event);" onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);" onblur="checkData4CreditDebitNote(this, 'txnNoOfUnitHid'); checkStockAvailableForSellTran(this);" /><input type="hidden" class="txnNoOfUnitHid"/>
+				</td>
+				<td>
+					<input type="text" class="txnDiscountPercent" id="caninvDiscountPercent" placeholder="%" onkeypress="return onlyDotsAndNumbers(event);" onblur="checkData4CreditDebitNote(this, 'txnDiscountPercentHid'); " onkeyup="calculateDiscountSell(this); calculateGross(this); calculateNetAmountForSell(this);" readonly="true"/>%<input type="hidden" class="txnDiscountPercentHid"/><br>
+				<input type="text" class="txnDiscountAmount" id="caninvDiscountAmt"  placeholder="Amount" readonly="true"/></td>
+				<td><input class="txnGross"  placeholder="Gross Amount" type="text" id="caninvGross" readonly="true"></td>
+				<td><div id="taxCell"><div id="taxCell0"></div><div id="taxCell1"></div><div id="taxCell2"></div><div id="taxCell3"></div><div id="taxCell4"></div></div><input type="hidden" class="txnTaxTypes" id="caninvTaxtypes"/><input type="hidden" class="itemTaxAmount"/></td>
+				<td><input type="text" class="invoiceValue" placeholder="Invoice Value" id="caninvInvoiceValue" readonly="true"/></td>
+				<!--<td><input type="text" class="customerAdvance" placeholder="Advance Available" id="caninvCustomeradvance" readonly="true"/></td>
+				<td><input type="text" class="howMuchAdvance" placeholder="Advance to Adjust?" id="caninvHowmuchfromadvance" onkeypress="return onlyDotsAndNumbers(event);" onblur="checkData4CreditDebitNote(this, 'howMuchAdvanceHid'); checkStockAvailableForSellTran(this);" onkeyup="adjustAdvance(this);" readonly="true"/><input type="hidden" class="howMuchAdvanceHid"/></td>
+				<td><div id="advAdjTaxCell"><div id="advAdjTaxCell0"></div><div id="advAdjTaxCell1"></div><div id="advAdjTaxCell2"></div><div id="advAdjTaxCell3"></div><div id="advAdjTaxCell4"></div></div></td>-->
+				<td><input type="text" class="netAmountVal" id="caninvNetamnt" readonly="true" placeholder="Net Result"></td>
+				<td><div class="netAmountDescriptionDisplay" id="caninvNetAmountLabel"></div></td>
+				<td><input style="display:none;" class="removeTxnCheckBox" type="checkbox"/></td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<button id="accountingcancelButton" class="compcancelButton btn btn-cancel cancel" title="Cancel" onClick="cancel(); deleteUncomittedFiles();" >Cancel Transaction</button>
+	<button style="display: none;" id="caninvsubmitForAccounting" class="submitForAccounting btn btn-submit btn-custom" title="Submit for Cancellation">Submit for Cancellation</button>
+	<button id="caninvsubmitForApproval" class="submitForApproval btn btn-submit btn-custom" title="Submit for Approval">Submit for Cancellation</button>
+</div>
+
+}

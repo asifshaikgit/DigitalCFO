@@ -1,0 +1,783 @@
+@(configParams:model.ConfigParams)
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style>
+
+</style>
+    
+	 <link rel="shortcut icon" href="assets/website/img/logo.ico" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<meta http-equiv='cache-control' content='no-cache'>
+	<META HTTP-EQUIV="Expires" content="-1">
+	<meta http-equiv='pragma' content='no-cache'>
+	
+	
+
+    <title>Welcome to @(configParams.getCompanyApp())</title>
+	<!-- Social Icons CSS -->
+	<link href="assets/website/css/bootstrap-social.css" rel="stylesheet">
+	
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/website/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/website/css/style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/website/css/modern-business.css" rel="stylesheet">
+	<link href="assets/website/css/round-about.css" rel="stylesheet">
+	<link href="assets/website/css/footer.css" rel="stylesheet">
+	<link href="assets/website/css/sliderjs.css" rel="stylesheet">
+	<link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://cdn.bootcss.com/animate.css/3.5.1/animate.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Arimo|Oswald|Raleway:400,800,900,600,700,600italic' rel='stylesheet' type='text/css'>
+    <link href="assets/website/css/home.css" rel="stylesheet">
+	<!-- Custom Fonts -->
+    <link href="assets/website/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--<link href="assets/website/css/idosreview.css" rel="stylesheet" type="text/css">-->
+	<script src="assets/website/js/index.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<!-----Google Analytics Start----->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72593005-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<!-----Google Analytics End----->
+<script>
+    function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+    </script>	
+</head>
+
+<body>
+	@indexhead(){
+	}
+<div id="first-slider">
+    <div id="carousel-idos" class="carousel slide carousel-fade">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-idos" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-idos" data-slide-to="1"></li>
+			<li data-target="#carousel-idos" data-slide-to="2"></li>
+			<li data-target="#carousel-idos" data-slide-to="3"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+			<!-- Item 1 -->
+            <div class="item active slide1">
+                <div class="row"><div class="container">
+                    <div class="col-md-7 text-left">
+                        <h3>Simple to Use Accounting & Compliance Software</h3>
+						<p><font color="white">Imagine a world where a software can pass the correct journal entry on its own. A world where the software is also your tax expert. A world where you get insightful management and accounting reports with one click. Imagine a software you can call your Digital CFO. Imagine @(configParams.getCompanyApp())!</font></p>
+                        <h4 data-animation="animated bounceInUp"></h4>
+                     </div>
+                    <div class="pc_img col-md-5 text-right">
+                        <img style="max-width: 400px;" src="assets/website/img/pc.png">
+                    </div>  
+                </div></div>
+            </div>
+            <!-- End Item 1 -->
+			<div class="item slide2">
+                 <div class="row"><div class="container">
+                    <div class="col-md-7 text-left">
+                    <h3>Grow Your Business With @(configParams.getCompanyApp())</h3>
+				<p><font color="white">Are you still using desktop accounting software that require you to pass journal entries? That's like using a landline phone for your business in the age of internet, mobile phones and smart phones. Such software slow you down and impact your operations and profits! Switch to @(configParams.getCompanyApp()), simple to use, yet powerful enough to help you manage your business and not just accounting</font></p>
+                        <h4 data-animation="animated bounceInUp"></h4>
+                     </div>
+                    <div class="pc_img col-md-5 text-right">
+                        <img style="max-width: 400px;" src="assets/website/img/idos-slider-1.png">
+                    </div>  
+                </div></div>
+             </div>
+
+
+            <!-- Item 2 -->
+            <div class="item slide2">
+                 <div class="row"><div class="container">
+                    <div class="col-md-7 text-left">
+                        <h3>Integrated With Microsoft Office 365</h3>
+						<p><font color="white">@(configParams.getCompanyApp()) has partnered with Microsoft to enhance business productivity. @(configParams.getCompanyApp()) is integrated with Office 365 to provide it's users with best of both worlds, convenience of @(configParams.getCompanyApp()) and familarity of Office 365.</font></p>
+                        <h4 data-animation="animated bounceInUp"></h4>
+                     </div>
+                    <div class="pc_img col-md-5 text-right">
+                        <img style="max-width: 400px;" src="assets/website/img/office365.jpg">
+                    </div>  
+                </div></div>
+             </div> 
+
+			
+            <!-- Item 4 -->
+           <div class="item slide2">
+                 <div class="row"><div class="container">
+                     <div class="col-md-7 text-left">
+                        <h3>Are You a Professional Accountant?</h3>
+						<p><font color="white"> Use @(configParams.getCompanyApp()), become a business enabler and increase your billing rates. Carry out audits at significantly lower overheads. Contact us to know more.</font></p>
+                        <h4 data-animation="animated bounceInUp"></h4>
+                     </div>
+                    <div class="pc_img col-md-5 text-right">
+                        <img style="max-width: 400px;" src="assets/website/img/idos-slider-2.png">
+                    </div>  
+                </div></div>
+             </div>
+			<!-- End Item 4 -->
+			
+    
+        </div>
+        <!-- End Wrapper for slides-->
+        <a class="left carousel-control" href="#carousel-idos" role="button" data-slide="prev">
+            <i class="fa fa-angle-left"></i><span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-idos" role="button" data-slide="next">
+            <i class="fa fa-angle-right"></i><span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+</div>
+
+	
+	 <!-- slider down button -->
+	<!-- Call to Action Section -->
+		<div class="container-fluid">
+			<div class="row">
+				
+				<div class="col-sm-12 text-center"><a href="/signUp#selectCountryDiv" class="btn btn-info" style="margin-top:10px;"><strong>Register Now</strong></a>
+				<a href="https://www.youtube.com/channel/UC-XvrU2joYEs72yMxcogdxw" target="_blank" class="btn btn-info" style="margin-top:10px;margin-left:10px;"><strong>Explore Videos</strong></a></div>
+				
+			</div>
+		</div>
+		
+	 <!-- Clients slider start -->
+
+<div class="container-fluid">
+	 <div class="row">
+           			
+                <p class="pageheading text-center" >Recognitions</p>
+
+			</div>
+			</div>
+<div class="container-fluid">
+	 <div class="row" style="background-color:#EAEDED;padding:30px 0;">	
+<div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:980px;height:100px;overflow:hidden;visibility:hidden;">
+<!-- Loading Screen -->
+<div data-u="loading" style="position:absolute;top:0px;left:0px;background-color:rgba(0,0,0,0.7);">
+<div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+<div style="position:absolute;display:block;background:url('assets/website/img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+</div>
+<div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:100px;overflow:hidden;">
+
+
+<div>
+<a href="http://www.gadgetsnow.com/it-services/How-iDOS-makes-accounting-simple-and-real-time/articleshow/33779582.cms" target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/a.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="https://www.microsoftaccelerator.com/ " target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/b.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="http://www.startupchile.org/" target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/c.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="https://partner.microsoft.com/en-in/ " target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/d.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="https://www.youtube.com/watch?v=j3GdBmQuwoU" target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/e.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="http://economictimes.indiatimes.com/industry/tech/software/microsoft-launches-solutions-for-small-medium-businesses/articleshow/55860787.cms " target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/f.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="http://www.business-standard.com/article/companies/microsoft-launches-solutions-for-small-medium-businesses-116120701444_1.html " target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/g.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="http://www.thehindubusinessline.com/news/national/microsoft-launches-solutions-for-smes/article9416316.ece "  target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/h.jpg" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="http://www.dailypioneer.com/state-editions/bhubaneswar/microsoft-introduces-solutions-for-smbs.html " target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/j.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="http://punjabtribune.com/news/15509-microsoft-unveils-solutions-to-empower-smbs-in-india.aspx " target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/k.png" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="https://in.finance.yahoo.com/news/microsoft-unveils-solutions-empower-smbs-114604597.html" target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/l.jpg" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="http://www.internationalnewsandviews.com/microsoft-empowers-the-expanding-small-and-medium-business-sector-in-punjab-bringing-cloud-solutions-from-its-isv-ecosystem/ " target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/m.jpg" />
+</a>
+</div>
+<div>
+</div>
+<div>
+<a href="http://xlr8ap.com/index.aspx " target="_blank" id="bottle" >
+<img data-u="image" src="assets/website/logos/n.png" />
+</a>
+</div>
+<div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+	</div> 
+</div>
+<script type="text/javascript">jssor_1_slider_init();</script>
+<!-- #endregion Jssor Slider End -->
+	<div class="container contdiv">
+				<p class="pageheading text-left titl2">About @(configParams.getCompanyApp())</p>
+		<div class="col-sm-6">
+		  <div class="col-sm-12 nogap"  id="aboutidos">
+			<p class="text-justify">If you are using an accounting software that requires you to pass journal entries by selecting the ledgers to debit and credit, then you are using a calculator in the age of computers and your business will be suffering from significant inefficiencies which will impact your profits.</p>
+			<p class="text-justify">Do you ever wonder why your accounts closure gets delayed? why your accountant spends hours or even days on accounts reconciliation? why there are repetitive errors in your accounting? why your audit report has observations which are repeated month after month? If you research, you will see that most of these issues occur due to inefficiencies in the software you use and process that you adopt.</p>
+			<p class="text-justify">Accounting does not start with recording a transaction in the accounting software. In fact, there are important steps which precede the actual recording of the transaction in accounts. These steps include basic internal control compliances as well as regulatory and tax compliances. For example, recording a simple sales transaction and generating an invoice, requires the user to check if the customer has exceeded his credit limit, whether there is an advance received from the customer which needs to be adjusted and whether correct GST / VAT has been applied on this sales. Similarly if an expense transaction is being recorded, it is necessary to check if the transaction is within the budget, whether the purchase is being made from a vendor approved by your business, whether the expense is approved by the manager and whether there is a receipt to support this expense?</p>
+			<p class="text-justify">Does your accounting software verify these aspects and help you to manage these processes? If your answer is no, then its imperative that you replace your current accounting software, because you are obviously using a legacy software which is seriously impacting your operations and slowly, but surely eating into your profits. </p>
+			<p class="text-justify">@(configParams.getCompanyApp()) enables you to overcome the issues described above and functions like your Digital CFO. The uniqueness of @(configParams.getCompanyApp()) is in its functional architecture and user experience, which is very intuitive and simple to use. @(configParams.getCompanyApp()) simplifies every accounting, compliance and reporting activity, so that you can focus on your core business. In fact @(configParams.getCompanyApp()) even provides you automated business reports, which will help you to take informed business decisions on a timely basis. @(configParams.getCompanyApp()) has automated all your routine accounting transactions and will pass entries to update the ledgers automatically eliminating the possibility of human errors. It even updates your financial statements and reports in real-time to give you business reports at any time at the click of a button.</p>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<p class="text-justify">@(configParams.getCompanyApp()) has been functionally designed by professional accountants and engineered by experts in computer science. @(configParams.getCompanyApp()) is one of the pioneers in using artificial intelligence and machine learning technologies in the field of accounting & compliance and delivers phenomenally powerful capabilities to your business at the most reasonable cost, with the "off the shelf" SaaS version available at the cost which is less than your movie ticket. 
+@(configParams.getCompanyApp()) believes in the power of collaboration to help your business achieve more. We have collaborated with Microsoft and integrated with Office 365 to enable you to control your financial management, accounting and business operations in a seamless manner. 
+@(configParams.getCompanyApp()) can be used by every business, irrespective of the nature and size of business. We sell @(configParams.getCompanyApp()) as an off-the-shelf <a href="/pricing">SaaS version</a> as well as <a href="/pricing">customized Enterprise version</a>.</p>
+		</div>
+	</div>
+<!-- Clients slider End -->	
+    <!-- Page Content -->
+    <!--
+    <div class="container-fluid">	
+	 <div class="row">
+      	
+                <p class="pageheading text-center" style="background-color:#ffffff;">Key Features</p>
+				
+			</div>
+			</div>
+ <div class="container">
+	 <div class="row">
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr1.png" alt="">
+                <p class="title"><b>Automatic Compliance</b></p>
+                <p class="sscomp">@(configParams.getCompanyApp()) enables the business in ensuring internal controls, statutory compliance and GST compliance.</p>
+            </div>
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr2.png" alt="">
+                <p class="title"><b>Easy to Use</b></p>
+                <p class="sscomp">You can manage accounts, even if you don't know debit and credit. @(configParams.getCompanyApp()) passes Journal entries automatically.</p>
+            </div>
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr3.png" alt="">
+                <p class="title"><b>Remote Management</b></p>
+                <p class="sscomp">You can control your accounts and employees even when you are away from office. You can supervise your branches remotely with @(configParams.getCompanyApp()).</p>
+            </div>
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr4.png" alt="">
+                <p class="title"><b>Invoices & Quotes</b></p>
+                <p class="sscomp">Generate and download invoices and sales quotes on one click. Email them, print them, share them.</p>
+            </div>
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr5.png" alt="">
+                <p class="title"><b>Supplier Discovery</b></p>
+                <p class="sscomp">@(configParams.getCompanyApp()) automatically analyses your routine purchases and helps you to identify vendors who can supply these items at least price.</p>
+            </div>
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr6.png" alt="">
+                <p class="title"><b>Reports & MIS</b></p>
+                <p class="sscomp">@(configParams.getCompanyApp()) has two levels of reports. Accountant level reports and Management decision making reports. All on one click and integrated into Microsoft Office 365.</p>
+            </div>
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr7.png" alt="">
+                <p class="title"><b>Security is Paramount</b></p>
+                <p class="sscomp">@(configParams.getCompanyApp()) is hosted on Microsoft Azure. Some of the largest corporations host on <a  href="https://azure.microsoft.com/en-in/case-studies/" target="_blank"> Azure.</a>
+</p>
+            </div>
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr8.png" alt="">
+                <p class="title"><b>Inventory</b></p>
+                <p class="sscomp">Buy in cartons sell in pieces? @(configParams.getCompanyApp()) manages these and other inventory scenarios automatically including inventory valuation.</p>
+            </div>
+            <div class="col-sm-4  text-center" >
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr9.png" alt="">
+                <p class="title"><b>Multi Branch <span class="snglUsrDply"> & Project</span></b></p>
+                <p class="sscomp">@(configParams.getCompanyApp()) can account for all branches and projects simultaneously. It provides consolidated accounts as well as branch / project / segment wise reports in seconds.</p>
+            </div>
+        </div>
+
+        <hr>
+
+
+    </div>-->
+
+    <div class="container-fluid">	
+	 <div class="row">
+      	
+                <p class="pageheading text-center keycaptitl" style="background-color:#ffffff;">Key Capabilities</p>
+				
+			</div>
+			</div>
+		<div class="container">
+		
+	 <div class="row keyfeature">
+            <div class="col-sm-4 text-center">
+				<div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="@(configParams.getCompanyApp()) has automated the process of passing journal entries. Just tell the software what transaction you wish to process and @(configParams.getCompanyApp()) will automatically update the ledgers (including inventory where applicable), compute tax and generate Invoice or other receipts with just one click.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr2.png" alt="">
+                <p class="title"><b>Automatic Accounting</b></p>
+				</div>
+            </div>
+            <div class="col-sm-4 text-center">
+			   <div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="An accounting transaction does not begin when it is recorded in the software. There are certain internal control compliances, such as expense approval, supporting documents, credit limits, discount %, expense budgets, pre-approved vendors, etc, which need to be adhered to before the transaction is processed. @(configParams.getCompanyApp()) automates internal financial controls and processes and integrates them into accounting process.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/internalcomp.jpg" alt="">
+                <p class="title"><b>Internal Control Compliance</b></p>
+			   </div>
+            </div>
+            <div class="col-sm-4  text-center">
+			  <div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="@(configParams.getCompanyApp()) is an intelligent software, that knows when to apply withholding tax (TDS), when to apply GST / VAT / CESS and other taxes. It even know how to compute and account for these taxes so that the users need not worry about tax compliance relating to their business. @(configParams.getCompanyApp()) even generates GST compliant invoices and advance receipt vouchers.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr1.png" alt="">
+                <p class="title"><b>Regulatory Compaliance</b></p>
+			  </div>
+            </div>
+            <div class="col-sm-4  text-center">
+			  <div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="@(configParams.getCompanyApp()) provides a dashboard which displays decision making reports, across all your projects and business segments with just one click. In addition, @(configParams.getCompanyApp()) has integrated with Microsoft Office 365 to automatically populate your business reports in Microsoft Excel On-line, thereby eliminating the need for you to download the data from your accounts and other systems into Excel to prepare reports, thereby saving significant time and cost on report generation.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr6.png" alt="">
+                <p class="title"><b>Business Reports</b></p>
+			  </div>
+            </div>
+            <div class="col-sm-4 text-center">
+			  <div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="Do you travel on work, does your work require you to be away from office often? Do you face situations where you are in a meeting and you urgently need some data from office? @(configParams.getCompanyApp()) enables you to have access to your accounts and reports at any time and from anywhere. You can even supervise your staff when you are traveling and set up controls in a way that you can approve expenses / transactions before they are processed.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr3.png" alt="">
+                <p class="title"><b>Remote Supervision &amp; Control</b></p>
+			  </div>
+            </div>
+            <div class="col-sm-4 text-center">
+			  <div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="@(configParams.getCompanyApp()) has the unique capability to help you manage the accounts of each branch / project separately at different locations and it automatically consolidates the accounts across branches / projects / business segments and automatically provides you with reports both on consolidated basis as well as on branches / projects / business segment basis.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr9.png" alt="">
+                <p class="title"><b>Multi Branch / Project</b></p>
+			  </div>
+            </div>
+            <div class="col-sm-4 text-center">
+			  <div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="@(configParams.getCompanyApp()) is one of the first accounting software to use Artificial intelligence and machine learning technologies to deliver high performance solution for all your business problems. It automates most of your routine accounting, compliance and reporting activities and even helps you in taking business decisions by providing trend analytics, working capital analytics and advanced analytical reports, which you can use to generate more revenues and reduce your operating costs.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/artificial.jpg" alt="">
+                <p class="title"><b>Artificial Intelligence</b></p>
+			  </div>
+            </div>
+            <div class="col-sm-4 text-center">
+			  <div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="What do you do when your tap is leaking? Do you call the doctor? No, you call for the plumber. Every person has a defined role in the company and the transactions which a sales person has to process are different from transactions which a stores in-charge has to process. @(configParams.getCompanyApp()) provides access to different staff in the company to those ledgers / line items which are relevant to them so that you can maintain business confidentiality and privacy and not open up all your accounts to every person that uses the accounting software.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/tr5.png" alt="">
+                <p class="title"><b>Role Based Access</b></p>
+			  </div>
+            </div>
+            <div class="col-sm-4 text-center">
+			  <div class="col-sm-12 nogap" data-toggle="tooltip" data-placement="bottom" title="@(configParams.getCompanyApp()) enables you to manage your travel and expense claims accurately and in accordance to basic principles of accounting & audit. It helps your staff to know what they are eligible for and permits them to apply for travel advance and expense reimbursement, as per their eligibility criteria. Further @(configParams.getCompanyApp()) enables you to account for the travel, boarding & lodging transactions under advances or under expenses correctly and automatically classifies the expenses under different heads of expense. Further, @(configParams.getCompanyApp()) enables you to comply to GST regulations with respect to your travel & expense claims.">
+                <img class="img-circle img-responsive img-center" src="assets/website/features/travelClaims.png" alt="">
+                <p class="title"><b>Travel &amp; Expense Claims</b></p>
+			  </div>
+            </div>
+        </div>
+
+        <hr>
+
+
+    </div>
+<!-- Call to Action Section -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="callout-dark text-center fade-in-b">
+					<h1>Start your <b>Free</b> @(configParams.getCompanyApp()) trial <a href="signUp#selectCountryDiv" class="btn btn-info"><strong>Register</strong></a> <a href="/requestdemo" class="btn btn-info"><strong>Request a Demo</strong></a></h1>
+					<p><font color="#ffffff">Try out @(configParams.getCompanyApp()) for 15 days, completely free of charge.</font></p>
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="container-fluid">
+			<div class="row">
+			<p class="pageheading text-center" style="background-color:#ffffff;">Vendor Registration</p>
+				<div class=" text-center fade-in-b">
+					<h1>Wish to sell your products or services on the @(configParams.getCompanyApp()) platform?</h1><p>Please register as vendor. @(configParams.getCompanyApp()) will make your information available to its users, they will contact you if they wish to purchase.</p> <a href="/signUp#sellerAccountLoginDiv" class="btn btn-info"><strong>Register as Vendor</strong></a></h1>
+				</div>
+			</div>
+			
+		</div>
+			<div class="col-sm-12 idos-review">
+			<div class="container-fluid">	
+				<div class="row">
+					<p class="pageheading text-center keycaptitl">@(configParams.getCompanyApp()) Reviews</p>
+				</div>
+			</div>
+		<div id="idosreview" class="carousel slide three_shows_one_move team_columns_carousel_wrapper" data-ride="carousel" data-interval="6000" data-pause="hover">
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Chartered Accountant</h5>
+				    		<p>CA. P Giridhar</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							 I found that @(configParams.getCompanyApp()) is a simple to use, user-friendly accounting and compliance software.  @(configParams.getCompanyApp()) can be used with ease both by a layman without any accounting knowledge and also by an expert. User screens for entries are really simple and capture all the necessary data required for both accounting and compliance. As a practicing professional, what I found interesting is the way in which GST transactions (both purchase and sales) are captured. The user simply has to pick the drop -down menu choices to account the GST impacted transactions. Another feature I was impressed with is the reports that can be generated by a CFO. Since I also have a substantial corporate experience as a CFO, I find that the reports are specific and provide the relevant information that a CFO needs. I feel that @(configParams.getCompanyApp()) is a great tool to businesses, CFO's and also practicing CA's. Based on the ease of entry and generating reports and linkage to various compliance related forms/reports,   I feel both @(configParams.getCompanyApp()) and @(configParams.getCompanyApp()) Enterprise would be a great hit with the users. Wishing them all the best.
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>CEO, Sukino Healthcare Solutions Pvt Ltd</h5>
+				    		<p>Rajinish Menon</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							 @(configParams.getCompanyApp()) is one of the few accounting software to have combined internal controls and tax compliance into accounting. It has features which empower staff at all levels and departments of a business including sales, procurement, stores, accounting and finance. It is very simple to use and reasonably priced for all the features that it offers.
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>LaxmiUltralite Cement Products</h5>
+				    		<p>ShyamMaloo</p>
+				    		<p>Managing Director</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							@(configParams.getCompanyApp()) has been very user friendly for managing our accounts including inventory. It was surprising to see our staff start to use it and adapt to @(configParams.getCompanyApp()) without any training. The most impressive thing for me is the availability of all my business information including accounting, cash & bank and inventory information instantly without my follow up with my accountant or my CA.
+							Now I am able to manage my business and take business decisions even when I am away from my office. I would recommend @(configParams.getCompanyApp()) to every business owner since it helps them to get better control on their accounts and also provides all financial information instantly and automatically.
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Mother Dairy, Bangalore</h5>
+				    		<p>Director</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							We are one of the first beta users of @(configParams.getCompanyApp()) when they launched the product in 2013 and have been really impressed with the simplicity that @(configParams.getCompanyApp()) provides.  It helps us manage all elements of accounting including financial accounting, inventory, purchases, sales and reports.  We are impressed with @(configParams.getCompanyApp()) GST features which we have observed to be the best in market.  We have used and tried other popular software in the market, but none of them come even close to @(configParams.getCompanyApp()) in its capabilities, ease of use and also price.
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>NemesysCuenta LLP</h5>
+				    		<p>Praveen Desai</p>
+				    		<p>Director</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							@(configParams.getCompanyApp()) has been very user friendly for managing our accounts including inventory. It was surprising to see our staff start to use it and adapt to @(configParams.getCompanyApp()) without any training. The most impressive thing for me is the availability of all my business information including accounting, cash & bank and inventory information instantly without my follow up with my accountant or my CA.
+							Now I am able to manage my business and take business decisions even when I am away from my office. I would recommend @(configParams.getCompanyApp()) to every business owner since it helps them to get better control on their accounts and also provides all financial information instantly and automatically.
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Platinitive Technologies Pvt ltd</h5>
+				    		<p>Mohammed Irfan khan</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							@(configParams.getCompanyApp()) is beyond Accounting software specially suited for SME and Start-Ups with Compliance Management,which no software in this segment gives. @(configParams.getCompanyApp()) gives peace of mind to business owners and Ease of work to Accountants. Truly replacement of conventional Accounting software. WOW! pricingRs. 250 less than the cost of a  Hypertension Medicine.
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Tawakkal Traders</h5>
+				    		<p>Hyderabad</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							@(configParams.getCompanyApp()) has been extremely simple accounting & GST solution for our company. We were able to automate the entire process of accounting, GST computations & GST compliant invoicing with @(configParams.getCompanyApp()). Highly recommend for any kind of business.
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>KP Rao & Co, Bangalore</h5>
+				    		<p>CA. Vasudevan Vaidyanathan</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							@(configParams.getCompanyApp()) Strengths
+							1. Use of contemporary technology to enable access to the data anytime anywhere, this was much needed for the small and medium sector organisations.
+							2. Enabling compliance with enactments like Good and Service tax and Income tax withholding provisions as and when the transactions occur using tax rules built into the product.
+							3. Attractively priced at Rs 250 per person per license.
+
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Excellent customization and good mobile accessibility</h5>
+				    		<p>Omkar Zalaph</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							  Heading the finance department of an MNC,I always depend on Idos-generated data for making proper financial decisions. The one-of-a-kind Business Intelligence Solution helps me to make feasible financial strategies and direct my organisation towards it pre-defined objectives. Using its Business Intelligence tool, I can fetch real-time data anywhere and anytime. Besides such features, it offers excellent customization and good accessibility; all of which makes it more, simple, convenient and user-friendly
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>CA. Venkatesh Babu M R Partner</h5>
+				    		<p>S.R & M.R ASSOCIATES</p>
+				    		<p>Chartered Accountants</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">Idos is a new age accounting software. It is easy to use and even non commerce background persons can use the software with ease. The differentiating feature in @(configParams.getCompanyApp()) from the other accounting softwares is its ability to act as a market place for products that you deal with. This is a great business information tool that can help your business achieve higher margins.
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>X-Impactt Solutions</h5>
+				    		<p>Riyahd, Saudi Arabia</p>
+				    		
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">I have been a premium user of @(configParams.getCompanyApp()) for more than a year now, the most striking aspect of the application is the ease of use. You don't need any special training to get accustomed in using it. Apart from this it has all the top features of any Business App. Support is good and Azure is one of the safest cloud platform to host any application.
+
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>One of the best and easiest system</h5>
+				    		<p>Vinesh Jasoliya</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							 As an owner of a CA firm, I was hoping for a solution that would allow me to propose suitable financial strategies for my clients and improve their finances, in a short period of time. My friend recommended Idos and using it just for a month, I knew I am in the right pitch. The excellent Business Intelligence solution presents data in the form of interactive visuals with the dashboards. With the help of the Business Intelligence tool, I can analyse all business data and make quick decisions on behalf of my clients.
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="col-xs-12 col-sm-4 col-md-4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>@(configParams.getCompanyApp()) for SME business users</h5>
+				    		<p>Sriram Iyer</p>
+				    		<p>Partner, Sriram Iyer &amp; Co</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+							<span class="more">
+							 I have been using @(configParams.getCompanyApp()) for the last 8 months and have been amazed by the level of automation this software provides. I was referred to @(configParams.getCompanyApp()) by some of my CA colleagues who said that @(configParams.getCompanyApp()) is new in the market but is superior in terms of features and value when compared to Tally. I was hesitant to start using a new software for managing the accounts of my customers, but I was truly amazed by the value @(configParams.getCompanyApp()) provides at such low-cost. Debtors/creditors reconciliation is now history since the system automatically manages all reconciliations. Even inter-branch accounting, consolidation happens automatically within seconds and it has helped to reduce the turnaround time by more than 70%. It's excellent software for CA in practice.
+							</span>
+						</div>
+					</div>				
+					<div class="col-xs-12 col-sm-4 col-md-4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Marico Ltd has tested @(configParams.getCompanyApp()) as a "Beta Product"</h5>
+				    		<p>Vishal Barot</p>
+				    		<p>Head Corporate Accounts &amp; Tresury at Marico Ltd.,</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+							<span class="more">
+							 @(configParams.getCompanyApp()) is better than competing accounting software on 2 counts namely Accounting Control and Accounting Intelligence
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Shankaran Ramachandarn</h5>
+				    		<p>Program Director&ndash;Finance, Mindtree Limited</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+							<span class="more">
+							 The product is very good in terms of ease of use and I will definitely put in a word to know circles. I will definitely recommend this model for Municipal corporations and SME's. Its my pleasure to give this feedback to media.
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="col-xs-12 col-sm-4 col-md-4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Amazing Business Reports &amp; Analytics</h5>
+				    		<p>Aashima Sarkar</p>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+							<span class="more">
+							 Amazed to see the kind of Dashboards &amp; Reports, @(configParams.getCompanyApp()) Excel Add-in provides. We are able to track and analyze every process of our business easily, Which is eventually making our business process very smooth and simple by saving lots of time. Thanks for this solution.
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+				    		<h5>Jayanth Mungrekar</h5>
+				    		<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+							<span class="more">
+							 Good to see that ms is coming out with new features, people were asking for something like this for some time now. Makes it all the more easier for me to make some sense of my accounting records. Next I would hope @(configParams.getCompanyApp()) to creates a mobile app so that i can do this stuff on mobile phone too.
+							</span>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md4 team_columns_item_image">
+						<div class="team_columns_item_caption">
+							<h5>Director, Microsoft Ventures</h5>
+							<p>Ravi Narayan</p>
+							<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+							<span class="more">
+							 @(configParams.getCompanyApp()) is an innovative and disruptive companies in the accounting & compliance space in India. The software is architected by Chartered Accountants with deep domain knowledge. The @(configParams.getCompanyApp()) product has established itself as a simple to use, yet powerful software and is adding value to businesses. They level of automation in the software helps any business adopt @(configParams.getCompanyApp()) with ease. @(configParams.getCompanyApp()) has now launched its Enterprise ERP version of the software which is customised as per the specific requirements of the business. We at Microsoft continue to support @(configParams.getCompanyApp())' efforts to become a market leader in the field of accounting & compliance.
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+         
+			<a class="left carousel-control team_columns_carousel_control_left adv_left" href="#idosreview" role="button" data-slide="prev">
+				<span class="fa fa-angle-left team_columns_carousel_control_icons" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+
+			<a class="right carousel-control team_columns_carousel_control_right adv_right" href="#idosreview" role="button" data-slide="next">
+				<span class="fa fa-angle-right team_columns_carousel_control_icons" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+
+		</div>
+	</div>	
+
+
+    <!-- /.container -->
+    <!-- jQuery -->
+    <script src="assets/website/js/jquery.js"></script>
+	 <script src="assets/website/js/bootstrap.min.js"></script>  
+	<script src="assets/website/js/sliderjs.js"></script>
+	<!--<script src="assets/website/js/jquery.touchSwipe.min.js"></script>
+	<script src="assets/website/js/idosreview.js"></script>-->
+    <!-- Bootstrap Core JavaScript -->
+   
+	
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('#carousel-idos').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+</body>
+
+ <script src="assets/website/js/readmore.js"></script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
+  <script>
+    $('#aboutidos').readmore({
+      moreLink: '<a href="#">Read More <i class="fa fa-angle-left"></i></a>',
+      collapsedHeight: 260,
+      afterToggle: function(trigger, element, expanded) {
+        if(! expanded) {
+          $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+        }
+      }
+    });
+   </script>
+   <script>
+       $(document).ready(function() {
+    var showChar = 120; 
+    var ellipsestext = "...";
+    var moretext = "Show more >";
+    var lesstext = "Show less";
+    
+
+    $('.more').each(function() {
+        var content = $(this).html();
+ 
+        if(content.length > showChar) {
+ 
+            var c = content.substr(0, showChar);
+            var h = content.substr(showChar, content.length - showChar);
+ 
+            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+ 
+            $(this).html(html);
+        }
+ 
+    });
+ 
+    $(".morelink").click(function(){
+        if($(this).hasClass("less")) {
+            $(this).removeClass("less");
+            $(this).html(moretext);
+        } else {
+            $(this).addClass("less");
+            $(this).html(lesstext);
+        }
+        $(this).parent().prev().toggle();
+        $(this).prev().toggle();
+        return false;
+    });
+});
+   </script>
+		<br/><br/>
+ <!-- Footer -->
+@indexfooter(){
+}
+<!--footer End here-->
+        </body>
+        </html>

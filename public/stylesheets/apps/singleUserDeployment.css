@@ -1,0 +1,44 @@
+
+.snglUsrDply {
+  display: none !important;
+}
+
+.snglUsrDplyDisplay {
+	display: inherit !important;
+}
+
+.txnForProjects {
+  display: none !important;
+}
+
+.accountProject {
+  display: none !important;
+}
+
+.reqForSu {
+	border-color: red !important;
+}
+
+.txnBugtExceedAndRulesNotFollow, .txnBugtExceed, .txnRulesNotFollow {
+	background-color: inherit !important; 
+}
+
+#newbranchform-container {
+	display: none !important;
+}
+
+.txnItemBarcode {
+	display: block !important;
+}
+
+#newKeyOffId {
+	display: none !important;
+}
+
+#serialNumberDiv {
+	display: none !important;
+}
+
+#sNoDropdownDiv {
+	display: none !important;
+}

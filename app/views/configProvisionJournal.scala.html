@@ -1,0 +1,232 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+@if(!role.contains("CREATOR")){
+	@if(role.contains("ACCOUNTANT") || role.contains("AUDITOR")){
+		<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend" id="createExpense" onClick="cancel()"></i></div>
+		<div class="transaction-what">
+			<select name="whatYouWantToDo" id="whatYouWantToDo" style="width: 500px;" onChange="javascript:whatYouWantToDoFun
+(this);">
+				<option value="">--------------------------------------Please Select---------------------------------------</option>
+				<option value="20">Make Provision/Journal Entry</option>
+			</select>
+			<a class="btn btn-light" id="rfreshTransactionList" onclick="getSellReceiveData();" style="margin-bottom:8px; margin-left:10px"><i class="fa fa-refresh"></i></a>
+
+			<div class="openWhatDoINeedToDo" style="display:none;">
+				<button class="btn btn-submit" type="button" data-toggle="collapse" data-target="#whatdoineedtodo" aria-expanded="false" aria-controls="collapseExample" style="margin-left: 587px; height: 30px; margin-top: -72px;">How?</button>
+				<div class="margin-t-10 collapse" id="whatdoineedtodo" aria-expanded="true" style="height: 0px;">
+					<div class="well" id="transWhatToDo"><span></span></div>
+				</div>
+			</div>
+		</div>
+	}
+}
+@if(role.contains("ACCOUNTANT") || role.contains("AUDITOR")){
+	<!-- start make transaction entry for provision entry-->
+	<div class="transactionDetailsTable" id="transactionDetailsMTEFPETable" style="overflow: auto; display: none;">
+		<table class="table excelFormTable transaction-create">
+			<thead class="tableheadexpensetxn"><tr>
+				<th>Select Debit Branch & Item</th><th>Select Credit Branch & Item</th><th>Purpose</th><th>Remarks/Upload Documents</th><th>Alert For Reversal</th>
+			</tr></thead>
+			<tbody>
+			<tr id="mtefpetrid">
+				<td id="debitAccountHeadTd">
+					<select style="width: 400px;" class="txnBranches" name="mtefpeTxnForBranchesDebit" id="mtefpeTxnForBranchesDebit" onchange="resetTransactionPage('true'); branchChangeForProvisionalAndJournalEntry(this); debitBranchChangePJE(this);"><option value="">--Please Select--</option></select>
+					<div id="debitaccountHeads" style="margin-top:10px;" class="debitaccountHeads" class="btn-group">
+					<!--	<button id="debitAccountHeadsdropdown" class="multiselect dropdown-toggle btn">None Selected <span class="caret"></span></button>
+						<div id="debitAccountHeadsdropdown-menuid" class="debitAccountHeadsdropdown-menu" style="width: 450px;">
+							<div class="debitAccountHeadscontentsearchdiv" style="white-space: nowrap;">
+								<input type="text" style="width:450px; margin-top:-8px; display:inline-block;" name="debitAccountHeadscontentsearchinput" id="debitAccountHeadscontentsearchinput" class="search-image" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);">
+							</div>
+							<ul id="debitAccountHeadsList"></ul>
+						</div>-->
+						<table id="debitAccountHeadTable" class="multipleItemsTable" style="padding-top:10px;width: 400px;">
+						<thead>
+							<tr>
+								<th><button class="addnewItemAccountHead" onClick="addDebitCreditBranchItems(this);" id="addnewItemAccountHead"><i class="fa fa-plus-circle fa-lg"></i></button>Item/Ledger</th>
+								<th>Units</th>
+								<th>Price</th>
+								<th>Amounts</th>
+								<th class="snglUsrDply">Projects</th>
+								<th><button onclick="removeDebitCreditBranchItems(this);" class="removeItemAccountHead" id="removeItemAccountHead"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="mtefpd0">
+								<td>
+								<select class="accountItems" name="debitAccountItems" id="debitAccountItems" onChange="onPjeItemSelection(this);  showAccountHeadDebitButtonLebel(this);"><option value="">Please Select</option></select></td>
+								<td><input class="accountUnit" placeholder="Units" style="width:60px;" type="text" name="debitAccountUnit" id="debitAccountUnit" onkeyup="calculateTotalProvisionalAndJournalEntryItem(this);" onkeypress="return onlyDotsAndNumbers(event);" /></td>
+								<td><input class="accountPrice" placeholder="Price Per Unit" style="width:60px;" type="text" name="debitAccountPrice" id="debitAccountPrice" onkeyup="calculateTotalProvisionalAndJournalEntryItem(this);" onkeypress="return onlyDotsAndNumbers(event);" /></td>
+								<td><input class="netAmountVal" placeholder="Total Amount" style="width:90px;" type="text" name="debitAccountTotalAmt" id="debitAccountTotalAmt" onkeyup="calculateTotalProvisionalAndJournalEntryItem(this);" onkeypress="return onlyDotsAndNumbers(event);" /></td>
+								<td><select class="accountProject"  name="debitAccountProject" id="debitAccountProject" onChange=""><option value="">Please Select</option></select></td>
+								<td><input type="checkbox" class="removeCheckBox"/></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="3" class="text-right">Rounded Off: </td>
+								<td><input style="width:90px;" type="text" placeholder="Rounded Off" readonly id="pjeDebitRoundOff"/></td>
+								<td colspan="2"></td>
+							</tr>
+							<tr>
+								<td colspan="3" class="text-right">Total Debits : </td>
+								<td><input class="netAmountValTotal" style="width:90px;" type="hidden" placeholder="Total Debit" readonly name="totalDebitAmt" id="totalPjeDebitAmt"/>
+								<input style="width:90px;" type="text"  readonly id="ttlPjeDebitAmt"/></td>
+								<td colspan="2"></td>
+							</tr>
+						</tfoot>
+						</table>
+					</div>
+					<br/>
+					<div class="transactionList" style="display:none"><select multiple="multiple" name="pendingTransactionList" id="pendingTransactionList" class="pendingTransactionList"><option value="">--Please Select--</option></select></div>
+
+				</td>
+				<td id="creditAccountHeadTd">
+					<select style="width:400px;" class="txnBranches" name="mtefpeTxnForBranchesCredit" id="mtefpeTxnForBranchesCredit" onchange="resetTransactionPage('false'); branchChangeForProvisionalAndJournalEntry(this);" disabled="true"><option value="">--Please Select--</option></select>
+					<div id="creditaccountHeads" style="margin-top:10px;" class="creditaccountHeads" class="btn-group">
+						<!--<button id="creditAccountHeadsdropdown" class="multiselect dropdown-toggle btn">None Selected <span class="caret"></span></button>
+						<div id="creditAccountHeadsdropdown-menuid" class="creditAccountHeadsdropdown-menu" style="width: 450px;">
+							<div class="creditAccountHeadscontentsearchdiv">
+								<input type="text" style="width:450px; margin-top:-8px;" name="creditAccountHeadscontentsearchinput" id="creditAccountHeadscontentsearchinput" class="search-image" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"/>
+							</div>
+							<ul id="creditAccountHeadsList"></ul>
+						</div> -->
+
+
+						<table id="creditAccountHeadTable" class="multipleItemsTable" style="padding-top:10px;width: 400px;">
+						<thead>
+							<tr>
+								<th><button class="addnewItemAccountHead" onclick="addDebitCreditBranchItems(this);" id="addnewItemAccountHead"><i class="fa fa-plus-circle fa-lg"></i></button>Item/Ledger</th>
+								<th>Units</th>
+								<th>Price</th>
+								<th>Amounts</th>
+								<th class="snglUsrDply">Projects</th>
+								<th><button onclick="removeDebitCreditBranchItems(this);" class="removeItemAccountHead" id="removeItemAccountHead"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="mtefpc0">
+								<td><select class="accountItems"  name="creditAccountItems" id="creditAccountItems" onChange="onPjeItemSelection(this);  checkDebitAccountHeadAccordingly(this);"><option value="">Please Select</option></select></td>
+								<td><input class="accountUnit" placeholder="Units" style="width:60px;" type="text" name="creditAccountUnit" id="creditAccountUnit" onkeyup="calculateTotalProvisionalAndJournalEntryItem(this);" onkeypress="return onlyDotsAndNumbers(event);" /></td>
+								<td><input class="accountPrice" placeholder="Price Per Unit" style="width:60px;" type="text" name="creditAccountPrice" id="creditAccountPrice" onkeyup="calculateTotalProvisionalAndJournalEntryItem(this);" onkeypress="return onlyDotsAndNumbers(event);" /></td>
+								<td><input class="netAmountVal" placeholder="Total Amount" style="width:90px;" type="text" readonly name="creditAccountTotalAmt" id="creditAccountTotalAmt" onkeyup="calculateTotalProvisionalAndJournalEntryItem(this);" onkeypress="return onlyDotsAndNumbers(event);" /></td>
+								<td><select class="accountProject"  name="creditAccountProject" id="creditAccountProject" onChange=""><option value="">Please Select</option></select></td>
+								<td><input type="checkbox" class="removeCheckBox"/></td>
+							</tr>
+						</tbody>
+							<tfoot>
+							<tr>
+								<td colspan="3" class="text-right">Rounded Off: </td>
+								<td><input style="width:90px;" type="text" readonly placeholder="Rounded Off" id="pjeCreditRoundOff"/></td>
+								<td colspan="2"></td>
+							</tr>
+							<tr>
+								<td colspan="3" class="text-right">Total Credits : </td>
+								<td><input class="netAmountValTotal" style="width:90px;" type="hidden" name="totalCreditAmt" readonly placeholder="Total Credit" id="totalPjeCreditAmt"/>
+								<input style="width:90px;" type="text" readonly placeholder="Total Credit" id="ttlPjeCreditAmt"/></td>
+								<td colspan="2"></td>
+							</tr>
+						</tfoot>
+						</table>
+					</div>
+				</td>
+				<td>
+					<textarea placeholder="Purpose" class="provisionPurposeClass" name="mtefpePurpose" id="mtefpePurpose" rows="1"></textarea>
+					<input type="text" id="transactionDate" name="transactionDate" class="journalDatePicker calendar" placeholder="Transaction date">
+				</td>
+				<td><textarea placeholder="Input Remarks" class="voiceRemarksClass" name="mtefpeRemarks" id="mtefpeRemarks" rows="3"></textarea>
+			    	<br/><select id="mtefpeuploadSuppDocs" name="mtefpeuploadSuppDocs" class="txnUploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select><br>
+			          <button id="mtefpeuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+			          <button id="mtefpeuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                      <button id="mtefpeuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+			          <div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin-top: 10px;"></div>
+			    </td>
+		        <td><select class="alertForReversalRequiredCls" name="alertForReversalRequired" id="alertForReversalRequired" onchange="onSelectionAlertForReversal(this)"><option value="">--Please Select--</option><option value="1">Yes</option><option value="0">No</option></select>
+			        <div class="alertForReversalRequiredDateDiv" style="display: none;"><input placeholder="Please Choose Date" class="datepicker calendar m-top-10" name="alertForReversalRequiredDateOfReversal" id="alertForReversalRequiredDateOfReversal"></div>
+
+		        </td>
+			</tr></tbody>
+		</table>
+		<button id="accountingcancelButton" class="compcancelButton btn btn-cancel btn-idos btn-customred" title="Cancel" onClick="cancel(); deleteUncomittedFiles();">Cancel Transaction</button>
+		  <button id="mtefpesubmitForApproval" class="submitForApproval btn btn-submit btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button>
+	</div>
+	<!-- end make transaction entry for provision entry -->
+	<!-- start make transaction entry for journal entry-->
+	<div class="transactionDetailsTable" id="transactionDetailsMTEFJETable" style="overflow: scroll; display: none;">
+		<table class="table table-bordered excelFormTable transaction-create">
+			<thead class="tableheadexpensetxn"><tr>
+				<th>Select Branch</th><th>Debit</th><th>Debit Amount</th><th>Credit</th><th>Credit Amount</th><th>Purpose</th><th>Remarks/Upload Documents</th>
+			</tr></thead>
+			<tbody>
+			<tr id="mtefjetrid">
+				<td>Select Branch<br/><select style="width: 170px;" class="txnBranches" name="mtefjeTxnForBranches" id="mtefjeTxnForBranches"><option value="">--Please Select--</option></select>
+
+				</td>
+				<td>
+					<div class="debitaccountHeads" style="width:220px;">
+					<div class="btn-group">
+						<button id="debitmtefjetridAccountHeadsdropdown" class="multiselect dropdown-toggle btn" style="width: 220px;">None Selected<b class="caret"></b></button></div>
+					<div id="debitAccountHeadsdropdown-menuid" class="debitAccountHeadsdropdown-menu"><div class="debitAccountHeadscontentsearchdiv"><input style="width:175px;" type="text" name="debitAccountHeadscontentsearchinput" id="debitAccountHeadscontentsearchinput" class="search-image" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div><ul id="debitAccountHeadsList">
+					</ul></div></div>
+				</td>
+				<td><input placeholder="Debit Amount" style="width: 168px;" type="text" name="mtefjedebitAmount" id="mtefjedebitAmount" onkeypress="return onlyDotsAndNumbers(event)"></td>
+				<td><div class="creditaccountHeads" style="width:220px;">
+					<div class="btn-group"><button id="creditmtefjetridAccountHeadsdropdown" class="multiselect dropdown-toggle btn" style="width: 220px;">None Selected<b class="caret"></b></button></div>
+					<div id="creditAccountHeadsdropdown-menuid" class="creditAccountHeadsdropdown-menu"><div class="creditAccountHeadscontentsearchdiv"><input style="width:175px;" type="text" name="creditAccountHeadscontentsearchinput" id="creditAccountHeadscontentsearchinput" class="search-image" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div><ul id="creditAccountHeadsList">
+					</ul></div></div>
+				</td>
+				<td><input placeholder="Credit Amount" style="width: 168px;" type="text" name="mtefjecreditAmount" id="mtefjecreditAmount" onkeypress="return onlyDotsAndNumbers(event)"></td>
+				<td><textarea placeholder="Purpose" class="journalEntryPurposeClass" name="mtefjePurpose" id="mtefjePurpose" rows="1"></textarea></td>
+				<td><textarea placeholder="Input Remarks" class="voiceRemarksClass" name="mtefjeRemarks" id="mtefjeRemarks" rows="1"></textarea>
+			    	<br/><select class="txnUploadSuppDocs" id="mtefjeuploadSuppDocs" name="mtefjeuploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select><br>
+		            <button id="mtefjeuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+		            <button id="mtefjeuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="mtefjeuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+		            <div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin-top: 10px;"></div>
+
+	       		</td>
+			</tr>
+			</tbody>
+		</table>
+		<button id="accountingcancelButton" class="compcancelButton btn btn-cancel btn-idos btn-customred" title="Cancel" onClick="cancel()">Cancel Transaction</button>
+		 <button id="mtefjesubmitForApproval" class="submitForApproval btn btn-submit btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button>
+	</div>
+	<!-- start Inventory Opening Balance-->
+	<div class="transactionDetailsTable" id="transactionDetailsOBFINVTable" style="overflow: scroll; display: none;">
+		<table class="table table-bordered excelFormTable transaction-create">
+			<thead class="tableheadexpensetxn"><tr>
+				<th>Select Inventory Item</th><th>Select Branch</th><th>Available Stock</th><th>Opening Units</th><th>Purpose</th><th>Upload Documents</th><th>Remarks</th>
+			</tr></thead>
+			<tbody><tr id="obfinvtrid">
+			    <td>
+			    	<select style="width: 200px;" class="invItemOpeningBalance" name="openingBalanceInvItemNames" id="openingBalanceInvItemNamesId" onchange="getItemOpeningStockBranches(this);"><option>--Please Select--</option></select>
+					<br/><div class="parentInventoryItemName"></div>
+
+				</td>
+				<td><select style="width: 160px;" class="inventoryTxnBranch" name="invOpeningTxnForBranches" id="invOpeningTxnForBranchesId" onchange="getStocks(this);"><option value="">--Please Select--</option></select>
+				</td>
+				<td>
+					<input style="width: 160px;" type="text" placeholder="Available Units" name="obfinvAvailableStock" id="obfinvAvailableStockId" readonly="readonly">
+					<br/><b>Stock Transfer In Progress:</b><div class="stockTransferInProgress"></div>
+				</td>
+				<td>
+					<input style="width: 160px;" type="text" placeholder="Opening Units Stock" name="obfinvOpeningStock" id="obfinvOpeningStockId" onkeypress="return isNumber(event)" onkeyup="checkOpeningInventoryStock(this);">
+					<br/><b>Opening Stock In Progress:</b><div class="openingStockInProgress"></div>
+				</td>
+				<td><textarea style="width: 200px;" placeholder="Purpose" class="inventoryOpeningPurposeClass" name="obfinvPurpose" id="obfinvPurposeId" rows="1"></textarea></td>
+				<td>
+			    	  <select class="txnUploadSuppDocs" id="obfinvuploadSuppDocs" name="obfinvuploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select><br>
+			          <button id="obfinvuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+			          <button id="obfinvuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                      <button id="obfinvuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+			          <div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin-top: 10px;"></div>
+			    </td>
+			    <td><textarea placeholder="Input Remarks" class="voiceRemarksClass" name="obfinvRemarks" id="obfinvRemarks" rows="3"></textarea>
+
+		        </td>
+			</tr></tbody>
+		</table>
+		<button id="accountingcancelButton"  class="compcancelButton btn btn-cancel btn-idos btn-customred" title="Cancel" onClick="cancel(); deleteUncomittedFiles();">Cancel Transaction</button>
+		 <button id="mtefpesubmitForApproval" class="submitForApproval btn btn-submit btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button>
+	</div>
+	<!-- end Inventory Opening Balance-->
+}
+<!-- end make transaction entry for journal entry -->

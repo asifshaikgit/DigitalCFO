@@ -1,0 +1,61 @@
+#reportAllInventoryTable tr td:nth-child(4), #reportAllInventoryTable tr td:nth-child(5), #reportAllInventoryTable tr td:nth-child(6){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#reportAllInventoryTable tr td:nth-child(7), #reportAllInventoryTable tr td:nth-child(8), #reportAllInventoryTable tr td:nth-child(9){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#reportAllInventoryTable tr td:nth-child(10), #reportAllInventoryTable tr td:nth-child(11), #reportAllInventoryTable tr td:nth-child(12){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#reportAllInventoryTable tr td:nth-child(13), #reportAllInventoryTable tr td:nth-child(14){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#inventoryBranchTbl tr td:nth-child(2), #inventoryBranchTbl tr td:nth-child(3), #inventoryBranchTbl tr td:nth-child(4), #inventoryBranchTbl tr td:nth-child(5), #inventoryBranchTbl tr td:nth-child(6){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#inventoryBranchTbl tr td:nth-child(7), #inventoryBranchTbl tr td:nth-child(8), #inventoryBranchTbl tr td:nth-child(9){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#inventoryBranchTbl tr td:nth-child(10), #inventoryBranchTbl tr td:nth-child(11), #inventoryBranchTbl tr td:nth-child(12){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+
+
+#inventoryItemsBreakupTable tr td:nth-child(4), #inventoryItemsBreakupTable tr td:nth-child(5), #inventoryItemsBreakupTable tr td:nth-child(6){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#inventoryItemsBreakupTable tr td:nth-child(7), #inventoryItemsBreakupTable tr td:nth-child(8), #inventoryItemsBreakupTable tr td:nth-child(9){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#inventoryItemsBreakupTable tr td:nth-child(10), #inventoryItemsBreakupTable tr td:nth-child(11), #inventoryItemsBreakupTable tr td:nth-child(12){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#inventoryItemsBreakupTable tr td:nth-child(13), #inventoryItemsBreakupTable tr td:nth-child(14), #inventoryItemsBreakupTable tr td:nth-child(15){
+	text-align: right;
+	word-wrap: break-word;
+}
+
+#inventoryItemsBreakupTable tr td:nth-child(16), #inventoryItemsBreakupTable tr td:nth-child(17), #inventoryItemsBreakupTable tr td:nth-child(18){
+	text-align: right;
+	word-wrap: break-word;
+}

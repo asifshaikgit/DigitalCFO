@@ -1,0 +1,430 @@
+@(fullName: String, email: String, role: String, orgn: model.Organization, allowedProcurement: String, userobj: model.Users, configParams: model.ConfigParams)
+    @main(fullName, email, role, orgn, allowedProcurement, userobj, configParams) {
+		<script>
+			$(document).ready(function () {
+				$('#loadingIdos').hide();
+			});
+			var notifyLogin = {
+				time: 0,
+				show: function (msg, shouldHide, isError) {
+					if (!isEmpty(msg)) {
+						clearTimeout(notifyLogin.time);
+						$('#messageDisplay').html(msg);
+						(!isEmpty(isError) && isError) ? $('#messageDisplay').css('color', '#B4283C') : $('#messageDisplay').css('color', '#000000');
+						if ($('#messageDisplay').css('right') != 0) {
+							$('#messageDisplay').show({'right': '40px'}, 1500);
+						}
+						if (!isEmpty(shouldHide) && shouldHide) {
+							notifyLogin.time = window.setTimeout(function () {
+								notifyLogin.hide();
+							}, 10000);
+						}
+					}
+				},
+				hide: function () {
+					$('#messageDisplay').hide({'right': '0'}, 1500, function () {
+						var locHash = window.location.hash;
+						$('#messageDisplay').empty().css('color', '#000000');
+						if ('#resetLoginCred' == locHash) {
+							window.location.href = "/signIn#logindiv";
+						}
+					});
+				}
+			};
+
+			function sendEmailToAdminForAccess(elem) {
+				$.blockUI({message: '<img align="middle" src="assets/images/loader.gif" height="80px" width="80px" />'});
+				var jsonData = {};
+				jsonData.usermail = $("#hiddenuseremail").text();
+				var accessCode = $.trim($('#accessCode').val());
+				jsonData.accesscode = accessCode;
+				var url = "/externalUser/submitForAccessApproval"
+
+				$.ajax({
+					url: url,
+					data: JSON.stringify(jsonData),
+					type: "text",
+					headers: {
+						"X-AUTH-TOKEN": window.authToken
+					},
+					method: "POST",
+					contentType: 'application/json',
+					success: function (data) {
+						if (data.userStatusChanged[0].message == "Failure") {
+
+							notifyLogin.show("You dont have to any of the companies!", true, true);
+							return false;
+						} else {
+							$("div[class='submitForApprovalDiv']").hide();
+							$("div[class='extUserStatusDiv']").text(data.userStatusChanged[0].externalUserStatus);
+						}
+					},
+					error: function (xhr, status, error) {
+						if (xhr.status == 401) {
+							doLogout();
+						} else if (xhr.status == 500) {
+							swal("Error on fetching vendors!", "Please retry, if problem persists contact IDOS support team", "error");
+						}
+					},
+					complete: function (data) {
+						$.unblockUI();
+					}
+				});
+			}
+			function fetchOrgDetails(elem) {
+				var parentTable = $(elem).attr('id');
+				var accessCode = $.trim($(elem).val());
+				if (accessCode == "" || accessCode.length != 6)
+					return false;
+				$.blockUI({message: '<img align="middle" src="assets/images/loader.gif" height="80px" width="80px" />'});
+				var jsonData = {};
+				jsonData.usermail = $("#hiddenuseremail").text();
+				jsonData.accesscode = accessCode;
+				$("#addCompanyTableDiv").show();
+				$("#extUserCompanyListDiv").hide();
+				var url = "/externalUser/addcompanyList"
+				$.ajax({
+					url: url,
+					data: JSON.stringify(jsonData),
+					type: "text",
+					headers: {
+						"X-AUTH-TOKEN": window.authToken
+					},
+					method: "POST",
+					contentType: 'application/json',
+					success: function (data) {
+						var companyTemp = "";
+						if (data.companyToBeAddedList[0].message == "Failure") {
+							swal("Invalid Access Code","Please enter a valid Access Code..!","warning");
+							$(elem).val("");
+							$("div[class='orgNameDiv']").text("");
+							$("div[class='orgAddressDiv']").text("");
+							$("div[class='orgPhNoDiv']").text("");
+							$("div[class='dateOfAccessDiv']").text("");
+							$("div[class='extUserStatusDiv']").text("");
+							$("div[class='submitForApprovalDiv']").hide();
+							return false;
+						}
+
+						for (var i = 0; i < data.companyToBeAddedList.length; i++) {
+							$("div[class='orgNameDiv']").text(data.companyToBeAddedList[0].name);
+							$("div[class='orgAddressDiv']").text(data.companyToBeAddedList[0].registeredAddress);
+							$("div[class='orgPhNoDiv']").text(data.companyToBeAddedList[0].registeredPhoneNumber);
+							$("div[class='dateOfAccessDiv']").text(data.companyToBeAddedList[0].dateOfAccess);
+							$("div[class='extUserStatusDiv']").text(data.companyToBeAddedList[0].externalUserStatus);
+							if (data.companyToBeAddedList[0].externalUserStatus == "No Access")
+								$("div[class='submitForApprovalDiv']").show();
+						}
+						$(elem).append(companyTemp);
+					},
+					error: function (xhr, status, error) {
+						if (xhr.status == 401) {
+							doLogout();
+						} else if (xhr.status == 500) {
+							swal("Error on fetching vendors!", "Please retry, if problem persists contact IDOS support team", "error");
+						}
+					},
+					complete: function (data) {
+						$.unblockUI();
+					}
+				});
+			}
+			$(document).ready(function () {
+				$("#addCompany").click(function () {
+					$.blockUI({message: '<img align="middle" src="assets/images/loader.gif" height="80px" width="80px" />'});
+					var jsonData = {};
+					jsonData.usermail = $("#hiddenuseremail").text();
+					$("#addCompanyTableDiv").show();
+					$("#extUserCompanyListDiv").hide();
+					$("#supportCenter").hide();
+					$("#privaySettingDiv").hide();
+					$.unblockUI();
+				});
+				$("#viewCompany").click(function () {
+					$.blockUI({message: '<img align="middle" src="assets/images/loader.gif" height="80px" width="80px" />'});
+					var jsonData = {};
+					jsonData.usermail = $("#hiddenuseremail").text();
+					$("#addCompanyTableDiv").hide();
+					$("#extUserCompanyListDiv").show();
+					$("#supportCenter").hide();
+					$("#privaySettingDiv").hide();
+					var url = "/externalUser/companyList";
+					$.ajax({
+						url: url,
+						data: JSON.stringify(jsonData),
+						type: "text",
+						headers: {
+							"X-AUTH-TOKEN": window.authToken
+						},
+						method: "POST",
+						contentType: 'application/json',
+						success: function (data) {
+							$("#companyTable tbody").html("");
+							var companyTemp = "";
+							if (data.companyListData[0].message == "Failure") {
+								$.unblockUI();
+								swal("No companies.","You don't have any of the companies! Please click on 'Add Company' to add company!","warning");
+								return false;
+							}
+
+							for (var i = 0; i < data.companyListData.length; i++) {
+								var username = data.companyListData[i].corrEmail;
+								var pwd = data.companyListData[i].corrPwd;
+								var userId = data.companyListData[i].corrUserId;
+								companyTemp += ('<tr name="' + data.companyListData[i].companyId + '"><td><a href="#" onClick="extUserLogInToOrg(\'' + username + '\',\'' + pwd + '\')"><b>' + data.companyListData[i].companyName + '</b></a></td><td>' + data.companyListData[i].accessCode + '</td><td>' + data.companyListData[i].adminName + '</td><td>' + data.companyListData[i].adminContact + '</td><td>' + data.companyListData[i].adminEmail + '</td><td>' + data.companyListData[i].dateOfAccess + '</td></tr>');
+							}
+							$("#companyTable").append(companyTemp);
+						},
+						error: function (xhr, status, error) {
+							if (xhr.status == 401) {
+								doLogout();
+							} else if (xhr.status == 500) {
+								swal("Error on fetching vendors!", "Please retry, if problem persists contact IDOS support team", "error");
+							}
+						},
+						complete: function (data) {
+							$.unblockUI();
+						}
+					});
+				});
+			});
+		</script>
+        <meta name="google-translate-customization" content="adb022d9487bd3f0-a0dc47329ea0a16c-g2cfbf2548bf7ce25-e"></meta>
+        <div id="top" class="clearfix">
+                <!-- Start App Logo -->
+            <div class="applogo"><a href="/">
+                <div class="logo"></div>
+
+            </a></div>
+                <!-- End App Logo -->
+
+                <!-- Start Sidebar Show Hide Button -->
+            <a class="sidebar-open-button" style="color: #D01938;
+                cursor: pointer;"><i class="fa fa-bars"></i></a>
+                <!-- End Sidebar Show Hide Button -->
+
+                <!-- Start Sidepanel Show-Hide Button
+		<a href="#sidepanel" class="sidepanel-open-button" style="color: #ddd;"><i class="fa fa-outdent"></i></a>
+		<!--
+
+                                 End Sidepanel Show-Hide Button -->
+            @if(configParams.getCompanyOwner().equals("PWC")) {
+                <div class="aasaanGST-top-header">@(configParams.getCompanyApp())</div>
+            }
+
+                <!-- Start Top Right -->
+            <ul class="top-right">
+                @if(role.contains("APPROVER") || role.contains("ACCOUNTANT")) {
+                    <li class="link">
+                            <!--<a class="notifications" data-toggle="modal" data-target="#ExpenseAdvance" type="button" alt="Expense Advance Request Count"> EC </a>-->
+                        <a href="#" id="ec" class="notifications" alt="Expense Advance Request Count">EC</a>
+                        <div class="easettlementcount"><p style="color: white;"><b id="easettlementcount"></b></p></div>
+                        <div class="eacount"><p style="color: black;"><b id="eacount"></b></p></div>
+                    </li>
+                    <li class="link">&nbsp;</li>
+                    <li class="link">
+                        <a href="#" id="ta" class="notifications" alt="Travel Advance Request Count">TA</a>
+                        <div class="tasettlementcount"><p style="color: white;"><b id="tasettlementcount"></b></p></div>
+                        <div class="tacount"><p style="color: black;"><b id="tacount"></b></p></div>
+                    </li>
+                }
+                <div class="modal fade" id="ExpenseAdvance" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">EC</h4>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <!--
+			<li class="dropdown link">
+
+
+                @if(role.contains("CREATOR") && allowedProcurement == "0") {
+
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle notifications"">
+                    <div class="procurementcount"><p color="white"><b id="proccount"></b></p></div>P</a>
+                    <ul class="dropdown-menu dropdown-menu-list dropdown-menu-right" id="procurementRequestsList" style="font-size : 11px ; height : 250px ; color : black ; overflow : scroll ; " >
+
+                    </ul>
+
+                }
+            </li>-->
+                <li class="dropdown link">
+                    <div id="google_translate_element" style="margin-top: 8px;
+                        margin-right: 10px;
+                        position: relative;
+                        height: 30px;"></div>
+                </li>
+                <li class="link">
+                        <!-- will use later <a href="#" class="notifications">6</a> -->
+                </li>
+                <li class="dropdown link">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox"><b id="hiddenuseremail" style="display: none;">@email</b><b id="hiddenfullName">@fullName</b><!--img src="https://media.licdn.com/media/AAEAAQAAAAAAAATlAAAAJGMyZjY3NjQ2LWIxZmQtNGNjZi04YzI0LThiNTRiYzBlMWFiNw.jpg" alt="img" --><span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+                        <li role="presentation" class="dropdown-header"> Profile</li>
+                        <li><a id="chatMessages"><i class="fa falist fa-inbox"></i>
+                            Messages<span class="badge label-danger">0</span></a></li>
+                        <li><a href="#" onclick="openPrivacySettingExtUser();"><i class="fa falist fa-wrench"></i>
+                            Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="fa falist fa-lock"></i> Lockscreen</a></li>
+                        <li><a href="#" onClick="doLogoutExtUser();"><i class="fa falist fa-power-off"></i> Logout</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+                <!-- End Top Right -->
+        </div>
+            <!-- END TOP -->
+
+            <!-- start side nav -->
+        <div class="sidebar clearfix">
+            <script type="text/javascript">
+                function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({
+                        pageLanguage: 'en',
+                        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                    }, 'google_translate_element');
+                }
+            </script>
+            <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+            <div id="systemconfigadminId1" class="sidebar-nav-fixed">
+                <ul class="sidebar-panel nav">
+                        <!-- <li class="sidetitle">Main</li>
+			 <li><a href="/"><span class="icon color5"><i class="fa fa-home"></i></span>Home</a></li> -->
+
+                    <li id="supportCenterId"><a id="supportCenterId" href="supportCenter" data-toggle="tab"><span class="icon color5"><i class="fa fa-life-ring"></i></span>
+                        Support</a></li>
+                </ul>
+            </div>
+        </div>
+
+            <!-- end side nav -->
+        </br> </br>
+        <input type="hidden" id="gstCountryCode" value="@orgn.getGstCountryCode()" />
+        <input type="hidden" id="usermoduleshidden" value="@userobj.getModuleRights()" />
+            <!-- start change pwd -->
+        <div id="staticchangepassword" class="modal fade" data-backdrop="static" data-keyboard="false" style="width: 50%;
+            margin-left: 10%;" align="center" role="dialog" aria-hidden="true">
+            <div class="lightbox-block lightbox-location">
+                <div class="lightbox-holder">
+                    <h2>Change Account Password</h2>
+                    <h5 id="wrongActCred" align="center"></h5>
+                    <div class="belowheader carousel"></div>
+                    <a id="fancybox-close" href="" class="staticchangepasswordclose" style="display: inline;"></a>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="control-group" align="left">
+                                <label class="control-label"><b>Email: </b></label>
+                                <div class="controls">
+                                    <input type="text" id="userCred" name="userCred" class="input-xlarge">
+                                </div><br/>
+                                <label class="control-label"><b>Old Password: </b></label>
+                                <div class="controls">
+                                    <input type="password" id="oldPassword" name="oldPassword" class="input-xlarge">
+                                </div><br/>
+                                <label class="control-label"><b>New Password: </b></label>
+                                <div class="controls">
+                                    <input type="password" id="newPassword" name="newPassword" class="input-xlarge">
+                                </div><br/>
+                                <label class="control-label"><b>Confirm New Password: </b></label>
+                                <div class="controls" align="left">
+                                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="input-xlarge">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: justify;">
+                        <div class="controls" align="center">
+                            <button id="changePassword" class="changePassword btn btn-primary btn-idos" title="Change Password">
+                                Change Password</button>
+                            <button id="changePasswordCancel" class="staticchangepasswordclose btn btn-primary btn-idos" title="Cancel">
+                                Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content" style = "margin-top: 20px;">
+            <div class="panel panel-showtrans">
+                <div class="panel-body">
+                    <div class="navbar-transaction">
+                        <button id="addCompany" class = "btn btn-primary btn-idos" title="Add a new Company">
+                            <i class="fa fa-plus pr-5"></i> Add Company
+                        </button>
+                        <button id="viewCompany" class = "btn btn-primary btn-idos" title="View All Companies">
+                            <i class="fa fa-eye pr-5"></i> View Companies
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @privacySetting(fullName, email, role, orgn, allowedProcurement, configParams) {
+        }
+        @support(fullName, email, role, orgn, configParams) {
+        }
+
+
+        <div id="extUserCompanyListDiv" style="display: none;" class="content">
+            <div class="panel panel-showtrans">
+                <div class="panel-body">
+                    <legend class="panel-title">Companies</legend>
+                        <!-- table for vendor list -->
+                    <div class="datascrolltable" style="height: 100%;
+                        overflow: auto;">
+                        <table class="table table-hover table-striped table-bordered transaction-create" id="companyTable" style="margin-top: 0px;">
+                            <thead class="tablehead1"><tr><th>Company Name</th><th>Access Code</th><th>Admin Name</th><th>
+                                Admin Contact</th><th>Admin Email</th><th>Date of Access</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- <button style="margin-top: 30px; padding: 5px 11px 5px 11px; " id="soccpnsubmitForAccounting" class="submitForAccounting btn btn-submit btn-custom" title="Submit for Accounting">Submit for Accounting</button> -->
+        <div id="addCompanyTableDiv" style="display: none;" class="content">
+            <div class="panel panel-showtrans">
+                <div class="panel-body">
+                    <legend class="panel-title">Add Companies</legend>
+                        <!-- table for vendor list -->
+                    <table class="table excelFormTable transaction-create" id="addCompanyTable">
+                        <thead class="tableheadincometxn"><tr>
+                            <th>Access Code</th>
+                            <th>Organization Name</th>
+                            <th>Address</th>
+                            <th>Phone number</th>
+                            <th>Date of access</th>
+                            <th>Status</th><th></th>
+                        </tr></thead>
+                        <tbody>
+                            <tr id="orgDetailsRow">
+                                <td>
+                                    <input type="text" style="width: 100px" id="accessCode" onkeyup="fetchOrgDetails(this);" placeholder = "Enter Access Code">
+                                </td>
+                                <td><div class="orgNameDiv"></div></td>
+                                <td><div class="orgAddressDiv"></div></td>
+                                <td><div class="orgPhNoDiv"></div></td>
+                                <td><div class="dateOfAccessDiv"></div></td>
+                                <td><div class="extUserStatusDiv"></div></td>
+                                <td><div class="submitForApprovalDiv" style="display: none;">
+                                    <button id="submitForAccess" class = "btn btn-primary btn-idos" title="Submit For Access" onclick="sendEmailToAdminForAccess();">
+                                        Submit    </button>
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+    }

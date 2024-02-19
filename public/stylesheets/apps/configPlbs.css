@@ -1,0 +1,24 @@
+#profitLossTable tr td:nth-child(2){
+	word-wrap: break-word;
+}
+
+#profitLossTable tr td:nth-child(3), #profitLossTable tr td:nth-child(4), #profitLossTable tr td:nth-child(5){
+	text-align: right;
+	word-wrap: break-word;
+	padding-right: 20px;
+}
+
+
+#balanceSheetTable tr td:nth-child(2), #balanceSheetTable tr td:nth-child(3), #balanceSheetTable tr td:nth-child(4){
+	text-align: right;
+	word-wrap: break-word;
+	padding-right: 20px;
+}
+
+#balanceSheetTable tr th:nth-child(3),  #balanceSheetTable th:nth-child(4){
+	text-align: right;
+	word-wrap: break-word;
+	padding-right: 20px;
+}
+
+

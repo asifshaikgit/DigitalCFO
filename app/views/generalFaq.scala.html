@@ -1,0 +1,383 @@
+@(configParams:model.ConfigParams)
+
+<html>
+<head>
+@if(configParams.getCompanyOwner().equals("KARVY")){
+	<link rel="stylesheet" type="text/css" href='@routes.Assets.at("karvy/css/main_karvy.css")'/>
+	<link rel="stylesheet" type="text/css" href='@routes.Assets.at("karvy/css/style.css")'/>
+}
+@if(!configParams.getCompanyOwner().equals("PWC") && !configParams.getCompanyOwner().equals("KARVY")) {
+	 <link rel="stylesheet" type="text/css" href='@routes.Assets.at("wp-content/themes/simplekey/newsite/css/style.css")'/>
+	<link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/main.css?version=1.1")'/>
+}
+	<script type="text/javascript" src='@routes.Assets.at("wp-content/themes/simplekey/newsite/js/jquery.1.11.1.min.js")'></script>
+	  <link rel="stylesheet" href='@routes.Assets.at("stylesheets/jquery.jscrollpane.css")'/>
+	  <script src='@routes.Assets.at("javascripts/jquery.jscrollpane.min.js")' type="text/javascript"></script>
+	<script type="text/javascript" src='@routes.Assets.at("javascripts/jquery-ui-1.12.1.custom/jquery-ui.min.js")'></script>
+	<script type="text/javascript" src='@routes.Assets.at("javascripts/moment/2.18.1/min/moment.min.js")'></script>
+	<script type="text/javascript" src='@routes.Assets.at("javascripts/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js")'></script>
+
+<style>
+	.answer{
+	color:#58666e;
+	}
+
+</style>
+
+<script>
+$(document).ready(function(){
+	$('#setupFAQId').click(function(){
+		$(".mainDiv").hide();
+
+	});
+	
+	$(".faqList").click(function(){
+	    $(".faqMainDiv").hide();
+	    var clickedId = $(this).data("id");
+	    if(clickedId == "setupFAQ"){
+		window.location.href="/setupFAQ";
+	}
+	    $("#"+clickedId).show();
+	});
+
+	$('#genFAQId').click(function(){
+		$(".mainDiv").hide();
+		$('#genFAQ').show();
+
+	});
+	var clickedPrevId="";
+	$('.subHeadQA').click(function(){
+		
+		var clickedSubHead = $(this).data("id");
+		if(clickedPrevId==clickedSubHead){
+			$("#"+clickedSubHead).hide();
+			$("#"+clickedSubHead).find(".question").hide();
+			clickedPrevId="";
+		}
+		else{		
+			$(".question").hide();
+			$(".answer").hide();
+			$("#"+clickedSubHead).show();
+			$("#"+clickedSubHead).find(".question").show();
+			clickedPrevId = $(this).data("id");
+		}
+			
+	});
+	var clickedPrevId="";
+	$(".question").on("click",function(){
+		var clickedQues = $(this).attr("id");
+		if( clickedPrevId == clickedQues){
+			$(".answer").hide();
+			clickedPrevId="";
+		}
+		else{
+			$(".answer").hide();
+			$(this).closest("div").next().show();
+			clickedPrevId = $(this).attr("id");
+		}
+		
+		});
+
+	});
+
+
+</script>
+<style type="text/css">
+.question{
+cursor:pointer;
+}
+</style>
+</head>
+<body onscroll="recordScroll('body');">
+<div id="top" class="clearfix">
+		<!-- Start App Logo -->
+		<div class="applogo">
+            <a href="/">
+                <div class="logo"></div>
+            </a>
+        </div>
+        </div>
+<div style=" width: 166px; float:left;"  class="sidebar-nav-fixed"> 
+			<ul class="sidebar-panel nav">			 
+                 <li style="position: relative;list-style-type:none;" class="faqList" data-id="generalFAQ">
+                     <a href="#" style="padding:8px; margin:0px;"><b>General FAQ</b></a>
+                </li>
+                <li style="position: relative;" class="faqList" data-id="setupFAQ">
+                     <a href="#" style="padding:8px; margin:0px;"><b>Setup FAQ</b></a>
+                </li>
+        </ul> 
+    </div>
+
+<div id="generalFAQ" class="content faqMainDiv" style="margin-top:60px;"  >
+
+			<div class="panel panel-showtrans">
+				<div class="panel-body">                    
+                    <legend class="panel-title">General FAQ</legend>
+                </div>
+    </div>
+    <div class="panel panel-showtrans">
+			<div class="panel-body">
+                <div class="subHeadQA" data-id="genFAQIntroQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">Introduction</a></b></span>
+                </div>
+            <div id="genFAQIntroQAId"  style="display: none;">
+            <div>
+                <div id="gQ1" data-id ="gA1" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">What is @(configParams.getCompanyApp())?</b></span>  
+                </div>
+                <div id="gA1" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+        <p>@(configParams.getCompanyApp()) is cloud based accounting &amp; compliance software. It helps you take informed business decisions and access important accounting & financial reports in real time. It&apos;s highly automated and fully compliant with GST.</p>
+        <ul style="    margin-left: 30px;">
+            <li>Creating routine transactions</li>
+            <li>Fully GST compliant invoicing </li>
+            <li>Automatic compliance management</li>
+            <li>GST returns &amp; filings</li>
+            <li>Branch wise and project wise reporting & dashboard</li>
+            <li>Real time tracking of income, expense, accounts receivables and payables</li>
+            <li>No hardware of physical installation required, completely cloud based, can be made up and running from anywhere</li>
+        </ul>
+    </div>
+    </div>
+                
+                <div id="gQ2"class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">What are the systems Requirements for @(configParams.getCompanyApp())?</b></span> 
+                </div>
+                <div id="gA2" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+            <ul style="    margin-left: 30px;">
+            <li>PCs, Laptops & Tablet</li>
+            <li>Compatible with windows and iOS. </li>
+            <li>Internet Browser (e.g., Google Chrome, Firefox, Mozilla, Windows Explorer)</li>
+        </ul>
+    </div>
+                <div id="gQ3" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">What kinds of subscription plans are available?</b></span>
+                </div>
+                <div id="gA3" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>We have got half yearly and annual subscription plans. You can choose as per your preference. Though we recommend you to go for annual plan as, you don&apos;t have to worry about frequent renewals and payment in the annual plan.</p>
+                </div>
+                
+                
+                <div id="gQ4" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Will @(configParams.getCompanyApp()) work on my Macbook?</b></span>
+                </div>
+                <div id="gA4" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>Yes, our software can be used on any machine using any internet browser including safari on Macbook.</p>
+                </div>
+                <div id="gQ5" data-id ="gA5" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Can I access @(configParams.getCompanyApp()) on my mobile phone or tablet?</b></span>
+                </div>
+                <div id="gA5" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>Even though you can access @(configParams.getCompanyApp()) from your mobile phone, it&apos;s not made for usage on mobile and it's primarily to be used on laptops and desktops.</p>
+                </div>
+                <div id="gQ6" data-id ="gA6" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Can I access @(configParams.getCompanyApp()) offline?</b></span>
+                </div>
+                <div id="gA6" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>As you are aware, GSTN has made it mandatory to file your returns online and also as India is moving towards digital adoption, we have provided our application on the cloud.</p>
+                </div>
+                <div id="gQ7" data-id ="gA7" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">In case if I want to upgrade to a latest version, how do I upgrade?</b></span>
+                </div>
+                <div id="gA7" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>Since it&apos;s a cloud based application, updates happen automatically and won't affect your existing information and data. You will be getting notifications and reminders to upgrade to the latest version/ features. However if you require a customized version of @(configParams.getCompanyApp()), you can get in touch with us.</p>
+                </div>
+                
+                <div id="gQ8" data-id ="gA8" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Do I need to pay for software updates?</b></span>
+                </div>
+                <div id="gA8" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>No, being a cloud based application, the software gets upgraded automatically and free of cost.</p>
+                </div>
+        </div>
+                <div class="subHeadQA" data-id="genFAQGetStrtdQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">Getting Started</a></b></span>
+                </div>
+        <div id="genFAQGetStrtdQAId" style="display: none;">
+                <div id="gQ9" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">What information do I need to sign up?</b></span>
+                </div>
+            <div id="gA9" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p>To sign up, you just have to enter basic information like your name, email address, company name, email ID. Once you sign up, you will be getting an activation link. Activate your account from there and then set up with some dummy data and you can play around with the product.</p>
+            </div>
+                <div id="gQ10" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Do you provide in person / on-site support?</b></span>
+                </div>
+            <div id="gA10" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p>Sir, Our solution is cloud based and can be accessed from anywhere, therefore we provide online support. Any support query can be handled and resolved online itself.</p>
+            </div>
+                <div id="gQ11" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Can I create multiple users in @(configParams.getCompanyApp())?</b></span>
+                </div>
+            <div id="gA11" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p>Yes, you can create multiple users in @(configParams.getCompanyApp()).</p>
+            </div>
+                <div id="gQ12" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Can I define user access in @(configParams.getCompanyApp())?</b></span>
+                </div>
+            <div id="gA12" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p>Yes, you can define user access in @(configParams.getCompanyApp()) depending on the roles and responsibilities of the user.</p>
+            </div>
+                <div id="gQ13" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Can I download, import and export data into @(configParams.getCompanyApp())?</b></span>
+                </div>
+            <div id="gA13" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p>You can export the reports in Excel and PDF formats. Also, you can import and export the following lists to and from MS Excel.</p>
+                <ul style="margin-left: 40px;">
+                <li>Chart of accounts(Income, Expense, Assets, Liabilities)</li>
+                    <li>List of Customers</li>
+                    <li>List of Vendors</li>
+                    
+                </ul>
+            </div>
+                <div id="gQ14" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">What options are available for customer support?</b></span>
+                </div>
+            <div id="gA14" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                <p>@(configParams.getCompanyApp()) has got multiple support options:</p>
+                <ul style="margin-left: 40px;">
+                <li>In-software help Guides & Instructions</li>
+                    <li>Extensive Questionnaires and FAQs</li>
+                    <li>Email</li>
+                    <li>Live Chat</li>
+                </ul>
+                </div>
+                </div>
+                <div class="subHeadQA" data-id="genFAQDataSecrtyQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">Data &amp; Security</a></b></span>
+                </div>
+                 <div id="genFAQDataSecrtyQAId" style="display: none;">
+                <div id="gQ15" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How do you ensure safety and security of my information/data?</b></span>
+                </div>
+                     <div id="gA15" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+ <p>@(configParams.getCompanyApp()) is hosted on one of the world's most secured cloud environment of Microsoft. Some of the top banks, insurance companies and other reputed organizations use this infrastructure. There are multiple ways by which @(configParams.getCompanyApp()) takes care of its customer&apos;s security.</p>
+                         <ul style="margin-left: 40px;">
+    <li>First and foremost, we make sure that each Login password is being encrypted so that it cannot be misused by an unauthorized user. The username and password which is entered by the user can not be read IN back end.</li>
+    <li>While logging in, the user has to pass an image capcha test. This is done in order to prevent hacking.</li>
+    <li>The port which is used for data transfer between server and the browser is isolated and hence protected.</li>
+                         </ul>
+                     </div>
+                <div id="gQ16" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">What happens to my data if I unsubscribe or stop using the software?</b></span>
+                </div>
+                     <div id="gA16" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                         <p>If you are a user of @(configParams.getCompanyApp()) and decide to cancel your subscription, you are required to download your data from @(configParams.getCompanyApp()) through Microsoft Excel within 7 days of cancellation of your subscription.  After 7 days, your data will be completely and permanently deleted from the application database.</p>
+                     </div>
+                </div>
+                
+                <div class="subHeadQA" data-id="genFAQ@(configParams.getCompanyApp())FtrsQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">@(configParams.getCompanyApp()) Features</a></b></span>
+                </div>
+                 <div id="genFAQ@(configParams.getCompanyApp())FtrsQAId" style="display: none;">
+                <div id="gQ17" class="question"  style="margin-left: 20px;  background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How shall I assign user access to different employee in my company?</b></span>
+                </div>
+                     <div id="gA17" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                         <p>In @(configParams.getCompanyApp()), you can specify user access to different people in the organization. Go to users under option menu and create a new user and provide him the access during creating the user.</p>
+                     </div>
+                <div id="gQ18" class="question"  style="margin-left: 20px;  background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">What are some of the reports available in @(configParams.getCompanyApp())?</b></span>
+                </div>
+                     <div id="gA18" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                         <p>Here are a few commonly used reports: Income and Expense Reports, Accounts Receivables &amp; Payables, Profit &amp; Loss, Balance Sheet, General Ledger, Trial Balance, Statement of Cash Flows and Bank Books, Transactions List -Multiple parameters wise.</p>
+                     </div>
+                
+                <div id="gQ19" class="question"  style="margin-left: 20px;  background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">Can I download a copy of my data?</b></span>
+                </div>
+                     <div id="gA19" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                         <p>@(configParams.getCompanyApp()) allows you to export and download all the transactions, reports in excel.</p>
+                     </div>
+                <div id="gQ20" class="question"  style="margin-left: 20px;  background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How do I add multiple branches?</b></span>
+                </div>
+                     <div id="gA20" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                         <p>You can add multiple branches in @(configParams.getCompanyApp()). Simply go to master admin screen, Navigate to options, select branch and click on add a branch. Enter all the mandatory information and click on save.</p>
+                     </div>
+                <div id="gQ21" class="question"  style="margin-left: 20px;  background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How can I add a new user?</b></span>
+                </div>
+                     <div id="gA21" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>To add a new user, you need to go to users under option menu. Now click on create a new user. And input all the details and click on add/update user.</p>
+                </div>
+                <div id="gQ22" class="question"  style="margin-left: 20px;  background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How can I file GST return from @(configParams.getCompanyApp()) accounting software?</b></span>
+                </div>
+                     <div id="gA22" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                    <p>@(configParams.getCompanyApp()) accounting software helps you download the GST JSON file automatically, which can be uploaded to the GSTN portal for filing the GST returns.</p>
+                </div>
+                </div>
+                <div class="subHeadQA" data-id="genFAQAccSttngQAId" style="background-color: white; margin: 10px; margin-left: 0px;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black"><a href="#">Account Settings</a></b></span>
+                </div>
+                
+                 <div id="genFAQAccSttngQAId" style="display: none;">
+                <div id="gQ23" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How do I reset my password or recover my user ID?</b></span>
+                </div>
+                     <div id="gA23" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+    @if(configParams.getCompanyOwner().equals("KARVY")){
+    	<p>Go to <a href="https://accounting.karvygst.com/signIn#logindiv" target="_blank">https://accounting.karvygst.com/signIn#logindiv</a></p>
+    }
+    @if(!configParams.getCompanyOwner().equals("PWC") && !configParams.getCompanyOwner().equals("KARVY")) {
+    	<p>Go to <a href="https://www.myidos.com/signIn#logindiv" target="_blank">https://www.myidos.com/signIn#logindiv</a></p>
+    }
+    
+    <ul style="    margin-left: 30px;">
+        <li>Click on "Forgot Password"</li><li>Enter your registered email ID and click on "Reset Password"</li>
+                         </ul>
+                </div>
+                <div id="gQ24" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How can I deactivate an existing user?</b></span>
+                </div>  
+                     <div id="gA24" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+                         <p>To deactivate an existing user, you need to go to user settings under option menu. Now select the user which you would like to deactivate and click on "deactivate".</p>
+                     </div>
+                <div id="gQ25" class="question"  style="margin-left: 20px; background-color: white;">
+                    <span  style="color:#B4283C;">|--<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<b style="color: black">How can I change my password?</b></span>
+                </div> 
+        <div id="gA25" class="answer" style="margin-left: 40px;
+    margin-top: 10px; background-color: white;">
+            <p>
+                To change your password, Please follow the below steps:
+            </p>
+            <ul style="    margin-left: 30px;">
+            <li>Login to your account. </li>
+            <li>Go to settings and click on "password' and change your password.</li>
+            </ul>
+                     </div>
+                </div>
+                
+        </div>
+    </div>
+    </div>
+    
+    
+    
+    </body>
+    </html>
+    

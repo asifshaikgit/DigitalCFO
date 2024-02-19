@@ -1,0 +1,48 @@
+@(email: String,password:String,configParams:model.ConfigParams)
+<table style="width: 60%;font-family: 'Montserrat', sans-serif;">
+	<tbody>
+				<tr id="emailHeader">
+				<td>
+				</td>
+			</tr>
+		<tr id="emailBody">
+		    <td>
+		      	<table>
+			       <tr>
+			          <td style="font-size: 16px; font-weight: bold;">Welcome to @(configParams.getCompanyApp()).
+			          </td>
+			        </tr>
+			        <tr>
+			          <td style="font-size: 14px; font-weight: bold;"><br/><br/>Please find your Login details below:
+			          </td>
+			        </tr>
+			        <tr>
+			          <td><b style="font-size: 14px;">Email:</b> @{email}</td>
+			        </tr>
+			        <tr>
+			          <td><b style="font-size: 14px;">Password:</b> @{password}</td>
+			        </tr>
+			        <tr>
+			          <td style="font-size: 14px; font-weight: bold;"><br>Please Activate Account Using Below Link!</td>
+			        </tr>
+			        <tr>
+			        	<td style="font-size: 14px;" >
+
+				        		<a href="@(configParams.getCompanyUrl())">@(configParams.getCompanyUrl())/</a>
+
+						<br/>
+						<br/>
+					<br>
+						<b style="font-size: 14px;"> Please contact us at <a href="#" target="_blank">@(configParams.getCompanySupportEmail())</a> or on phone @(configParams.getCompanyMobile()) for any assistance. </b>
+						<br/>
+						<br/>
+					</td>
+			        </tr>
+				</table>
+	    	</td>
+	  	</tr>
+		<tr  id="emailFooter">
+				<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+			</tr>
+	</tbody>
+</table>

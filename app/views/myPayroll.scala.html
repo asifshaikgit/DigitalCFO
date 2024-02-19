@@ -1,0 +1,44 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<div id="myPayrollSetup" class="tab-pane active mainDiv" style="display: none;">
+	<div class="content">
+		<div class="panel panel-showtrans" style="margin-top:10px;">  
+			<div class="panel-body" style="margin-top:10px;">
+				<div style="display:inline;font-size:18px;">
+					&nbsp;<b>@(fullName)</b>
+				</div>
+				<div style="display:inline;float: right;">
+					<input class="payslipDate" style="display:inline;margin-top:10px;width:200px;" id="payslipDate" type="text" name="payslipDate" placeholder="select Month">
+					<button id="searchPayslipButton" style="margin-right:5px;display:inline;margin-top: 0px;" class="searchPayslipButton btn btn-primary" title="Search"><i class="fa fa-search pr-5"></i>Search Payslip</button>
+				</div>   
+			</div>
+		</div>
+	</div>
+	<div id="payslipHistory">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-title"> List of Payslips</div>
+				<div class="panel-body table-responsive">
+							<table class="table payslipHistoryTable" id="payslipHistoryTable">
+								<thead>
+									<tr>
+										<th> Month</th>
+										<th>Gross Pay</th>
+										<th>Net Pay</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <tr>
+										<td> Aug 2018</td>
+										<td> 50000</td>
+										<td> 48200</td>
+										<td> <span class="btn-idos-flat-white btn-download m-top-10" style="margin-left: 5px;" onclick=""><a href="#"><i class="fa fa-download pr-5"></i>Download</a></span></td>
+									</tr>-->
+								</tbody>
+							</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

@@ -1,0 +1,321 @@
+@()(content: Html)
+
+<footer>
+	<div class="container">
+		<div class="col-sm-6">
+			<p>&copy; 2018 IDOS. All Rights Reserved.</p>
+		</div>
+		<div class="col-sm-6 text-right">
+			<ul>
+				<li><a href="#" onclick="alert('Send your query on +91 9108506090');" class="whatsapp" title="+91 9108506090"><i style="font-size:12px;" class="fab fa-whatsapp"></i></a></li>
+				<li><a href="https://www.facebook.com/MyIdos/" class="facebook" title="Idos in Facebook"><i class="fab fa-facebook-f"></i></a></li>
+				<li><a href="https://www.linkedin.com/company/idos" class="linkedin" title="Idos in Linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+				<li><a href="https://twitter.com/idoscorp" class="twitter" title="Idos in Twitter"><i class="fab fa-twitter"></i></a></li>
+				<li><a href="http://discovery.ariba.com/profile/AN01309101009" class="ariba" title="Idos in Ariba"><img src="assets/website/images/ariba-small.png" class="img-responsive" alt="ariba"></a></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<!--footer End here-->
+	
+	<div class="modal fade" id="know-more">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h4 class="modal-title">Know More</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		  </div>
+		  <div class="modal-body">
+			<div class="row">
+				<form id="knowmoreform">
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="know-username"><i class="fa fa-user"></i></span>
+					  </div>
+					  <input type="text" id="contactName" class="form-control requiredField" placeholder="Your Name" aria-label="Name" aria-describedby="know-username">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="know-usermobile"><i class="fas fa-mobile-alt"></i></span>
+					  </div>
+					  <input type="text" id="contactphone" class="form-control requiredField" placeholder="Mobile No." aria-label="Mobile No." aria-describedby="know-usermobile">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="know-useremail"><i class="far fa-envelope"></i></span>
+					  </div>
+					  <input type="text" id="contactemail" class="form-control requiredField" placeholder="Email Id" aria-label="EmailID" aria-describedby="know-useremail">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="know-website"><i class="fas fa-globe"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Your Business Website" aria-label="know-website" aria-describedby="know-website">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="know-website"><i class="fas fa-headset"></i></span>
+					  </div>
+					  <select class="form-control">
+						<option value="" selected="selected">Select preferred mode of communication</option>
+						<option value="Email">Email</option>
+						<option value="Phone">Phone</option>
+					  </select>
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="know-website"><i class="far fa-comments"></i></span>
+					  </div>
+					  <textarea id="contactcomments" class="form-control requiredField" placeholder="Remarks" rows="4"></textarea>
+					</div>
+					
+				  <div class="col-sm-12 text-center">
+					<button type="button" id="knowmoreBtn" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
+				  </div>
+				</form>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src='@routes.Assets.at("wp-content/themes/simplekey/js/jquery.contact-form.js")'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="assets/website/js/bootstrap.min.js"></script>
+	<script src="assets/website/js/script.js"></script>
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-body">
+<div class="col-sm-12 text-center lgpopicon"><img src="assets/website/images/logo-icon.png" class="img-fluid mx-auto" alt="logo"/></div>
+			<div class="col-sm-12" id="login">
+				<form id="forgotlogindivForm" onsubmit="return false;">
+					<h4><i class="fas"></i> Login</h4>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="login-email"><i class="fa fa-envelope"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Email Id" aria-label="EmailID" aria-describedby="login-email">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="login-password"><i class="fas fa-key"></i></span>
+					  </div>
+					  <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="login-password">
+
+					</div>
+				
+				  <div class="col-sm-12 mb10 text-center"><a href="#" title="Click to reset password" onclick="mylogin('forget')">I Forgot my password</a> | <a href="#" title="New User" onclick="mylogin('signup')">New User</a> | <a href="#" title="External User Link"  onclick="mylogin('external')">External User</a></div>
+				  <div class="col-sm-12 text-center">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancel</button>
+				  </div>
+				</form>
+				
+			</div>
+			<div class="col-sm-12" id="forgot" style="display:none">
+				<form>
+					<h4><i class="fas fa-key"></i> Reset Password</h4>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="forgot-email"><i class="fa fa-envelope"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Email Id" aria-label="EmailId" aria-describedby="forgot-email">
+					</div>
+				  <div class="col-sm-12 mb10 text-center"><a href="#" title="Back to Login" onclick="mylogin('login')">Back to Login</a></div>
+				  <div class="col-sm-12 text-center">
+					<button type="submit" class="btn btn-primary">Reset</button>
+					<button type="submit" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancel</button>
+				  </div>
+				</form>
+			</div>
+			<div class="col-sm-12" id="external" style="display:none">
+				<form>
+					<h4>External User Login</h4>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-email"><i class="fa fa-envelope"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Registered Email" aria-label="external-email" aria-describedby="external-email">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-password"><i class="fa fa-key"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Password" aria-label="external-password" aria-describedby="external-password">
+					</div>
+				  <div class="col-sm-12 mb10 text-center"><a href="#" title="Back to Login" onclick="mylogin('login')">Back to Login</a> | <a href="#" title="External User Register" onclick="mylogin('externalsignup')">External User Register</a></a></div>
+				  <div class="col-sm-12 text-center">
+					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancel</button>
+				  </div>
+				</form>
+			</div>
+			<div class="col-sm-12" id="externalsignup" style="display:none">
+				<form>
+					<h4>External User Register</h4>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-signup-company"><i class="fas fa-building"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Company/Business Name" aria-label="external-signup-company" aria-describedby="signup-company">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-signup-name"><i class="fas fa-user"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Your name" aria-label="external-signup-name" aria-describedby="external-signup-name">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-signup-email"><i class="fa fa-envelope"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Email with which you to register" aria-label="external-signup-email" aria-describedby="external-signup-email">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-signup-password"><i class="fas fa-key"></i></span>
+					  </div>
+					  <input type="password" class="form-control" placeholder="Create your password" aria-label="Password" aria-describedby="external-signup-password">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-signup-repassword"><i class="fas fa-key"></i></span>
+					  </div>
+					  <input type="password" class="form-control" placeholder="Retype password again" aria-label="external-signup-repassword" aria-describedby="external-signup-repassword">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-signup-mobile"><i class="fa fa-phone fa-flip-horizontal"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Mobile (e.g. +91 XXXX XXX XXX)" aria-label="external-signup-mobile" aria-describedby="external-signup-mobile">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-signup-know"><i class="fab fa-instagram"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="How did you know about IDOS" aria-label="external-signup-know" aria-describedby="external-signup-mobile">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="external-signup-webaddress"><i class="fab fa-link"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Website/URL" aria-label="external-signup-webaddress" aria-describedby="external-signup-mobile">
+					</div>
+				<div class="col-sm-12 mb10 text-center"><a href="#" title="Click to Login" onclick="mylogin('externalsignup')">Already Registered User?</a></div>
+				  <div class="col-sm-12 text-center">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancel</button>
+				  </div>
+				</form>
+			</div>
+			<div class="col-sm-12" id="signup" style="display:none">
+				<form>
+					<h4><i class="fas fa-user"></i> Sign Up</h4>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="signup-company"><i class="fas fa-building"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Company/Business Name" aria-label="signup-company" aria-describedby="signup-company">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="signup-name"><i class="fas fa-user"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Your name" aria-label="signup-name" aria-describedby="signup-name">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="signup-email"><i class="fa fa-envelope"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Email with which you to register" aria-label="signup-email" aria-describedby="signup-email">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="signup-password"><i class="fas fa-key"></i></span>
+					  </div>
+					  <input type="password" class="form-control" placeholder="Create your password" aria-label="Password" aria-describedby="signup-password">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="signup-repassword"><i class="fas fa-key"></i></span>
+					  </div>
+					  <input type="password" class="form-control" placeholder="Retype password again" aria-label="signup-repassword" aria-describedby="signup-repassword">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="signup-mobile"><i class="fa fa-phone fa-flip-horizontal"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Mobile (e.g. +91 XXXX XXX XXX)" aria-label="signup-mobile" aria-describedby="signup-mobile">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="signup-know"><i class="fab fa-instagram"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="How did you know about IDOS" aria-label="signup-know" aria-describedby="signup-mobile">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="signup-webaddress"><i class="fab fa-link"></i></span>
+					  </div>
+					  <input type="text" class="form-control" placeholder="Website/URL" aria-label="signup-webaddress" aria-describedby="signup-mobile">
+					</div>
+				<div class="col-sm-12 mb10 text-center"><a href="#" title="Click to Login" onclick="mylogin('login')">Already Registered User?</a></div>
+				  <div class="col-sm-12 text-center">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-default" data-dismiss="modal" aria-label="Close">Cancel</button>
+				  </div>
+				</form>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-body">
+<div class="col-sm-12 text-center lgpopicon"><img src="assets/website/images/logo-icon.png" class="img-fluid mx-auto" alt="logo"/></div>
+			<div class="col-sm-12">
+				<form id="indexDemoForm" method="post">
+					<h4>Request a Demo</h4>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="demo-username"><i class="fa fa-user"></i></span>
+					  </div>
+					  <input type="text" id="contactName" data-min-length="5" class="form-control requiredField" placeholder="Your Name" aria-label="Name" aria-describedby="demo-username" required>
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="demo-useremail"><i class="fa fa-envelope"></i></span>
+					  </div>
+					  <input type="text" id="contactemail"  class="form-control requiredField" placeholder="Email Id" aria-label="EmailID" aria-describedby="demo-useremail" required>
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text" id="demo-usermobile"><i class="fas fa-mobile-alt"></i></span>
+					  </div>
+					  <input type="text" id="contactphone" class="form-control requiredField" placeholder="Mobile No." aria-label="Mobile No." aria-describedby="demo-usermobile" required>
+					</div>
+				  <div class="col-sm-12 text-center">
+					<button type="button" id="indexDemoBtn" class="btn btn-primary">Submit</button>
+					<button type="submit" id="indexDemoCloseBtn" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
+				  </div>
+				  <hr/>
+				  <div class="col-sm-12">
+					<ul class="social-media">
+						<li><a href="https://www.facebook.com/MyIdos/" title="MyIdos in Facebook" class="facebook"><i class="fab fa-facebook-f"></i></a>
+						<li><a href="https://www.linkedin.com/company/idos" title="MyIdos in LinkedIn" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+						<li><a href="https://twitter.com/idoscorp" title="MyIdos in Twitter" class="twitter"><i class="fab fa-twitter"></i></a>
+						<li><a href="http://discovery.ariba.com/profile/AN01309101009" title="MyIdos in Ariba" class="ariba"><img src="assets/website/images/ariba-small.png" alt="ariba" width="22" height="15"/></a>
+					</ul>
+				  </div>
+				</form>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	

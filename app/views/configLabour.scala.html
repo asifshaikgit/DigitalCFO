@@ -1,0 +1,74 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="labourHiring" class="tab-pane mainDiv" style="display: none">
+	<div class="action-bar">
+		<div class="actions button-set">
+			<button id="hiredLabourform-container" class="newEntityCreateButton btn btn-primary btn-idos pr-5" title="Pending Hired Labour Transaction">Pending Labour Transaction</button>
+			@if(role.contains("CREATOR")){
+			<button id="newlabourform-container" class="newEntityCreateButton btn btn-primary btn-idos" title="New Labour Hiring"><i class="fa fa-plus pr-5"></i>New Hiring Request</button>
+			}
+			&nbsp;&nbsp;<button id="hiredLabourFreeTextSearchButton" class="hiredLabourFreeTextSearchButton btn btn-primary btn-idos"  title="Search Hired Labour" style="float:right; margin-left: 5px;">Search Hired Labour</button>
+			<input type="text" class="input-xlarge search-image" placeholder="Search Hired Labour" name="hiredLabourFreeTextSearch" id="hiredLabourFreeTextSearch" style="float:right;margin-top: -1px; margin-right:-1px;width: 300px;">
+		</div>
+	</div>
+	<div id="newHiring" class="newlabourform-container" style="display: none;">
+		<div id="1" class="box">
+			<input type="hidden" id="hiddenRequestLabourId" name="hiddenRequestLabourId" value="">
+			<div class="cell-50-left-ar clear-both">Request Type <select name="reqtype" id="requestTypeId"><option>Request for Hiring</option></select></div>
+			<div class="cell-50-left-ar" style="margin-left:165px;">Select Project<span class="errorMessage">*</span><select name="reqtype" id="availableProjects" name="availableProjects" onchange="populateProjectHiringPositionData(this);"><option value="">--Please Select--</option></select></div>
+			<div class="cell-50-left-ar clear-both">Project Title<span class="errorMessage">*</span><input type="text" readonly="readonly" id="projectTitle"></div>
+			<div class="cell-50-left-ar" style="margin-left:170px;">Project # <span class="errorMessage">*</span><input type="text" readonly="readonly" id="projectNumber"></div>
+			<div class="clear-both"></div>
+		</div>
+		<div class="box">
+			<h4 class="alert success">Job Details</h4><br/>
+			<div class="cell-50-left-ar clear-both">Position<span class="errorMessage">*</span><select name="position" id="positionName" onchange="populateJobDetails(this);"><option value="">--Please Select--</option></select></div>
+			<div class="cell-50-left-ar" style="margin-left:165px;">Qualification <textarea id="positionQualification" name="positionQualification" readonly="readonly"></textarea></div>
+			<div class="clear-both"></div>
+			<div class="cell-50-left-ar">For Branch<span class="errorMessage">*</span> <select name="reqtype" id="requestAllowedForBranches"><option value="">--Please Select--</option></select></div>
+			<div class="cell-50-left-ar" style="margin-left:165px;">Job Description<textarea id="jobDescription1" readonly="readonly"></textarea></div>
+			<div class="cell-50-left-ar clear-both">Start Date <input type="text" id="start-date" class="datepicker"></div>
+			<div class="cell-50-left-ar" style="margin-left:165px;">End Date <input type="text" id="end-date" class="datepicker"></div>
+			<div class="cell-50-left-ar clear-both">
+				Experience <select name="experience" id="experienceLevel"><option value="1">0 Years</option><option value="2">1 Years</option>
+				<option value="3">2 Years</option><option value="4">3 - 4 Years</option><option value="5">5 - 6 Years</option><option value="6">6 - 7 Years</option><option value="7">8 - 10 Years</option>
+				<option value="8">11 - 12 Years</option><option value="9">12 - 15 Years</option><option value="10">15 - 20 Years</option><option value="11">21 -25 Years</option><option value="12">25+ Years</option></select>
+			</div>
+			<div class="cell-50-left-ar clear-both">Reports To <select name="reports" id="reportsTo"></select></div>
+			<div class="cell-50-left-ar" style="margin-left:165px;margin-top:-30px;">
+				<b>Not Able to find Designation in the Report To,Enter New</b><input type="text" id="newReportToName" class="newReportToName" class="m-top-10">
+				<button name="addNewReportTo" id="addNewReportTo" class="addNewReportTo btn btn-primary btn-idos" title="Submit">Submit</button>
+			</div><br/>
+			<div class="cell-50-left-ar clear-both jobDetailsLanguages" style="width:730px;text-align:left;margin-left:206px;"></div>
+			<div class="clear-both"></div>
+		</div>
+		<div class="hr"></div>
+		<div id="advertisingDiv" class="box">
+			<h4 class="alert success">Advertising</h4><br/>
+			<div class="cell-50-left-ar clear-both">Place <input type="text" id="advertisingPlace" readonly="readonly"></div>
+			<div class="cell-50-left-ar" style="margin-left:165px;">Budget <input type="text" id="advertisingDate" readonly="readonly"></div>
+			<div class="clear-both"></div>
+		</div>
+		<div class="box-last-row btn-align-left" style="left: 117px;">
+			<button type="submit" class="submitHiringRequest btn btn-primary btn-idos">Submit Request</button>
+			<button type="button" class="btn btn-primary btn-idos" onclick="labourhiringcancel();">Cancel</button>
+		</div>
+	</div>
+	<div id="pendingHiring" class="hiredLabourform-container pcss3t pcss3t-effect-scale pcss3t-theme-1 pcss3t-height-auto">
+		<fieldset class="overview">
+			<legend class="legend-data-table-title">Labour Positions</legend>
+			<div class="datascrolltable" style="max-height: 100%; overflow: auto;">
+				<table class="table table-hover table-striped table-bordered transaction-create" id="pendingLabourTable" style="margin-top: 0px;">
+					<thead>
+						<tr>
+							@if(role.contains("APPROVER")){
+							<th>Requester</th>
+							}
+							<th>Project #</th><th>Request Type</th><th>Project Title</th><th>Position</th><th style="width: 175px;">Documents</th><th style="width: 175px;">Remarks</th><th width="200px;">Action</th><th></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>	              
+		</fieldset>
+	</div>
+</div>

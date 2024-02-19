@@ -1,0 +1,119 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<input type="hidden" id="userRoleHidden" value="@role"/>
+<div id="notesIcon" title="Create Note">
+	<div class="procurementcount" id="notesSharedCount" title="Total number of shared notes" style="color: white; left:-5px;"></div>
+	<div class="procurementcount" id="notesTotalCount" style="left:45px; background: #2ecc71; color: white;" title="Total number of notes"></div>
+</div>
+<div id="createNewNote" style="display: none;">
+	<div class="supportHeader">
+		<span>Notes</span>
+		<div id="supportCasesDiv">
+			<button id="notesCases" class="btn btn-primary btn-idos capitalize">View my notes</button>
+			<i class="fa fa-times-circle fa-2x close-bottom" id="closeNotes"></i>
+		</div>
+	</div>
+	<div style="min-width: 800px;">
+		<div id="notesTable">
+			<input type="hidden" id="noteId" name="noteId" value="" />
+			<div class="supportLabel" id="supportSubLabel">Subject <span>(required)</span></div>
+			<div><input type="text" id="noteSubject" name="noteSubject" style="width: 535px;"></div>
+			<div class="supportLabel" id="supportMsgLabel">Note <span>(required)</span></div>
+			<div><textarea id="noteMessage" name="noteMessage" style="width: 528px; height: 150px;"></textarea></div>
+			<div class="supportLabel supportFileAttachment" id="noteAttachment" onclick="uploadCommentFile('noteFileName', 'noteFileUrl');">File Attachment</div>
+			<input id="noteFileName" name="noteFileName" readonly="readonly" value="" type="text" style="width: 535px;">
+			<input id="noteFileUrl" name="noteFileUrl" type="hidden">
+			<p class="notesp"><span>Associated Project</span><span style="margin-left:40px;">Share With Users</span></p>
+			<p class="notesp">
+				<select id="notesProjects" class="notes-users-select"></select>
+				<!-- <select multiple="multiple" id="notesUsers" style="height: 50px;"></select> -->
+				<button id="notesUsers" class="multiselect dropdown-toggle btn notes-users-select" onclick="customClaimsDropDownToggle('notesUsers-menuid')" style="width: 145px !important;"> None Selected  &#8711;</button>
+			</p><div id="notesUsers-menuid" class="notesUsers-menuid" style="min-width: 360px; max-width: 360px; padding: 5px;margin-top: -197px; position: absolute; left: 174px; color: #000;border-radius:6px 6px 6px 0px;min-height:150px;">
+				<div class="notesUsersSearchDiv"><input type="text" style="width: 310px;" name="notesUsersSearchInput" id="notesUsersSearchInput" class="search-image" placeholder="Search User"></div>
+				<ul class="notesUsersList claim-list" id="notesUsersUl">
+				</ul>
+			</div><br/>
+			<p class="notesp"><span>Associated Branch</span>@if(role.contains("ACCOUNTANT") || role.contains("AUDITOR")){<span style="margin-left:40px;">Associated Transaction</span>}</p>
+			<p class="notesp"><select id="notesBranches" class="notes-users-select"></select>@if(role.contains("ACCOUNTANT") || role.contains("AUDITOR")){<select id="notesTransactions" class="notes-users-select"></select>}
+				<button id="notesSend" class="btn btn-primary btn-idos notes-users-select">Save Note</button>
+			</p>
+		</div>
+		<div class="supportTableRight">
+			<div id="notesMsg" style="text-align: center; height: 45px;"></div>
+		</div>
+		<div id="notesMyCases">
+			<div class="supportCaseHeader">
+				<div id="closeNotesCases" onclick="animateNotesTable(false);"></div>
+				<select id="notesFilter" style="float: left;">
+					<option value="all">Show All</option>
+					<option value="7">Last 7 Days</option>
+					<option value="30">Last 30 Days</option>
+				</select>
+				<div id="notesSearchDiv">
+					<input type="text" id="notesSearch" placeholder="Search By Ref. Number or Subject" class="search-image"/>
+				</div>
+			</div>
+			<div class="supportMyCasesTable">
+				<div style="height: 200px; overflow-y: auto; ">
+					<table style="width: 640px !important; margin: auto;" class="table table-hover table-striped table-bordered transaction-create" id="notesCasesTable">
+						<thead class="tablehead1"><tr><td>Reference Number</td><td>Subject</td><td>Shared Users</td><td>Branch/Project</td><td>Created On</td><td>Actions</td></tr></thead>
+						<tbody id="notesMyCasesTable"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="notesRemarks">
+		<i class="fa fa-times-circle fa-2x close-history" id="closeNotesHistory" style="float: right;" title="Return to Notes" onclick="$('#notesRemarks').slideUp('slow');"></i>
+		<input type="hidden" value="" id="noteRemarkId" />
+		<div class="commentHeader" style="width: 500px; float: left;">
+			<span class="" style="display: inline-block; float: left; width: 250px; padding-left: 10px;">Reference Number</span>
+			<div class=""><span id="noteRefNumber"></span></div>&nbsp;<br/>
+			<span class="" style="display: inline-block; float: left; width: 250px; padding-left: 10px;">Transaction Reference</span>
+			<div class=""><span id="noteTransactionref"></span></div>&nbsp;
+		</div>
+		<div class="return"></div>
+		<br/>
+		<fieldset class="commentHistoryHeader overview" style="width: 97.5%; margin: 0;">
+			<legend class="legend-data-table-title">Details</legend>
+			<div class="tax-row reply-row" style="width: 50%;">
+				<span class="reply-label">Created</span>
+				<div class="reply-content"><span id="noteCreated"></span></div>
+			</div>
+			<div class="tax-row reply-row">
+				<span class="reply-label">Created By</span>
+				<div class="reply-content" style="left: 25px;"><span id="noteCreatedBy"></span></div>
+			</div>
+			<div class="tax-row reply-row" style="width: 50%;">
+				<span class="reply-label">Modified</span>
+				<div class="reply-content" style="left: 25px;"><span id="noteModified"></span></div>
+			</div>
+			<div class="tax-row reply-row">
+				<span class="reply-label">Modified By</span>
+				<div class="reply-content" style="left: 25px;"><span id="noteModifiedBy"></span></div>
+			</div>
+		</fieldset>
+		<fieldset class="commentHistoryHeader overview" style="width: 97.5%; margin-top: 10px;">
+			<legend class="legend-data-table-title">Note</legend>
+			<div align="left" style="max-height: 70px; overflow: auto;">
+				<div id="notesBodyView"></div>
+			</div>
+		</fieldset>
+		<div class="commentHistoryBody">
+			<fieldset class="two-divs overview" style="overflow: hidden; width: 97.5%; margin: 0; height: 220px;">
+				<legend class="legend-data-table-title">Remarks</legend>
+				<div style="overflow: auto; height: 195px;">
+					<button id="addRemark" class="btn btn-primary btn-idos">Add Remark</button>
+					<div id="remarkArea">
+						<textarea id="userRemark" style="width: 578px; height: 130px;"></textarea><br/>
+						<input type="text" id="remarkUploadName" name="remarkUploadName" readonly="readonly"/>
+						<input type="hidden" readonly="readonly" name="remarkUploadUrl" id="remarkUploadUrl"/><br/>
+						<span id="remarkUploadUrl" class="btn-idos-flat-white btn-upload m-top-10" style="background: #484848 !important;" onclick="uploadCommentFile('remarkUploadName', 'remarkUploadUrl')"><i class="fa fa-upload pr-5"></i>Upload</span>
+						<input type="button" class="btn btn-primary btn-idos" value="Send" id="noteRemarkSend">
+						<input type="button" class="btn btn-primary btn-idos" value="Cancel" id="noteRemarkCancel" onclick="$('#remarkArea').slideUp();">
+					</div>
+					<div id="noteRemarks"></div>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+</div>

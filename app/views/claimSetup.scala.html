@@ -1,0 +1,857 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<div id="claimSetup" class="tab-pane active mainDiv" style="display: none">
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+		 	@if(role.contains("CREATOR")){
+				<button id="newClaimButton" class="newClaimButton btn btn-primary" title="Create Claim"><i class="fa fa-plus pr-5"></i>Create Claim</button>
+
+			}
+			@if(role.contains("CREATOR") || role.contains("APPROVER")|| role.contains("ACCOUNTANT") || role.contains("AUDITOR")){
+				<button id="employeeClaimsButton" style="margin-right:5px;" class="employeeClaimsButton btn btn-primary" title="Create Claim"><i class="fa fa-file-text pr-5"></i>Employee Claims</button>
+
+				<button id="newSearchClaimButton" style="float: right;margin-right:5px;" class="newSearchClaimButton btn btn-primary" title="Search Claim"><i class="fa fa-search pr-5"></i>Search Claim</button>
+			}
+			</div>
+		</div>
+	</div>
+
+	<!-- start createClaim -->
+	<div id="createClaim" class="tab-pane mainDiv" style="display: none;" >
+		<div class="content">
+			<div class="panel panel-showtrans">
+
+					<legend class="panel-title">Create Claim Transaction</legend>
+					<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend cancelCreateClaim" id="claimSetup"></i></div>
+					<div class="panel-body">
+						<div class="transaction-what">
+							<table>
+								<tr>
+									<td>
+										<select name="whatYouWantToDoClaim" id="whatYouWantToDoClaim" style="height: 30px; width: 300px;" onChange="javascript:whatYouWantToDoClaimFun(this);">
+											<option value="">----------Please Select----------</option>
+										</select>
+									</td>
+									<td>
+										<a class="btn btn-light" id="refreshClaimList" onclick="newClaimSuccess();" style="margin-bottom:8px; margin-left:10px;"><i class="fa fa-refresh"></i></a>
+									</td>
+									<td>
+										<div class="openWhatDoINeedToDoClaim" style="display:none;">
+											<button class="btn btn-submit" id="whatDoINeedToDoClaimButton" type="button" data-toggle="collapse" data-target="#claimTransWhatToDo" aria-expanded="false" aria-controls="collapseExample" style="margin-bottom: 8px; margin-left: 10px;  height:30px;">How?</button>
+											<div class="margin-t-10 collapse" id="claimTransWhatToDo" aria-expanded="true" style="height: 0px;">
+												<div class="well" id="claimTransWhatToDo"><span></span></div>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!-- end panel-body -->
+
+					<div class="claimRequestTravelAdvanceTable claimCommonTable" id="claimRequestTravelAdvanceTable" style="display: none; overflow: scroll;">
+						<table class="table table-striped table-bordered excelFormTable transaction-create" id="claimRequestTravelAdvanceTableId">
+							<thead class="tableheadincometxn">
+								<tr><th>Branch &amp;<br/>Project</th><th>From / to distance</th><th>Type Of City/Distance(Kms<br/>/Miles)</th><th>Your Travel Eligibility details</th><th>Advance eligibility details</th>
+									<th>Advance requested (how much advance do you require?)</th><th>Knowledge library</th><th>Purpose of visit</th><th>Remarks / Upload documents</th></tr>
+							</thead>
+							<tbody>
+								<tr id="cRTAtrid">
+								<td>
+									<select class="claimBranch" onchange="clearIfClaimBranchEmpty(this);"><option value="">-Please Select-</option></select><br/>
+									<select class="claimProject" style="margin-top:20px;"><option value="">-Please Select-</option></select><br/>
+									<button id="claimcancelButton" style="margin-top: 108px;" class="travelcancelButton btn btn-cancel btn-idos" title="Cancel" onClick="cancelAndClearDivContents(); deleteUncomittedFiles();">Cancel Transaction</button></td>
+								<td>
+									<select name="travelType" id="travelType" onfocus="selectClaimTxnBranch(this)"><optgroup label="Travel Type"></optgroup><option value="">--Please Select--</option><option value="1">Domestic</option><option value="2">International</option></select>
+
+									<br/><input style="display:none;" type="text" name="travelPlaceToVisit" id="travelPlaceToVisit" onfocus="selectTravelType(this);" readonly="readonly" onkeypress="return isNumber(event)">
+									<div class="numberOfFromToTravelOption" style="height: 180px;overflow: auto; width:150px; margin-top: 10px;"></div>
+								</td>
+								<td>
+									<select name="typeOfCity" id="typeOfCity" class="typeOfCity" onfocus="selectFromToClaimPlaces(this);" onchange="checkForAllFromToOption(this);">
+										<optgroup label="Type Of City"></optgroup>
+										<option value="">--Please Select--</option>
+										<option value="1">Country capital</option>
+										<option value="2">State Capital</option>
+										<option value="3">Metro city</option>
+										<option value="4">City (other than Metro, Country or State capital)</option>
+										<option value="5">Town</option>
+										<option value="6">County</option>
+										<option value="7">Municipality</option>
+										<option value="8">Village</option>
+										<option value="9">Remote location</option>
+										<option value="10">More than 20 miles from closest city or town</option>
+										<option value="11">Hill station</option>
+										<option value="12">Resort</option>
+										<option value="13">Place of conflict / war zone</option>
+									</select>
+									<br/>
+									<select name="appropriateDistance" id="appropriateDistance" onfocus="selectTypeOfCity(this);" style="margin-top: 10px;"><optgroup label="Select Appropriate Distance"></optgroup><option value="">--Please Select--</option>
+									<option value="1">Less than 100</option><option value="2">100 to 250</option><option value="3">250 to 500</option><option value="4">500 to 1000</option><option value="5">1000 to 1500</option><option value="6">1500 to 2000</option><option value="7">2000 to 2500</option><option value="8">2500 to 3000</option>
+									<option value="9">3000 to 4000</option><option value="10">4000 to 5000</option><option value="11">5000 to 6000</option><option value="12">6000 to 7000</option><option value="13">Above 7000</option></select>
+									<br/><input placeholder="Total Days(Excluding Days Of Travel)" style="margin-top: 10px;" type="text" id="totalDays" class="totalDays" name="totalDays" onfocus="checkAppropriateDistanceSelection(this);" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="populateTravelEligibility(this);">
+								</td>
+								<td>
+									<div class="travelDetailedConfDescription" style="height: 224px;overflow: auto; width:135px;word-wrap: break-word; margin-bottom: 10px;"><b>#Travel:</b>
+										<div class="travelEligibilityDetailedConf" style="margin-bottom: 10px;"></div><b>#Boarding & lodging:</b><br/>
+										<div class="bnlConfDetails" style="margin-bottom: 10px;"></div>
+										<b>#Other Expenses:</b><div class="otherExpensesDetailedConf" style="margin-bottom: 10px;"></div>
+										<b>#Fixed Per DIAM:</b><div class="fixedPerDiamDetailedConf" style="margin-bottom: 10px;"></div>
+									</div>
+								</td>
+								<td><div style="height: 224px;overflow: auto;width:140px;word-wrap: break-word; margin-bottom: 10px;">
+									<input placeholder="Existing Advance" style="width:117px; margin-bottom: 10px;" type="text" name="existingUserTravelAdvance" id="existingUserTravelAdvance" readonly="readonly">
+									<br/><input placeholder="Adjust Against Existing Advance" style="width:117px; margin-bottom: 10px;" type="text" name="adjustmentFromExistingAdvance" id="adjustmentFromExistingAdvance" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="adjustFromAvailableAdvance(this)" onblur="populateExistingTravelClaimAdvanceAndAlert(this)">
+									<b>Advance Eligibility</b><br/>
+									<div class="maxAdvanceEligibleTravelAdvanceClaim" style="width:130px;word-wrap: break-word; margin-bottom: 10px;"><b>You Are Eligible For The Following Maximum Advance</b><br/><b>#Travel:</b><div class="travelAllowedAmountConf"></div>
+									<b>#Boarding & lodging:</b><div class="bnlAllowedAmountConf" style="margin-bottom: 10px;"></div><b>#Other Expenses:</b><div class="otherExpensesAllowedAmountConf" style="margin-bottom: 10px;"></div>
+									<b>#Fixed Per DIAM:</b><div class="fixedPerDiamAllowedAmountConf" style="margin-bottom: 10px;"></div><b>#Total Eligibility:</b><div class="totalTravelEligibilityConf" style="margin-bottom: 10px;"></div></div></div>
+								</td>
+								<td>
+									<select name="existingAdvanceClaimsTxn" id="existingAdvanceClaimsTxn" style="margin-bottom: 10px;"><option value="">-Please Select-</option></select>
+									<br/><input placeholder="Advance Requested Now" type="text" name="advanceRequestedOnThistxn" id="advanceRequestedOnThistxn" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="displayTotalAdvanceTxnAmount(this);">
+									<br/><input placeholder="Total Advance Amount In Account" style="margin-top: 10px;" type="text" name="totalTravelAdvanceTxnAmount" id="totalTravelAdvanceTxnAmount" readonly="readonly">
+								</td>
+								<td>
+									<div class="travelTxnKlContents" id="travelTxnKlContents" style="height: 190px;overflow: auto; width:135px;"></div>
+								</td>
+								<td>
+									<select name="purposeOfVisitTravelAdvance" id="purposeOfVisitTravelAdvance" onchange="return checkOthersContentPurposeOfVisit(this);"><option value="">--Please Select--</option><option value="1">Accounts</option><option value="2">Administration</option><option value="3">Audit</option>
+									<option value="4">Bank related work</option><option value="5">Business development</option><option value="6">Conference / seminar</option><option value="7">Customer meeting</option><option value="8">Human resources</option><option value="9">Investor meetings</option><option value="10">Sales</option>
+									<option value="11">Statutory compliance </option><option value="12">Trade fair</option><option value="13">Training </option><option value="14">Vendor meeting</option><option value="15">Others</option></select>
+									<br/><input placeholder="Others Please Specify" style="margin-top: 10px;" type="text" name="othersPurposeOfVisit" id="othersPurposeOfVisit"/>
+								</td>
+								<td>
+									<textarea placeholder="Input Remarks" name="claimRequestTravelAdvanceRemarks" id="claimRequestTravelAdvanceRemarks" rows="1"></textarea>
+										<br/>
+									<select style="width:156px;" id="claimRequestTravelAdvanceuploadSuppDocs" name="claimRequestTravelAdvanceuploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+									<button id="claimRequestTravelAdvanceuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="claimRequestTravelAdvanceuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="claimRequestTravelAdvanceuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+									<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+									<br/><button style="margin-top: 63px;" id="cRTAAdvanceSubmitForApproval" class="submitForApprovalClaim btn btn-submit btn-idos btn-custom" title="Submit for Approval">Submit for Approval</button>
+								</td>
+							</tr></tbody>
+						</table>
+					</div>
+
+					<div class="claimSettleTravelAdvanceTable claimCommonTable" id="claimSettleTravelAdvanceTable" style="display: none; overflow: scroll;">
+						<table class="table table-striped table-bordered excelFormTable transaction-create" id="claimSettleTravelAdvanceTableId" style="width:1324px;">
+							<thead class="tableheadincometxn">
+								<tr><th>Select advance</th><th>Unsettled advance</th><th>Expense incurred against this advance</th>
+									<th>Upload documents</th><th>Balance</th><th>Amount Returned Now</th><th>Updated unsettled advance</th><th>Remarks / Upload documents</th></tr>
+							</thead>
+							<tbody><tr id="cSTAtrid">
+								<td><select name="availableUnsettledClaimAdvances" id="availableUnsettledClaimAdvances" onchange="displayAvailableAndSettledAmountFromAdvances(this);"><option>--Please Select--</option></select>
+									<button id="claimcancelButton" style="margin-top: 235px;" class="travelcancelButton btn btn-cancel btn-idos" title="Cancel" onClick="cancelAndClearDivContents(); deleteUncomittedFiles();">Cancel Transaction</button>
+								</td>
+								<td><div class="unsettledClaimAdvancesDetails" style="height: 224px;overflow: auto; width:180px;margin-bottom: 10px; word-wrap: break-word;"><b>#Total Advance Against This Transaction:</b><div class="totalAdvanceAgainstTxn" style="margin-bottom: 10px;"></div>
+									<b>#Settled Till Date:</b><div class="settledTillDate" style="margin-bottom: 10px;"></div><b>#Adjusted Against Another Request For Advance:</b>
+									<div class="settledAgainstAdvanceInOtherTxn" style="margin-bottom: 10px;"></div><b>#Balance Unsettled:</b><div class="balanceUnsettledAgainstThisTxn" id="balanceUnsettledAgainstThisTxn" style="margin-bottom: 10px;"></div></div>
+								</td>
+								<td>
+									<table  id="claimSettleTotalTable" style="overflow: auto;" class="table">
+										<thead>
+											<tr>
+												<th><label>Category</label></th>
+												<th></th>
+												<th>Expense Amount</th>
+												<th>Tax Amount</th>
+												<th>Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr id="clmTravelExpensesTR">
+												<td><label>Travel expenses</label></td>
+												<td><button id="addBillWiseButton" class="btn btn-submit btn-idos"  onClick="showSettleClaimDetails(this);">Add Billwise Details</button></td>
+												<td><input class="clmExpenceAmt" type="text"  readOnly></td>
+												<td><input class="clmExpenceTax" type="text" readOnly></td>
+												<td><input class="clmExpenceGross" name="expenseIncurredTravel" id="expenseIncurredTravel" type="text" readOnly></td>
+											</tr>
+											<tr id="clmLodgingExpensesTR">
+												<td><label>Boarding and lodging</label></td>
+												<td><button id="addBillWiseButton" class="btn btn-submit btn-idos"  onClick="showSettleClaimDetails(this);">Add Billwise Details</button></td>
+												<td><input class="clmExpenceAmt"    type="text"  readOnly></td>
+												<td><input class="clmExpenceTax" type="text" readOnly></td>
+												<td><input class="clmExpenceGross" name="expenseIncurredBnL" id="expenseIncurredBnL" type="text" readOnly></td>
+											</tr>
+											<tr id="clmOtherExpensesTR">
+												<td><label>Other Expenses</label></td>
+												<td><button id="addBillWiseButton" class="btn btn-submit btn-idos"  onClick="showSettleClaimDetails(this);">Add Billwise Details</button></td>
+												<td><input class="clmExpenceAmt"    type="text"  readOnly></td>
+												<td><input class="clmExpenceTax" type="text" readOnly></td>
+												<td><input class="clmExpenceGross" type="text" name="expenseIncurredOtherExpenses" id="expenseIncurredOtherExpenses" readOnly></td>
+											</tr>
+											<tr id="clmFixedDIAMTR">
+												<td><label>Fixed per DIAM</label></td>
+												<td><button id="addBillWiseButton" class="btn btn-submit btn-idos"  onClick="showSettleClaimDetails(this);">Add Billwise Details</button></td>
+												<td><input class="clmExpenceAmt"    type="text"  readOnly></td>
+												<td><input class="clmExpenceTax" type="text" readOnly></td>
+												<td><input class="clmExpenceGross" name="expenseIncurredFixedPerDiam" id="expenseIncurredFixedPerDiam" type="text" readOnly></td>
+											</tr>
+												<tr id="clmGrandTotal">
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>Grand Total</td>
+												<td><input class="clmGrandTotal" name="totalExpenseIncurred" id="totalExpenseIncurred" type="text" readOnly></td>
+											</tr>
+										</tbody>
+									</table>
+
+
+
+
+									<!--
+									<input type="text" placeholder="Travel expenses" style="margin-bottom: 10px;" name="expenseIncurredTravel" id="expenseIncurredTravel" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return calculateTotalExpenseIncurredOnThisTxn(this);"><br/>
+									<input type="text" placeholder="Boarding & Lodging" style="margin-bottom: 10px;" name="expenseIncurredBnL" id="expenseIncurredBnL" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return calculateTotalExpenseIncurredOnThisTxn(this);"><br/>
+									<input placeholder="Other Expenses" style="margin-bottom: 10px;" type="text" name="expenseIncurredOtherExpenses" id="expenseIncurredOtherExpenses" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return calculateTotalExpenseIncurredOnThisTxn(this);"><br/>
+									<input placeholder="Fixed Per Diam" style="margin-bottom: 10px;" type="text" name="expenseIncurredFixedPerDiam" id="expenseIncurredFixedPerDiam" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return calculateTotalExpenseIncurredOnThisTxn(this);"><br/>
+									<input type="text" placeholder="Total" name="totalExpenseIncurred" id="totalExpenseIncurred" readonly="readonly">
+									-->
+								</td>
+								<td>
+									<div class="uploadClaimsBills" style="height: 310px;overflow: auto; width:170px;word-wrap: break-word;">
+									Travel
+									<select style="width:156px;" id="uploadTravelBills" name="uploadTravelBills" readonly="readonly"><option value="">--Please Select--</option></select>
+									<!-- <br/><input style="width:170px; margin-bottom: 10px;" type="button" id="uploadTravelBills" value="Upload Your Bills" class="btn btn-submit btn-idos" onclick="uploadFileBlob(this)"> -->
+									<br/><button id="uploadTravelBillsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="uploadTravelBillsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="uploadTravelBillsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+									<br/>Boarding & Lodging
+									<br/><select style="width:156px;" id="uploadBnLBills" name="uploadBnLBills" readonly="readonly"><option value="">--Please Select--</option></select>
+									<br/><button id="uploadBnLBillsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="uploadBnLBillsBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="uploadBnLBillsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+									<br/>Other Expenses
+									<br/><select style="width:156px;" id="uploadOtherExpensesBills" name="uploadOtherExpensesBills" readonly="readonly"><option value="">--Please Select--</option></select>
+									<br/><button id="uploadOtherExpensesBillsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="uploadOtherExpensesBillsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="uploadOtherExpensesBillsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+									<br/>Fixed Per Diam
+									<br/><select style="width:156px;" id="uploadFixedPerDiamBills" name="uploadFixedPerDiamBills" readonly="readonly"><option value="">--Please Select--</option></select>
+									<br/><button id="uploadFixedPerDiamBillsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="uploadFixedPerDiamBillsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="uploadFixedPerDiamBillsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+								</td>
+								<td>
+									<input type="text" style="width:156px; margin-bottom: 10px;" id="balanceAmount" name="balanceAmount" readonly="readonly">
+								</td>
+								<td>
+									<input placeholder="Amount Being Returned" type="text" style="width:156px;" id="balanceDueToTheCompanyAmount" name="balanceDueToTheCompanyAmount" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return checkDueToTheCompany(this);">
+									<br/>
+									Amount due from Company: <input placeholder="Due From Company" type="text" style="width:156px;" id="dueFromCompanyAmount" name="dueFromCompanyAmount" readonly="readonly">
+									<br/>
+									Amount due to Company: <input placeholder="Due To Company" type="text" style="width:156px;" id="dueToCompanyAmount" name="dueToCompanyAmount" readonly="readonly">
+								</td>
+								<td><input type="text" style="width:156px;" id="updatedUnsettledAmount" name="updatedUnsettledAmount" readonly="readonly"></td>
+								<td><textarea placeholder="Input Remarks" name="claimSettleTravelAdvanceRemarks" id="claimSettleTravelAdvanceRemarks" rows="1"></textarea>
+									<br/><select style="width:156px;" id="claimSettleTravelAdvanceuploadSuppDocs" name="claimSettleTravelAdvanceuploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+									<br/><button id="claimSettleTravelAdvanceuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="claimSettleTravelAdvanceuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="claimSettleTravelAdvanceuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+									<div id="moreSupportingDocDiv" class="moreSupportingDocDiv" style="margin: 10px 0;"></div>
+									<button style="margin-top: 148px;" id="cSTAAdvanceSettlementSubmitForApproval" class="submitForApprovalClaim btn btn-submit btn-custom" title="Submit For Payment">Submit For Payment</button>
+								   </td>
+							</tr></tbody>
+						</table>
+					</div>
+
+					<div class="claimRequestExpenseAdvanceTable claimCommonTable" id="claimRequestExpenseAdvanceTable" style="display: none; overflow: scroll;">
+						<table class="table table-striped table-bordered excelFormTable transaction-create" id="claimRequestExpenseAdvanceTableId">
+							<thead class="tableheadincometxn">
+								<tr><th>Branch &amp;<br/>Project</th><th>Select item</th><th>Your Eligibility</th><th>Knowledge library</th>
+									<th>How much advance do you require?</th><th>Total Advance</th><th>Purpose</th><th>Remarks / upload</th></tr>
+							</thead>
+							<tbody>
+								<tr id="cREAtrid">
+									<td>
+										<select class="claimBranch" style="margin-bottom: 10px;" onchange="clearIfClaimBranchEmpty(this);"><option value="">-Please Select-</option></select><br/>
+										<br/><select class="claimProject"><option value="">-Please Select-</option></select>
+										<button id="claimcancelButton" style="margin-top: 45px;" class="travelcancelButton btn btn-cancel btn-idos" title="Cancel" onClick="cancelAndClearDivContents(); deleteUncomittedFiles();">Cancel Transaction</button>
+									</td>
+									<td>
+										<select class="expenseAdvanceItems" name="expenseAdvanceItems" id="expenseAdvanceItems" style="width:160px;" onchange="return displayUserAdvanceForExpenseEligibility(this);"><option value="">--Please Select--</select>
+									</td>
+									<td>
+										<div class="expenseAdvanceConfDetails"><b>#Maximum Permitted Advance:</b><div class="expenseAdvanceMaxPermittedAdvance" style="margin-bottom: 10px;"></div>,<b>#Existing Unsettled Advance In Account:</b><div class="expenseAdvanseUnsettledExistingAdvances" style="margin-bottom: 10px;"></div>,<b>#Expense Advance In Progress:</b><div class="expenseAdvanceRequestInProgress"></div></div>
+									</td>
+									<td>
+										<div class="expenseAdvanceTxnKlContents" id="expenseAdvanceTxnKlContents" style="height: 190px;overflow: auto; width:160px;"></div>
+									</td>
+									<td>
+										<input placeholder="Advanced Required" style="width:150px;" type="text" name="expenseAdvanceRequired" id="expenseAdvanceRequired" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return validateUserExpenseAdvance(this);">
+									</td>
+									<td>
+										<input placeholder="Total Advance" style="width:150px;" type="text" name="expenseAdvanceTotalAdvance" id="expenseAdvanceTotalAdvance" readonly="readonly">
+									</td>
+									<td>
+										<textarea placeholder="Advance Purpose" name="expenseAdvancePurpose" id="expenseAdvancePurpose"></textarea>
+									</td>
+									<td>
+										<textarea placeholder="Input Remarks" name="claimRequestExpenseAdvanceRemarks" id="claimRequestExpenseAdvanceRemarks" rows="1"></textarea>
+										<br/>
+										<select style="width:156px;" id="claimRequestExpenseAdvanceuploadSuppDocs" name="claimRequestExpenseAdvanceuploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select></br>
+										<button id="claimRequestExpenseAdvanceuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+										<button id="claimRequestExpenseAdvanceuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        				<button id="claimRequestExpenseAdvanceuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+										<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div><br/>
+										<button style="margin-top: 19px;" id="cREAAdvanceSubmitForApproval" class="submitForApprovalClaim btn btn-submit btn-idos" title="Submit for Approval">Submit for Approval</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="claimSettleExpenseAdvanceTable claimCommonTable" id="claimSettleExpenseAdvanceTable" style="display: none; overflow: scroll;">
+						<table class="table table-striped table-bordered excelFormTable transaction-create" id="claimSettleExpenseAdvanceTableId">
+							<thead class="tableheadincometxn">
+								<tr><th>Select advance</th><th>Unsettled advance</th><th>Expense incurred against this advance</th>
+									<th>Upload documents</th><th>Balance</th><th>Amount Returned Now</th><th>Updated unsettled advance</th><th>Remarks</th></tr>
+							</thead>
+							<tbody><tr id="cSEAtrid">
+								<td><select style="width: 160px;" name="availableUnsettledExpenseAdvances" class="availableUnsettledExpenseAdvances" id="availableUnsettledExpenseAdvances" onchange="displayAvailableAndSettledAmountFromExpenseAdvances(this);"><option>--Please Select--</option></select>
+									<button id="expenseAdvancecancelButton" style="margin-top: 148px;" class="expenseAdvancecancelButton btn btn-cancel btn-idos" title="Cancel" onClick="cancelAndClearDivContents(); deleteUncomittedFiles();">Cancel Transaction</button>
+								</td>
+								<td><div class="unsettledExpenseAdvancesDetails" style="height: 224px;overflow: auto; width:180px;word-wrap: break-word;"><b>#Total Advance Against This Transaction:</b><div class="totalAdvanceAgainstTxn" style="margin-bottom: 10px;"></div>,
+									<b>#Settled Till Date:</b><div class="settledTillDate" style="margin-bottom: 10px;"></div>,<b>#Balance Unsettled:</b><div class="balanceUnsettledAgainstThisTxn" id="balanceUnsettledAgainstThisTxn" style="margin-bottom: 10px;"></div></div>
+								</td>
+								<td>
+								<table  id="claimSettleTotalTable" style="overflow: auto;" class="table">
+										<thead>
+											<tr>
+												<th><label>Category</label></th>
+												<th></th>
+												<th>Expense Amount</th>
+												<th>Tax Amount</th>
+												<th>Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr id="clmIncurredExpensesTR">
+												<td><label>Expense Incurred</label></td>
+												<td><button id="addBillWiseButton" class="btn btn-submit btn-idos"  onClick="showSettleClaimDetails(this);">Add Billwise Details</button></td>
+												<td><input class="clmExpenceAmt" type="text"  readOnly></td>
+												<td><input class="clmExpenceTax" type="text" readOnly></td>
+												<td><input class="clmExpenceGross" name="item1ExpIncurredAmount" id="item1ExpIncurredAmount" type="text" readOnly></td>
+											</tr>
+										</tbody>
+									</table>
+
+
+
+								<!--
+									<div class="expIncurredDiv" style="width:165px;word-wrap: break-word;"><b>#Item:</b><br/>
+										<div class="item1ExpIncurred" style="margin-bottom: 10px;"></div>
+										<input placeholder="Expense Incurred" style="width:145px;" type="text" name="item1ExpIncurredAmount" id="item1ExpIncurredAmount" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return calculateTotalExpenseIncurredOnExpAdvanceThisTxn(this);"><br/>
+									</div>
+									-->
+								</td>
+								<td><div class="expIncurredDocumentDiv" style="width:170px;word-wrap: break-word;">
+									<select style="width:156px;" id="uploadItem1Bills" name="uploadItem1Bills" readonly="readonly"><option value="">--Please Select--</option></select>
+									<button id="uploadItem1BillsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="uploadItem1BillsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="uploadItem1BillsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+								</td>
+								<td><input placeholder="Balance Amount" type="text" style="width:140px; margin-bottom: 10px;" id="balanceExpAdvAmount" name="balanceExpAdvAmount" readonly="readonly">
+								</td>
+								<td>
+									<input placeholder="Amount Being Returned" type="text" style="width:140px;" id="balanceDueToTheCompanyExpAdvAmount" name="balanceDueToTheCompanyExpAdvAmount" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="return checkDueToTheCompanyExpAdv(this);">
+									<br/>Amount due from Company:<input placeholder="Due From Company" type="text" style="width:140px; margin-bottom: 10px;" id="dueFromCompanyExpAdvAmount" name="dueFromCompanyExpAdvAmount" readonly="readonly">
+									<br/>Amount due to Company:<input placeholder="Due To Company" type="text" style="width:140px;" id="dueToCompanyExpAdvAmount" name="dueToCompanyExpAdvAmount" readonly="readonly">
+								</td>
+								<td><input placeholder="Unsettled Advance" type="text" style="width:147px;" id="updatedUnsettledExpAdvAmount" name="updatedUnsettledExpAdvAmount" readonly="readonly"></td>
+								<td><textarea placeholder="Input Remarks" name="expAdvSettleTravelAdvanceRemarks" id="expAdvSettleTravelAdvanceRemarks" rows="1"></textarea>
+									<br/>
+									<select style="width:156px;" id="itemExpenseAdvanceuploadSuppDocs" name="itemExpenseAdvanceuploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select>
+									<button id="itemExpenseAdvanceuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+									<button id="itemExpenseAdvanceuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        			<button id="itemExpenseAdvanceuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+									<div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+									<button style="margin-top: 74px;" id="cSEAAdvanceSettlementSubmitForApproval" class="submitForApprovalClaim btn btn-submit btn-custom" title="Submit For Payment">Submit For Payment</button>
+								</td>
+							</tr></tbody>
+						</table>
+					</div>
+
+
+					<div class="claimRequestExpenseReimbursementTable claimCommonTable" id="claimRequestExpenseReimbursementTable" style="display: none; overflow: scroll;">
+						<table class="table table-striped table-bordered excelFormTable transaction-create" id="claimRequestExpenseReimbursementTableId">
+							<thead class="tableheadincometxn">
+								<tr><th>Branch &amp;<br/>Project</th><th>Item</th><th>Your eligibility</th><th>Knowledge library</th>
+									<th>Purpose</th><th>Amount</th><th>Upload / remarks</th></tr>
+							</thead>
+							<tbody><tr id="cREEtrid">
+								<td><select class="claimBranch" style="width:170px; margin-bottom: 10px;"><option value="">-Please Select-</option></select><br/>
+									<select class="claimProject" style="width:170px;"><option value="">-Please Select-</option></select>
+									<button id="expenseReimbursementcancelButton" style="margin-top: 110px;" class="expenseReimbursementcancelButton btn btn-cancel btn-idos" title="Cancel" onClick="cancelAndClearDivContents(); deleteUncomittedFiles();">Cancel Transaction</button>
+								</td>
+								<td>
+									<select name="expenseClaimItem" class="expenseClaimItem" id="expenseClaimItem" style="width:170px;" onchange="return populateUserExpenseItemReimbursementKlDetails(this);"><option value="">--Please Select--</option></select>
+									<br/>
+									<br/><button id="addBillWiseButton" class="btn btn-submit btn-idos"  onClick="showSettleClaimDetails(this);">Add Billwise Details</button>
+								</td>
+								<td><div class="expenseReimbursementEligibilityDetailsDiv" style="height: 224px;overflow: auto; width:210px;word-wrap: break-word;"><b>#Monthly Monetory Limit For Reimbursement Of This Item:</b><div class="monLimitReimbursement" style="margin-bottom: 10px;"></div>,<b>#Reimbursed Amount For This Item During This Month:</b><div class="reimbursementAccountedDiv" style="margin-bottom: 10px;"></div>,<b>#Reimbursement For This Item In Progress For This Month:</b><div class="reimbursementInProgressDiv" style="margin-bottom: 10px;"></div></div></td>
+								<td><div class="expenseReimbursementItemTxnKlContents" id="expenseReimbursementItemTxnKlContents" style="height: 190px;overflow: auto; width:210px;"></div></td>
+								<td><textarea placeholder="Reimbursement Purpose" name="expenseReimbursementPurpose" id="expenseReimbursementPurpose" style="width:145px;"></textarea></td>
+								<td>
+									 <!-- <input placeholder="Reimbursement Amount" style="width:150px;" type="text" name="expenseReimbursementAmountRequired" id="expenseReimbursementAmountRequired" onkeypress="return onlyDotsAndNumbers(event)" onkeyup="validateReimbursementAmount(this);">
+									 -->
+										Amount:<input class="clmExpenceAmt" type="text" readOnly>
+
+										<br/>Tax :<input class="clmExpenceTax" type="text" readOnly>
+										<br/> Total :<input class="clmExpenceGross"  name="expenseReimbursementAmountRequired" id="expenseReimbursementAmountRequired" type="text" readOnly>
+								</td>
+								<td><textarea placeholder="Input Remarks" name="expenseReimbursementRemarks" id="expenseReimbursementRemarks" rows="1"></textarea>
+								   <br/><select style="width:156px;" id="expenseReimbursementuploadSuppDocs" name="expenseReimbursementuploadSuppDocs" readonly="readonly"><option value="">--Please Select--</option></select><br/>
+								   <button id="expenseReimbursementuploadSuppDocsBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+								   <button id="expenseReimbursementuploadSuppDocsDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        		   <button id="expenseReimbursementuploadSuppDocsDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+								   <div id="moreSupportingDocDiv" class="moreSupportingDocDiv"></div>
+								   <button style="margin-top: 74px;" id="cREEExpenseReimbursementSubmitForApproval" class="submitForApprovalClaim btn btn-submit btn-idos" title="Submit For Payment">Submit For Approval</button>
+								</td>
+							</tr></tbody>
+						</table>
+					</div>
+			</div>
+			<!--  end  panel panel-showtrans -->
+		</div>
+		<!--  End content  -->
+	</div>
+	<!-- end createClaim -->
+
+	<!-- Start Travel Expenses Module -->
+	<div id="clmTravelExpensesModule" class="tab-pane mainDiv clmSettleModule">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-title">Travel Expenses Bill wise Details</div>
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend closeClaimSettlementModule"></i></div>
+				<div class="panel-body table-responsive">
+							<table class="table claimSettlementDetailsTable" id="claimSettlementDetailsTable">
+								<thead>
+									<tr>
+										<th><button id="addClaimDetailsRow" class="addClaimDetailsRow" onclick="addClaimSettlementRow(this);" style="cursor: pointer;" ><i class="fa fa-plus-circle fa-lg"></i></button>Claim Item</th>
+										<th>Vendor/Supplier Name</th>
+										<th>Registered</th>
+										<th>GSTIN & State of Vendor/Supplier</th>
+										<th>Inv/Bill/Ref Number & Date</th>
+										<th>UQC</th>
+										<th>Quantity</th>
+										<th>Rate</th>
+										<th>Gross</th>
+										<th>SGST Rate</br>and Amount</th>
+										<th>CGST Rate</br>and Amount</th>
+										<th>IGST Rate</br>and Amount</th>
+										<th>Cess Rate</br>and Amount</th>
+										<th>Net Amount</th>
+										<th><button onclick="removeClaimSettlementRow(this);" style="cursor: pointer;float: right;margin-right:20px;"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+									</tr>
+
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+							<button style="cursor: pointer;float: right;margin-top: 20px;" class="closeClaimSettlementModule btn btn-submit btn-idos" title="Save & Update">Save & Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Lodging Expenses Module -->
+
+	<!-- Start Travel Expenses Module -->
+	<div id="clmLodgingExpensesModule" class="tab-pane mainDiv clmSettleModule">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-title"> Boarding and Lodging Bill wise Details</div>
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend closeClaimSettlementModule"></i></div>
+				<div class="panel-body table-responsive">
+							<table class="table claimSettlementDetailsTable" id="claimSettlementDetailsTable">
+								<thead>
+									<tr>
+										<th><button id="addClaimDetailsRow" class="addClaimDetailsRow" onclick="addClaimSettlementRow(this);" style="cursor: pointer;" ><i class="fa fa-plus-circle fa-lg"></i></button>Claim Item</th>
+										<th>Vendor/Supplier Name</th>
+										<th>Registered</th>
+										<th>GSTIN & State of Vendor/Supplier</th>
+										<th>Inv/Bill/Ref Number & Date</th>
+										<th>UQC</th>
+										<th>Quantity</th>
+										<th>Rate</th>
+										<th>Gross</th>
+										<th>SGST Rate</br>and Amount</th>
+										<th>CGST Rate</br>and Amount</th>
+										<th>IGST Rate</br>and Amount</th>
+										<th>Cess Rate</br>and Amount</th>
+										<th>Net Amount</th>
+										<th><button onclick="removeClaimSettlementRow(this);" style="cursor: pointer;float: right;margin-right:20px;"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+									</tr>
+
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+							<button style="cursor: pointer;float: right;margin-top: 20px;" class="closeClaimSettlementModule btn btn-submit btn-idos" title="Save & Update">Save & Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Lodging Expenses Module -->
+
+	<!-- Start Other Expenses Module -->
+	<div id="clmOtherExpensesModule" class="tab-pane mainDiv clmSettleModule">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-title">Other Expenses Bill wise Details</div>
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend closeClaimSettlementModule"></i></div>
+				<div class="panel-body table-responsive">
+							<table class="table claimSettlementDetailsTable" id="claimSettlementDetailsTable">
+								<thead>
+									<tr>
+										<th><button id="addClaimDetailsRow" class="addClaimDetailsRow" onclick="addClaimSettlementRow(this);" style="cursor: pointer;" ><i class="fa fa-plus-circle fa-lg"></i></button>Claim Item</th>
+										<th>Vendor/Supplier Name</th>
+										<th>Registered</th>
+										<th>GSTIN & State of Vendor/Supplier</th>
+										<th>Inv/Bill/Ref Number & Date</th>
+										<th>UQC</th>
+										<th>Quantity</th>
+										<th>Rate</th>
+										<th>Gross</th>
+										<th>SGST Rate</br>and Amount</th>
+										<th>CGST Rate</br>and Amount</th>
+										<th>IGST Rate</br>and Amount</th>
+										<th>Cess Rate</br>and Amount</th>
+										<th>Net Amount</th>
+										<th><button onclick="removeClaimSettlementRow(this);" style="cursor: pointer;float: right;margin-right:20px;"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+									</tr>
+
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+							<button style="cursor: pointer;float: right;margin-top: 20px;" class="closeClaimSettlementModule btn btn-submit btn-idos" title="Save & Update">Save & Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Other Expenses Module -->
+
+	<!-- Start DIAM Expenses Module -->
+	<div id="clmFixedDIAMModule" class="tab-pane mainDiv clmSettleModule">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-title"> Fixed per DIAM Bill wise Details</div>
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend closeClaimSettlementModule"></i></div>
+				<div class="panel-body table-responsive">
+							<table class="table claimSettlementDetailsTable" id="claimSettlementDetailsTable">
+								<thead>
+									<tr>
+										<th><button id="addClaimDetailsRow" class="addClaimDetailsRow" onclick="addClaimSettlementRow(this);" style="cursor: pointer;" ><i class="fa fa-plus-circle fa-lg"></i></button>Claim Item</th>
+										<th>Vendor/Supplier Name</th>
+										<th>Registered</th>
+										<th>GSTIN & State of Vendor/Supplier</th>
+										<th>Inv/Bill/Ref Number & Date</th>
+										<th>UQC</th>
+										<th>Quantity</th>
+										<th>Rate</th>
+										<th>Gross</th>
+										<th>SGST Rate</br>and Amount</th>
+										<th>CGST Rate</br>and Amount</th>
+										<th>IGST Rate</br>and Amount</th>
+										<th>Cess Rate</br>and Amount</th>
+										<th>Net Amount</th>
+										<th><button onclick="removeClaimSettlementRow(this);" style="cursor: pointer;float: right;margin-right:20px;"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+									</tr>
+
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+							<button style="cursor: pointer;float: right;margin-top: 20px;" class="closeClaimSettlementModule btn btn-submit btn-idos" title="Save & Update">Save & Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End DIAM Expenses Module -->
+
+		<!-- Start Incurred Expenses Module -->
+	<div id="clmIncurredExpensesModule" class="tab-pane mainDiv clmSettleModule">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-title"> Incurred Expenses Bill wise Details</div>
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend closeClaimSettlementModule"></i></div>
+				<div class="panel-body table-responsive">
+							<table class="table claimSettlementDetailsTable" id="claimSettlementDetailsTable">
+								<thead>
+									<tr>
+										<th style="display:none">Claim Item</th>
+										<th><button id="addClaimDetailsRow" class="addClaimDetailsRow" onclick="addClaimSettlementRow(this);" style="cursor: pointer;" ><i class="fa fa-plus-circle fa-lg"></i></button>Vendor/Supplier Name</th>
+										<th>Registered</th>
+										<th>GSTIN & State of Vendor/Supplier</th>
+										<th>Inv/Bill/Ref Number & Date</th>
+										<th>UQC</th>
+										<th>Quantity</th>
+										<th>Rate</th>
+										<th>Gross</th>
+										<th>SGST Rate</br>and Amount</th>
+										<th>CGST Rate</br>and Amount</th>
+										<th>IGST Rate</br>and Amount</th>
+										<th>Cess Rate</br>and Amount</th>
+										<th>Net Amount</th>
+										<th><button onclick="removeClaimSettlementRow(this);" style="cursor: pointer;float: right;margin-right:20px;"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+							<button style="cursor: pointer;float: right;margin-top: 20px;" class="closeClaimSettlementModule btn btn-submit btn-idos" title="Save & Update">Save & Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Incurred Expenses Module -->
+
+
+		<!-- Start Incurred Expenses Module -->
+	<div id="clmReiEmbExpensesModule" class="tab-pane mainDiv clmSettleModule">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-title"> Expense Reiumbursement Bill wise Details</div>
+				<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend closeClaimSettlementModule"></i></div>
+				<div class="panel-body table-responsive">
+							<table class="table claimSettlementDetailsTable" id="claimSettlementDetailsTable">
+								<thead>
+									<tr>
+										<th style="display:none">Claim Item</th>
+										<th><button id="addClaimDetailsRow" class="addClaimDetailsRow" onclick="addClaimSettlementRow(this);" style="cursor: pointer;" ><i class="fa fa-plus-circle fa-lg"></i></button>Vendor/Supplier Name</th>
+										<th>Registered</th>
+										<th>GSTIN & State of Vendor/Supplier</th>
+										<th>Inv/Bill/Ref Number & Date</th>
+										<th>UQC</th>
+										<th>Quantity</th>
+										<th>Rate</th>
+										<th>Gross</th>
+										<th>SGST Rate</br>and Amount</th>
+										<th>CGST Rate</br>and Amount</th>
+										<th>IGST Rate</br>and Amount</th>
+										<th>Cess Rate</br>and Amount</th>
+										<th>Net Amount</th>
+										<th><button onclick="removeClaimSettlementRow(this);" style="cursor: pointer;float: right;margin-right:20px;"><i class="fa fa-minus-circle fa-lg"></i></button></th>
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+							<button style="cursor: pointer;float: right;margin-top: 20px;" class="closeClaimSettlementModule btn btn-submit btn-idos" title="Save & Update">Save & Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Incurred Expenses Module -->
+
+	<div id="employeeClaimsDiv" class="tab-pane mainDiv" style="display: none;" >
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<legend class="panel-title">employee Claims</legend>
+			<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend cancelemployeeClaim" id="employeeClaimSetup"></i></div>
+			<ul class="nav nav-tabs" style="border: 1px solid #cccccc;">
+				<li id="pendingClaimTab" class="active"><a href="#employeeClaimsDiv" data-tab="pendingClaimTab" class="claimsetuptabCls">Pending Claims</a></li>
+				<li id="paidClaimTab"><a href="#employeeClaimsDiv" data-tab="paidClaimTab"  class="claimsetuptabCls">Paid Claims</a></li>
+			</ul>
+			<div id="pendingClaimDiv" class="claimSetupcls" >
+					<div class="panel">
+						<div class="panel-title">Employee Pending Claims</div>
+						<table class="table employeeClaimPendingTable" style="margin:20px;" id="employeeClaimPendingTable">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>User Name</th>
+										<th>Branch</th>
+										<th>Purpose</th>
+										<th>Approved Amount</th>
+										<th>Status</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+					</div>
+			</div>
+			<div id="paidClaimDiv" class="claimSetupcls" style="display: none">
+					<div class="panel">
+						<div class="panel-title">Employee Pending Claims</div>
+						<table class="table employeeClaimPaidTable" style="margin:20px;" id="employeeClaimPaidTable">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>User Name</th>
+										<th>Branch</th>
+										<th>Purpose</th>
+										<th>Approved Amount</th>
+										<th>Status</th>
+										<th>Pay Mode</th>
+										<th>Payment Date</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+					</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<!-- start searchClaim -->
+	<div id="searchClaim" class="tab-pane mainDiv" style="display: none;">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-body table-responsive">
+					<div class="panel-title">Search Claim Based On Search Criteria</div>
+					<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend cancelCreateClaim" id="claimSetup"></i></div>
+					<div id="claimsSearchTable">
+						<table class="table table-bordered excelFormTable transaction-create" id="claimSearchDetailsTable" style="margin-top: 0px; margin-bottom: 0px;">
+							<thead class="tablehead1">
+								<tr>
+									<th>Category transaction ref. number</th><th>Transaction Question<br>Type</th><th>Item</th><th>Type &amp; pay mode</th><th>Travel Mode &amp;<br/>accomodation type</th><th>Select date range</th>
+									<th>Select branch &amp; project</th><th>Select amount range</th><th>With / without remarks &amp; supporting documents</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<select id="claimSearchParticular"><option value="">--Please Select--</option></select><br/>
+										<input type="text" id="claimTransactionNumber" placeholder="Transcation ref. number" style="margin-top: 10px;">
+									</td>
+									<td>
+										<select name="claimSearchTxnQuestion" id="claimSearchTxnQuestion">
+											<optgroup label="Transaction Questions"></optgroup><option value="">--Please Select--</option>
+											<option value="15">Request For Travel Advance</option><option value="16">Settle Travel Advance</option>
+											<option value="17">Request Advance For Expense</option>
+											<option value="18">Settle Advance For Expense</option>
+											<option value="19">Request For Expense Reimbursement</option>
+										</select>
+										<select name="claimSearchUserType" id="claimSearchUserType" style="margin-top: 10px;">
+											<optgroup label="Type"></optgroup><option value="">--Please Select--</option>
+											<option value="1">Created By</option><option value="2">Approved By</option>
+											<option value="3">Accounted By</option>
+										</select>
+									</td>
+									<td>
+										<select id="claimSearchSpecific"><option value="">--Please Select--</option></select>
+										<select id="claimSearchTransStatus" style="margin-top: 10px;"><optgroup label="Claim Transaction Status"></optgroup>
+										<option value="">---Please select---</option><option value="Require Approval">Require Approval</option><option value="Require Clarification">Require Clarification</option><option value="Clarified">Clarified</option><option value="Approved">Approved</option>
+										<option value="Require Additional Approval">Require Additional Approval</option><option value="Rejected">Rejected</option><option value="Accounted">Accounted</option></select>
+									</td>
+									<td>
+										<select id="claimSearchType"><optgroup label="Type"></optgroup><option value="">--Please Select--</option><option value="1">Travel</option><option value="2">Expense</option></select>
+										<select id="claimSearchPayMode" style="margin-top: 10px;"><optgroup label="Pay mode"></optgroup><option value="">--Please Select--</option><option value="1">CASH</option><option value="2">BANK</option></select>
+									</td>
+									<td>
+										<select id="claimSearchTravelMode"><option value="">--Please Select--</option></select>
+										<select id="claimSearchAccType" style="margin-top: 10px;"><option value="">--Please Select--</option></select>
+									</td>
+									<td>
+										<input placeholder="From Date" type="text" id="claimSearchFromDate" name="claimSearchFromDate" class="datepicker calendar">
+										<input placeholder="To Date" type="text" id="claimSearchToDate" name="claimSearchToDate" class="datepicker calendar" style="margin-top: 10px;">
+									</td>
+									<td>
+										<select id="claimSearchBranch" class="claimBranch"><option value="">--Please Select--</option></select>
+										<select id="claimSearchProject" class="claimProject" style="margin-top: 10px;"><option value="">--Please Select--</option></select>
+									</td>
+									<td>
+										<input placeholder="From Amount" class="money" type="text" id="claimSearchFromAmt" name="claimSearchFromAmt" onkeypress="return onlyDotsAndNumbers(event);">
+										<input placeholder="To Amount" type="text" class="money" id="claimSearchToDate" name="claimSearchToDate" onkeypress="return onlyDotsAndNumbers(event);" style="margin-top: 10px;">
+									</td>
+									<td>
+										<select id="claimSearchRemarks"><optgroup label="Remarks"></optgroup><option value="">--Please Select--</option><option value="1">Yes</option><option value="0">No</option></select>
+										<select id="claimSearchSupportDoc" style="margin-top: 10px;"><optgroup label="Documents"></optgroup><option value="">--Please Select--</option><option value="1">Yes</option><option value="0">No</option></select>
+									</td>
+								</tr>
+							</tbody>
+						</table><br/>
+						<div>
+							<button id="searchClaimCriteriaBased" class="searchClaimCriteriaBased btn btn-submit btn-idos" title="Search Claim">Search Claim</button>
+							 @if(role.contains("ACCOUNTANT")){
+								<button id="downloadClaim" class="downloadClaim btn btn-submit btn-idos" title="Download">Download Claim's</button>
+							as <select name="downloadClaimAs" id="downloadClaimAs" style="width:70px;"><option value="xls">XLS</option>
+								<option value="csv">CSV</option></select>
+							}
+						</div>
+					</div>
+					<!-- end claimsSearchTable-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end searchClaim -->
+
+
+	<!-- start claimsTable -->
+	<div id="claimsTable" class="datascrolltable">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-body table-responsive">
+					<table class="table table-hover table-striped excelFormTable" id="claimDetailsTable">
+						<thead class="tablehead1"><tr>
+							<th>Branch &amp;<br/>Project</th><th>Claims made for &amp; Details/Expense Item</th><th>Eligibility / Current Advance Settlement Details</th>
+							<th>Date</th><th>Advance eligibility / User Expenditure Details</th>
+							<th>Purpose & Pay Mode</th><th>Status</th><th>Documents</th><th>Remarks</th>
+						</tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+			<div id="pagingCalimNavPosition"></div>
+		</div>
+	</div>
+	</br>
+	<!-- end claimsTable -->
+
+<div class="modal fade" id="pendingClaimModal" tabindex="-1" role="dialog" aria-labelledby="pendingClaimModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="display: inline;" >Pay Due Amount: <span id="pendingDueAmount"></span></h5>
+        <button type="button" style = "display: inline;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="pendingClaimParent" style="height:300px;">
+      		<div class="col-sm-12">
+      			<div class="col-sm-3"> </div>
+      			<div class="col-sm-6">
+      				<input type="hidden" id="pendingClaimId" />
+		      		<div>Select Payment Date: </br>
+		      			<input placeholder="Date" type="text" id="paymentDatePendingClaim" name="paymentDatePendingClaim" class="">
+		      		</div>
+		        	<div class="claimpayementDiv">
+			        Select mode of payment:</br>
+			        <select name="claimpaymentDetails" id="claimpaymentDetails" onchange="listAllBranchBankAccountsPendingClaims(this);">
+			        		<option value="" selected="selected">Select Payment Mode</option>
+							<option value="1">CASH</option>
+							<option value="2">BANK</option>
+					  </select>
+					</div>
+					<div>Input payment details:</br><textarea name="bankDetails" id="bankDetails"></textarea></div>
+      			</div>
+      			<div class="col-sm-3"> </div>
+      		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="clearPendingClaimsModal();">Reset</button>
+        <button type="button" class="btn btn-primary" onclick="submitForAccountinPendingClaims();">Save changes</button>
+      </div>
+    </div>
+     </div>
+  </div>
+
+</div>

@@ -1,0 +1,132 @@
+/*******************
+LOGIN FORM STYLESHEET
+by: Amit Jakhu
+www.amitjakhu.com
+*******************/
+/*******************
+SELECTION STYLING
+*******************/
+::selection {color: #fff;background: #B4283C; /* Safari */}
+::-moz-selection {color: #fff;background: #B4283C; /* Firefox */}
+/*******************
+BODY STYLING
+*******************/
+* {margin: 0;padding: 0;border: 0;}
+body {background: #FFFFFF;font-weight:300;text-align: left;text-decoration: none;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+#wrapper {width: 400px;height: 400px;position: absolute;left: 48%;top: 39%;margin-left: -150px;margin-top: -220px;}
+.gradient {width: 600px;height: 600px;position: fixed;left: 50%;top: 50%;margin-left: -300px;margin-top: -300px;
+	/* Fallback */ 
+	background-image: url(../images/gradient.png); 
+	background-repeat: no-repeat; 
+	/* CSS3 Gradient */
+	background-image: -webkit-gradient(radial, 0% 0%, 0% 100%, from(rgba(213,246,255,1)), to(rgba(213,246,255,0)));
+	background-image: -webkit-radial-gradient(50% 50%, 40% 40%, rgba(213,246,255,1), rgba(213,246,255,0));
+	background-image: -moz-radial-gradient(50% 50%, 50% 50%, rgba(213,246,255,1), rgba(213,246,255,0));
+	background-image: -ms-radial-gradient(50% 50%, 50% 50%, rgba(213,246,255,1), rgba(213,246,255,0));
+	background-image: -o-radial-gradient(50% 50%, 50% 50%, rgba(213,246,255,1), rgba(213,246,255,0));
+}
+/*******************
+LOGIN FORM
+*******************/
+/*.login-form {width: 400px;margin: 0 auto;position: relative;z-index:5;background: #f3f3f3;border: 1px solid #fff;border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}*/
+/*******************
+HEADER
+*******************/
+.login-form .header {padding: 40px 30px 0px 30px;}
+.login-form .header h1 {font-family: 'Bree Serif', serif;font-weight: bold;font-size: 16px;line-height:34px;color: #414848;text-shadow: 1px 1px 0 rgba(256,256,256,1.0);padding-left: 25px;}
+.login-form .header span {font-size: 13px;line-height: 16px;color: #678889;text-shadow: 1px 1px 0 rgba(256,256,256,1.0);padding-left: 25px; display: inline-block;}
+/*******************
+CONTENT
+*******************/
+.login-form .content {padding: 0 30px 25px 30px;}
+/* Input field */
+.login-form .content .input {width: 285px;padding: 15px 25px;font-weight: 400;font-size: 13px !important;color: #9d9e9e;text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	background: #dfe9ec;border: 1px solid #fff;border-radius: 5px;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+}
+/* Second input field */
+.login-form .content .password, .login-form .content .pass-icon {margin-top: 25px;}
+.login-form .content .input:hover {background: #dfe9ec;color: #414848;}
+.login-form .content .input:focus {background: #dfe9ec;color: #B4283C !important;border: 1px solid #B4283C !important;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+}
+/* Animation */
+.input, .user-icon, .pass-icon, .button, .register {
+	transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+}
+/*******************
+FOOTER
+*******************/
+.login-form .footer {
+	padding: 25px 70px 40px 100px;
+	overflow: auto;
+	background: #d4dedf;
+	border-top: 1px solid #fff;
+	box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+	-moz-box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+	-webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+}
+/* Login button */
+.login-form .footer .button {
+	padding: 11px 25px;
+	height: 50px !important;
+	font-family: 'Bree Serif', serif !important;
+	font-weight: 300 !important;
+	font-size: 13px !important;
+	color: #fff !important;
+	text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
+	margin-top: 0 !important;
+	background: #B4283C !important;
+	border: 1px solid #B4283C !important;
+	border-radius: 5px;
+	cursor: pointer;
+	box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+}
+.login-form .footer .button:hover {
+	background: #3f9db8;
+	border: 1px solid rgba(256,256,256,0.75);
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+.login-form .footer .button:focus {
+	position: relative;
+	bottom: -1px;
+	background: #56c2e1;
+	box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+}
+/* Register button */
+.login-form .footer .register:hover {color: #3f9db8;}
+.login-form .footer .register:focus {position: relative;bottom: -1px;}
+#logindiv .signUpOrganizationSh, #signUpDiv .loginButtonSh, #forgotlogindiv .loginButtonSh {margin-left: 10px;}
+#signUpDiv, #logindiv {margin-top: -10px;}
+.footer-link {position: absolute; font-size: 14px; width: 100%; padding-top: 2px;}
+.footer-link a:hover {color: #3f9db8 !important;}
+.footer-link a {color: #B4283C; font-size: 13px !important;}
+#forgotlogindiv {margin-top: 40px;}
+#signUpDiv h1 {font-size: 22px;}
+.idos-logo {width: 100px; height: 100px; margin: auto; cursor: pointer; margin-bottom: 20px;}
+#messageDisplay {font-size:13px; width: 225px; height: 100px; background: #d4dedf; position: absolute; right: 0; top: 220px; padding: 6px; border-radius: 0 5px 5px 0;}
+.idos-span {color: #B4283C; cursor: default;}
+#resetLoginCred .footer, #vendCustAccount .footer, #vendCustForgotAccount .footer {padding: 25px 50px 40px 89px;}
+#forgotlogindiv .footer, #sellerforgotlogindiv .footer {padding: 25px 0 40px 59px;}
+#forgotSecurityAnswer {color: #000000 !important;}

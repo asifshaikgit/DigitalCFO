@@ -1,0 +1,438 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement,null,configParams){
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style type="text/css">
+table.sellerFullTable tbody td {border-top: 1px solid #B4283C !important;}
+</style>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-72593005-1', 'myidos.com');
+  ga('send', 'pageview');
+window.history.forward();
+$(document).ready(function(){
+	var accountName=GetURLParameter('accountName');
+	var actName=accountName.substring(0, accountName.length);
+	var accountEmail=GetURLParameter('accountEmail');
+	var actEmail=accountEmail.substring(0, accountEmail.length);
+	var accountOrganization=GetURLParameter('accountOrganization');
+	var actOrganization=accountOrganization.substring(0, accountOrganization.length);
+	var entityType=GetURLParameter('entityType');
+	var entType=entityType.substring(0, entityType.length);
+	$("#idosRegVendSellerHiddenId").val("");
+	if(entType=="Vendor"){
+		$("#newVendorAccountDetailsform-container").show();
+	}else{
+		$("#newVendorAccountDetailsform-container").hide();
+	}
+	$("#hiddenvendcustemail").text(accountEmail);
+	if(actName.indexOf("%20")!=-1){
+		var regex = new RegExp('%20', 'g');
+		actName=actName.replace(regex," ");
+	}
+	$(".vendcustfullname").text(actName);
+	var url="/customerVendorAccount?accountEmail="+accountEmail+"&accountOrganization="+accountOrganization+"&entityType="+entityType+"#vendCustAccount";
+	$(".vendcustsignoutlink").attr('href',url);
+	populateVendorCustomerTransactions(actEmail,actOrganization,entType);
+	allIdosAvailableLocations();
+	getCountryPhoneCode();
+	if(entityType==='Customer'){
+		$('#sellerAnalytics').remove();
+	}
+});
+$(document).ready(function(){
+	$('.multipleVendorSeller').multiselect({
+	    buttonWidth: '260px',
+	    maxHeight:   150,
+	    includeSelectAllOption: true,
+	    enableFiltering :true,
+	    /*
+	    buttonText: function(options) {
+	      if (options.length == 0) {
+	              return 'None selected <b class="caret"></b>';
+	          }
+	          else if (options.length > 6) {
+	              return options.length + ' selected  <b class="caret"></b>';
+	          }
+	          else {
+	              var selected = '';
+	              options.each(function() {
+	          selected += $(this).text() + ', ';
+	              });
+
+	              return options.length + ' selected  <b class="caret"></b>';
+	      }
+	    },*/
+	    onChange: function(element, checked) {
+	      if(checked == true) {
+	      }
+	      else if(checked == false) {
+	      }
+	    }
+	  });
+	$('#loadingIdos').hide();
+});
+</script>
+<meta name="google-translate-customization" content="adb022d9487bd3f0-a0dc47329ea0a16c-g2cfbf2548bf7ce25-e"></meta>
+</head>
+<body onClick="changeClass(event)" class="mainbody">
+	<div id="top" class="clearfix">
+		<!-- Start App Logo -->
+		<div class="applogo"><a href="#"><div class="logo"></div></a></div>
+		<!-- End App Logo -->
+
+		<!-- Start Sidebar Show Hide Button -->
+		<a class="sidebar-open-button" style="color: #D01938; cursor: pointer;"><i class="fa fa-bars"></i></a>
+		<!-- End Sidebar Show Hide Button -->
+
+		<ul class="top-right">
+			<li class="dropdown link">
+				<div id="google_translate_element" style="margin-top: 8px;margin-right: 10px;position: relative;height: 30px;"></div>
+			</li>
+			<li class="dropdown link">
+				<a href="#" data-toggle="dropdown" class="dropdown-toggle profilebox"><b id="hiddenvendcustemail">@email</b><b id="hiddenfullName">@fullName</b><span class="caret"></span></a>
+
+				<ul class="dropdown-menu dropdown-menu-list dropdown-menu-right">
+				  <li><a href="#" onclick="openCustomerPrivacySetting();"><i class="fa falist fa-wrench"></i> Settings</a></li>
+				  <li><a class="vendcustsignoutlink" href=""><div class="click-options"><i class="fa falist fa-power-off"></i>Sign Out<span class="user-options-img user-logout"></span></div></a></li>
+
+				</ul>
+			</li>
+		</ul>
+		<!-- End Top Right -->
+	</div>
+	<!-- END TOP -->
+
+	<!-- start side nav -->
+	<div class="sidebar clearfix">
+		<script type="text/javascript">
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+			}
+		</script>
+		<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+		<div id="systemconfigadminId1" class="sidebar-nav-fixed">
+			<ul class="sidebar-panel nav">
+				<li id="vendCustTransactionId" class="active"><a id="vendCustTransactionId" href="vendCustTransactions" data-toggle="tab">Transactions</a></li>
+				<li id="transactionStatementId" class=""><a id="transactionStatementId" href="transactionStatement" data-toggle="tab">Statements</a></li>
+				<!-- <li><a href="#">Calendar</a></li> -->
+				<li id="supportCenterId"><a id="supportCenterId" href="supportCenter" data-toggle="tab">Support</a></li>
+
+			</ul>
+		</div>
+	</div>
+	<!-- end side nav -->
+
+<!--
+	<div id="head-nav" class="mainnav">
+
+		<div class="pull-right vendcustsettingIcon" style="margin-top: 4px;">
+		   <div class="pull-right settingIcon"><div class="user pull-right"><a><i class="icon-user icon-white"></i></a></div></div>
+		</div>
+		<a class="sidebar-open-button" style="color: #D01938; cursor: pointer;"><i class="fa fa-bars"></i></a>
+		<div class="pull-right" id="google_translate_element" style="margin-top: 8px;margin-right: 10px;position: relative;height: 30px;"></div>
+		<script type="text/javascript">
+		function googleTranslateElementInit() {
+		new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+		}
+		</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+		<div id="systemconfigadminId1" class="sidebar-nav-fixed">
+			<ul class="nav nav-pills breef ">
+			<li></li>
+			<li id="vendCustTransactionId" class="active"><a id="vendCustTransactionId" href="vendCustTransactions" data-toggle="tab"><font color="white">Transactions</font></a></li>
+			<li id="transactionStatementId" class=""><a id="transactionStatementId" href="transactionStatement" data-toggle="tab"><font color="white">Statements</font></a></li>
+			</ul>
+		</div>
+	</div>
+	<br/><br/>
+	<div class="userOptions" id="userOptions">
+		<div title="@fullName" style="padding-right: 30px; height: 20px;"><b id="hiddenvendcustemail" style="display: none;">@email</b><b>@fullName</b><span class="user-options-img user-organization"></span></div>
+		<div class="click-options" onclick="openCustomerPrivacySetting();">Settings<span class="user-options-img user-settings"></span></div>
+		<a class="vendcustsignoutlink" href=""><div class="click-options">Sign Out<span class="user-options-img user-logout"></span></div></a>
+	</div> -->
+	</br></br></br>
+	<div class="content">
+		<div id="vendCustTransactions" class="tab-pane active mainDiv">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<div class="navbar-transaction">
+						<button id="newSearchTransactionform-container" style="float: left;margin-right: 5px;" class="newEntityCreateButton btn btn-primary btn-idos" title="Search Transaction"><i class="fa fa-search pr-5"></i>Search Transaction</button>
+						<button id="newVendorAccountDetailsform-container" style="float: left;display: none;" class="newEntityCreateButton btn btn-primary btn-idos" title="Vendor Account Details">Vendor Account Details</button>
+						<div style="float: right;margin-right: 5px;"><font color="white" size="4"><span class="btn btn-toggle btn-idos"><b class="specialAdjustmentsOutstandings"></b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn btn-toggle btn-idos"><b>Current Outstanding Amount: </b><b class="currentOutstandings"></b></span></font></div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<div class="navbar-transaction">
+						<fieldset class="overview" id="sellerAnalytics">
+							<legend class="panel-title">Dashboard</legend>
+							<div class="sell-vend-dashboard">
+								<div class="sell-vend-display">
+									<div class="holder">
+										<span class="fa fa-search"></span>
+									</div>
+									<div class="text-dashboard">
+										<span class="value-dashboard clicks_total" style="display: inline;" id="analySearch">0</span>
+										<p>Number of searches</p>
+									</div>
+								</div>
+								<div class="sell-vend-display">
+									<div class="holder">
+										<span class="fa fa-envelope-o"></span>
+									</div>
+									<div class="text-dashboard">
+										<span class="value-dashboard clicks_total" style="display: inline;" id="analyContact">0</span>
+										<p>Number of contacted</p>
+									</div>
+								</div>
+								<div class="sell-vend-display">
+									<div class="holder">
+										<span class="fa fa-money"></span>
+									</div>
+									<div class="text-dashboard">
+										<span class="value-dashboard clicks_total" style="display: inline;" id="analyConvert">0</span>
+										<p>Number of converted</p>
+									</div>
+								</div>
+								<div class="sell-vend-display" style="margin-right: 0;">
+									<div class="holder">
+										<strong>%</strong>
+									</div>
+									<div class="text-dashboard">
+										<span class="value-dashboard clicks_total" style="display: inline;" id="analyConvertRate">0</span>
+										<p>Rate of conversion</p>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+
+			<div id="searchtransaction-form-container" class="newSearchTransactionform-container" style="display: none;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body">
+						<div class="navbar-transaction">
+							<fieldset class="overview">
+								<legend class="panel-title">Search Transaction</legend>
+								<!-- <div id="search-launch-top">
+								  <a href="#vendCustAccount" class="button small search-close" id="newSearchTransactionform-container-close">
+									  <span>Cancel Search</span>
+								  </a>
+								</div><br/> -->
+								<div id="search-launch-top"><i class="fa fa-times-circle fa-1x close-legend" id="newSearchTransactionform-container-close" onclick="cancelCustomerVendorSearch();"></i></div>
+								<legend class="panel-title">Search Transaction Based On Search Criteria</legend>
+								<div id="customerVendorTransactionSearchDetails">
+									<table class="table table-hover table-striped table-bordered excelFormTable" id="customerVendorTransactionSearchDetailsTable" style="margin-top: 0px; margin-bottom: 0px;">
+										<thead class="tablehead1"><tr><th>Transaction Ref. Number</th><th>Transaction Type</th><th>Category</th><th>Item</th><th>Select date range</th><th>Select Branch</th><th>Select Project</th><th>Select Amount Range</th><th>Status</th></tr></thead>
+										<tbody>
+											<tr id="customerVendorTransactionSearchTr">
+												<td><input type="text" name="customerVendorSearchTxnRefNumber" id="customerVendorSearchTxnRefNumber" placeholder="Transaction Ref. Number"></td>
+												<td><select name="customerVendorTransactionType" id="customerVendorTransactionType"><option value="">--Please Select--</option></select></td>
+												<td><select name="customerVendorSearchCategory" id="customerVendorSearchCategory"><option value="">--Please Select--</option></select></td>
+												<td><select name="customerVendorSearchItems" id="customerVendorSearchItems"><option value="">--Please Select--</option></select></td>
+												<td><input type="text" id="customerVendorSearchFromDate" name="customerVendorSearchFromDate" class="datepicker m-bottom-10 calendar" placeholder="From Date">
+												<br/><input type="text" id="customerVendorSearchToDate" name="customerVendorSearchToDate" class="datepicker calendar" placeholder="To Date"></td>
+												<td><select name="customerVendorSearchBranch" id="customerVendorSearchBranch"><option value="">--Please Select--</option></select></td>
+												<td><select name="customerVendorSearchProject" id="customerVendorSearchProject"><option value="">--Please Select--</option></select></td>
+												<td><input type="text" name="customerVendorAmountFrom" id="customerVendorAmountFrom" onkeypress="return onlyDotsAndNumbers(event)" placeholder="From Amount" class="m-bottom-10 money"><br/>
+												<input type="text" name="customerVendorAmountTo" id="customerVendorAmountTo" onkeypress="return onlyDotsAndNumbers(event)" placeholder="To Amount" class="money"></td>
+												<td><select name="customerVendorSearchTxnStatus" id="customerVendorSearchTxnStatus"><optgroup label="Transaction Status"></optgroup>
+												<option value="">---Please select---</option><option value="Require Approval">Require Approval</option><option value="Require Clarification">Require Clarification</option><option value="Clarified">Clarified</option><option value="Approved">Approved</option>
+												<option value="Require Additional Approval">Require Additional Approval</option><option value="Rejected">Rejected</option><option value="Accounted">Accounted</option></select></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<button title="Search Transaction" name="searchVendorTxnBtn" id="searchVendorTxnBtn" type="button" class="searchVendorTxnBtn btn btn-submit btn-idos" value="1">Search Transaction</button>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="vendoraccountdetails-form-container" class="newVendorAccountDetailsform-container" style="display: none;">
+				<div class="panel panel-showtrans">
+					<div class="panel-body">
+						<div class="navbar-transaction">
+							<fieldset class="overview">
+								<legend class="panel-title">Vendor Account Details</legend>
+								<!-- <div id="search-launch-top">
+								  <a href="#vendCustAccount" class="button small search-close" id="newVendorAccountDetailsform-container-close">
+									  <span>Cancel Search</span>
+								  </a>
+								</div><br/> -->
+								<div id="search-launch-top"><i class="fa fa-times-circle fa-1x close-legend" id="newVendorAccountDetailsform-container-close" onclick="$('#vendoraccountdetails-form-container').slideUp();"></i></div>
+									<table class="table excelFormTable" id="vendorAccountDetailsTable" style="margin-top: 0px;margin-bottom:0px;padding-bottom:0px;">
+										<thead class="tablehead1"><tr><th>Account Name</th><th>Registered E-mail</th><th>Phone Number</th> <th colspan="2">Upload Items Supplied By You<font color="red">*</font></th><th></th><th></th><th></th><th></th></tr></thead>
+										<thead><tr>
+											<td><input type="text" name="vendorAccountName" id="vendorAccountName" readonly="readonly" style="width:125px;"></td>
+											<td><input type="text" name="vendorAccountEmail" id="vendorAccountEmail" readonly="readonly"></td>
+											<td><select style="margin-bottom: 10px;"  class="countryPhnCode" name="vendorsellercountryPhnCode" id="vendorsellercountryPhnCode" class="input-small"><option value="">--Please Select--</option></select><br/>
+												<input type="text" id="vendorsellerphnumber1" name="vendorsellerphnumber1" style="width: 35px" maxlength="3" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+												<input type="text" id="vendorsellerphnumber2" name="vendorsellerphnumber2" style="width: 35px" maxlength="3" onkeypress="return isNumber(event)" onKeyup="autotab(this)">-
+												<input type="text" id="vendorsellerphnumber3" name="vendorsellerphnumber3" style="width: 50px" maxlength="4" onkeypress="return isNumber(event)">
+											</td>
+											<td colspan="2">
+												<form id="mySupplierForm" action="/supplier/uploadsupplieritems" method="post" enctype="multipart/form-data" style="margin: 0 0 0px;">
+													<input type="file" id="uploadsupplieritem" name="chartofaccountfile" style="width: 185px; min-height: 25px;
+														height: 28px; display: inline-block;"/>
+													<button style="display: inline-block;" id="uploadSupplierItems" class="uploadSupplierItems btn-upload" title="Upload Items"><i class="fa fa-upload pr-5"></i>Upload Items</button>
+												</form>
+											</td><td></td><td></td><td></td><td></td>
+											</tr></thead>
+										<tbody><tr class="tablehead1"><td>Register Items</td><td>What Items You Can Supply</td><td>Item Description(If any)</td><td>Locations where you can supply</td><td>Retailer Price</td><td>Wholeseller Price</td><td>Special Price</td><td>Special Price Requirements</td><td><td></tr>
+										<tr class="newSupplierVendorItemsRegister">
+											<td>Add Item</td>
+											<td><input type="hidden" name="idosRegVendSellerHiddenId" id="idosRegVendSellerHiddenId"><input data-attr="auto-complete" type="text" name="supplierVendorItem" id="supplierVendorItem" onkeyup="autoSuggestAvailableItems(this);"><div class="parentAutoSuggest" id="parentAutoSuggestId" data-attr="supplierVendorItem" data-auto="auto-complete"></div></td>
+											<td><textarea rows="3" name="vendorselleritemdescription" id="vendorselleritemdescription" style="width:120px;"></textarea></td>
+											<td><select class="multipleVendorSeller" multiple="multiple" name="vendorsellerBranches" id="vendorsellerBranches"></select></td>
+											<td><input type="text" name="vendorsellerretailerprice" id="vendorsellerretailerprice" onkeypress="return onlyDotsAndNumbers(event)" style="width:120px;"></td>
+											<td><input type="text" name="vendorsellerwholesellerprice" id="vendorsellerwholesellerprice" onkeypress="return onlyDotsAndNumbers(event)" style="width:120px;"></td>
+											<td><input type="text" name="vendorsellerspecialofferedprice" id="vendorsellerspecialofferedprice" onkeypress="return onlyDotsAndNumbers(event)" style="width:120px;"></td>
+											<td><textarea rows="3" name="vendorsellerspecialofferedpricerequirements" id="vendorsellerspecialofferedpricerequirements" style="width:120px;"></textarea></td>
+											<td><button title="Add/Update Vendor Account" name="addUpdateVendorAccountBtn" id="addUpdateVendorAccountBtn" type="button" class="addUpdateVendorAccountBtn btn btn-submit btn-idos" value="1" style="margin-top: 2px;" onclick="addSupplierEcommerce(this);">Add/Update</button></td>
+										</tr></tbody>
+										<!-- supplier/vendor registered items with prices and terma and requirementsa -->
+									</table>
+									<table id="" class="table table-bordered sellerFullTable" style="margin-bottom: 0;">
+									  <tbody class="tablehead1"><tr><td>Item</td><td>Description</td><td>Locations</td><td>Retailer Price</td><td>Wholesale Price</td><td>Special Price</td><td>Special Price Requirements</td><td>Action</td></tr></tbody>
+									</table>
+									<div class="datascrolltable" style="height: 100%; overflow: auto; overflow-x: hidden;">
+										<table id="sellerItemsTable" class="table table-hover table-striped table-bordered sellerFullTable" style="margin-top: 0; border-top: 0;">
+										  <tbody></tbody>
+										</table>
+									</div>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<div class="navbar-transaction">
+						<table>
+						</table>
+						<div class="datascrolltable" style="max-height: 100%; overflow: auto;">
+						   <table class="table table-hover table-striped  table-bordered" id="transactionTable" style="margin-top: 0px;">
+							  <thead class="tablehead1"><tr>
+								  <th>Branch<span class="snglUsrDply">/<br/>Project</span></th><th>Item</th><th>Outstandings</th><th>Date</th><th>Pay<br/>Mode</th><th>Unit/Per <br/>Unit Price</th><th>Amount/Amount<br/>Description</th><th>Transaction Purpose</th><th>Upload Documents &amp; Remarks</th><th>Acceptence</th>
+							  </tr></thead>
+							  <tbody></tbody>
+						   </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- End <div id="vendCustTransactions" class="tab-pane active mainDiv"> -->
+
+
+		<div id="transactionStatement" class="tab-pane mainDiv" style="display: none;">
+			<div class="panel panel-showtrans">
+				<div class="panel-body">
+					<div class="navbar-transaction">
+
+						<div class="action-bar">
+							<div class="action-bar">
+								<div class="actions button-set">
+								</div>
+							</div>
+						</div>
+						<fieldset class="overview">
+							<legend class="panel-title">Transaction Statement</legend>
+							<div id="search-launch-top"><a href="#pendingExpense" id="newTransactionStatementform" onclick="$('a#vendCustTransactionId').click();"><i class="fa fa-times-circle fa-1x close-legend" id="newTransactionStatementform-container-close"></i></a></div>
+							<table class="table excelFormTable" id="transactionStatementCriteriaTable" style="margin-top: 0px;width:100%; overflow:auto;">
+								<thead class="tablehead1">
+										<tr><th>Select Branch</th><th>From Date</th><th>To Date</th><th><th><th></th></tr>
+								</thead>
+								<tbody>
+										<tr>
+											<td style="width:140px !important;">
+												<select class="bnchTransactionStatement" name="bnchTransactionStatement" id="bnchTransactionStatementId"><option value="">--Please Select--</option></select>
+											</td>
+											<td style="width:140px !important;">
+												<input type="text" class="datepicker" name="transactionStatementFromDate" id="transactionStatementFromDate"/>
+											</td>
+											<td style="width:140px !important;">
+												<input  type="text" class="datepicker" name="transactionStatementToDate" id="transactionStatementToDate"/>
+											</td>
+											<td><button data-type="1" id="searchTransactionStatement" class="searchTransactionStatement btn btn-submit btn-idos txnStmt" title="Transaction Statement">Transaction Statement</button></td>
+											<td><button data-type="2" id="exportTrialBalanceXLSX"  class="exportTransactionStatementXLSX btn btn-submit btn-idos txnStmt" title="Transaction Statement">Export Transaction Statement(XLSX)</button></td>
+											<td><button data-type="3" id="exportTrialBalancePDF"  class="exportTrialBalancePDF btn btn-submit btn-idos txnStmt" title="Transaction Statement">Export Transaction Statement(PDF)</button></td>
+										</tr>
+								</tbody>
+							</table>
+							<div class="datascrolltable" style="width:100%; overflow:auto;">
+								<table class="table table-bordered table-hover table-striped vendCustTransactionStatement" id="transactionStatementTable">
+									<thead class="tablehead1">
+										<tr>
+											<th style="width:480px !important;">Description of the transaction</th>
+											<th>Date</th>
+											<th>Debit</th>
+											<th>Credit</th>
+											<th>Balance</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div id="cashBankTransactionModal" class="modal hide fade mainDiv" data-backdrop="static" data-keyboard="false" style="width: 98%;left: 1%;" align="center">
+							  <div class="lightbox-block lightbox-location">
+								<div class="lightbox-holder">
+								<h2>Transaction Details : <span id="txnRefNumber"></span></h2>
+								<h5 id="wrongActCred" align="center"></h5>
+								<div class="belowheader carousel"></div>
+								<a id="fancybox-close" href="" class="cashBankModalClose" style="display: inline;"></a>
+								  <div class="modal-body">
+									<table class="table table-hover table-striped table-bordered">
+										<thead><tr><th>Branch <span class="snglUsrDply">&amp; Project</span> </th><th>Item</th><th>Customer/Vendor</th><th>Date</th><th>Pay Mode</th><th>Unit/Per Unit Price</th><th>Amount/Description</th><th>Status</th><th>Documents</th><th>Remarks</th></tr></thead>
+										<tbody></tbody>
+									</table>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- end content -->
+
+	<div class="calculator-idos" title="Calculator"></div>
+	@privacyCustomerSetting(fullName,email,role,orgn,allowedProcurement){
+	}
+	@support(fullName,email,role,orgn,configParams){
+	}
+	<script>
+		var accountEmail=GetURLParameter('accountEmail');
+		var jsonData = {};
+		jsonData.email = accountEmail;
+		ajaxCall('/seller/getPricings', jsonData, '', true, '', '', 'getPricingsSuccess', '', false);
+		var entityType=GetURLParameter('entityType');
+		if(entityType==='Vendor'){
+			ajaxCall('/analytics/vendorSeller/'+accountEmail, '', '', '', 'GET', '', 'getVendorSellerAnalyticsSuccess', '', false);
+		}else if(entityType==='Customer'){
+			$(".specialAdjustmentsOutstandings").parent().remove();
+		}
+	</script>
+</body>
+	<link rel="stylesheet" href='@routes.Assets.at("stylesheets/jquery.calculator.css")'/>
+	<script type="text/javascript" src='@routes.Assets.at("javascripts/jquery.calculator.js")'></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.calculator-idos').calculator({
+				title:'@(configParams.getCompanyApp()) Calculator'
+			});
+		});
+	</script>
+</html>
+}

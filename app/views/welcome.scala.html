@@ -1,0 +1,36 @@
+@(configParams:model.ConfigParams)
+<table style="width: 60%;font-family: 'Montserrat', sans-serif;" class="table">
+	<tbody>
+		<tr id="emailHeader">
+				<td>
+				</td>
+			</tr>
+		<tr id="emailBody">
+		    <td style="font-size: 14px;">
+				Hello<br/><br/>
+				Welcome to <b>@(configParams.getCompanyApp())</b>!<br/><br/>
+				Thank you for your interest in <b>@(configParams.getCompanyApp())</b>, a transformational product in accounting and compliance.<br/><br/>
+				We are changing the paradigm in accounting software by ensuring that you can manage your day to day accounting and statutory compliance with ease. <b>@(configParams.getCompanyApp())</b> requires a one time set up which can be done by you or your auditor. Alternatively please write to us on <b>feedback&#64;myidos.com</b> and we will help you with one time set up and also organize Skype demo.<br/><br/>
+				Please note that there is an information icon in the application where you can read the instruction and complete the setup.<br/><br/>
+				Please complete the setup and add users before you give <b>@(configParams.getCompanyApp())</b> access to your staff. Unless you set up users, no one will be able to login and use <b>@(configParams.getCompanyApp())</b>.<br/><br/>
+				The following steps need to be completed before using <b>@(configParams.getCompanyApp())</b>:
+				<ul style="list-style: circle;">
+				<li>Set up your branch details.</li>
+				<li>Set up bank details of each of the bank accounts that you have at each of the branches.</li>
+				<li>Go to USERS screen and create users and assign roles, especially who is authorised to approve expenses.</li>
+				<li>Create chart of accounts.</li>
+				<li>Link all accounts in the chart of account to branches where these transactions can be incurred and who can process those transaction.</li>
+				<li>Set up cashier, login as cashier and enter cash and bank balances.</li><br/><br/>
+				</ul>
+				We have some of the most unique features in <b>@(configParams.getCompanyApp())</b> which will help you to save money on your expenses and also increase your income, write to us to know more.<br/>
+				We provide free set up services.<br/><br/>
+				<b>@(configParams.getCompanyApp())</b> is a <b>Microsoft Ventures company</b>.<br/><br/>
+
+				<b style="font-size: 14px;"> Please contact us at <a href="#" target="_blank">@(configParams.getCompanySupportEmail())</a> or on phone @(configParams.getCompanyMobile()) for any assistance. </b>
+		    </td>
+	  	</tr>
+	  	<tr  id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+  	</tbody>
+</table>

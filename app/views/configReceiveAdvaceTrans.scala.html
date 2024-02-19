@@ -1,0 +1,69 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="staticAdvReceiptPopup" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:1001;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width: 670px !important; height:480px !important;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">Additional Advance Receipt Details</h4>
+				<h5 id="wrongActCred" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div id="messageModal"></div>
+				<input type="hidden" id="custEntityID"/><input type="hidden" id="txnEntityID"/>
+				<table class="table excelFormTable" id="sellTransInvoiceTbl" style="margin-top: 0px; width:90%">
+				<thead class="tablehead1">
+					<tr><th>Amount received date</th><th>GSTIN of e-commerce operator  <i style="position: relative;" class="fa fa-info-circle userpopoverinfo" longdesc="Only require for transaction where 'type of supply' is 'Supply Made through e-commerce Operator'"></i></th><th>Reference Number</th></tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>
+						<div style="width: 140px !important;">
+							<div class="input-group date popupdate" id="datetimeofsupply">
+								<input type="text" class="form-control" id="datetimeofsupplyTxt" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+					</td>
+					<td><input class="gstinInputCls" style="width: 40px;" id="ecomGstin1" type="text" maxlength="2" onkeypress="return allowOnlyNumbers(event);" onblur="validateGstinState(this);"/><input class="gstinInputCls"  style="width: 150px; " id="ecomGstin2" type="text" maxlength="13" onkeypress="return allowAlphaNumeric(event);" onkeyup="return validateFullGSTIN(this,'ecomGstin1');"/></td>
+					<td><input type="text" maxlength="20" id="referenceNo" style="width: 100% !important;"/></td>
+				</tr>
+				<thead class="tablehead1">
+					<tr><th colspan="2">Currency  <i style="position: relative;" class="fa fa-info-circle userpopoverinfo" longdesc="Only require for transaction where 'type of supply' is 'This is an Export Supply'"></i></th><th>Foreign Currency amount received  <i style="position: relative;" class="fa fa-info-circle userpopoverinfo" longdesc="Only require for transaction where 'type of supply' is 'This is an Export Supply'"></i></th></tr>
+				</thead>
+				<tr>
+					<td colspan="2"><div class="bfh-selectbox bfh-currencies" data-currency="USD" data-flags="true">
+						  <input type="hidden" value="">
+						  <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
+							<span class="bfh-selectbox-option input-medium" data-option=""></span>
+							<b class="caret"></b>
+						  </a>
+						  <div class="bfh-selectbox-options">
+							<input type="text" class="bfh-selectbox-filter">
+							<div role="listbox">
+							<ul role="option">
+							</ul>
+							</div>
+						  </div>
+						</div></td>
+					<td><input type="text" maxlength="25" id="currencyRate" style="width: 100% !important;" onkeypress="return onlyDotsAndNumbers(event);"/></td>
+				</tr>
+				<thead class="tablehead1"><tr><th colspan="2">Terms & Conditions</th><th colspan="2" style="display: block;" id="digiSignAdvTh">Signature</th></tr></thead>
+				<tr><td colspan="2"><textarea id="invoiceTerms" maxlength="310" rows="6" style="width: 100% !important;"></textarea></td><td colspan="2"><textarea id="digitalSignatureTextReceiveAdv" maxlength="310" rows="6" style="width: 100% !important; margin-left: 5px; display: block;"></textarea></td></tr>
+				</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" style="float: left;" class="btn btn-white" data-dismiss="modal" id="closeReceiptBtn">Close</button>
+				<button type="button" style="float: right;" class="btn btn-submit" id="generateReceiptBtn">Continue to generate receipt</button>
+			</div>
+			<script>
+			$(document).ready(function(e) { 
+				$(document).find(".bfh-countries input[type=hidden]").attr("id","destCountryCode");
+				$(document).find(".bfh-currencies input[type=hidden]").attr("id","destCurrencyCode");
+			}); 
+			</script>
+		</div>
+	</div>
+</div>

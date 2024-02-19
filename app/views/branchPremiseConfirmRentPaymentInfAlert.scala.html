@@ -1,0 +1,36 @@
+@(branchName:String,actionAlertUser:String,rentPaymentDate:String,alertUserEmail:String,orgEntity:String,branchEntity:String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+	<tbody>
+	 	<tr  id="emailHeader">
+			<td>
+
+
+			</td>
+		</tr>
+		<tr id="emailBody" >
+	  <td>
+      <table>
+        <tr>
+          <td style="width: 600px" align="left">
+            <div>
+              <b><font size="5">Idos Alert For Information.</font></b>
+              <b><font size="5">@{branchName} Branch Premise Rent Payment Made By @{actionAlertUser} Due Dated @{rentPaymentDate}</font></b><br/><br/>
+            </div>
+          </td>
+        </tr>
+        <tr style="background-color: white">
+          <td style="width: 600px" align="left">
+            <div>
+               <b><font size="4">@{branchName} Branch Premise Rent Payment Confirmation</font></b><br/>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+	  	</tr>
+	  	<tr  id="emailFooter">
+			<td style="text-align: left;">  <br>
+					  <br>&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+  	</tbody>
+</table>

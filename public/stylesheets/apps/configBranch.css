@@ -1,0 +1,8 @@
+.gstinInputCls { margin: 0px; }
+#branchBasicDetailsTable tr th p {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+#bnchLocation{ width: 145px; }
+#confirmgstin { display: none; }

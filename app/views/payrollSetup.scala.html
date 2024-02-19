@@ -1,0 +1,52 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization)(content: Html)
+<!-- Display Available Groups -->
+<div class="content">
+<div id="payrollsetup-container" class="payroll-container" style="overflow: auto; display: none;">
+<div class="payroll-container">
+	<fieldset class="navbar-transaction">
+		<legend class="panel-title">Payroll Groups</legend>
+		<div id="search-launch-top"><i class="fa fa-times fa-1x close-legend claim-container-close" id="payrollsetup-container-close" onclick="formCancel1();"></i></div>
+		<div id="staticPayrollEarningListDiv" style="width: 48%; float: left; margin-right: 10px; overflow:auto;" >			
+			<h5 class="success"><b>Earnings List</b></h5>							
+			<div class="datascrolltable">
+			<table  id="payrollEarningListTable" class="table table-hover table-bordered payrollListTable">
+				<thead class="tablehead1">
+					<tr>
+						<th>Group name <button class="addnewEarningItemForPayroll" id="addnewEarningItemForPayroll" style="margin-left: 165px;"><i class="fa fa-plus-circle fa-lg"></i> Add</button><button class="deleteEarningItemFromPayroll" id="deleteEarningItemFromPayroll"><i class="fa fa-plus-circle fa-minus-circle"></i> Delete</button></th>
+						<th></th>
+						<th></th>
+					</tr>					
+				</thead>
+				<tbody>
+					<tr id="pEarning0">
+						<td><input type="text" STYLE="width:90%;" class="earningItem" placeholder="Earning Head" name="earningItem" id="earningItem" /><br></td>	
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+		<div id="staticPayrollDeductionListDiv" style="width: 48%; float: right; overflow:auto;">
+			<h5 class="success capitalize"><b>Deductions List</b></h5>
+			 <div class="datascrolltable" STYLE="overflow: auto;">
+			 <table id="payrollDeductionListTable" class="table table-hover table-bordered payrollListTable">
+				<thead class="tablehead1">
+					<tr>
+						<th>Group name<button  class="addnewDeductionItemForPayroll" id="addnewDeductionItemForPayroll" style="margin-left: 165px;"><i class="fa fa-plus-circle fa-lg"></i> Add</button><button  class="deleteDeductionItemFromPayroll" id="deleteDeductionItemFromPayroll"><i class="fa fa-plus-circle fa-minus-circle"></i> Delete</button></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>					
+					<tr id="pDeduction0">
+						<td><input type="text" STYLE="width:100%;" class="deductionItem" placeholder="Deduction Head" name="deductionItem" id="deductionItem" /><br></td>	
+					</tr>					
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+		<div><div><button id="formCancel" style="float: left;" class="formCancel btn btn-cancel btn-idos" title="Cancel" onclick="formCancel();">Cancel</button></div>
+		<div><button style="margin-right: 5px; float: right;" title="Add Payroll Item" id="addPayrollItemBtn" name="addPayrollItemBtn" type="button" class="addPayrollItemBtn btn btn-submit btn-idos" value="1"> Add/Update Payroll</button></div></div>
+	</fieldset>
+</div>
+</div>

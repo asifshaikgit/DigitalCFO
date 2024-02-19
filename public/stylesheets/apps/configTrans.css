@@ -1,0 +1,795 @@
+#transactionTable tr td:nth-child(1){
+	max-width: 9.5%;
+	width: 9.5%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(1){
+	max-width: 9.5%;
+	width: 9.5%;
+	word-wrap: break-word;
+}
+
+#transactionTable tr td:nth-child(2){
+	max-width: 9.68%;
+	width: 9%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(2){
+	max-width: 9.68%;
+	width: 9%;
+	word-wrap: break-word;
+}
+
+
+#transactionTable tr td:nth-child(3){
+	max-width: 9.49%;
+	width: 9%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(3){
+	max-width: 9.47%;
+	width: 9%;
+	word-wrap: break-word;
+}
+
+#transactionTable tr td:nth-child(4){
+	max-width: 6.2%;
+	width: 6%;
+	/*word-wrap: break-word; */
+	text-overflow:ellipsis;
+	overflow: hidden;
+	/*word-break:break-word; */
+}
+
+#transactionTable tr th:nth-child(4){
+	max-width: 6.2%;
+	width 6%;
+	/*word-wrap: break-word; */
+}
+
+#transactionTable tr td:nth-child(5){
+	max-width: 6.5%;
+	width: 6.5%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(5){
+	max-width: 6.5%;
+	width: 6.5%;
+	word-wrap: break-word;
+}
+
+#transactionTable tr td:nth-child(6){
+	max-width: 6%;
+	width: 6%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(6){
+	max-width: 6%;
+	width: 6%;
+	word-wrap: break-word;
+}
+
+#transactionTable tr td:nth-child(7){
+	max-width: 12%;
+	width: 12%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(7){
+	max-width: 12%;
+	width: 12%;
+	word-wrap: break-word;
+}
+
+#transactionTable tr td:nth-child(8){
+	max-width:12.6%;
+	width: 12%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	/*overflow: hidden;*/
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(8){
+	max-width:12.6%;
+	width: 12%;
+	word-wrap: break-word;
+}
+
+#transactionTable tr td:nth-child(9){
+	max-width:10.7%;
+	width: 10%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(9){
+	max-width:10.7%;
+	width: 10%;
+	word-wrap: break-word;
+}
+
+/*#transactionTable tr td:nth-child(10){
+	max-width:15.5%;
+	width: 15%;
+	word-wrap: break-word;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	word-break:break-word;
+}
+
+#transactionTable tr th:nth-child(10){
+	max-width:15.5%;
+	width: 15%;
+	word-wrap: break-word;
+}*/
+
+.multipleItemsTable tbody tr td, .multipleItemsTable thead tr th{
+	margin: 0px;
+	padding: 1px;
+	vertical-align: text-top;
+    vertical-align: top;
+}
+
+.transaction-create thead tr th {
+	text-align: center;
+	vertical-align: text-top;
+}
+
+.multipleItemsTable tbody tr td input, .multipleItemsTable tbody tr td select{
+	height: 24px;
+	max-height: 24px !important;
+	border-radius: 0px !important;
+	vertical-align: top !important;
+}
+
+.multipleItemsTable tbody tr td input, .multipleItemsTable tbody tr td select{ margin-top: -1px !important; }
+.multipleItemsTable .select2-container{ margin-top: 0px !important; }
+
+.multipleItemsTable > tbody > tr > td > #taxCell > div{
+    padding: 0px !important;
+    display: none;
+}
+.multipleItemsTable > tbody > tr > td > #advAdjTaxCell > div{
+    padding: 0px !important;
+    display: none;
+}
+.multipleItemsTable tbody tr td textarea{
+	margin-top: 1px !important;
+	border-radius: 0px !important;
+}
+#multipleItemsTblHead >thead > tr > th:nth-child(1){
+	width: 145px;
+}
+#multipleItemsTblHead >thead > tr > th:nth-child(3){
+	width: 53px;
+}
+#multipleItemsTblHead >thead > tr > th:nth-child(4){
+	width: 40px;
+}
+#multipleItemsTblHead >thead > tr > th:nth-child(2), #multipleItemsTblHead >thead > tr > th:nth-child(5){
+	width: 63px;
+}
+#multipleItemsTblHead >thead > tr > th:nth-child(6), #multipleItemsTblHead >thead > tr > th:nth-child(8), #multipleItemsTblHead >thead > tr > th:nth-child(12){
+	width: 82px;
+}
+#multipleItemsTblHead >thead > tr > th:nth-child(9), #multipleItemsTblHead >thead > tr > th:nth-child(10){
+	width: 63px;
+}
+
+#multipleItemsTblHead >thead > tr > th:nth-child(7), #multipleItemsTblHead >thead > tr > th:nth-child(11){
+	width: 100px;
+}
+#multipleItemsRefundTblHead >thead > tr > th:nth-child(1){
+	width: 145px;
+}
+#multipleItemsRefundTblHead >thead > tr > th:nth-child(3){
+	width: 145px;
+}
+#multipleItemsRefundTblHead >thead > tr > th:nth-child(4){
+	width: 145px;
+}
+#multipleItemsRefundTblHead >thead > tr > th:nth-child(2), #multipleItemsRefundTblHead >thead > tr > th:nth-child(5){
+	width: 145px;
+}
+#multipleItemsRefundTblHead >thead > tr > th:nth-child(6), #multipleItemsRefundTblHead >thead > tr > th:nth-child(8), #multipleItemsRefundTblHead >thead > tr > th:nth-child(12){
+	width: 145px;
+}
+#multipleItemsRefundTblHead >thead > tr > th:nth-child(9), #multipleItemsRefundTblHead >thead > tr > th:nth-child(10){
+	width: 145px;
+}
+
+#multipleItemsRefundTblHead >thead > tr > th:nth-child(7), #multipleItemsRefundTblHead>thead > tr > th:nth-child(11){
+	width: 145px;
+}
+
+#taxCell{ width: 128px;}
+#advAdjTaxCell{ width: 98px; }
+.taxCellCls { width: 128px !important; display: inline-block !important; font-size: 11px;}
+.advAdjTaxCellCls { width:98px !important; padding: 1px; display: inline-block !important; font-size: 11px;}
+
+.div-w100{ width: 128px !important;}
+.div-w200{ width: 128px !important;}
+.div-w300{ width: 128px !important;}
+.div-w400{ width: 384px !important;}
+.div-w500{ width: 480px !important;}
+
+.txnTaxNameCls{
+	width: 33px;
+	max-width: 33px;
+	min-width: 33px;
+	display: inline-block;
+}
+
+.multipleItemsTable .taxRate {
+    height: 20px !important;
+    width: 31px;
+}
+
+.multipleItemsTable .txnTaxAmount, .multipleItemsTable .txnTaxOnAdvAdjCls{
+    height: 20px;
+    width: 62px;
+}
+
+.buyTaxCellCls .txnTaxAmount{
+	height: 22px !important;
+}
+
+#multipleItemsTabletifbtb .txnDiscountPercent, #multipleItemsTabletifbtb .txnDiscountAmount{
+	height: 40px;
+}
+
+.div1-wd{ width: 98px !important;}
+.div2-wd{ width: 98px !important; }
+.div3-wd{ width: 98px !important; }
+.div4-wd{ width: 100px !important; }
+.div5-wd{ width: 100px !important; }
+
+.taxNameHead {width:65px !important; display:inline; padding: 1px; }
+
+.divBox, #taxCell, #advAdjTaxCell {
+	border: 1px solid #cccccc;
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-bottom-color: #b3b3b3;
+	padding: 0px !important;
+ }
+
+.resultantAdvance, .customerVendorExistingAdvance { 
+	border: 1px solid #cccccc;
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-bottom-color: #b3b3b3;
+	text-align: right;
+ }
+
+.addnewItemForTransaction, .addnewItemForMultiInvTransaction{
+	float: left !important; margin-top: 0px;
+}
+
+select[name=txnWalkinPlcSplySelect], input[name=txnWalkinPlcSplyText] {display: none};
+
+#proformapriceperunits, #proformagross, #proformanetamnt{
+	width: 100px !important;
+}
+
+#proformataxtypes{
+	width: 120px !important;
+}
+
+#proformaunits{
+	width:60px !important;
+}
+
+#proformataxamnt{
+	width:60px !important;
+}
+/*
+#transactionDetailsSOCCPNTable tbody tr td, #sellOnCreditTable tbody tr td{
+	margin-left: 0px;
+	padding: 1px;
+}
+*/
+
+.transactionDetailsTable thead tr th, .transactionDetailsTable tbody tr td {padding: 1px;}
+/*.transactionDetailsTable table.table { padding-bottom: 24px; *padding-bottom: 38px; _padding-bottom: 38px; padding-bottom: 38px \0/IE8+9;}*/
+html[data-useragent*='MSIE 10.0'] .transactionDetailsTable table.table, @-moz-document url-prefix() {
+  padding-bottom:38px;
+}
+
+@-moz-document url-prefix() {
+    .transactionDetailsTable table.table {padding-bottom: 38px;}
+    .outstandings select {width: 34.1% !important;}
+}
+
+.transactionDetailsTable thead tr td{
+	vertical-align: text-top !important;
+}
+
+.para-tm5-bm0{
+	margin-top: 5px !important;
+	margin-bottom: 0px !important;
+	padding: 0px !important;
+}
+
+.para-tm3-bm0{
+	margin-top: 3px !important;
+	margin-bottom: 0px !important;
+	padding: 0px !important;
+}
+
+
+.multipleItemsTable .txnItems{
+	padding-top: 0px !important;
+}
+
+.multipleItemsTable .txnPerUnitPrice, .multipleItemsTable .txnPerUnitPriceTaxInclusice, .multipleItemsTable .txnGstTaxRate, .multipleItemsTable .txnCessRate, .multipleItemsTable .txnCessTaxAmt, .multipleItemsTable .withholdingtaxcomponenetdiv{
+	width: 60px !important;
+}
+
+.multipleItemsTable .txnPerUnitPrice{
+    width: 90px !important;
+}
+
+.multipleItemsTable .txnNoOfUnit{
+	width: 50px !important;
+}
+
+.multipleItemsTable .txnDiscountPercent{
+	width: 50px !important;
+    height: 20px;
+}
+.multipleItemsTable .txnDiscountAmount{
+    width: 65px !important;
+    height: 20px;
+}
+
+.multipleItemsTable .invoiceValue, .multipleItemsTable .txnGross, .multipleItemsTable .netAmountVal{
+	width: 80px !important;
+}
+
+.multipleItemsTable .customerAdvance, .multipleItemsTable .howMuchAdvance{
+	width: 63px !important;
+}
+
+.ui-autocomplete-loading {
+	background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
+
+#sellTransInvoiceTbl tr td input[type='text'], #buyTxnAddDetailTbl tr td input[type='text']{
+	min-height:30px !important;
+}
+
+#sellTransInvoiceTbl .input-group .form-control, #buyTxnAddDetailTbl .input-group .form-control{
+    margin: 0px !important;
+}
+
+#sellTransInvoiceTbl .form-control, #buyTxnAddDetailTbl .form-control {
+    height: 30px !important;
+    border-radius: 3px;
+    padding-left: 5px;
+    font-size: 12px !important;
+    background: #fff;
+    border: 1px solid #BDC4C9;
+    display: block;
+    box-shadow: inset 0px 1px 0px #F1F0F1;
+}
+
+#sellTransInvoiceTbl input, #buyTxnAddDetailTbl input{
+	margin-top: 0px !important;
+	margin-bottom: 5px !important;
+}
+
+.netAmountValTotal, .totalInvoiceValue{
+	border-color: #000 !important;
+	background-color: #eeeeee !important;
+	border: 1px solid #000;
+	font-weight:700;
+	font-size: 11.5px !important;
+}
+
+/*******************Start rcafcc******/
+#multipleItemsTablercafcc >tbody > tr > td:nth-child(2){
+	width: 140px !important; min-width: 110px !important;
+}
+#multipleItemsTablercafcc .customerAdvance, #multipleItemsTablercafcc .howMuchAdvance, #multipleItemsTablercafcc .advanceReceived,
+#multipleItemsTablercafcc .withholdingtaxcomponenetCls, #multipleItemsTablercafcc .netAmountVal{
+	width: 140px !important;
+}
+
+/****************************End*********************/
+
+/*******************Start pcafcv Pay advance to vendor******/
+#multipleItemsTablepcafcv >tbody > tr > td:nth-child(2){
+	width: 140px !important; min-width: 110px !important;
+}
+#multipleItemsTablepcafcv .customerAdvance, #multipleItemsTablepcafcv .howMuchAdvance, #multipleItemsTablepcafcv .advanceReceived,
+#multipleItemsTablepcafcv .withholdingtaxcomponenetdiv, #multipleItemsTablepcafcv .netAmountVal{
+	width: 140px !important;
+}
+
+/*
+.customerVendorExistingAdvance, .resultantAdvance, #pcafcvAmountOfAdvanceReceived, .netPaid{
+	width:80px !important;
+}
+#pcafcvTaxAdjusted{
+	width:70px !important;
+}
+#pcafcvMultiItemsTblHead >thead > tr > th:nth-child(1){
+	width: 145px !important; min-width: 145px !important;
+}
+#pcafcvMultiItemsTblHead >thead > tr > th:nth-child(2), #multipleItemsTablepcafcv >tbody > tr > td:nth-child(2){
+	width: 110px !important; min-width: 110px !important;
+}
+#pcafcvMultiItemsTblHead >thead > tr > th:nth-child(3), #pcafcvMultiItemsTblHead >thead > tr > th:nth-child(4), #pcafcvMultiItemsTblHead >thead > tr > th:nth-child(7){
+	width: 82px !important; min-width: 82px !important;
+}
+
+#pcafcvMultiItemsTblHead >thead > tr > th:nth-child(5), #multipleItemsTablepcafcv >tbody > tr > td:nth-child(5){
+	width: 70px !important; min-width: 70px !important;
+}
+
+#pcafcvMultiItemsTblHead >thead > tr > th:nth-child(6), #multipleItemsTablepcafcv >tbody > tr > td:nth-child(6){
+	width: 94px !important; min-width: 94px !important;
+}
+#pcafcvMultiItemsTblHead >thead > tr > th:nth-child(8){
+	width: 140px !important; min-width: 140px !important;
+}
+
+#multipleItemsTablepcafcv >tbody > tr > td:nth-child(1), #multipleItemsTablepcafcv >tbody > tr > td:nth-child(8){
+	width: 140px !important; min-width: 140px !important;
+}
+#multipleItemsTablepcafcv >tbody > tr > td:nth-child(3),
+#multipleItemsTablepcafcv >tbody > tr > td:nth-child(4),
+#multipleItemsTablepcafcv >tbody > tr > td:nth-child(7){
+	width: 78px !important; min-width: 78px !important;
+}
+****************************End*********************/
+/****************************Start Buy*********************/
+.divbuy-w100{ width: 65px !important; padding: 0px; }
+.divbuy-w200{ width: 128px !important; padding: 0px;}
+.divbuy-w300{ width: 128px !important; padding: 0px;}
+.buyTaxCellCls {width:63px !important; padding: 1px; display: inline-block !important;}
+
+.klBranchSpecfTd{
+	min-width: 140px !important;
+	width: auto;
+	margin-top: 0px !important;
+	padding: 0 !important;
+	font-size: 9.5px !important;
+	font-weight: 200 !important;
+	height: auto;
+	max-height: 50px;
+	overflow: auto;
+}
+
+.itemParentNameDiv{
+	font-weight: 200;
+	width: auto;
+	display: inline-block;
+	font-size: 11px;
+}
+
+.actualbudgetDisplay, .budgetDisplay, .amountRangeLimitRule{
+	font-weight: 200;
+	max-width: 33%;
+	width: auto;
+	display: inline-block;
+	font-size: 11px;
+}
+.txnItemInfoCls {
+	margin: auto !important;
+	width: auto !important;
+	display: table;
+}
+
+.actualbudgetDisplay, .budgetDisplay, .amountRangeLimitRule{
+	border-left: 1px solid #d00;
+}
+
+.transaction-create, .multipleItemsTable {
+	margin: auto !important;
+    width: auto !important;
+}
+
+.multipleItemsTable >tbody >tr, .transaction-create >tbody >tr{
+	vertical-align: top !important;
+	border: 1px solid #ddd !important;
+    width: auto !important;
+}
+
+#multipleItemsTablebocpra >tbody >tr >td, #txnCrditDebitVendTable >tbody >tr >td, #multipleItemsTablecdtdbv >tbody >tr >td{
+	vertical-align: top !important;
+}
+
+
+.multipleItemsTable .netAmountDescriptionDisplay {
+	margin: 0 !important;
+	padding: 0 !important;
+	font-size: 9.5px !important;
+	height: auto;
+    overflow: auto;
+	max-height: 50px;
+    font-weight:200 !important;
+	width: auto;
+    max-width: 200px;
+	min-width: 140px;
+}
+
+/****************************End*********************/
+
+.cashBalanceAllBranches, .bankBalanceAllBranches, .accountsReceivablesAllBranches, .accountsPayablesAllBranches{
+	display: none;
+}
+
+/*******************Start mkrfnd******/
+
+#mkrfndmultipleItemsTblHead >thead > tr > th:nth-child(1){
+	width: 145px !important; min-width: 145px !important;
+}
+#mkrfndmultipleItemsTblHead >thead > tr > th:nth-child(2), #mkrfndmultipleItemsTblHead >tbody > tr > td:nth-child(2){ 
+	width: 110px !important; min-width: 110px !important;
+}
+#mkrfndmultipleItemsTblHead >thead > tr > th:nth-child(3), #mkrfndmultipleItemsTblHead >thead > tr > th:nth-child(4), #mkrfndmultipleItemsTblHead >thead > tr > th:nth-child(7){
+	width: 110px !important; min-width: 110px !important;
+}
+
+#mkrfndmultipleItemsTblHead >thead > tr > th:nth-child(5), #mkrfndmultipleItemsTblHead >tbody > tr > td:nth-child(5){
+width: 110px !important; min-width: 110px !important;
+}
+
+#mkrfndmultipleItemsTblHead >thead > tr > th:nth-child(6), #mkrfndmultipleItemsTblHead >tbody > tr > td:nth-child(6){
+	width: 94px !important; min-width: 94px !important;
+}
+#mkrfndmultipleItemsTblHead >thead > tr > th:nth-child(8){
+	width: 140px !important; min-width: 140px !important;
+}
+
+#mkrfndmultipleItemsTblHead >tbody > tr > td:nth-child(1), #mkrfndmultipleItemsTblHead >tbody > tr > td:nth-child(8){
+	width: 140px !important; min-width: 140px !important;
+}
+
+
+#multipleItemsTablemkrfnd .advAvailForRefund {
+width: 110px !important; min-width: 110px !important;
+}
+#multipleItemsTablemkrfnd .tdsAvailForRefund {
+width: 110px !important; min-width: 110px !important;
+}
+
+#multipleItemsTablemkrfnd .advanceReceived {
+width: 110px !important; min-width: 110px !important;
+}
+
+#multipleItemsTablemkrfnd .taxAdjusted {
+width: 110px !important; min-width: 110px !important;
+}
+
+#multipleItemsTablemkrfnd .mkrfndadvResultantAdv {
+width: 110px !important; min-width: 110px !important;
+}
+
+#multipleItemsTablemkrfnd .mkrfndadvResultantTax {
+width: 110px !important; min-width: 110px !important;
+}
+
+#excelTranUpload{
+	display: none !important;
+}
+/****************************End*********************/
+
+.accountItems{
+	max-width: 250px;
+	width: auto;
+}
+
+.txnBranches, .txnBranchesTo, .inwardOutwardSelect, .txnTypeOfSupply, .masterList, .txnItems, .select2-container, .txnPerUnitPrice, .txnNoOfUnit, .unavailable,
+.walkinCustType, .txnPaymodeCls, .creditDebitType, input[name='txnFromDate'], input[name='txnToDate'], .pendingTxns, .paymentreceivedmade, .branchTransferrableAmount, .txnBranchBanks, .txnInstrumentNoCls, .txnInstrumentDtCls, .txnWithDrawAmtCls, .txnDepositAmtCls, input[id='payrollMonth'], #payDays, .advanceReceived, #rfndamntrcvdItems,
+.refundAmountReceived, .accountItems, .accountUnit, .accountPrice, .provisionPurposeClass, input[name='transactionDate'], .txnRcmTaxItem, .tdsItem, .whType, .modeOfcalc, .taxRate, .transLimit, .tdsItems{
+	border-left: 2px solid #FF0000 !important;
+}
+
+.txnForProjects, .txnPoReference, .howMuchAdvance, .txnReceptTextCls, .voiceRemarksClass, .txnUploadSuppDocs, .salesExpenseTxns, .txnGstTaxRate,
+.txnCessRate, .txnTaxAdjustedCls, .creditadvanceadjustment, .advancePurpose, input[id="vendorInvoiceDate"], .transferPurpose, .txnLeftAmtInBankCls,
+.txnPurposeCls, .voiceRemarksClassPrivate, .rfndRemarksClassPrivate, .mkrfndRemarksClassPrivate, .mkrfndRemarksClassPrivate, .earningItem, .deductionItem,
+.advAvailForRefund, .tdsAvailForRefund, .amtAvailForRefund, .accountProject, .alertForReversalRequiredCls, .withholdingtaxcomponenetCls, .txnDutiesAndTaxes {
+	border-left: 2px solid #52bf90 !important;
+}
+
+.isWalkinCustomerCls{
+	outline: 2px solid #52bf90 !important;
+	margin-left: 2px !important;
+	background-color: #52bf90 !important;
+}
+
+.placeOfSply, .placeOfSplyText, .txnDiscountPercent, .txnDiscountAmount, .txnGross, .invoiceValue,
+.customerAdvance, .netAmountVal,  .netAmountValTotal, .totalInvoiceValue, .taxRate, .txnTaxAmount, .withholdingtaxcomponenetdiv,
+.txnCessTaxAmt, .dueBalance, .customerVendorExistingAdvance, .resultantAdvance, .netAmountPaid, .netPaid, .branchCashAvailable,
+.branchPettyCashAvailable, .branchCashResultant, .branchPettyCashResultant, .typeOfPO, .taxAdjusted, .mkrfndadvResultantAdv, .mkrfndadvResultantTax, .taxAdjusted, .rfndamntResultantAmnt, .rfndamntResultantTax, .txnTaxOnAdvAdjCls, #creditDebitVendTxnDiv .txnGstTaxRate, #creditDebitVendTxnDiv .txnCessRate {
+	background-color: #f8f8f8 !important;
+}
+/********************************Credit and Debit notes ********************/
+
+.creditDebitType {
+	height: 28px;
+	border-radius: 3px;
+	margin-top: 5px;
+	font-size: 12px;
+	background: #fff;
+	border: 1px solid #72808b;
+	box-shadow: inset 0px 1px 0px #F1F0F1;
+	font-weight: 600;
+	color: #000;
+}
+
+#txnCrditDebitTable .salesExpenseTxns{
+	border-left: 2px solid #FF0000 !important;
+}
+
+#creditDebitTxnDiv .txnTypeOfSupply, #creditDebitTxnDiv .howMuchAdvance, #creditDebitTxnDiv .txnTaxOnAdvAdjCls, #creditDebitTxnDiv .txnTaxOnAdvAdjCls{
+	background-color: #f8f8f8 !important;
+}
+#multipleItemsTablecdtdbt .txnPerUnitPrice, #multipleItemsTablecdtdbt .txnNoOfUnit, #multipleItemsTablecdtdbt .howMuchAdvance, #multipleItemsTablecdtdbt .customerAdvance{
+	width: 80px !important;
+}
+
+#multipleItemsTablecdtdbt .netAmountVal {
+	width: 100px !important;
+}
+
+#multipleItemsTablepurord .txnPerUnitPrice, #multipleItemsTablepurord .txnNoOfUnit, #multipleItemsTablepurord .txnGross, #multipleItemsTablepurord .netAmountVal{
+    width: 140px !important;
+}
+
+#multipleItemsTableQuotation .txnPerUnitPrice, #multipleItemsTableQuotation .txnNoOfUnit, #multipleItemsTableQuotation .txnGross, #multipleItemsTableQuotation .netAmountVal{
+    width: 140px !important;
+}
+
+.txnDutiesAndTaxes{
+	width: 60px !important;
+}
+
+.compcancelButton{
+	margin-top: 3%;
+	margin-left: 25%;
+}
+.submitForApproval, .submitForAccounting{
+	margin-top: 3%;
+	margin-left: 30%;
+}
+
+.multipleItemsTable >tbody >tr > td:nth-last-child(1){
+	max-width: 20px !important;
+}
+.removeTxnCheckBox{
+	margin: 5px !important;
+}
+
+/**************************************common**********************************************/
+#transactionTable td{
+	border-right: 1px solid #626262;
+	padding-left: 1px;
+}
+#transactionTable th{
+	border-right: 1px solid #626262;
+	text-align: center;
+	vertical-align: text-top;
+}
+
+#transactionTable .number-right {
+	text-align: right;
+	color: blue;
+}
+
+/****************************************************/
+
+@header_background_color: #333;
+@header_text_color: #FDFDFD;
+@alternate_row_background_color: #DDD;
+
+@table_width: 750px;
+@table_body_height: 350px;
+@column_one_width: 145px;
+@column_two_width: 140px;
+@column_3_width: 90px;
+@column_4_width: 90px;
+
+.exss {
+    table-layout: fixed;
+    border-collapse: collapse;
+
+    th { text-decoration: underline; }
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+
+    td:nth-child(1), th:nth-child(1) { min-width: @column_one_width; }
+    td:nth-child(2), th:nth-child(2) { min-width: @column_two_width; }
+    td:nth-child(3), th:nth-child(3) { width: @column_three_width; }
+    td:nth-child(4), th:nth-child(1) { min-width: @column_one_width; }
+    td:nth-child(5), th:nth-child(2) { min-width: @column_two_width; }
+    td:nth-child(6), th:nth-child(3) { width: @column_three_width; }
+    td:nth-child(7), th:nth-child(1) { min-width: @column_one_width; }
+    td:nth-child(8), th:nth-child(2) { min-width: @column_two_width; }
+    td:nth-child(9), th:nth-child(3) { width: @column_three_width; }
+    td:nth-child(10), th:nth-child(1) { min-width: @column_one_width; }
+    td:nth-child(11), th:nth-child(2) { min-width: @column_two_width; }
+    td:nth-child(12), th:nth-child(3) { width: @column_three_width; }
+    td:nth-child(13), th:nth-child(1) { min-width: @column_one_width; }
+    td:nth-child(14), th:nth-child(2) { min-width: @column_two_width; }
+
+    thead {
+        background-color: @header_background_color;
+        color: @header_text_color;
+        tr {
+            display: block;
+            position: relative;
+        }
+    }
+    tbody {
+        display: block;
+        overflow: auto;
+        width: 100%;
+        height: @table_body_height;
+        tr:nth-child(even) {
+            background-color: @alternate_row_background_color;
+        }
+    }
+}
+
+.old_ie_wrapper {
+    height: @table_body_height;
+    width: @table_width;
+    overflow-x: hidden;
+    overflow-y: auto;
+    tbody { height: auto; }
+}
+
+.tdsVendorTd .multiselect-container {
+    max-height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sweet-alert button.cancel {
+	color: #fff !important;
+}
+
+.vendorInvDateDiv {
+	display: none !important;
+}
+
+#txnViewListUploadBtn{
+	margin-right: 5px;
+}
+
+.hide_Element{
+	display: none !important;
+}

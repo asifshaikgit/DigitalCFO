@@ -1,0 +1,115 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<style type="text/css">
+    input[type=email] {
+        height: 28px;
+        border-radius: 3px;
+        margin-top: 5px;
+        font-size: 11px;
+        background: #fff;
+        border: 1px solid #72808b;
+        box-shadow: inset 0px 1px 0px #F1F0F1;
+    }
+    input[type=password] {
+        height: 28px;
+        border-radius: 3px;
+        margin-top: 5px;
+        font-size: 11px;
+        background: #fff;
+        border: 1px solid #72808b;
+        box-shadow: inset 0px 1px 0px #F1F0F1;
+    }
+    input[type=url] {
+        height: 28px;
+        border-radius: 3px;
+        margin-top: 5px;
+        font-size: 11px;
+        background: #fff;
+        border: 1px solid #72808b;
+        box-shadow: inset 0px 1px 0px #F1F0F1;
+    }
+</style>
+<div id="companySetup" class="tab-pane mainDiv" style="display: none;">
+    <div>
+        <!-- <input id="hiddenOrgId" type="hidden" value=""> -->
+        <input id="hiddenCompanyId" type="hidden" value=@(orgn.getCompanyId())>
+    </div>
+    <div class="content">
+        <legend class="panel-title" style="text-align: center;">Company Entities</legend>
+        <div class="organizationDetails" style="margin-bottom: 10px;">
+            <div class="panel panel-showtrans">
+                <div class="panel-body" style="margin-right: 5px;">
+                    <legend class="panel-title">Add Entities<i class="fa fa-info-circle pl-5 help-info userpopoverinfo"></i></legend>
+                    <input id="validationPassedNo" class="validationPassedNo" type="hidden"/>
+                    <table class="table" id="cmpOrganizationDetailsTable" style="margin-top: 0px;">
+                        <thead class="tablehead1">
+                            <tr>
+                                <th>Company Name</th>
+                                <th>Your Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Comfirm Password</th>
+                                <th>Phone Number</th>
+                                <th>Website</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" id="orgCompanyName" name="companyname" placeholder="Company/business name" required >
+                                </td>
+                                <td>
+                                    <input type="text" id="orgContactName"  name="contactName" placeholder="Your name" equired >
+                                </td>
+                                <td>
+                                    <input type="email" id="orgCorporateEmail" type="email" name="email" placeholder="Company E-mail." onblur="checkemail(this);" required>
+                                </td>
+                                <td>
+                                    <input type="password" id="orgPassword" type="password" name="password" placeholder="Create your password" required > 
+                                </td>
+                                <td>
+                                    <input type="password" id="orgPwdConfirm" type="password" placeholder="Type the password again" required> 
+                                </td>
+                                <td>
+                                    <input type="text" id="orgPhoneNumber" placeholder="Phone (+91 XXX XXXX XXX)"  maxlength="30" required>
+                                </td>
+                                <td>
+                                    <input type="url" id="orgWebsite" type="url" data-fv-uri-message="The website address is not valid" placeholder="Website/URL">
+                                </td>
+                                <td>
+                                    <button type="submit" style="margin-bottom: 20px;" id="addCompanyOrganization" class="btn btn-submit btn-idos" title="Save Organisation Details">Save</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">
+                                    <b style="margin-left: 10px; margin-bottom: -9px; color: red;">*Password must be atleast one letter, one capital letter, one small letter, one number, one special character & 8 characters.</b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body" style="margin-right: 5px;">
+				<legend class="panel-title">Entities DETAILS</legend>
+				<div class="datascrolltable" style="height: 100%; overflow: auto;">
+					<table class="table table-hover table-striped excelFormTable" id="companyOrgTable" style="margin-top: 0px;">
+						<thead>
+                            <tr>
+                                <th>Company Name</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Website</th>
+                            </tr>
+                        </thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

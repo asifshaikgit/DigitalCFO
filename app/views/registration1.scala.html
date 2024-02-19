@@ -1,0 +1,442 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,pwdchanged:String,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams){
+<head>
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+<style type="text/css">
+.container .span2 {background: #B4283C; border-radius: 0 0 0 5px;}
+</style>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72593005-1', 'myidos.com');
+  ga('send', 'pageview');
+  $(document).ready(function() {
+	  var user = getCookie("user");
+	  if ("" === user) {
+	  	$('#loadingIdos').hide();
+	  	var locHash=window.location.hash;
+	  	var url=window.location.pathname;
+	  	if(locHash==""){
+	  	 location.hash = "#logindiv";
+	  	 $("#logindiv input:enabled:visible:first").focus();
+	  	 $("#accountspanstat").html("Please log in to your account.");
+	  	 $("#leftboxtd").attr("valign","middle");
+	  	}
+	  	if(url.indexOf("sellerlogout")!=-1){
+	  		 location.hash = "#sellerAccountLoginDiv";
+	  		 $("#logindiv").hide();
+	  		 $("#sellerAccountRegDiv").hide();
+	  		 $("#sellerAccountLoginDiv").show();
+	  		 $("#sellerAccountLoginDiv input:enabled:visible:first").focus();
+	  	}
+	  	if(locHash=="#logindiv"){
+	  		$("#logindiv input:enabled:visible:first").focus();
+	  	}
+	  	if(locHash=="#forgotlogindiv"){
+	  		$("#logindiv").hide();
+	  		$("#sellerAccountLoginDiv").hide();
+	  		$("#forgotlogindiv").show();
+	  	}
+	  	if(locHash=="#signUpDiv"){
+	  		$("#signUpDiv input:enabled:visible:first").focus();
+	  		$(locHash).show();
+	  		$("#logindiv").hide();
+	  		$("#resetLoginCred").hide();
+	  		$("#accountspanstat").html("Sign Up For Your Account.");
+	     		$("#leftboxtd").attr("valign","middle");
+	  	}
+	  	if(locHash=="#resetLoginCred"){
+	  		$('.signin').hide();
+	  		var email = GetURLParameter('email');
+	  		var token = GetURLParameter('token');
+	  		if ('' !== email && '' != token) {
+	  			var jsonData = {};
+	  		  	jsonData.userEmail = email;
+	  		  	jsonData.token = token;
+	  		  	jsonData.locHash = locHash;
+	  			ajaxCall('/accountSetting/userPasswordReset', jsonData, '', '', '', '', 'userPasswordReset', '', false);
+	  		}
+	  	}
+	  	if(locHash=="#resetSecurityAnswerDiv"){
+	  		$('.signin').hide();
+	  		$(locHash).show();
+	  		var email = GetURLParameter('email');
+	  		var token = GetURLParameter('token');
+	  		if ('' !== email && '' != token) {
+	  			var jsonData = {};
+	  			jsonData.email = email;
+	  			jsonData.token = token;
+	  			jsonData.locHash = locHash;
+	  			ajaxCall('/user/getSecurityQuestion', jsonData, '', '', '', '', 'userSecurityQuestion', '', true);
+	  		}
+	  	}
+	  	if(locHash=="#sellerresetLoginCred"){
+	  		$("#sellerresetLoginCred input:enabled:visible:first").focus();
+	  		$(locHash).show();
+	  		$("#sellerAccountLoginDiv").hide();
+	  		$("#accountspanstat").html("Reset Your Account.");
+	  		$("#leftboxtd").attr("valign","middle");
+	  		var email = GetURLParameter('email');
+	  	  $("#sellerresetemail").val(email);
+	  	  $("#sellerAccountRegDiv").hide();
+	  	  $("#logindiv").hide();
+	  	}
+	  	var seller = getCookie("seller");
+	  	 if ("" === seller) {
+	  		 if(locHash=="#sellerAccountLoginDiv"){
+	  			$("#logindiv").hide();
+	  			$("#sellerAccountRegDiv").hide();
+	  			$(locHash).show();
+	  			$("#sellerAccountLoginDiv input:enabled:visible:first").focus();
+	  		 }
+	  		} else if ("" !== seller) {
+	  			window.location.href = '/seller';
+	  		}
+	  	/* if(locHash=="#sellerAccountLoginDiv"){
+	  		$("#logindiv").hide();
+	  		$("#sellerAccountRegDiv").hide();
+	  		$(locHash).show();
+	  		$("#sellerAccountLoginDiv input:enabled:visible:first").focus();
+	  	} */
+	  	if(locHash=="#sellerAccountRegDiv"){
+	  		$("#logindiv").hide();
+	  		$("#sellerAccountLoginDiv").hide();
+	  		$(locHash).show();
+	  		$("#sellerAccountRegDiv input:enabled:visible:first").focus();
+	  	}
+	  	if(locHash=="#sessionExpired"){
+	  		 $('#logoutReasonMsg').html('You have been logged out after a period of inactivity in order to protect the security of your account.');
+	  		 $('#logoutReason').slideDown(2000);
+	  		window.location.hash = 'loginDiv';
+	  	}
+	  	if(locHash=="#resetSuccess"){
+	  		$('#logoutReasonMsg').html('Your password has been reset successfully. Login with your new password to access your account.');
+	  		$('#logoutReason').slideDown(2000);
+	  		window.location.hash = 'loginDiv';
+	  	}
+	  	if(url.indexOf("activate")!=-1){
+	  		var locHash=window.location.hash;
+	  		$("#loginsuccessaccountmsg").html("");
+	  		$("#loginsuccessaccountmsg").text('Welcome To @(configParams.getCompanyApp()).Your Account Is Activated.');
+	  		$("#loginsuccessregdiv").show();
+	  	}
+	  	var vendorCustomer = getCookie("vendorCustomer");
+	  	 if ("" === vendorCustomer) {
+	  			if(url.indexOf("customerVendorAccount")!=-1){
+	  				var locHash=window.location.hash;
+	  				$("#vendCustAccount").show();
+	  				$("#logindiv").hide();
+	  				$("#forgotlogindiv").hide();
+	  			}
+	  		} else if ("" !== vendorCustomer) {
+	  			window.location.href = '/vendCustConfig';
+	  		}
+	  	/* if(url.indexOf("customerVendorAccount")!=-1){
+	  		var locHash=window.location.hash;
+	  		$("#vendCustAccount").show();
+	  		$("#logindiv").hide();
+	  		$("#forgotlogindiv").hide();
+	  	} */
+	  	if(url.indexOf("accountChanged")!=-1){
+	  		$("#successaccountmsg").html("");
+	  	    $("#successaccountmsg").text('Successfully created New Admin To configure @(configParams.getCompanyApp()).');
+	  	    $("#successregdiv").show();
+	  	}
+	  	@if(pwdchanged!=null){
+	  		$("#successregdiv").show();
+	  		$("#successaccountmsg").text(''+@pwdchanged+'');
+	  	}
+	  }else {
+	  	var vendorCustomer = getCookie("vendorCustomer");
+	  	var seller = getCookie("seller");
+	  	if ("" !== user) {
+	  		window.location.href = '/config';
+	  	} else if ("" === vendorCustomer) {
+	  		if(url.indexOf("customerVendorAccount")!=-1){
+	  			var locHash=window.location.hash;
+	  			$("#vendCustAccount").show();
+	  			$("#logindiv").hide();
+	  			$("#forgotlogindiv").hide();
+	  		}
+	  	} else if ("" !== vendorCustomer) {
+	  		window.location.href = '/vendCustConfig';
+	  	} else if ("" === seller) {
+	  		$("#logindiv").hide();
+	  		$("#sellerAccountRegDiv").hide();
+	  		$(locHash).show();
+	  		$("#sellerAccountLoginDiv input:enabled:visible:first").focus();
+	  	} else if ("" !== seller) {
+	  		window.location.href = '/seller';
+	  	}
+	  }
+});
+</script>
+</head>
+<body id="regmainbody" class="regmainbody">
+   <div id="logoutReason">
+   <div class="logoutInfoIcon"></div>
+   <div id="logoutReasonMsg" style="margin-left: 37px;"></div>
+   </div>
+   <div class="notify-success" style="display: none;padding-left: 10px;float: left; position: absolute; top: 0;">
+   	  <div class="correct_19"></div>
+      <b id="notificationMessage"></b>
+      <div id="notificationClose" onclick="$('.notify-success').slideUp();" style="top: 10px; right: 5px;"></div>
+   </div>
+   <div class="signin" style="background-color: #333">
+	<div class="container">
+		<div id="loginHere">
+		<div id="signUpDiv" class="mainDiv" style="display: none; width:800px;">
+		<table style="width:790px;">
+		<tr valign="top">
+			<td>
+				<div class="loginpagelogo" id="loginLogo">
+			       <a href="http://www.myidos.com"><img id="loginLogo" alt="logo" style="float:left" src="/assets/images/IDOS-logo.jpg"></img></a>
+			       <span style="margin-left:20px;height:70px;text-align: center;line-height: 70px;"><font size="6" style="color: white;"><b>REGISTRATION PAGE</b></font></span>
+		        </div>
+		        <div style="margin-top:40px;margin-left: 90px;">
+					<input type="text" id="companyname" name="companyname" style="width: 395px;" placeholder="ENTER THE FULL NAME OF YOUR ORGANISATION"><br/>
+					<input type="text" id="corporateemail" name="email" style="width: 180px;" placeholder="ENTER YOUR EMAIL" onblur="javascript:checkemail(this);">
+					<input type="password" id="orgpwd" name="orgpwd" style="width: 198px;" placeholder="CREATE YOUR PASSWORD"><br/>
+					<button style="width: 300px;" id="signUpOrganization" class="createaccount btn btn-primary btn-idos" style="vertical-align:top" title="Create Organization">PLEASE REGISTER YOUR COMPANY</button>
+					<button id="requestcancel" class="cancelreg btn btn-primary btn-idos" title="Cancel" style="width: 108px;" onclick="returnToMainLogin();">Cancel</button>
+					<h5><font color="white"><b>By clicking on the "Please Register your company button"<br/>you agree to the <a href="http://idos.cloudapp.net/privacy#informationCollected">PRIVACY POLICY</a> and <a href="http://idos.cloudapp.net/terms#serviceAgreement">TERMS OF USAGE</a></b></font></h5>
+					<label class="control-label" for="input02"><b id="dupemaillabel" ></b></label>
+	    		</div>
+			</td>
+			<td>
+			   <span class="span2 alert success" id="successregdiv" class="alert success" style="display:none;margin-left:22px;height:168px;float: right;">
+			   <font size="2" style="color: black;"><b id="successaccountmsg"></b>&nbsp;<a href="http://www.myidos.com">OK</a></font></span>
+			</td>
+	    </tr>
+	    </table><br/>
+		</div>
+		<div id="logindiv" class="mainDiv" style="width:800px;">
+		<table style="width:790px;margin:0em 0;">
+		<tr valign="top">
+			<td>
+				<div class="loginpagelogo" id="loginLogo">
+			       <img id="loginLogo" alt="logo" style="float:left;width:79px;" src="/assets/images/IDOS-logo.jpg"></img>
+			       <span style="margin-left:70px;height:64px;line-height: 64px;"><font size="8" style="color: white;"><b>LOGIN PAGE</b></font></span>
+		        </div>
+		    </td>
+	        <td>
+			   <span class="span2 alert success" id="loginsuccessregdiv" style="display:none;margin-left:34px;height:64px;">
+			   <font size="2" style="color: black;"><b id="loginsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+			</td>
+		</tr>
+        </table>
+		<div style="margin-left: 110px;">
+			<input type="text" id="loginuser" name="loginuser" style="width: 360px; margin-top: 20px;" placeholder="REGISTERED EMAIL"/><br/>
+			<input type="password" id="pass" name="pass" style="width: 360px;" placeholder="PASSWORD"/><br/>
+			<button id="loginButton" class="loginButton btn btn-primary btn-idos" title="Sign In" style="width: 185px;"><i class="icon-user icon-white"></i> Log In</button>
+			<button id="forgotButton" class="forgotButton btn btn-primary btn-idos" title="Forgot Password" style="width: 185px;" onclick="forgot();"><i class="icon-lock icon-white"></i> Forgot Password?</button>
+			<br/>
+			<a href="http://idos.cloudapp.net/resend#resendActivation"><b><font color="white"> Already Signed Up But Still Not Activated Account?</font></b></a><br/>
+			<a href="http://idos.cloudapp.net/signUp#signUpDiv"><b><font color="white"> New Organisation? Register/Sign Up</font></b></a>
+		</div>
+		<br/>
+        </div>
+        <div id="vendCustAccount" class="mainDiv" style="display: none;width:800px;">
+		<table style="width:790px;">
+		<tr valign="top">
+			<td>
+				<div class="loginpagelogo" id="loginLogo" style="margin-top: -15px;">
+			       <a href="http://www.myidos.com"><img id="loginLogo" alt="logo" style="float:left;width:79px;" src="/assets/images/IDOS-logo.jpg"></img></a>
+			       <span style="margin-left:70px;height:64px;line-height: 64px;"><font size="8" style="color: white;"><b>LOGIN PAGE</b></font></span>
+		        </div>
+		    </td>
+	        <td>
+			   <span class="span2 alert success" id="vendcustloginsuccessregdiv" style="display:none;margin-left:34px;margin-top: -15px;height:64px;">
+			   <font size="2" style="color: black;"><b id="vendcustloginsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+			</td>
+		</tr>
+        </table><br/>
+		<div style="margin-left: 110px;">
+			<input type="password" id="vendcustpass" name="vendcustpass" style="width: 360px;" placeholder="PASSWORD"/><br/>
+			<button id="vendcustloginButton" class="vendcustloginButton btn btn-primary btn-idos" title="Sign In" style="width: 185px;">Log In</button>
+			<button id="vendcustforgotpasswordButton" class="vendcustforgotpasswordButton btn btn-primary btn-idos" title="Forgot Password" style="width: 185px;" onclick="vendcustforgot();">Forgot Password?</button>
+		</div>
+		<br/>
+        </div>
+        <div id="vendCustForgotAccount" class="mainDiv" style="display: none;width:800px;">
+	        <table style="width:790px;margin-top: 0px;">
+			<tr valign="top">
+				<td>
+					<div class="loginpagelogo" id="loginLogo">
+					   <a href="http://www.myidos.com"><img id="loginLogo" alt="logo" style="float:left;" src="/assets/images/IDOS-logo.jpg"></img></a>
+				       <span style="margin-left:30px;height:70px;text-align: center;line-height: 70px;"><font size="5" style="color: white;"><b>RESET YOUR LOGIN ACCOUNT</b></font></span>
+			        </div><br/>
+	        	</td>
+	        	<td>
+				   <span class="span3 alert success" id="vendCustresetsuccessregdiv" style="display:none;margin-left:22px;height:70px;">
+				   <font size="2" style="color: black;"><b id="vendCustresetsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+				</td>
+	        </tr>
+	        </table>
+	        <div style="margin-left: 110px;">
+			      <input type="text" id="vendCustresetemail" name="vendCustresetemail" readonly="readonly" style="width: 360px;"><br/>
+			      <input type="password" id="vendCustresetnewpass" name="vendCustresetnewpass" style="width: 360px;" placeholder="NEW PASSWORD"><br/>
+			      <input type="password" id="vendCustresetconfirmpass" name="vendCustresetconfirmpass" style="width: 360px;" placeholder="CONFIRM NEW PASSWORD"><br/>
+			      <button id="vendCustresetaccount" class="vendCustresetlogincred btn btn-primary btn-idos" title="Reset" style="vertical-align: top;">Reset Account Password</button>
+			      <button id="vendcustcancelButton" class="vendcustcancelButton btn btn-primary btn-idos" title="Cancel" style="width: 180px;" onclick="vendcustcancel();">Cancel</button>
+			</div>
+        </div>
+		<div id="forgotlogindiv" class="control-group mainDiv" style="display: none; width:800px;">
+		<table style="width:790px;">
+		<tr valign="top">
+			<td>
+				<div class="loginpagelogo" id="loginLogo" style="margin-top: -15px;">
+				   <a href="http://www.myidos.com"><img id="loginLogo" alt="logo" style="float:left" src="/assets/images/IDOS-logo.jpg"></img></a>
+			       <span style="margin-left:20px;px;height:70px;text-align: center;line-height: 70px;"><font size="5" style="color: white;"><b>FORGOT YOUR CREDENTIALS?</b></font></span>
+		        </div>
+	        </td>
+	        <td>
+			   <span class="span3 alert success" id="forgotsuccessregdiv" style="display:none;margin-left:18px;margin-top: -15px;height:80px;">
+			   <font size="2" style="color: black;"><b id="forgotsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+			</td>
+        </tr>
+        </table><br/>
+        <div style="margin-left: 90px;">
+		   <input type="text" name="logindetailemail" id="logindetailemail" maxlength="255" style="width: 360px; margin-top: 10px;" placeholder="EMAIL ADDRESS"><br/>
+		   <button id="requestresetlink" class="logininfo btn btn-primary btn-idos" title="Login Info" style="width: 230px;">Request Reset Password Link</button>
+		   <button id="requestcancel" class="cancelreg btn btn-primary btn-idos" title="Cancel" style="width: 140px;" onclick="returnToMainLogin();">Cancel</button>
+		</div>
+		</div>
+		<div id="sellerforgotlogindiv" class="control-group mainDiv" style="display: none; width:800px;">
+		<table style="width:790px;">
+		<tr valign="top">
+			<td>
+				<div class="loginpagelogo" id="loginLogo" style="margin-top: -15px;">
+				   <a href="http://www.myidos.com"><img id="loginLogo" alt="logo" style="float:left" src="/assets/images/IDOS-logo.jpg"></img></a>
+			       <span style="margin-left:20px;px;height:70px;text-align: center;line-height: 70px;"><font size="5" style="color: white;"><b>FORGOT YOUR CREDENTIALS?</b></font></span>
+		        </div>
+	        </td>
+	        <td>
+			   <span class="span3 alert success" id="sellerforgotsuccessregdiv" style="display:none;margin-left:18px;margin-top: -15px;height:80px;">
+			   <font size="2" style="color: black;"><b id="sellerforgotsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+			</td>
+        </tr>
+        </table><br/>
+        <div style="margin-left: 90px;">
+		   <input type="text" name="sellerlogindetailemail" id="sellerlogindetailemail" maxlength="255" style="width: 360px; margin-top: 10px;" placeholder="EMAIL ADDRESS"><br/>
+		   <button id="sellerrequestresetlink" class="sellerlogininfo btn btn-primary btn-idos" title="Login Info" style="width: 230px;">Request Reset Password Link</button>
+		   <button id="sellerrequestcancel" class="cancelreg btn btn-primary btn-idos" title="Cancel" style="width: 140px;" onclick="returnToMainSellerLogin();">Cancel</button>
+		</div>
+		</div>
+		<div id="resetLoginCred" class="control-group mainDiv" style="display: none;width:800px;">
+		<table style="width:790px;">
+		<tr valign="top">
+			<td>
+				<div class="loginpagelogo" id="loginLogo" style="position: absolute; top: 0; width: 470px;">
+				   <a href="http://www.myidos.com"><img id="loginLogo" alt="logo" style="float:left;" src="/assets/images/IDOS-logo.jpg"></img></a>
+			       <span style="position:absolute; left: 95px;height:70px;text-align: center;line-height: 70px;"><font size="5" style="color: white;"><b>RESET YOUR LOGIN ACCOUNT</b></font></span>
+		        </div><br/>
+        	</td>
+        	<td>
+			   <span class="span3 alert success" id="resetsuccessregdiv" style="display:none;float:right;height:70px;position:absolute; top:0; right:0;">
+			   <font size="2" style="color: black;"><b id="resetsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+			</td>
+        </tr>
+        </table><br/>
+        <div style="margin-left: 110px;margin-top: 25px;">
+		      <input type="text" id="resetemail" name="resetemail" readonly="readonly" style="width: 360px;"><br/>
+		      <input type="password" id="resetnewpass" name="resetnewpass" style="width: 360px;" placeholder="NEW PASSWORD"><br/>
+		      <input type="password" id="resetconfirmpass" name="resetconfirmpass" style="width: 360px;" placeholder="CONFIRM NEW PASSWORD"><br/>
+		      <div id="securityAnswerDiv" style="display: none;">
+		      	<input type="hidden" id="resetSecurityquestionId">
+		      	<input type="hidden" id="resetSecurityquestion">
+		      	<input type="password" id="resetSecurityAnswer" style="width: 360px;" placeholder="">
+		      	<span id="forgotSecurityAnswer">Forgot Security Answer? Reset it.</span>
+		      </div>
+		      <button id="resetaccount" class="resetlogincred btn btn-primary btn-idos" title="Reset" style="vertical-align: top;">Reset Password</button>
+		</div>
+		</div>
+		<div id="sellerresetLoginCred" class="control-group mainDiv" style="display: none;width:800px;">
+		<table style="width:790px;">
+		<tr valign="top">
+			<td>
+				<div class="loginpagelogo" id="loginLogo" style="margin-top: -15px;">
+				   <a href="http://www.myidos.com"><img id="loginLogo" alt="logo" style="float:left;" src="/assets/images/IDOS-logo.jpg"></img></a>
+			       <span style="margin-left:30px;height:70px;text-align: center;line-height: 70px;"><font size="5" style="color: white;"><b>RESET YOUR SELLER ACCOUNT</b></font></span>
+		        </div><br/>
+        	</td>
+        	<td>
+			   <span class="span2 alert success" id="sellerresetsuccessregdiv" style="display:none;margin-left:22px;height:70px;margin-top: -15px;">
+			   <font size="2" style="color: black;"><b id="sellerresetsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+			</td>
+        </tr>
+        </table><br/>
+        <div style="margin-left: 110px;">
+		      <input type="text" id="sellerresetemail" name="resetemail" readonly="readonly" style="width: 360px;"><br/>
+		      <input type="password" id="sellerresetnewpass" name="sellerresetnewpass" style="width: 360px;" placeholder="NEW PASSWORD"><br/>
+		      <input type="password" id="sellerresetconfirmpass" name="sellerresetconfirmpass" style="width: 360px;" placeholder="CONFIRM NEW PASSWORD"><br/>
+		      <button id="resetaccount" class="sellerresetlogincred btn btn-primary btn-idos" title="Reset" style="vertical-align: top;width: 375px;">Reset your Vendor/Seller Account Password</button>
+		</div>
+		</div>
+		<div id="sellerAccountLoginDiv" class="mainDiv" style="display: none; width:800px;">
+			<table style="width:790px;margin:0em 0;">
+				<tr valign="top">
+					<td>
+						<div class="loginpagelogo" id="loginLogo">
+					       <img id="loginLogo" alt="logo" style="float:left;width:79px;" src="/assets/images/IDOS-logo.jpg"></img>
+					       <span style="margin-left:70px;height:64px;line-height: 64px;"><font size="8" style="color: white;"><b>SELLER LOGIN</b></font></span>
+				        </div>
+				    </td>
+			        <td>
+					   <span class="span2 alert success" id="loginsuccessregdiv" style="display:none;margin-left:34px;height:64px;">
+					   <font size="2" style="color: black;"><b id="loginsuccessaccountmsg"></b>&nbsp<a href="http://www.myidos.com">OK</a></font></span>
+					</td>
+				</tr>
+	        </table>
+	        <div style="margin-left: 110px;">
+				<input type="text" id="sellerAccountUser" name="sellerAccountUser" style="width: 360px; margin-top: 20px;" placeholder="REGISTERED EMAIL" onkeyup="keyUp(event, 'sellerLogin');"/><br/>
+				<input type="password" id="sellerAccountPass" name="sellerAccountPass" style="width: 360px;" placeholder="PASSWORD" onkeyup="keyUp(event, 'sellerLogin');"/><br/>
+				<button id="sellerAccountLoginButton" class="sellerAccountLoginButton btn btn-primary btn-idos" title="Sign In" style="width: 185px;"><i class="icon-user icon-white"></i> Log In</button>
+				<button id="sellerAccountForgotButton" class="forgotButton btn btn-primary btn-idos" title="Forgot Password" style="width: 185px;" onclick="sellerforgot();"><i class="icon-lock icon-white"></i> Forgot Password?</button>
+				<br/>
+				<a href="http://idos.cloudapp.net/signIn#sellerAccountRegDiv"><b><font color="white"> New Vendor/Seller?Sign Up</font></b></a> &nbsp;&nbsp;
+				<a href="http://idos.cloudapp.net/signIn#logindiv"><b><font color="white">@(configParams.getCompanyApp()) Customer Account</font></b></a>
+			</div>
+		</div>
+		<div id="sellerAccountRegDiv" class="mainDiv" style="display: none; width:800px;">
+			<table style="width:790px;margin:0em 0;">
+				<tr valign="top">
+					<td>
+						<div class="loginpagelogo" id="loginLogo">
+					       <a href="http://www.myidos.com"><img id="loginLogo" alt="logo" style="float:left" src="/assets/images/IDOS-logo.jpg"></img></a>
+						    <span style="margin-left:20px;height:70px;text-align: center;line-height: 70px;"><font size="6" style="color: white;"><b>REGISTRATION PAGE</b></font></span>
+						</div>
+						<div style="margin-left: 90px;">
+							<input type="text" id="sellerAccountname" name="sellerAccountname" style="width: 395px;" placeholder="ENTER THE FULL NAME OF YOUR ORGANISATION" onkeyup="keyUp(event, 'sellerRegistration');"><br/>
+							<input type="text" id="sellerAccountemail" name="sellerAccountemail" style="width: 180px;" placeholder="ENTER YOUR EMAIL" onkeyup="keyUp(event, 'sellerRegistration');" onblur="isSellerAlreadyRegistered(this.value);">
+							<input type="password" id="sellerAccountpwd" name="sellerAccountpwd" style="width: 198px;" placeholder="CREATE YOUR PASSWORD" onkeyup="keyUp(event, 'sellerRegistration');"><br/>
+							<button style="width: 300px;" id="sellerSignUpOrganization" class="sellerCreateaccount btn btn-primary btn-idos" style="vertical-align:top" title="Create Account" onclick="sellerRegistration();">Create an account</button>
+							<button id="sellerrequestcancel" class="cancelreg btn btn-primary btn-idos" title="Cancel" style="width: 108px;" onclick="window.location.href='/signUp#sellerAccountLoginDiv';">Cancel</button>
+							<h5><font color="white"><b>By clicking on the "Create an account button"<br/>you agree to the <a href="http://idos.cloudapp.net/privacy#informationCollected">PRIVACY POLICY</a> and <a href="http://idos.cloudapp.net/terms#serviceAgreement">TERMS OF USAGE</a></b></font></h5>
+							<label class="control-label" for="input02"><b id="sellerdupemaillabel" ></b></label>
+						</div>
+					</td>
+					<td>
+						<span class="span2 alert success" id="successsignupregdiv" class="alert success" style="display:none;margin-left:22px;height:168px;float: right;"><span></span>
+						<font size="2" style="color: black;"><b id="successsignupaccountmsg"></b>&nbsp;<a href="http://www.myidos.com">OK</a></font></span>
+					</td>
+				 </tr>
+			</table>
+		</div>
+		</div>
+		</div>
+		@feedback(fullName,email,role,orgn){
+		}
+	</div>
+	<div id="resetSecurityAnswerDiv" style="display: none; position: absolute; top: 0;">
+	@resetSecurityAnswer(fullName,email,role,orgn,pwdchanged,configParams){
+	}
+	</div>
+</body>
+}
+

@@ -1,0 +1,32 @@
+@(userName:String,extUserId:String,orgId:String,orgName:String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+	<tbody>
+		<tr id="emailHeader">
+			<td style="font-size: 16px; font-weight: bold;">Access Confirmation for External User</td>
+			<td></td>
+		</tr>
+		<tr id="emailBody" >
+		    <td>
+		      <table>
+		        <tr>
+		          <td style="font-size: 16px; font-weight: bold;"><br>Please Confirm Access to External User  @{userName} for @{orgName} Organization Using Below Link!</td>
+		        </tr>
+		        <tr>
+		        	<td> 
+		        	
+		        		<a href="@(configParams.getCompanyUrl())/externalUser/confirmAccess?extUserId=@{extUserId}&orgId=@{orgId}" target="_blank"><font size="3">Confirm Access</font></a>
+			  				
+			  			
+		        	
+		        	
+			  		<br/>
+		        	</td>
+		        </tr>
+		      </table>
+		    </td>
+	  	</tr>
+		<tr  id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

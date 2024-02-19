@@ -1,0 +1,181 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="staticWalkinVendorModal" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:1001;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+	<div class="modal-dialog" style="width: 65% !important;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">GSTIN VENDOR DETAIL</h4>
+			</div>
+			<div class="modal-body" style="height: 280px;">
+				<table class="table excelFormTable" id="walkinVendorModalTable" style="margin-top: 0px;">               
+				<thead class="tablehead1">
+					<tr><th>GSTIN</th><th>Address</th><th>Contact Number</th></tr>
+				</thead>
+				<tbody>
+				<tr>    
+					<td>
+						<div style="width:155px !important;">
+							<input class="gstinInputCls" style="width: 30px;" name="gstinPart1" id="gstinputCustModal" type="text" maxlength="2" onkeypress="return allowOnlyNumbers(event);" onblur="validateGstinState(this);"/>
+							<input class="gstinInputCls"  style="width: 120px;" name="gstinPart2" id="gstinput2CustModal" type="text" maxlength="13" onkeypress="return allowAlphaNumeric(event);" onkeyup="return validateFullGSTIN(this,'gstinputCustModal');"/>
+						</div>
+						<input type="hidden" class="transTableTrIdCls" />
+						<input type="hidden" id="isGstinAddedInTransHid" value="0"/>
+						<input type="hidden" id="vendorAddressHid"/>
+					</td>
+					<td>
+						<textarea name="addressModal" id="vendorAddressModal" style="width:250px;" placeholder="Address" rows="5"></textarea><br/>
+						<select class="countryDropDown" name="countryModal" style="width:250px;" id="vendorcountryModal"><option value="">--Please Select--</select><br/>
+						<select id="vendorStateModal" name="stateModal" style="width:250px;" class="input-medium bfh-states" data-country="IN"></select><br/>
+						<input type="text" id="vendorLocationModal" style="width:250px;" name="locationModal" placeholder="Location">
+					</td>
+					<td>
+						<select class="countryPhnCode m-bottom-10"  style="width:250px;" name="phoneCountryCodeModal" id="vendorPhonecountryCodeModal"><option value="">--Please Select--</option></select><br/>
+						<input type="text" class="contactNoCls" id="vendorPhone1Modal" name="phone1Modal" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event);" onKeyup="autotab2(this);">-
+						<input type="text" class="contactNoCls" id="vendorPhone2Modal" name="phone2Modal" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab2(this)">-
+						<input type="text" class="contactNoCls" id="vendorPhone3Modal" name="phone3Modal" maxlength="4" style="width: 45px;" onkeypress="return isNumber(event)">
+					</td>
+				</tr>
+				</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" style="float: left;" class="btn btn-white" data-dismiss="modal" id="closeWalkinVendModalBtn">Close</button>
+				<button title="Add GSTIN" style="float: right; margin-right:5px;" id="addWalkinVendModalBtn" type="button" class="btn btn-submit btn-idos" value="1">Add/Update GSTIN</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="staticBuyTxnAddDetail" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:1001;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width: 670px !important; height:auto !important;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">Additional Details</h4>
+				<h5 id="wrongActCred" align="center"></h5>
+			</div>
+			<div class="modal-body">
+				<div id="messageModal"></div>
+				<table class="table excelFormTable" id="buyTxnAddDetailTbl" style="margin-top: 0px; width:95%">
+				<thead class="currencyTr">
+					<tr><th>Import From Country</th><th>Foreign Currency</th><th>Foreign Currency Amount</th></tr>
+				</thead>
+				<tr class="currencyTr">
+					<td><div class="bfh-selectbox bfh-countries" data-country="US" data-flags="true" style="height:28px !important;" >
+						  <input type="hidden" name="destCountryCode" value="" />
+						  <a style="height:28px !important;" class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#" >
+							<span class="bfh-selectbox-option input-medium" data-option=""></span>
+							<b class="caret"></b>
+						  </a>
+						  <div class="bfh-selectbox-options">
+							<input type="text" class="bfh-selectbox-filter">
+							<div role="listbox"><ul role="option"></ul></div>
+						  </div>
+						</div></td>
+					<td><div class="bfh-selectbox bfh-currencies" data-currency="USD" data-flags="true">
+						  <input type="hidden" value="">
+						  <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
+							<span class="bfh-selectbox-option input-medium" data-option=""></span>
+							<b class="caret"></b>
+						  </a>
+						  <div class="bfh-selectbox-options">
+							<input type="text" class="bfh-selectbox-filter">
+							<div role="listbox">
+							<ul role="option">
+							</ul>
+							</div>
+						  </div>
+						</div></td>
+					<td><input type="text" maxlength="50" id="buyTxnImpAmount" style="width: 100% !important;" onkeypress="return onlyDotsAndNumbers(event);"/></td>
+				</tr>
+				<thead class="tablehead1">
+					<tr><th>Inv/Reference Date</th><th colspan="2">Inv / Reference - Number</th></tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>
+						<div style="width: 180px !important;">
+							<div class="input-group date popupdate" id="buyTxnRefDate">
+								<input type="text" class="form-control" id="buyTxnRefDateTxt" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+					</td>
+					<td colspan="2">
+						<input type="text" id="buyTxnRefNumber" maxlength="50" style="width: 190px !important;" />
+					</td>
+				</tr>
+				<thead class="tablehead1">
+					<tr><th>DC / GRN / Reference Date</th><th colspan="2">DC / GRN / Reference Number</th> </tr>
+				</thead>
+				<tr><td><div style="width: 180px !important;">
+							<div class="input-group date popupdate" id="buyTxnGrnDate">
+								<input type="text" class="form-control" id="buyTxnGrnDateTxt" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div></td>
+					<td colspan="2"><input type="text" id="buyTxnGrnRefNumber" maxlength="50" style="width: 190px !important;" /></td></tr>
+				<thead class="tablehead1">
+					<tr><th>Import Reference Date</th><th colspan="2">Import Reference Number</th> </tr>
+				</thead>
+				<tr><td><div style="width: 180px !important;">
+							<div class="input-group date popupdate" id="buyTxnImpRefDate">
+								<input type="text" class="form-control" id="buyTxnImpRefDateTxt" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div></td>
+					<td colspan="2"><input type="text" id="buyTxnImpRefNumber" maxlength="50" style="width: 190px !important;" /></td></tr>
+				<thead class="tablehead2">
+					<tr><th>Port Code</th><th><span class="hideResoneForReturn hidden">Reason for Issuing Note</span></th><th colspan="1"></th> </tr>
+				</thead>
+				<tr>
+					<td>
+						<input type="text" id="portCode" maxlength="250" style="width: 190px !important;" />
+						
+					</td>
+					<td>
+						<select class="reasonForReturn hideResoneForReturn hidden" name="reasonForReturn" style="width:250px;" id="reasonForReturn">
+							<option value="">--Please Select--</option>
+							<option value="1">Sale Return</option>
+							<option value="2">Post sale Discount</option>
+							<option value="3">Deficiancy in Services</option>
+							<option value="4">Corrections in Invoices</option>
+							<option value="5">Change in POS</option>
+							<option value="6">Finalization of Provisional assessment</option>
+							<option value="7">Others</option>
+						</select>
+					</td>
+					<td colspan="1"></td>
+				</tr>
+					<thead class="tablehead2">
+					<tr><th>Remarks / Comments / Narration for GRN</th><th colspan="2"></th> </tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td colspan="3">
+					<div>
+						 <textarea id="remarksAddDetailsBuy" maxlength="310" rows="3" style="width: 100% !important;"></textarea>
+					</div>
+					</td></tr></tbody>
+				</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" style="float: left;" id="closeBuyTxnAddDetailBtn" class="btn btn-white" data-dismiss="modal">Close</button>
+				<button type="button" style="float: right;"  onclick="closeBuyTxnAddDetailModal(this);"  class="btn btn-submit" id="storeBuyTxnAddDetailBtn">Save</button>
+			</div>
+			<script>
+			$(document).ready(function(e) { 
+				$(document).find(".bfh-countries input[type=hidden]").attr("id","destCountryCode");
+				$(document).find(".bfh-currencies input[type=hidden]").attr("id","destCurrencyCode");
+			}); 
+			</script>
+		</div>
+	</div>
+</div>

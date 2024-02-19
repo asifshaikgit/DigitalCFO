@@ -1,0 +1,32 @@
+@(branchName:String,actionAlertUser:String,insurencePolicyNumber:String,premiumGoingDt:String,alertUserEmail:String,orgEntity:String,branchEntity:String,branchInsurenceEntity:String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;">
+<tbody>
+  <tr  id="emailHeader">
+		<td>
+
+
+		</td>
+  </tr>
+  <tr id="emailBody" ><td>
+      <table>
+        <tr>
+          <td style="width: 600px" align="left">
+              <b><font size="5">Idos Alert For Information.</font></b>  <br>
+					  <br>
+              <b><font size="5">@{branchName} Branch Insurance policy @{insurencePolicyNumber} Annual Premium Payment Confirmation Made By @{actionAlertUser} Due Dated @{premiumGoingDt}</font></b><br/><br/>
+          </td>
+        </tr>
+        <tr style="background-color: white">
+          <td style="width: 600px" align="left">
+               <b><font size="4">@{branchName} Branch Insurance Policy @{insurencePolicyNumber} Premium Due Dated:@{premiumGoingDt}</font></b><br/>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr  id="emailFooter">
+	<td style="text-align: left;">  <br>
+					  <br>&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,314 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String)(content: Html)
+<div id="balanceSheet" class="tab-pane mainDiv" style="display: none;">
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="navbar-transaction">
+				<div class="dropdown" style="display:inline;">
+   									 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Find Reports
+    								<span class="caret"></span></button>
+    								<ul class="dropdown-menu" style="margin-top:10px;">
+										<li id="cashAndBankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="1">Cash Book</a></li>
+										<li id="bankBooksAllBranches" onclick="changeReportPanel(this);"><a data-id="2">Bank Book</a></li>
+										<li id="trialBalanceallBranches" onclick="changeReportPanel(this);"><a data-id="3">Trial Balance</a></li>
+										<li id="reportAllInventoryItems" onclick="changeReportPanel(this);"><a data-id="4">Inventory Report</a></li>
+										<li id="plbscoamapping" onclick="changeReportPanel(this);"><a data-id="5">Mapping-COA</a></li>
+										<li id="reportProfitLoss" onclick="changeReportPanel(this);"><a data-id="6">P&L and Balance Sheet</a></li>
+							</ul>
+ 						 </div>
+					
+					<button id="exportBSReportPDF" style="float:right; margin-left:2px;" class="btn btn-submit btn-idos" title="Export Balance Sheet(PDF)" onclick="exportBSReport('pdf');"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>Save as pdf</button>
+					<button id="exportBSReportXLSX" style="float:right;" class="btn btn-submit btn-idos" title="Export Balance Sheet(XLSX)" onclick="exportBSReport('xlsx');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Save as xlsx</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<div class="panel-title" style="width:30% !important; display:inline-block;">Balance Sheet</div><div id="diffAssetLiability" style="float: right; width:40% !important; display:none; color:red; margin-top:10px;">*There is difference between Assets and Liabilities.</div>
+				<div class="datascrolltable">
+					<table class="table table-hover transaction-create balanceSheetReportTable" id="balanceSheetTable">
+						<thead class="tablehead1">
+							<tr>
+								<th style="width:350px !important;"><b>Particulars</b></th>
+								<th></th>
+								<th><b>Figures as at the end of current reporting period</b></th>
+								<th><b>Figures as at the end of the previous reporting period</b></th>
+							</tr>
+						</thead>
+							<tr>
+								<td style="width:350px !important;"><b>I. EQUITY AND LIABILITIES</b></th>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;"><b>(1) Shareholders' funds</b></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(a) Share capital</td>
+								<td>&nbsp;</td>
+								<td id="shareCapital">&nbsp;</td>
+								<td id="shareCapitalPrvRpt">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(b) Reserves and surplus</td>
+								<td>&nbsp;</td>
+								<td id="reservesAndSurplus">&nbsp;</td>
+								<td id="reservesAndSurplusPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;Add: profit (loss) for this period</td>
+								<td>&nbsp;</td>
+								<td><div id="profitLossForPeriod" style="width:40% !important; display:inline-block;"></div><div id="profitLossForPeriodPlusReservesSurplus" style="width:40% !important; display:inline-block;"></div></td>
+								<td><div id="profitLossForPeriodPrvRpt" style="width:40% !important; display:inline-block;"></div><div id="profitLossForPeriodPlusReservesSurplusPrvRpt" style="width:40% !important; display:inline-block;"></div></td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(c) Money received against share warrants</td>
+								<td>&nbsp;</td>
+								<td id="moneyReceivedAgainstShareWarrants">&nbsp;</td>
+								<td id="moneyReceivedAgainstShareWarrantsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;"><b style="padding-left:40%;">Total</b></td>
+								<td>&nbsp;</td>
+								<td style="font-weight:600;" id="shareholderFundsTotal">&nbsp;</td>
+								<td style="font-weight:600;" id="shareholderFundsTotalPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;"><b>(2)Share application money pending allotment</b></td>
+								<td>&nbsp;</td>
+								<td id="shareApplicationMoneyPendingAllotment">&nbsp;</td>
+								<td id="shareApplicationMoneyPendingAllotmentPrvRpt">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;"><b>(3) Non-current liabilities</b></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(a) Long-term borrowings</td>
+								<td>&nbsp;</td>
+								<td id="longTermBorrowings">&nbsp;</td>
+								<td id="longTermBorrowingsPrvRpt">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(b) Deferred tax liabilities (Net)</td>
+								<td>&nbsp;</td>
+								<td id="deferredTaxLiabilitiesNet">&nbsp;</td>
+								<td id="deferredTaxLiabilitiesNetPrvRpt">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(c) Other Long term liabilities</td>
+								<td>&nbsp;</td>
+								<td id="otherLongTermLiabilities">&nbsp;</td>
+								<td id="otherLongTermLiabilitiesPrvRpt">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(d) Long-term provisions</td>
+								<td>&nbsp;</td>
+								<td id="longTermProvisions">&nbsp;</td>
+								<td id="longTermProvisionsPrvRpt">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;"><b style="padding-left:40%;">Total</b></td>
+								<td>&nbsp;</td>
+								<td style="font-weight:600;"  id="nonCurrentLiabilitiesTotal">&nbsp;</td>
+								<td  style="font-weight:600;" id="nonCurrentLiabilitiesTotalPrvRpt">&nbsp;</td>
+							</tr>
+
+
+							<tr>
+								<td style="width:350px !important;"><b>(4) Current liabilities</b></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(a) Short-term borrowings</td>
+								<td>&nbsp;</td>
+								<td id="shortTermBorrowings">&nbsp;</td>
+								<td id="shortTermBorrowingsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(b) Trade payables</td>
+								<td>&nbsp;</td>
+								<td id="tradePayables">&nbsp;</td>
+								<td id="tradePayablesPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(c) Other current liabilities</td>
+								<td>&nbsp;</td>
+								<td id="otherCurrentLiabilities">&nbsp;</td>
+								<td id="otherCurrentLiabilitiesPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(d) Short-term provisions</td>
+								<td>&nbsp;</td>
+								<td id="shortTermProvisions">&nbsp;</td>
+								<td id="shortTermProvisionsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;"><b style="padding-left:40%;">Total</b></td>
+								<td>&nbsp;</td>
+								<td  style="font-weight:600;" id="currentLiabilitiesTotal">&nbsp;</td>
+								<td  style="font-weight:600;" id="currentLiabilitiesTotalPrvRpt">&nbsp;</td>
+							</tr>
+							<tr style="background-color: #f5f5f5;">
+								<td style="width:350px !important; font-size:12.5 px;"><b>TOTAL</b></td>
+								<td>&nbsp;</td>
+								<td style="font-size:12.5 px; font-weight:600;" id="liabilityTotal">&nbsp;</td>
+								<td style="font-size:12.5 px; font-weight:600;" id="liabilityTotalPrvRpt">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;"><b>II. ASSETS</b></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;"><b>Non-current assets</b></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;"><b>(1)&nbsp;&nbsp;(a) Fixed assets</b></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(i) Tangible assets</td>
+								<td>&nbsp;</td>
+								<td id="tangibleAssets">&nbsp;</td>
+								<td id="tangibleAssetsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii) Intangible assets</td>
+								<td>&nbsp;</td>
+								<td id="intangibleAssets">&nbsp;</td>
+								<td id="intangibleAssetsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(iii) Capital work-in-progress</td>
+								<td>&nbsp;</td>
+								<td id="capitalWorkInProgress">&nbsp;</td>
+								<td id="capitalWorkInProgressPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(iv) Intangible assets under development</td>
+								<td>&nbsp;</td>
+								<td id="intangibleAssetsUnderDevelopment">&nbsp;</td>
+								<td id="intangibleAssetsUnderDevelopmentPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(b) Non-current investments</td>
+								<td>&nbsp;</td>
+								<td id="nonCurrentInvestments">&nbsp;</td>
+								<td id="nonCurrentInvestmentsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(c) Deferred tax assets (net)</td>
+								<td>&nbsp;</td>
+								<td id="deferredTaxAssetsNet">&nbsp;</td>
+								<td id="deferredTaxAssetsNetPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(d) Long-term loans and advances</td>
+								<td>&nbsp;</td>
+								<td id="longTermLoansAndAdvances">&nbsp;</td>
+								<td id="longTermLoansAndAdvancesPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(e) Other non-current assets</td>
+								<td>&nbsp;</td>
+								<td id="otherNonCurrentAssets">&nbsp;</td>
+								<td id="otherNonCurrentAssetsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;"><b style="padding-left:40%;">Total</b></td>
+								<td>&nbsp;</td>
+								<td  style="font-weight:600;" id="nonCurrentAssetsTotal">&nbsp;</td>
+								<td  style="font-weight:600;" id="nonCurrentAssetsTotalPrvRpt">&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td style="width:350px !important;"><b>(2) Current assets</b></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(a) Current investments</td>
+								<td>&nbsp;</td>
+								<td id="currentInvestments">&nbsp;</td>
+								<td id="currentInvestmentsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(b) Inventories</td>
+								<td>&nbsp;</td>
+								<td id="inventories">&nbsp;</td>
+								<td id="inventoriesPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(c) Trade receivables</td>
+								<td>&nbsp;</td>
+								<td id="tradeReceivables">&nbsp;</td>
+								<td id="tradeReceivablesPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(d) Cash and cash equivalents</td>
+								<td>&nbsp;</td>
+								<td id="cashAndCashEquivalents">&nbsp;</td>
+								<td id="cashAndCashEquivalentsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(e) Short-term loans and advances</td>
+								<td>&nbsp;</td>
+								<td id="shortTermLoansAndAdvances">&nbsp;</td>
+								<td id="shortTermLoansAndAdvancesPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;">&nbsp;&nbsp;&nbsp;&nbsp;(f) Other current assets</td>
+								<td>&nbsp;</td>
+								<td id="otherCurrentAssets">&nbsp;</td>
+								<td id="otherCurrentAssetsPrvRpt">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="width:350px !important;"><b style="padding-left:40%;">Total</b></td>
+								<td>&nbsp;</td>
+								<td  style="font-weight:600;" id="currentAssetsTotal">&nbsp;</td>
+								<td  style="font-weight:600;" id="currentAssetsTotalPrvRpt">&nbsp;</td>
+							</tr>
+							<tr style="background-color: #f5f5f5;">
+								<td style="width:350px !important; font-size:12.5 px;"><b>TOTAL</b></td>
+								<td>&nbsp;</td>
+								<td style="font-size:12.5 px; font-weight:600;" id="assetTotal">&nbsp;</td>
+								<td style="font-size:12.5 px; font-weight:600;" id="assetTotalPrvRpt">&nbsp;</td>
+							</tr>
+
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

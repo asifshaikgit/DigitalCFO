@@ -1,0 +1,510 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)(content: Html)
+<div id="vendorSetup" class="tab-pane mainDiv" style="display: none">
+
+	<div class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+
+				
+					<button id="newVendorform-container" class="newEntityCreateButton btn btn-primary btn-idos pr-5" title="Create Vendor"><i class="fa fa-plus pr-5"></i>Add Vendor</button>
+					<button id="newVendorGroupform-container" class="newEntityCreateButton btn btn-primary btn-idos pl-5" title="Create New Vendor Group"><i class="fa fa-plus pr-5"></i>Create Vendor Group</button>
+					<a href="#vendorSetup" onclick="downloadOrganizationVendorTemplate();" class="btn btn-submit btn-idos hidden" style="font-size: 12px;margin-right: 15px;"><i class="fa fa-download"></i> Download Vendor Template</a>
+					<form id="myVendorForm" action="/config/uploadvendors" method="post" enctype="multipart/form-data" style="display: inline-flex;" class="hidden">
+						<!-- <p id="uploadchtofact" style="float: left; margin-top: 15px;">Upload Vendor List:&nbsp;<span class="errorMessage">*</span>&nbsp;</p>
+						<input type="File" id="uploadvendor" name="uploadvendor" style="float: left; margin-top: 15px;"></input> -->
+						<div class="input-group">  <!-- style="margin-bottom:10px;margin-left: 30px;" -->
+							<span class="input-group-btn">
+								<span class="btn btn-submit btn-file" style="font-size: 12px;margin-top:0px;">
+									Select file&hellip; <input type="File" id="uploadvendor" name="uploadvendor"/>
+								</span>
+							</span>
+							<span>
+							 <input style="width:48%;margin:4px 0px;" type="text" class="form-control" readonly> <!-- style="float: left; margin-top: 10px;" -->
+							 <button style="margin-top: 4px; margin-left: 5px;" type="button" id="uploadVendor" class="uploadVendor btn btn-primary btn-idos" title="Upload Vendor" ><i class="fa fa-upload pr-5"></i>Upload Vendor</button>
+							 
+							</span>     <!-- style="margin-bottom: -7px;" -->
+						</div>
+						<!-- <button style="float: left; margin-top: 10px;" type="button" id="uploadVendor" class="uploadVendor btn btn-primary btn-idos" title="Upload Vendor" ><i class="fa fa-upload pr-5"></i>Upload Vendor</button> -->
+					</form>
+					<button id="vendorFreeTextSearchButton" class="vendorFreeTextSearchButton btn btn-primary btn-idos" title="Search Vendor" style="float:right;margin-right: 3px;"><i class="fas fa-search"></i></button>
+					<input type="text" class="input-xlarge search-image" placeholder="Search Vendor By Name,Location,E-mail,Group" name="vendorFreeTextSearch" id="vendorFreeTextSearch" style="float:right; margin-right:5px;width: 217px;">  <!-- margin-top: 7px; -->
+					<i style="top: 4px; position: relative;" class="fa fa-info-circle fs-18 pl-5 userpopoverinfo help-info" longdesc="You can create a vendor for every item of expense / purchase and enter all the vendor details and upload contract / purchase order (if any& validity of such contract or purchase order) for that vendor. You can link the vendor to a specific branch or branches and by doing this; you will enable (or compel) your staff at branches to buy only from these specified vendors.By providing vendor address and location details, you will be able to generate reports of all your vendors in a particular area and plan on logistics and re-order levels and obtain useful business intelligence reports.If the vendor provides you credit terms (pay later), then you can enter the days of credit provided by that vendor and @(configParams.getCompanyApp()) will use this information to alert you when payment to this vendor becomes due. This information, which will be in the form of dashboards, will help you manage your cash flow and working capital in real-time."></i>
+					
+				<!-- <div id="vendorBulkUpload" style="margin-top: 6px;">
+					<form id="myVendorForm" action="/config/uploadvendors" method="post" enctype="multipart/form-data">
+						<p id="uploadchtofact" style="float: left; margin-top: 15px;">Upload Vendor List:&nbsp;<span class="errorMessage">*</span>&nbsp;</p>
+						<input type="File" id="uploadvendor" name="uploadvendor" style="float: left; margin-top: 15px;"></input>
+						<div class="input-group" style="margin-bottom:10px;">  margin-left: 30px;
+							<span class="input-group-btn">
+								<span class="btn btn-submit btn-file" style="margin-top:0px;">
+									Select file&hellip; <input type="File" id="uploadvendor" name="uploadvendor"/>
+								</span>
+							</span>
+							<span>
+							 <input style="width:30%;margin:4px 0px;" type="text" class="form-control" readonly> style="float: left; margin-top: 10px;"
+							 <button style="margin-top: 4px; margin-left: 30px;" type="button" id="uploadVendor" class="uploadVendor btn btn-primary btn-idos" title="Upload Vendor" ><i class="fa fa-upload pr-5"></i>Upload Vendor</button>
+							 
+							</span>     style="margin-bottom: -7px;"
+						</div>
+						<button style="float: left; margin-top: 10px;" type="button" id="uploadVendor" class="uploadVendor btn btn-primary btn-idos" title="Upload Vendor" ><i class="fa fa-upload pr-5"></i>Upload Vendor</button>
+					</form>
+				</div> -->
+				<div class="errorMessage"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="vendorgroup-form-container" class="newVendorGroupform-container" style="display: none;">
+		<div class="content">
+			<div class="panel panel-showtrans">
+				<div class="panel-title">Vendor Group Setup</div>
+				<div id="search-launch-top">
+					<a href="#vendorSetup" id="newVendorGroupform-container-close"><i class="fa fa-times fa-1x close-legend" id="newVendorGroupform-container-close"></i></a>
+				</div>
+				<div class="panel-body">
+					<div class="vendorGroupDetails">
+						<table class="table table-bordered excelFormTable" id="vendorGroupDetailsTable" >
+							<thead class="tablehead1"><tr><th>Group Name</th><th>Group Knowledge Library</th><th>Group List</th></tr></thead>
+							<tbody>
+								<tr>
+									<td>
+										<input id="vendorGroupEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+										<input type="text" id="vendGroupName" name="vendGroupName" style="width:180px;">
+										<!-- Removed checkDuplicacy as there is no route for it -->
+										<!-- <input type="text" id="vendGroupName" name="vendGroupName" style="width:180px;" onblur="javascript:checkDuplicacy(this.id,'VendorGroup','groupName');"> -->
+									</td>
+									<td><textarea id="vendGroupKL" name="vendGroupKL" style="width:180px;" class="text-area-2x"></textarea></td>
+									<td><div class="datascrolltable" style="max-height: 110px; overflow: auto;"><table class="table table-hover table-striped table-bordered excelFormTable" id="vendorGroupDetailsListTable" style="margin-top: 0px;width:300px;"><tbody></tbody></table></div></td>
+								</tr>
+							</tbody>
+						</table>
+						<button title="Add/Update Vendor Group" name="addConfigVendGroupBtn" id="addVendGroupBtn" type="button" class="addVendGroupBtn btn btn-submit btn-idos" value="1" style="vertical-align: top">Add/Update Vendor Group</button>
+						<button id="formCancel" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel();">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="vendor-form-container" class="newVendorform-container" style="display: none;">
+		<div class="content">
+		<div class="panel panel-showtrans" style="overflow: scroll;">
+			<div class="panel-title">Vendor Setup</div>
+			<div id="search-launch-top">
+				<a href="#vendorSetup" id="newVendorform-container-close"><i class="fa fa-times fa-1x close-legend" id="newVendorform-container-close"></i></a>
+			</div>
+			<div class="panel-body">
+				<table class="table table-bordered excelFormTable" id="vendorDetailsTable">
+					<thead class="tablehead1">
+						<tr><th>Branch</th><th>GSTIN Details</th><th>Address & Contact Number</th><th>Multiple GSTIN</th><th>Purchase Item/Price</th><th>Cash/Credit</th><th>Upload Contract/PO</th><th>Validity From/To</th></tr>
+					</thead>
+					<tbody>
+						<tr id="vendortr">
+							<td>
+								<div id="vendorBranchDiv" class="btn-group">
+									<button id="vendorBranchDropdownBtn" name="branchDropdownBtn" class="multiselect dropdown-toggle btn"> None Selected <span class="caret"></span></button>
+									<div id="vendorBranchDropdown-menuid" class="customerBranchDropdown-menu" style="width: 500px;">
+										<div class="vendorBranchDropdownContentSearchDiv" style="white-space: nowrap;">
+											<input type="text" style="width: 500px; margin-top:-8px; display:inline-block;" id="vendorBranchContentSearchInput" class="search-image" placeholder="Search item"/>
+										</div>
+										<ul id="vendorBranchList"></ul>
+									</div>
+								</div>
+								<p class="para-tm5-bm0 m-bottom-10">Vendor Group</p>
+								<select id="vendorGroup" name="vendorGroup" class="m-bottom-10"></select>
+
+							<!-- Manali: Commented as per IDOS12May.doc requirement. Due to journal entry now this is not required.
+									<div class="btn-group m-top-10" style="margin-left:-0px;"><button id="vendorspecialadjustmentbuttonid" class="multiselect dropdown-toggle btn" style="width: 152px;">Adjustments<b class="caret"></b></button>
+									<div id="vendorspecialadjustmentdropdown-menuid" class="vendorspecialadjustmentdropdown-menu">
+									<ul id="vendorspecialAdjustmentList">
+										<li id="vendorspecialadjustmentList"><b>Adjustments Allowed:</b><select name="allowedAdjustments" id="allowedAdjustments" onchange="showAdjustmentList(this);"><option value="0">No</option><option value="1">Yes</option></select><b class="adjustmentsName" style="display:none">Adjustments Name:&nbsp;&nbsp;<input type="text" name="adjustmentName" id="adjustmentName"></b></li>
+									</ul>
+								</div></div>-->
+								<input id="vendorEntityHiddenId" class="hiddenmodelid" type="hidden" value="">
+								<p class="para-tm5-bm0">Vendor Name</p>
+								<input type="text" id="vendName" name="vendName" placeholder="Name" class="m-bottom-10"><br/>
+								<p class="para-tm5-bm0">Vendor Email</p>
+								<input type="text" id="vendoremail" name="vendoremail" onblur="emailFieldValidation(this),checkemail(this);" placeholder="Email">
+							</td>
+							<td>
+								<p class="para-tm5-bm0">Is Vendor GST Registered?</p>
+								<select id="vendorRegisteredOrUnReg" class="m-bottom-10">
+									<option value="">--Please Select--</option>
+									<option value="1">Yes </option>
+									<option value="0">No</option>
+								</select>
+								<p class="para-tm5-bm0">Main GSTIN</p>
+								<div style="width:140px !important;" class="m-bottom-10">
+									<input class="gstinInputCls" style="width: 30px;" id="gstinputVend" type="text" maxlength="2" onkeypress="return allowOnlyNumbers(event);" onblur="validateGstinState(this);"/>
+									<input class="gstinInputCls"  style="width: 107px;" id="gstinput2Vend" type="text" maxlength="13" onkeypress="return allowAlphaNumeric(event);" onkeyup="return validateFullGSTIN(this,'gstinputVend');"/>
+								</div>
+								<p class="para-tm5-bm0">Vendor Type</p>
+								<select class="vendBusinessIndividual" name="vendBusinessIndividual" id="vendBusinessIndividual">
+									<option value="">--Please Select--</option>
+									<option value="1">Business Establishment</option>
+									<option value="2">Individual Producer</option>
+									<option value="3">Composition Dealer</option>
+								</select>
+							</td>
+
+							<td><textarea name="vendorAddress" id="vendorAddress" placeholder="Address" class="text-area-2x"></textarea><br/>
+								<select class="countryDropDown" name="vendorcountry" id="vendorcountry"><option value="">--Please Select--</option></select>
+								<select id="vendorState" class="input-medium bfh-states" data-country="IN"></select>
+								<input type="text" id="location" name="location" placeholder="Location">
+								<select class="countryPhnCode" name="vendorPhnNocountryCode" id="vendorPhnNocountryCode"><option value="">--Please Select--</option></select>
+								<input type="text" id="vendorphone1" name="vendorphone1" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)"/>-
+								<input type="text" id="vendorphone2" name="vendorphone2" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab(this)"/>-
+								<input type="text" id="vendorphone3" name="vendorphone3" maxlength="4" style="width: 70px;" onkeypress="return isNumber(event)"/>
+							</td>
+							<td>
+								<span style="cursor:pointer" style="width: 10px; " class="addnewGSTINVend" id="addnewGSTINVend"><i class="fa fa-plus-square fa-lg"></i> Add more</span><br>
+								<div id="vendorGstinDiv" class="multiGstinDiv" style="width:250px; margin-top: 5px; height: 140px; overflow: auto;">
+									<table class="table excelFormTable table-hover table-striped" id="vendorGstinTbl">
+									<thead class="head1"><tr><th>State</th><th>GSTIN</th><th>Enable</th></tr></thead>
+									<tbody>
+									</tbody>
+									</table>
+								</div>
+							</td>
+							<td>
+								<div class="btn-group m-bottom-10">
+									<button id="vendordropdown" class="multiselect dropdown-toggle btn" style="width: 150px;">None Selected<b class="caret"></b></button>
+									<div id="vendoritemdropdown-menuid" class="vendoritemdropdown-menu" style="width: 600px;">
+										<div class="venderitemcontentsearchdiv" style="white-space: nowrap;"><input type="text" style="width: 500px; margin-top:-8px; display:inline-block;" name="venderitemcontentsearchinput" id="venderitemcontentsearchinput" class="search-image" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+										<ul id="vendorItemList">
+											<li id="vendoritemlist">&nbsp;&nbsp;&nbsp;<input style="margin-bottom:5px;" type="checkbox" id="checkboxid" name="vendoritemcheck" value="" onClick="checkUncheck(this)">&nbsp;&nbsp;&nbsp;Select All</li>
+										</ul>
+									</div>
+								</div>
+								<br>
+								<p class="para-tm5-bm0" >Statutory Detail</p>
+								<div class="btn-group">
+									<button id="statutoryidnumber" class="multiselect dropdown-toggle btn" style="width: 152px;">Statutory Details<b class="caret"></b></button>
+									<div id="statutoryidnumberdropdown-menuid" class="statutoryidnumberdropdown-menu">
+										<ul id="statutoryidnumberItemList">
+											<li id="statutoryidnumberitemList">Statutory Id:<input type="text" name="vendorStatutoryName1" id="vendorStatutoryName1">&nbsp;ID Number:<input type="text" name="vendorStatutoryNumber1" id="vendorStatutoryNumber1"></li>
+											<li id="statutoryidnumberitemList">Statutory Id:<input type="text" name="vendorStatutoryName2" id="vendorStatutoryName2">&nbsp;ID Number:<input type="text" name="vendorStatutoryNumber2" id="vendorStatutoryNumber2"></li>
+											<li id="statutoryidnumberitemList">Statutory Id:<input type="text" name="vendorStatutoryName3" id="vendorStatutoryName3">&nbsp;ID Number:<input type="text" name="vendorStatutoryNumber3" id="vendorStatutoryNumber3"></li>
+											<li id="statutoryidnumberitemList">Statutory Id:<input type="text" name="vendorStatutoryName4" id="vendorStatutoryName4">&nbsp;ID Number:<input type="text" name="vendorStatutoryNumber4" id="vendorStatutoryNumber4"></li>
+										</ul>
+									</div>
+							   </div>
+							   <br><p class="para-tm5-bm0" >Opening Balance Breakup</p>
+								<div class="btn-group">
+									<button type="button" class="btn btn-submit" onclick="saveBillWiseOpeningBal('VENDOR');">Add Branchwise Opening Balance</button>
+								</div>
+								<!-- <p class="para-tm5-bm0" >Opening advance Balance Breakup</p>
+								<div class="btn-group">
+									<button type="button" class="btn btn-submit" onclick="saveAdvanceOpeningBal('VENDOR');">Add Branchwise Opening Advance Balance</button>
+								</div> -->
+								<br><p class="para-tm5-bm0" >TDS Setup</p>
+								<div class="btn-group m-bottom-10">
+									<button id="vendTdsdropdown" class="multiselect dropdown-toggle btn" style="width: 150px;">None Selected<b class="caret"></b></button>
+									<div id="vendTdsdropdown-menuid" class="vendTdsdropdown-menu" style="width: 300px;">
+										<div class="vendTdscontentsearchdiv" style="white-space: nowrap;"><input type="text" style="width: 300px; margin-top:-8px; display:inline-block;" name="venderitemcontentsearchinput" id="venderitemcontentsearchinput" class="search-image" placeholder="Search item" onkeyup="prependMatchingItemFirstInCustomContainer(this);"></div>
+										<ul id="vendTdsItemList">
+											<li id="vendTdsitemlist">&nbsp;&nbsp;&nbsp;<input style="margin-bottom:5px;" type="checkbox" id="checkboxid" name="vendTdscheck" value="" onClick="checkUncheckTds(this)">&nbsp;&nbsp;&nbsp;Select All</li>
+										</ul>
+									</div>
+								</div>
+								<div class="dropdown">
+									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">TDS HISTORY<span class="caret"></span></button>
+									<ul class="dropdown-menu" id="tdsVendHistoryList" style="max-height: 300px;overflow: scroll;"></ul>
+								</div>
+							</td>
+							<td>
+								<select style="vertical-align: bottom;" class="futPayment" name="futurePayment" id="futurePayment"><option>Please Select</option><option value="1">Cash</option><option value="0">Credit</option><option value="2">Both</option></select></br>
+								<p class="para-tm5-bm0" id="daysCreditLabel">Vendor Days for Credit</p>
+								<input style="display: none;" type="text" id="daysOfCredit" name="daysOfCredit" onkeypress="return isNumber(event)" placeholder="Days For Credit" class="m-bottom-10"/>
+								<p class="para-tm5-bm0">Opening Balance</p>
+								<input type="text" id="vendOpeningBalance" class="totalOpeningBalance" placeholder="Opening Balance" readonly></br>
+								<p class="para-tm5-bm0">Opening Balance Of Advance</p>
+								<input type="text" id="vendOpeningBalanceAdvPaid" class="totalOpeningBalanceAdvPaid" placeholder="Opening Balance Of Advance" readonly>
+							</td>
+
+								<!-- <input type="text" id="docuploadurl" name="contractAgrrement" readonly="readonly">
+								<span id="contractAgrrement" class="btn-idos-flat-white btn-upload m-top-10" onclick="uploadFile(this.id,this)" style="margin-left: 5px;"><i class="fa fa-upload pr-5"></i>Upload</span> -->
+							<td id="contractAgreement"><select name="contractAgreementUpload"  class="contractUpload" id="contractAgreementUploads"><option value="">Select to view files</option></select>
+							<!-- <input type="button" id="contractAgreementButton" value="&#xf093" class="fa fa-upload btn btn-submit" onclick="uploadVendorFile(this.id,this)">
+							<input type="button" id="contractAgreementDelete" value="&#xf1f8"  class="fa fa-trash btn btn-submit" style="float:right;margin-right:3px;" onclick="deleteOrgFile(this.id)"> -->
+							<button id="contractAgreementUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+							<button id="contractAgreementUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                        	<button id="contractAgreementUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+								<p class="para-tm5-bm0">PAN No</p>
+								<input type="text" id="panNoVend" name="panNoVend" onkeyup="this.value = this.value.toUpperCase();" placeholder="PAN No" class="m-bottom-10"><br/>
+								<p class="para-tm5-bm0">Nature of Vendor</p>
+								<select id="natureOfVend" class="m-bottom-10">
+									<option value="">--Please Select--</option>
+									<option value="1">Company </option>
+									<option value="2">Other than Company</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" class="datepicker m-bottom-10" id="vendoeContractalidityFrom" name="vendoeContractalidityFrom" placeholder="Valid From">
+								<input type="text" class="datepicker" id="vendoeContractalidityTo" name="agreementValidityTo" placeholder="Valid To">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<button id="formCancel" style="float: left; margin-left:7%;" class="formCancel btn btn-cancel btn-idos" title="Cancel" onClick="formCancel(); deleteUncomittedFiles();">Cancel</button>
+				<button title="Add Vendor" name="addConfigVendBtn" id="addVendBtn" type="button" class="addVendBtn btn btn-submit btn-idos" value="1" style="float: right; margin-right:7%;">Add/Update Vendor</button>
+			<!-- </div>  -->
+		</div>
+		</div>
+		</div>
+
+	</div>
+	<div id="vendorTableListDiv"  style="display: none;" class="content">
+		<div class="panel panel-showtrans">
+			<div class="panel-body">
+				<legend class="panel-title">Vendors</legend>
+				<!-- table for vendor list -->
+				<div class="datascrolltable" style="height: 100%; overflow: auto;">
+				<table class="table table-hover table-striped excelFormTable" id="vendorTable" style="margin-top: 0px;">
+					<thead class="tablehead1"><tr><th>Vendor Name</th><th>Location</th><th>E-mail</th><th>Access</th><th>Phone</th><th>Address</th><th></th><th></th></tr></thead>
+					<tbody></tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input type="hidden" id="updatedVendorIdHid" />
+<input type="hidden" id="vendorDetailIdHid"/>
+<input type="hidden" id="vendorDetailIdListHid" />
+<input type="hidden" id="vendorGstinCodeHid" />
+<input type="hidden" id="vendorAddressHid" />
+<input type="hidden" id="vendorcountryCodeHid" />
+<input type="hidden" id="vendorstateHid" />
+<input type="hidden" id="vendorStateCodeHid"/>
+<input type="hidden" id="vendorlocationHid" />
+<input type="hidden" id="vendorPhnNocountryCodeHid" />
+<input type="hidden" id="vendorphone1Hid" />
+<input type="hidden" id="vendorphone2Hid" />
+<input type="hidden" id="vendorphone3Hid" />
+<div id="staticMutipleGSTINVendor" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index:1001;" tabindex="-1" role="dialog" aria-hidden="true" align="center">
+	<div class="modal-dialog" style="width: 50% !important;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="panel-title">GSTIN VENDOR DETAILS</h4>
+			</div>
+			<div class="modal-body" style="height: 280px;">
+				<table class="table excelFormTable" id="vendorPopupDetailsTable" style="margin-top: 0px;">
+				<thead class="tablehead1">
+					<tr><th>GSTIN</th><th>Address</th><th>Contact Number</th></tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>
+						<div style="width:155px !important;">
+							<input class="gstinInputCls" style="width: 30px;" name="gstinPart1" id="gstinputVendorPopup" type="text" maxlength="2" onkeypress="return allowOnlyNumbers(event);" onblur="validateGstinState(this);"/>
+							<input class="gstinInputCls"  style="width: 120px;" name="gstinPart2" id="gstinput2VendorPopup" type="text" maxlength="13" onkeypress="return allowAlphaNumeric(event);" onkeyup="return validateFullGSTIN(this,'gstinputVendorPopup');"/>
+						</div>
+					</td>
+					<td>
+						<textarea name="addressPopup" id="vendorAddressPopup" placeholder="Address" class="text-area-2x m-bottom-10"></textarea><br/>
+						<select class="countryDropDown" name="countryPopup" id="vendorcountryPopup"><option value="">--Please Select--</select><br/>
+						<select id="vendorstatePopup" name="statePopup" class="input-medium bfh-states" data-country="IN"></select><br/>
+						<input type="text" style="width:140 px;" id="vendorLocationPopup" name="locationPopup" placeholder="Location">
+					</td>
+					<td>
+						<select class="countryPhnCode m-bottom-10" name="phnNoCountryCodePopup" id="vendorPhnNocountryCodePopup"><option value="">--Please Select--</option></select><br/>
+						<input type="text" class="contactNoCls" id="vendorPhone1Popup" name="phone1Popup" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event);" onKeyup="autotab2(this);">-
+						<input type="text" class="contactNoCls" id="vendorPhone2Popup" name="phone2Popup" maxlength="3" style="width: 35px;" onkeypress="return isNumber(event)" onKeyup="autotab2(this)">-
+						<input type="text" class="contactNoCls" id="vendorPhone3Popup" name="phone3Popup" maxlength="4" style="width: 45px;" onkeypress="return isNumber(event)">
+					</td>
+				</tr>
+				</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" style="float: left;" class="btn btn-white" data-dismiss="modal" id="closeVendorGstinModalBtn">Close</button>
+				<button title="Add GSTIN" style="float: right; margin-right:5px;" name="addPopupGstinVendorBtn" id="addPopupGstinVendorBtn" type="button" class="addPopupGstinVendorBtn btn btn-submit btn-idos" value="1">Add/Update GSTIN</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Billwise Opening Balance -->
+<div class="modal fade" id="branchOpeningBalModal" tabindex="-1" role="dialog" aria-labelledby="branchOpeningBalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="display: inline;" id="branchOpeningBalLabel">Add Branchwise Opening Balance</h5>
+        <button type="button" style = "display: inline;" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="vertical-align:top; overflow:auto;max-height:400px;"  >
+        	<input class="hidden" type="text" id="modalOwner" />
+			<button style="cursor: pointer; margin-right:5px; padding:1 !important; height:25px; display:inline-block;" class="addBranchOpBalRow" id="addBranchOpBalButton" title="add more items"><i class="fa fa-plus-circle fa-lg"></i> Add New Branch</button>
+			<button style="cursor: pointer; float:right; margin-right:2px; padding:1 !important; height:25px; display:inline-block;" class="removeBranchOpBalRow" id="removeBranchOpBalButton" title="remove item"><i class="fa fa-minus-circle fa-lg"></i> Remove Branch</button>
+			<table class="table excelFormTable" id="branchOpBalTable">
+				<thead class="tablehead1">
+								<tr>
+									<th>Branch</th>
+									<th colspan="7">
+										<table class="table innerHeaderTable" id="innerHeaderTable">
+											<thead>
+												<tr>
+													<th>Bill / Inv / Ref - Date</th>
+													<th>Bill / Inv / Ref - Number</th>
+													<th>Bill Total Amount </th>
+													<th></th>
+												</tr>
+											</thead>
+										</table>
+									</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+							</table>
+						</div>
+      </div>
+      <div class="modal-footer">
+      	<div style="margin-right:50px;"> <span>Total : </span><span id="grandTotalOpBal">0</span> </div>
+        <button type="button" class="btn btn-secondary" onclick="clearBranchBillDetails();">Reset</button>
+        <button type="button" class="btn btn-primary" onclick="saveBillwiseOpBalance()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add opening advance-->
+<div class="modal fade" id="branchAdvOpeningBalModal" tabindex="-1" role="dialog" aria-labelledby="branchAdvOpeningBalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" style="display: inline;" id="branchAdvOpeningBalLabel">Add Branch-wise Opening Advance Balance</h5>
+		  <button type="button" style = "display: inline;" id="close-branchAdvOpeningBalLabel" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <div style="vertical-align:top; overflow:auto;max-height:400px;"  >
+			  <input class="hidden" type="text" id="modalOwner" />
+			  <button style="cursor: pointer; margin-right:5px; padding:1 !important; height:25px; display:inline-block;" class="addBranchAdvBalRow" id="addBranchAdvBalButton" title="add more items"><i class="fa fa-plus-circle fa-lg"></i> Add New Branch</button>
+			  <button style="cursor: pointer; float:right; margin-right:2px; padding:1 !important; height:25px; display:inline-block;" class="removeBranchOpBalRow" id="removeBranchAdvBalButton" title="remove item"><i class="fa fa-minus-circle fa-lg"></i> Remove Branch</button>
+			  <table class="table excelFormTable" id="branchAdvBalTable">
+				  <thead class="tablehead1">
+								  <tr>
+									  <th style="width: 140px;">Branch</th>
+									  <th>
+										  <table class="table innerHeaderTable" id="innerHeaderTable">
+											  <thead>
+												<tr>
+													<th style="width: 140px;">Receipt-Date</th>
+													<th style="width: 140px;">Receipt-Number</th>
+													<th style="width: 140px;">Type of Supply</th>
+													<th style="width: 140px;">Place of Supply</th>
+													<th style="width: 140px;">Item </th>
+													<th style="width: 140px;">Advance Amount</th>
+													<th style="width: 140px;"></th>
+												  </tr>
+											  </thead>
+										  </table>
+									  </th>
+									  <th></th>
+								  </tr>
+							  </thead>
+							  <tbody>
+  
+							  </tbody>
+							  </table>
+						  </div>
+		</div>
+		<div class="modal-footer">
+			<div style="margin-right:50px;"> <span>Total : </span><span id="grandTotalAdvBal">0</span> </div>
+		  <button type="button" class="btn btn-secondary" onclick="clearBranchAdvDetails();">Reset</button>
+		  <button type="button" class="btn btn-primary" onclick="saveBranchWiseAdvBalance()">Save changes</button>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<div class="modal fade" id="VendTDSSetupModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="display: inline;">Vendor TDS Setup</h5>
+        <button type="button" style = "display: inline;" class="close" onClick="resetVendTdsScreen();" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="vertical-align:top; overflow:auto;max-height:400px;"  >
+        	<div><span id="specificTdsName"></span></div>
+			<table class="table excelFormTable" id="VendTDSSetupTable">
+							<thead class="tablehead1">
+								<tr>
+									<th>TDS / Witholding Tax - Section </th>
+									<th>TDS /witholding Tax - Rate</th>
+									<th>TDS Transaction Limits</th>
+									<th>TDS - Overall Limit</th>
+									<th>From Date</th>
+									<th>To Date</th>
+								</tr>
+							</thead>
+							<tr id="tdsTaxTR">
+									<td>
+										<input type="hidden" id="tdsSpecificId" class="tdsSpecificId" name="tdsSpecificId">
+										<select class="vendTdsTaxWHType" name="vendTdsTaxWHType" id="vendTdsTaxWHType">
+											<option value="">--Please Select--</option>
+											 <option value="31"> Sec192-Payment of Salary. </option>
+											 <option value="32"> Sec194A-Income by way of Interest other than Interest on Securities </option>
+											 <option value="33"> Sec194C-Payment to Contractors/SubContractors - Individuals / HUF </option>
+											 <option value="34"> Sec194C-Payment to Contractors/SubContractors - Others </option>
+											 <option value="35"> Sec194H-Commission or Brokerage </option>
+											 <option value="36"> Sec194-I-Rent-(a) Plant and Machinery </option>
+											 <option value="37"> Sec194-I-Rent-(b)-Land or building or furniture or fitting </option>
+											 <option value="38"> Sec-194J-Fees for Professional/Technical Service etc. </option>
+										</select>
+									</td>
+									<td><input class="vendTdsTaxRate" placeholder="Tax Rate" type="text" name="vendTdsTaxRate" id="vendTdsTaxRate" onkeypress="return onlyDotsAndNumbers(event);" onchange=""/></td>
+									<td><input class="vendTdsTaxTransLimit" placeholder="Limit" type="text" name="vendTdsTaxTransLimit" id="vendTdsTaxTransLimit" onkeypress="return onlyDotsAndNumbers(event);" onkeyup=""/></td>
+									<td>
+										<select class="vendTdsTaxOverallLimitApply" name="vendTdsTaxOverallLimitApply" id="vendTdsTaxOverallLimitApply" onchange="checkForTdsOverallLimit(this);"><option value="">--Please Select--</option><option value="1">Applicable</option><option value="2">Not Applicable</option></select>
+										<br/><input class="overallLimit" style="display:none;" placeholder="Limit" type="text" name="vendTdsTaxOverallLimit" id="vendTdsTaxOverallLimit" onkeypress="return onlyDotsAndNumbers(event);" onkeyup=""/>
+									</td>
+									<td><input class="vendTdsFromDate" id="vendTdsFromDate" type="text" name="vendTdsFromDate" placeholder="Date"></td>
+									<td><input class="vendTdsToDate" id="vendTdsToDate" type="text" name="vendTdsToDate" placeholder="Date"></td>
+								</tr>
+								<thead class="tablehead1">
+								<tr>
+									<th>Expense Amount</th>
+									<th>TDS Already Effected</th>
+									<th>Upto Date</th>
+									<th>Supporting Documents</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tr id="tdsTaxTR2">
+									<td><input class="vendTdsExpenceAmount" id="vendTdsExpenceAmount" type="text" onkeypress="return onlyDotsAndNumbers(event);" name="vendTdsExpenceAmount" placeholder="Expence Amount"></td>
+									<td><input class="vendTdsAlreadyEffected" id="vendTdsAlreadyEffected" onkeypress="return onlyDotsAndNumbers(event);" type="text" name="vendTdsAlreadyEffected" placeholder="TDS Already Effected"></td>
+									<td><input class="vendTdsUptoDate" id="vendTdsUptoDate" type="text" name="vendTdsUptoDate" placeholder="Upto Date"></td>
+									<!--<td><input class="vendTdsSupportingDoc" id="vendTdsSupportingDoc" type="text" name="vendTdsSupportingDoc" placeholder=""></td>-->
+									<td id="vendTdsSupportingDocument">
+										<select name="vendTdsSupportingDoc"  class="vendTdsSupportingDoc" id="vendTdsSupportingDoc"><option value="">Select to view files</option></select>
+										<button id="vendTdsSupportingDocUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+										<button id="vendTdsSupportingDocUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+										<button id="vendTdsSupportingDoctUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+									</td>
+								</tr>
+							</table>
+		</div>
+      </div>
+      <div class="modal-footer">
+       <button id="tdsCancel" class="btn btn-cancel" title="Reset all" onClick="resetVendTdsScreen();">Reset</button>
+		<button id="saveInTax" onclick="validateVendTdsTaxes();" style="float:right; margin-right:5px;" class="btn btn-submit" title="Add Taxes">Add Taxes</button>
+      </div>
+    </div>
+       </div>
+</div>

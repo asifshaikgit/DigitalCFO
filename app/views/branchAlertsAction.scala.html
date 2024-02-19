@@ -1,0 +1,381 @@
+@(fullName:String,email:String,role:String,orgn:model.Organization,allowedProcurement:String,configParams:model.ConfigParams)
+@main(fullName,email,role,orgn,allowedProcurement, null,configParams){
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72593005-1', 'myidos.com');
+  ga('send', 'pageview');
+
+$(document).ready(function(){
+	var locHash=window.location.hash;
+	var url=window.location.pathname;
+	if(url.indexOf("alertPremiseValidity")!=-1){
+		$(".allOtherDiv").hide();
+		$("#bnchPremiseDiv").show();
+		var alertUserEmail=GetURLParameter('alertUserEmail');
+		var userName=GetURLParameter('userName');
+		var orgEntity=GetURLParameter('orgEntity');
+		var branchEntity=GetURLParameter('branchEntity');
+		if(userName.indexOf("%20")!=-1){
+			var regex = new RegExp('%20', 'g');
+			userName=userName.replace(regex," ");
+		}
+		$("#hiddenuseremail").text(alertUserEmail);
+		$(".hiddenusername").text(userName);
+		if(locHash=="#bnchPremiseDiv"){
+			var bnchPremiseDiv="bnchPremiseDivForValidity";
+			$(".dynmtext").text("Validity Date Update");
+			$("#updateBranchPremiseValidty").show();
+			$("#updateBranchPremiseRentRenewalDate").hide();
+			$("#paidBranchPremiseRent").hide();
+			getBranchPremiseDetailsForUpdate(orgEntity,branchEntity,bnchPremiseDiv);
+		}
+		if(locHash=="#bnchPremiseRentDueDiv"){
+			var bnchPremiseDiv="bnchPremiseDivForRentRenewal";
+			$(".dynmtext").text("Rent Renewal Date Update");
+			$("#updateBranchPremiseValidty").hide();
+			$("#updateBranchPremiseRentRenewalDate").show();
+			$("#paidBranchPremiseRent").hide();
+			getBranchPremiseDetailsForUpdate(orgEntity,branchEntity,bnchPremiseDiv);
+		}
+		if(locHash=="#bnchPremiseRentPaymentDiv"){
+			var bnchPremiseDiv="bnchPremiseDivForRentPayment";
+			$(".dynmtext").text("Pay Rent");
+			$("#updateBranchPremiseValidty").hide();
+			$("#updateBranchPremiseRentRenewalDate").hide();
+			$("#paidBranchPremiseRent").show();
+			getBranchPremiseDetailsForUpdate(orgEntity,branchEntity,bnchPremiseDiv);
+		}
+		$('.alertsettingIcon').each(function() {
+			var $this = $(this);
+		    $this.popover({
+		    trigger: 'manual',
+		    animate: false,
+		    placement: 'left',
+		    html: true,
+		    content: $(".bnchalertspopoverContent").html()
+		  }).on("mouseenter", function() {
+			  var headId=$(".mainnav").attr('id');
+			  if(headId=="head-nav"){
+				  $(this).popover("show");
+				  $(".mainnav").attr("id","header-nav");
+				  $(this).siblings(".popover").on("mouseleave", function() {
+			    	 $(this).hide();
+			      });
+			  }
+		  }).on("mouseleave", function() {
+	    	  var _this = this;
+	    	  setTimeout(function() {
+	    	  if (!$(".popover:hover").length) {
+	    	     $(_this).popover("hide");
+	    	     $(".mainnav").attr("id","head-nav");
+	    	  }
+	    	}, 100);
+	    });
+	  });
+	}
+	if(url.indexOf("alertStatutoryValidity")!=-1){
+		$(".allOtherDiv").hide();
+		$("#bnchStatutoryDiv").show();
+		var alertUserEmail=GetURLParameter('alertUserEmail');
+		var userName=GetURLParameter('userName');
+		var orgEntity=GetURLParameter('orgEntity');
+		var branchEntity=GetURLParameter('branchEntity');
+		var branchStatutoryEntity=GetURLParameter('branchStatutoryEntity');
+		if(userName.indexOf("%20")!=-1){
+			var regex = new RegExp('%20', 'g');
+			userName=userName.replace(regex," ");
+		}
+		$("#hiddenuseremail").text(alertUserEmail);
+		$(".hiddenusername").text(userName);
+		var bnchStatutoryDiv="bnchStatutoryDiv";
+		getBranchStatutoryDetailsForUpdate(orgEntity,branchEntity,branchStatutoryEntity,bnchStatutoryDiv);
+		$('.alertsettingIcon').each(function() {
+			var $this = $(this);
+		    $this.popover({
+		    trigger: 'manual',
+		    animate: false,
+		    placement: 'left',
+		    html: true,
+		    content: $(".bnchalertspopoverContent").html()
+		  }).on("mouseenter", function() {
+			  var headId=$(".mainnav").attr('id');
+			  if(headId=="head-nav"){
+				  $(this).popover("show");
+				  $(".mainnav").attr("id","header-nav");
+				  $(this).siblings(".popover").on("mouseleave", function() {
+			    	 $(this).hide();
+			      });
+			  }
+		  }).on("mouseleave", function() {
+	    	  var _this = this;
+	    	  setTimeout(function() {
+	    	  if (!$(".popover:hover").length) {
+	    	     $(_this).popover("hide");
+	    	     $(".mainnav").attr("id","head-nav");
+	    	  }
+	    	}, 100);
+	    });
+	  });
+	}
+	if(url.indexOf("alertOperationalRemainderValidity")!=-1){
+		$(".allOtherDiv").hide();
+		$("#bnchOpeRemAlertDiv").show();
+		var alertUserEmail=GetURLParameter('alertUserEmail');
+		var userName=GetURLParameter('userName');
+		var orgEntity=GetURLParameter('orgEntity');
+		var branchEntity=GetURLParameter('branchEntity');
+		var branchOperationalRemainderEntity=GetURLParameter('branchOperationalRemainderEntity');
+		var operRemGoingDate=GetURLParameter('operRemGoingDate');
+		if(userName.indexOf("%20")!=-1){
+			var regex = new RegExp('%20', 'g');
+			userName=userName.replace(regex," ");
+		}
+		if(operRemGoingDate.indexOf("%20")!=-1){
+			var regex = new RegExp('%20', 'g');
+			operRemGoingDate=operRemGoingDate.replace(regex," ");
+		}
+		if(operRemGoingDate.indexOf("%2c")!=-1){
+			var regex = new RegExp('%2c', 'g');
+			operRemGoingDate=operRemGoingDate.replace(regex,",");
+		}
+		$("#hiddenuseremail").text(alertUserEmail);
+		$(".hiddenusername").text(userName);
+		var bnchOpeRemAlertDiv="bnchOpeRemAlertDiv";
+		getBranchOperationalRemaindersForUpdate(orgEntity,branchEntity,branchOperationalRemainderEntity,operRemGoingDate,bnchOpeRemAlertDiv);
+		$('.alertsettingIcon').each(function() {
+			var $this = $(this);
+		    $this.popover({
+		    trigger: 'manual',
+		    animate: false,
+		    placement: 'left',
+		    html: true,
+		    content: $(".bnchalertspopoverContent").html()
+		  }).on("mouseenter", function() {
+			  var headId=$(".mainnav").attr('id');
+			  if(headId=="head-nav"){
+				  $(this).popover("show");
+				  $(".mainnav").attr("id","header-nav");
+				  $(this).siblings(".popover").on("mouseleave", function() {
+			    	 $(this).hide();
+			      });
+			  }
+		  }).on("mouseleave", function() {
+	    	  var _this = this;
+	    	  setTimeout(function() {
+	    	  if (!$(".popover:hover").length) {
+	    	     $(_this).popover("hide");
+	    	     $(".mainnav").attr("id","head-nav");
+	    	  }
+	    	}, 100);
+	    });
+	  });
+	}
+	if(url.indexOf("alertBranchPolicyValidity")!=-1 || url.indexOf("alertBranchPolicyPremium")!=-1){
+		$(".allOtherDiv").hide();
+		$("#bnchInsurenceDiv").show();
+		var alertUserEmail=GetURLParameter('alertUserEmail');
+		var userName=GetURLParameter('userName');
+		var orgEntity=GetURLParameter('orgEntity');
+		var branchEntity=GetURLParameter('branchEntity');
+		var branchInsurenceEntity=GetURLParameter('branchInsurenceEntity');
+		if(userName.indexOf("%20")!=-1){
+			var regex = new RegExp('%20', 'g');
+			userName=userName.replace(regex," ");
+		}
+		$("#hiddenuseremail").text(alertUserEmail);
+		$(".hiddenusername").text(userName);
+		if(url.indexOf("alertBranchPolicyValidity")!=-1){
+			var bnchInsurenceDiv="bnchInsurenceDiv";
+			getBranchPolicyForUpdate(orgEntity,branchEntity,branchInsurenceEntity,bnchInsurenceDiv);
+		}
+		if(url.indexOf("alertBranchPolicyPremium")!=-1){
+			var bnchInsurenceDiv="bnchInsurencePremDiv";
+			getBranchPolicyForUpdate(orgEntity,branchEntity,branchInsurenceEntity,bnchInsurenceDiv);
+		}
+		$('.alertsettingIcon').each(function() {
+			var $this = $(this);
+		    $this.popover({
+		    trigger: 'manual',
+		    animate: false,
+		    placement: 'left',
+		    html: true,
+		    content: $(".bnchalertspopoverContent").html()
+		  }).on("mouseenter", function() {
+			  var headId=$(".mainnav").attr('id');
+			  if(headId=="head-nav"){
+				  $(this).popover("show");
+				  $(".mainnav").attr("id","header-nav");
+				  $(this).siblings(".popover").on("mouseleave", function() {
+			    	 $(this).hide();
+			      });
+			  }
+		  }).on("mouseleave", function() {
+	    	  var _this = this;
+	    	  setTimeout(function() {
+	    	  if (!$(".popover:hover").length) {
+	    	     $(_this).popover("hide");
+	    	     $(".mainnav").attr("id","head-nav");
+	    	  }
+	    	}, 100);
+	    });
+	  });
+	}
+	$('#loadingIdos').hide();
+});
+</script>
+<meta name="google-translate-customization" content="adb022d9487bd3f0-a0dc47329ea0a16c-g2cfbf2548bf7ce25-e"></meta>
+</head>
+<body onClick="changeClass(event)" class="mainbody">
+<div id="head-nav" class="mainnav">
+	<div class="pull-right alertsettingIcon" style="margin-top: 5px;">
+       <div class="pull-right settingAlertIcon"><div class="user pull-right"><a><i class="icon-user icon-white"></i></a></div></div>
+    </div>
+    <div class="pull-right" id="google_translate_element" style="margin-top: 8px;margin-right: 10px;position: relative;height: 30px;"></div>
+	<script type="text/javascript">
+	function googleTranslateElementInit() {
+  	new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+	}
+    </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <div id="systemconfigadminId1" class="sidebar-nav-fixed">
+        <ul class="nav nav-pills breef ">
+        <li><img id="companyLogo" alt="logo" src='@(configParams.getCompanyLogoPath())' align="top" style="margin-top: -2px; margin-left: 4px;margin-bottom: 4px; margin-right: 4px;"></img></li>
+        <li id="branchAlertId" class="active"><a id="branchAlertId" href="branchAlert" data-toggle="tab"><font color="white">Branch</font></a></li>
+        </ul>
+    </div>
+</div>
+<br/><br/>
+<div class="userOptions" id="userAlertOptions" style="display: none;">
+	<div title="@fullName" style="padding-right: 30px; height: 20px;"><input type="hidden" id="hiddenfilename" style="display: none;"><b id="hiddenuseremail" style="display: none;"></b><b class="hiddenusername"></b><span class="user-options-img user-organization"></span></div>
+	<div class="click-options"><a class="" href="" onClick="doLogout();">Sign Out<span class="user-options-img user-logout" style="top: 28px;"></span></a></div>
+</div>
+<h5 id="successalertmsg" class="msgalert success" style="display: none;margin-top: 10px;"><b class="successtext"></b></h5>
+<div class="allOtherDiv" id="bnchPremiseDiv">
+	<h5 class="alert success"><b class="branchName"></b>&nbsp;&nbsp;<b>Branch Premise <b class="dynmtext"></b></b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc=""></i></h5>
+	<table class="table table-hover table-striped table-bordered excelFormTable transaction-create" id="branchPremiseAlertTable" style="margin-top: 0px;">
+	    <thead class="tablehead1"><tr><th>Upload Documents</th><th>Validity</th><th>Periodicity Of Payment &amp; Rent Payable</th><th>Landlord Name &amp; Address</th><th>Bank Details Of Landlord</th><th>Bank Branch Details</th><th>Rent Revision Due On</th><th>Remarks</th></tr></thead>
+	    <tbody><tr id="branchPremiseType">
+	        <td><select style="width:156px;" id="docuploadurl" name="bnchPremiseAlertAggreementUpload" readonly="readonly"><option value="">--Please Select--</option></select>
+	       	  	<br/><button id="bnchPremiseAlertAggreementUploadBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+	       	  	<button id="bnchPremiseAlertAggreementUploadDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+	       	  	 <button id="bnchPremiseAlertAggreementUploadDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+	       	</td>
+	        <td><input placeholder="Validity From" type="text" id="bnchPremiseAlertValidityFrom" name="bnchPremiseAlertValidityFrom" class="datepicker calendar m-bottom-10">
+		        <br/><input placeholder="Validity To" type="text" id="bnchPremiseAlertValidityTo" name="bnchPremiseAlertValidityTo" class="datepicker calendar m-bottom-10">
+		        <br/><div class="branchPremiseValidityEndStatic" style="margin-bottom: 10px;"></div><br/><div class="branchPremiseValidityLastUpdatedStatic"></div>
+		    </td>
+	        <td><select style="margin-bottom: 10px;" name="bnchPremiseAlertPeriodicityOfPayment" id="bnchPremiseAlertPeriodicityOfPayment" disabled="disabled"><optgroup label="Periodicity Of Payment"></optgroup>
+		        	<option value="" selected>--Select--</option><option value="1">Weekly</option><option value="2">Monthly</option>
+		        	<option value="3">Quarterly</option><option value="4">Half Yearly</option><option value="5">Annually</option>
+		        	<option value="6">Once In 2 Years</option><option value="7">Once In 3 years</option><option value="8">One Time</option>
+		        </select>
+		        <br/><input placeholder="Rent Payable" type="text" name="bnchPremiseAlertRentPayable" id="bnchPremiseAlertRentPayable" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly">
+	        	<br/><div class="branchPremiseLastTimeRentPaymentDueDatedStatic" style="margin-bottom: 10px;"></div><br/><div class="branchPremiseLastTimeRentPaymentStatic"></div>
+	        </td>
+	        <td><input placeholder="Landlord Name" style="margin-bottom: 10px;" type="text" name="bnchPremiseAlertLandlordName" id="bnchPremiseAlertLandlordName" readonly="readonly">
+	        	<br/><textarea placeholder="Address" name="bnchPremiseAlertLandlordAddress" id="bnchPremiseAlertLandlordAddress" readonly="readonly"></textarea>
+	        </td>
+	        <td><input placeholder="Bank Name" style="margin-bottom: 10px;" type="text" name="bnchPremiseAlertBankAccountName" id="bnchPremiseAlertBankAccountName" readonly="readonly">
+	        	<br/><input placeholder="Account Number" type="text" name="bnchPremiseAlertBankAccountNumber" id="bnchPremiseAlertBankAccountNumber" onkeypress="return isNumber(event)" readonly="readonly">
+	       	</td>
+	        <td><input type="text" name="bnchPremiseAlertBankAccountBranch" id="bnchPremiseAlertBankAccountBranch" readonly="readonly"></td>
+	        <td><input style="margin-bottom: 10px;" type="text" id="bnchPremiseAlertRentRevisedDueOn" name="bnchPremiseAlertRentRevisedDueOn" class="datepicker calendar" readonly="readonly">
+	        	<br/><div class="branchPremiseRentRevisionStatic" style="margin-bottom: 10px;"></div><br/><div class="branchPremiseRentRevisionLastUpdatedStatic"></div>
+	       	</td>
+	        <td><textarea name="bnchPremiseAlertRentDueOnRemarks" id="bnchPremiseAlertRentDueOnRemarks" readonly="readonly"></textarea></td>
+         </tr></tbody>
+	 </table>
+	 <div>
+		<div class="control-group" style="margin-top: 10px;">
+      		<button id="updateBranchPremiseValidty" style="display: none;" class="updateBranchPremiseValidty btn btn-primary btn-idos" title="Update Branch Premise Validity">Update Branch Premise Validity</button>
+      		<button id="updateBranchPremiseRentRenewalDate" style="display: none;" class="updateBranchPremiseRentRenewalDate btn btn-primary btn-idos" title="Update Branch Premise Rent Renewal Date">Update Branch Premise Rent Renewal Date</button>
+      		<button id="paidBranchPremiseRent" style="display: none;" class="paidBranchPremiseRent btn btn-primary btn-idos" title="Confirm Branch Premise Rent Payment">Confirm Branch Premise Rent Payment</button>
+		</div>
+     </div>
+</div>
+<div class="allOtherDiv" id="bnchStatutoryDiv">
+	<h5 class="alert success"><b class="statutoryBranch"></b>&nbsp;&nbsp;<b>Branch&nbsp;&nbsp;<b class="statutoryDetails"></b></b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc=""></i></h5>
+	<table class="table table-hover table-striped table-bordered excelFormTable transaction-create" id="branchStatutoryAlertTable" style="margin-top: 0px;">
+	       <thead class="tablehead1"><tr><th>Statutory Details</th><th>Registration Number</th><th>Upload Supporting Documents</th><th>Validity</th><th>Alert For Action</th><th>Alert For Information</th><th>Name & Address Of Consultant</th><th>Remarks</th></tr></thead>
+	       <tbody><tr id="branchStatType">
+           		<td><textarea name="statutoryAlertDetails" id="statutoryAlertDetails" readonly="readonly"></textarea></td>
+	           	<td><input type="text" id="bnchStatutoryAlertRegistrationNumber" name="bnchStatutoryAlertRegistrationNumber" readonly="readonly"></td>
+	           	<td><select style="width:156px;" id="docuploadurl" name="bnchStatutoryAlertSupportingDoc" readonly="readonly"><option value="">--Please Select--</option></select>
+	         	   	<br/><button id="bnchStatutoryAlertSupportingDocBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+	         	   	<button id="bnchStatutoryAlertSupportingDocDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                    <button id="bnchStatutoryAlertSupportingDocDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+         		</td>
+	           	<td><input placeholder="Valid From" type="text" id="bnchStatutoryAlertvalidFrom" name="bnchStatutoryAlertvalidFrom" class="datepicker calendar m-bottom-10">
+	           		<br/><input placeholder="Valid To" type="text" id="bnchStatutoryAlertvalidTo" name="bnchStatutoryAlertvalidTo" class="datepicker calendar m-bottom-10">
+	           		<br/><div class="branchStatutoryValidityEndStatic" style="margin-bottom: 10px;"></div><br/><div class="branchStatutoryValidityLastUpdatedStatic"></div>
+	           	</td>
+	           	<td><select class="alertDropDown" name="statalertForAction" id="statalertForAction" disabled="disabled"><option value="">--Please Select--</option></select></td>
+	           	<td><select class="alertDropDown" name="statalertForInformation" id="statalertForInformation" disabled="disabled"><option value="">--Please Select--</option></select></td>
+	           	<td><textarea name="alertnameAddressOfConsultant" id="alertnameAddressOfConsultant" disabled="disabled"></textarea></td>
+	           	<td><textarea name="statutoryAlertRemarks" id="statutoryAlertRemarks" disabled="disabled"></textarea></td>
+           	</tr></tbody>
+	</table>
+	<div><div class="control-group" style="margin-top: 10px;"><button id="updateBranchStatutoryValidty" class="updateBranchStatutoryValidty btn btn-primary btn-idos" title="Update Branch Statutory Validity">Update Branch Statutory Validity</button></div></div>
+</div>
+<div class="allOtherDiv" id="bnchOpeRemAlertDiv">
+     <h5 class="alert success"><b class="operationalRemBranch"></b>&nbsp;&nbsp;<b>Branch&nbsp;&nbsp;<b class="operationalRemRequirements"></b>&nbsp;&nbsp;Due Dated&nbsp;&nbsp;<b class="operationalRemDueDated"></b></b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc=""></i></h5>
+	 <table class="table table-hover table-striped table-bordered excelFormTable transaction-create" id="branchOperationalRemainderTable" style="margin-top: 0px;">
+	     <thead class="tablehead1"><tr><th>Requirements</th><th>Due On</th><th>Recurrence</th><th>Alert For Action</th><th>Alert For Information</th><th>Remarks</th><th></th><th></th></tr></thead>
+	     <tbody><tr id="copyContentBranchOpRem">
+	         <td><textarea name="operationalRemAlertRequirements" id="operationalRemAlertRequirements" readonly="readonly"></textarea></td>
+	         <td><input type="text" id="alertdueOn" name="alertdueOn" class="datepicker calendar" readonly="readonly">
+	         	<br/><div class="branchOperationalRemainderLastTimeActionDueDatedStatic"></div><br/><div class="branchOperationalRemainderLastTimeRemindedDateStatic"></div>
+	         </td>
+	         <td><select name="alertrecurrences" id="alertrecurrences" disabled="disabled">
+		         	<option value="" selected>--Select--</option><option value="1">Weekly</option><option value="2">Monthly</option>
+		          	<option value="3">Quarterly</option><option value="4">Half Yearly</option><option value="5">Annually</option>
+		          	<option value="6">Once In 2 Years</option><option value="7">Once In 3 years</option><option value="8">One Time</option>
+		         </select>
+	         </td>
+	         <td><select class="alertDropDown" name="alertbnchOperRemalertForAction" id="alertbnchOperRemalertForAction" disabled="disabled"><option value="">--Please Select--</option></select></td>
+	         <td><select class="alertDropDown" name="alertbnchOperRemalertForInformation" id="alertbnchOperRemalertForInformation" disabled="disabled"><option value="">--Please Select--</option></select></td>
+	         <td><textarea name="operationalRemAlertRemarks" id="operationalRemAlertRemarks" readonly="readonly"></textarea></td><td></td><td></td>
+        </tr></tbody>
+	</table>
+	<div><div class="control-group" style="margin-top: 10px;"><button id="confirmBranchOperationalRemainder" class="confirmBranchOperationalRemainder btn btn-primary btn-idos" title="Confirm Branch Operational Reminder">Confirm Branch Operational Reminder</button></div></div>
+</div>
+<div class="allOtherDiv" id="bnchInsurenceDiv">
+     <h5 class="alert success"><b class="insurenceBranch"></b>&nbsp;&nbsp;Branch Policy Number&nbsp;&nbsp;<b class="insurenceNumber"></b><i class="fa fa-info-circle pl-5 help-info userpopoverinfo" longdesc=""></i></h5>
+	 <table class="table table-hover table-striped table-bordered excelFormTable transaction-create" id="branchInsurenceTable" style="margin-top: 0px;">
+	     <thead class="tablehead1"><tr><th>Policy Type</th><th>Policy Number &amp; Insurance Company</th><th>Insurance Document Upload</th><th>Validity</th><th>Annual Premium</th><th>Alert For Action</th><th>Alert For Information</th><th>Remarks</th></tr></thead>
+	      <tbody><tr id="branchInsurTr">
+	          	<td><input type="text" id="alerttypeOfPolicy" name="alerttypeOfPolicy" readonly="readonly"></td>
+	          	<td><input placeholder="Policy Number" style="margin-bottom: 10px;" type="text" id="alertpolicyNumber" name="alertpolicyNumber" readonly="readonly">
+	          		<br/><input placeholder="Insurance Company" type="text" id="alertinsurenceCompany" name="alertinsurenceCompany" readonly="readonly">
+	          	</td>
+	          	<td><select style="width:156px;" id="alertinsurancePolicy" name="alertinsurancePolicy" readonly="readonly"><option value="">--Please Select--</option></select>
+	             	<br/><button id="alertinsurancePolicyBtn" class="fa fa-upload btn btn-submit" onclick="uploadFileBlob(this);"></button>
+	             	<button id="alertinsurancePolicyDownloadBtn" class="fa fa-download btn btn-submit" onclick="downloadFileBlob(this);"></button>
+                     <button id="alertinsurancePolicyDelBtn" class="fa fa-trash btn btn-cancel" style="margin-left:14px;" onclick="deleteUploadedFile(this);"></button>
+	          	</td>
+	          	<td><input placeholder="Validity From" type="text" id="alertinsuranceValidityFrom" name="alertinsuranceValidityFrom" class="datepicker calendar m-bottom-10">
+	          		<br/><input placeholder="Validity To" type="text" id="alertinsuranceValidityTo" name="alertinsuranceValidityTo" class="datepicker calendar m-bottom-10">
+	          		<br/><div class="branchInsuranceValidityEndStatic" style="margin-bottom: 10px;"></div><br/><div class="branchInsuranceValidityLastUpdatedStatic"></div>
+	          	</td>
+	          	<td><input style="margin-bottom: 10px;" type="text" name="alertpremiumAmount" id="alertpremiumAmount" onkeypress="return onlyDotsAndNumbers(event)" readonly="readonly">
+	          		<br/><div class="branchInsuranceLastPremiumPaymentDueDated" style="margin-bottom: 10px;"></div><br/><div class="branchInsuranceLastPremiumPaymentPaidDate"></div>
+	          	</td>
+	          	<td><select class="alertDropDown" name="alertbnchInsalertForAction" id="alertbnchInsalertForAction" disabled="disabled"><option value="">--Please Select--</option></select></td>
+    			<td><select class="alertDropDown" name="alertbnchInsalertForInformation" id="alertbnchInsalertForInformation" disabled="disabled"><option value="">--Please Select--</option></select></td>
+	          	<td><textarea name="alertremarks" id="alertremarks" readonly="readonly"></textarea></td>
+           </tr></tbody>
+	 </table>
+	  <div><div class="control-group" style="margin-top: 10px;">
+	      <button id="updateInsurencePolicyValidty" style="display: none;" class="updateInsurencePolicyValidty btn btn-primary btn-idos" title="Update Branch Insurance Policy Validity">Update Branch Insurance Policy Validity</button>
+	      <button id="confirmBranchInsurencePremiumPayment" style="display: none;" class="confirmBranchInsurencePremiumPayment btn btn-primary btn-idos" title="Confirm Branch Insurance Policy Premium Payment">Confirm Branch Insurance Policy Premium Payment</button>
+     </div></div>
+</div>
+</body>
+</html>
+}

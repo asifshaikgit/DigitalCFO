@@ -1,0 +1,25 @@
+@(organization:String,itemName:String,locationName: String,contactedThroughEmail:String,configParams:model.ConfigParams)
+<table style="width: 60%; font-family: 'Montserrat', sans-serif;" class="table">
+	<tbody>
+				<tr id="emailHeader">
+				<td>
+				</td>
+			</tr>
+		<tr id="emailBody">
+			<td>
+			<b style="font-size: 14px;">Hi!</b><br/>
+			<b style="font-size: 14px;">You Have Got A Lead From Organisation @{organization} Requested By Email @{contactedThroughEmail} For Item @{itemName} Which Can Be Supplied By You in Location @{locationName}</b><br/><br/>
+
+			<p style="font-size: 14px;">Please Contact The Organisation At @{contactedThroughEmail} Or You Will Be Soon Contacted By Them If They Want To Make You Organisation As Their Registered Vendor For Supplying @{itemName} In Location @{locationName}</p>
+			<br/>
+			<br/>
+			<b style="font-size: 14px;"> Please contact us at <a href="#" target="_blank">@(configParams.getCompanySupportEmail())</a> or on phone @(configParams.getCompanyMobile()) for any assistance. </b>
+			<br/>
+			<br/>
+			</td>
+		</tr>
+		<tr  id="emailFooter">
+			<td style="text-align: left;">&nbsp;<img  border="0" width="30px" height="30px" src="@(configParams.getCompanyLogoPath())"/></td>
+		</tr>
+	</tbody>
+</table>

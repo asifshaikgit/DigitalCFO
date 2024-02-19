@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2019-11-08T21:32:34 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="advancereceipt" pageWidth="595" pageHeight="310" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9be9a177-51ef-4049-a4e1-ad51ac7f4030">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="companyLogo" class="java.lang.String"/>
+	<field name="companyName" class="java.lang.String"/>
+	<field name="companyAddress" class="java.lang.String"/>
+	<field name="amountReceived" class="java.lang.String"/>
+	<field name="receivedFrom" class="java.lang.String"/>
+	<field name="invoiceNumber" class="java.lang.String"/>
+	<field name="remarks" class="java.lang.String"/>
+	<field name="receiptCreatedBy" class="java.lang.String"/>
+	<field name="currency" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="075ec34f-b816-4bca-90f7-45bcd4c14c34"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="214" y="1" width="120" height="53" forecolor="#000000" backcolor="#FFFFFF" uuid="01fbc493-18f9-4a4b-8760-25c6e4f83622"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEIPT]]></text>
+			</staticText>
+			<image isUsingCache="false" onErrorType="Blank">
+				<reportElement x="0" y="1" width="137" height="53" uuid="ef4908bf-382d-42ee-882b-ef06e17b1e00"/>
+				<imageExpression><![CDATA[$F{companyLogo}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="378" y="1" width="176" height="53" uuid="ee536f2e-e27d-4298-a234-5b0a018576ec"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{companyAddress}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="1" width="1" height="53" uuid="368d488e-5e04-4d46-874b-6d67ed813415"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="555" y="1" width="1" height="53" uuid="760b0e98-1248-43c7-9224-d9dfbd83b6cb"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="132" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="132" backcolor="#FFFFFF" uuid="0f15e6f9-3e39-42db-a193-bd10bdb9ff5a"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="1" width="136" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="ff6a4a7c-2e01-42b3-b0ed-1990992fe82f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ ORGANIZATION NAME:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="135" y="1" width="420" height="26" uuid="8fb5b001-53c3-461d-b17d-adbdef99e63e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{companyName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="28" width="70" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="8e19b988-f3b3-4a0e-9963-9bde609347d9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ RECEIVED:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="72" y="28" width="262" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="a052de5c-fd2a-45fc-835a-2e9c197f9142"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[(CURRENCY SYMBOL APPLICABLE) AMOUNT:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="333" y="27" width="109" height="26" uuid="a6f34c48-ccbf-49ee-a780-8ebfcf2aad86"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="442" y="27" width="113" height="26" uuid="b71a44da-89d5-45f4-89cb-8b0af0f413a7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{amountReceived}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="54" width="136" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="c3eb4271-b3a7-49cd-ab75-d57ca407139e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ FROM:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="136" y="54" width="198" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="f4430de3-ff40-4d87-af6b-05438185db33"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAME OF PARTY:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="333" y="53" width="222" height="26" uuid="b993eb60-7b2d-41cc-810f-44b09563c2b9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{receivedFrom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="80" width="136" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="82d1f6ca-5901-4016-acd6-16727e6aa19a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ TOWARDS:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="333" y="79" width="222" height="26" uuid="f651054e-c93b-470d-9212-6bf144e40af3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{invoiceNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="105" width="136" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="cc8cdb03-820b-428e-8c64-1ef8415306b1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ REMARKS:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="137" y="105" width="417" height="27" uuid="bb8ad75b-6e9e-4f30-98ab-f323ecfdb0b5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="136" y="79" width="198" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="422f1df7-6b33-4139-858e-5d6b25f8acf4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADVANCE REFERENCE NUMBER:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="76" splitType="Stretch">
+			<line>
+				<reportElement x="555" y="0" width="1" height="76" uuid="91cfe716-2296-4750-8c82-e797693077f1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="-1" width="1" height="77" uuid="d80eff52-38b4-48f9-9bdc-d9f9cd8fac87"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="184" y="1" width="204" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="5ec52ad2-16a9-4cb0-83cb-4240b1e581f2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[THANK YOU FOR ADVANCE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="26" width="554" height="26" forecolor="#000000" backcolor="#FFFFFF" uuid="a003eb76-e2df-4412-8817-a45dad0e63b6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ THIS IS A COMPUTER GENERATED RECEIPT AND DOES NOT REQUIRE ANY SIGNATURE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="52" width="204" height="24" forecolor="#000000" backcolor="#FFFFFF" uuid="ae99a1ed-c3de-4e04-b068-676807086c8d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ RECEIPT CREATED BY:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="138" y="52" width="417" height="24" uuid="89383955-aab9-4247-88df-5990b155df0b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{receiptCreatedBy}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="75" width="555" height="1" uuid="5533f85e-2fa4-4454-b80f-949f20c97686"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
